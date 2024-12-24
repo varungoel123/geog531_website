@@ -15,6 +15,7 @@ website:
       menu:
       - about.qmd
       - about.qmd
+    - text: "Schedule"
       
       
 format:
