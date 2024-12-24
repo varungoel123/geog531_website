@@ -1,7 +1,7 @@
 {
-  "hash": "17926159aba56b4ed01786af6dd5964f",
+  "hash": "55be982fc804f832ddb2d99a7929f48b",
   "result": {
-    "markdown": "---\ntitle: \"GEOG 510: GIS and Spatial Analysis in Public Health\"\n---\n\n\nThis is a Quarto website.s\n\nTo learn more about Quarto websites visit <https://quarto.org/docs/websites>.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "markdown": "---\ntitle: \"GEOG 510: GIS and Spatial Analysis in Public Health\"\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nwk1.date <- as.Date(\"2020-01-08\")\n```\n:::\n\n\n<h1><mark><b>GEOG 215</b></mark></h1>\n\n[Welcome to the official website of <i>Introduction to Spatial Data Science</i> for Spring 2020 at the University of North Carolina Chapel Hill]{style=\"font-size:16pt;\\\"\"}- - **Instructor:** Varun Goel\\> - **Teaching Assistant:** Prabisha Shreshta\\> - **Graduate Research consultant:** Kate Brandt\\> - **Lectures:** Monday, Wednesday *3:35 pm - 4:50 pm*\\> - **Location:** <mark>Carolina (Hurston) Hall 204</mark>\\> - **Class Discussion Page:** [Click here](https://piazza.com/unc/spring2020/geog215/home){target=\"_blank\"}\\> \\### **Office Hours:**\\> **Location:** *223 Carolina (Hurston) Hall* \\> **Varun Goel:** Mon 11am - 12pm, Thu 2 - 4pm, Fri 2 - 3pm\\> **Prabisha Shrestha:** Mon 1 - 2pm, Wed 12 - 2pm\\> [**Sign-up for office hours/consultation here**](https://docs.google.com/spreadsheets/d/1nICT2k-BMOJwfCB9ufyiJesJ7cbwPErWAMVoUMy0hs0/edit?usp=sharing){target=\"_blank\"}\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
