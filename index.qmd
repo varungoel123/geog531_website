@@ -2,11 +2,12 @@
 title: "GEOG 510: GIS and Spatial Analysis in Public Health"
 ---
 
-```{r}
-wk1.date <- as.Date("2020-01-08")
+**Instructor:** Varun Goel
 
-```
+**Lectures:** Monday, Wednesday *2:20 pm - 3:35pm*
 
-<h1><mark><b>GEOG 215</b></mark></h1>
+**Location:** Callcott 302
 
-[Welcome to the official website of <i>Introduction to Spatial Data Science</i> for Spring 2020 at the University of North Carolina Chapel Hill]{style="font-size:16pt;\""}- - **Instructor:** Varun Goel\> - **Teaching Assistant:** Prabisha Shreshta\> - **Graduate Research consultant:** Kate Brandt\> - **Lectures:** Monday, Wednesday *3:35 pm - 4:50 pm*\> - **Location:** <mark>Carolina (Hurston) Hall 204</mark>\> - **Class Discussion Page:** [Click here](https://piazza.com/unc/spring2020/geog215/home){target="_blank"}\> \### **Office Hours:**\> **Location:** *223 Carolina (Hurston) Hall* \> **Varun Goel:** Mon 11am - 12pm, Thu 2 - 4pm, Fri 2 - 3pm\> **Prabisha Shrestha:** Mon 1 - 2pm, Wed 12 - 2pm\> [**Sign-up for office hours/consultation here**](https://docs.google.com/spreadsheets/d/1nICT2k-BMOJwfCB9ufyiJesJ7cbwPErWAMVoUMy0hs0/edit?usp=sharing){target="_blank"}
+**Student Support Hours:** Mon 11am - 12pm, Thu 2 - 4pm, Fri 2 - 3pm
+
+**Location:** *111 Callcott*
