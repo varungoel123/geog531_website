@@ -1,0 +1,18 @@
+WEEK,TUES,THUR,TOPICS,DELIVERABLES,NOTES
+1,1/13/24,1/15/24,Introduction to GEOG 541 and Health Geography; Geographic Concepts and GIS,,
+2,,1/22/24,Introduction to Spatial Health Data; Projections and Coordinate Systems; Data Quality and Metadata,,Dr. Martin Luther King Jr. Day
+3,1/27/24,1/29/24,"Geocoding, Table and Spatial Join; Data Integration",A#1,
+4,2/3/24,2/5/24,Mapping Health Information; Map Design,,Virtual/Recorded
+5,2/10/24,2/12/24,"Query and Field Calculation; GIS Overlay, Distance, Buffer; Spatial Variation and Clustering",,
+6,2/17/24,2/19/24,Pattern and Process; Spatial Neighbors and Autocorrelation,A#2,
+7,2/24/24,2/26/24,Disease Clusters; Grouping and Regionalization,,
+8,3/3/24,3/5/24,Applied Autocorrelation/Clustering/Grouping,,
+9,,,,,Spring Break
+10,3/17/24,3/19/24,Environmental Hazards; Spatial Interpolation,A#3,
+11,3/24/24,3/26/24,Disease Risk and Diffusion; Ecology of Disease,,Virtual/Recorded
+12,3/31/24,4/2/24,Spatial Regression Techniques; Temporal Analysis and Change Detection,A#4,
+13,4/7/24,4/9/24,Neighborhoods and Health,,
+14,4/14/24,4/16/24,Access to Health Care; Network Analysis; Spatial Interaction Models,A#5,
+15,4/21/24,4/23/24,Health Care Utilization; Locating Health Care Services,,Thanksgiving Break
+16,4/28/24,,Course summary,,Last day of classes
+EXAM,5/5/24,,,Final Paper/Presentation,Starts at 12:30 pm

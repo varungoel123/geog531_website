@@ -8,9 +8,7 @@ website:
     search: true
     left:
     - text: "Schedule"
-      menu:
-      - about.qmd
-      - about.qmd
+      href: schedule.qmd
     - text: "Materials"
       menu:
       - about.qmd
@@ -23,7 +21,7 @@ website:
       
 format:
   html:
-    theme: cosmo
+    theme: flatly
     css: styles.css
     toc: true
     
