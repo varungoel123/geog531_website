@@ -11,12 +11,13 @@ website:
       href: schedule.qmd
     - text: "Materials"
       menu:
-      - about.qmd
-      - about.qmd
-    - text: "Schedule"
+      - lectures.qmd
+      - readings.qmd
+      
+    - text: "Resources"
       menu:
-      - about.qmd
-      - about.qmd
+      - software.qmd
+      - data.qmd
       
       
 format:

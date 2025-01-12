@@ -19,5 +19,54 @@
     "title": "Schedule",
     "section": "",
     "text": "Please note that this schedule is subject to change (specifically, lecture topics and due dates). Please refer to the Assignments area on the Canvas page for official due dates.\n\n\n\n\n\n\nWEEK\nTUES\nTHUR\nTOPICS\nDELIVERABLES\nNOTES\n\n\n\n\n1\n01/13/24\n01/15/24\nIntroduction to GEOG 541 and Health Geography; Geographic Concepts and GIS\n\n\n\n\n2\n\n01/22/24\nIntroduction to Spatial Health Data; Projections and Coordinate Systems; Data Quality and Metadata\n\nDr. Martin Luther King Jr. Day\n\n\n3\n01/27/24\n01/29/24\nGeocoding, Table and Spatial Join; Data Integration\nA#1\n\n\n\n4\n02/03/24\n02/05/24\nMapping Health Information; Map Design\n\nVirtual/Recorded\n\n\n5\n02/10/24\n02/12/24\nQuery and Field Calculation; GIS Overlay, Distance, Buffer; Spatial Variation and Clustering\n\n\n\n\n6\n02/17/24\n02/19/24\nPattern and Process; Spatial Neighbors and Autocorrelation\nA#2\n\n\n\n7\n02/24/24\n02/26/24\nDisease Clusters; Grouping and Regionalization\n\n\n\n\n8\n03/03/24\n03/05/24\nApplied Autocorrelation/Clustering/Grouping\n\n\n\n\n9\n\n\n\n\nSpring Break\n\n\n10\n03/17/24\n03/19/24\nEnvironmental Hazards; Spatial Interpolation\nA#3\n\n\n\n11\n03/24/24\n03/26/24\nDisease Risk and Diffusion; Ecology of Disease\n\nVirtual/Recorded\n\n\n12\n03/31/24\n04/02/24\nSpatial Regression Techniques; Temporal Analysis and Change Detection\nA#4\n\n\n\n13\n04/07/24\n04/09/24\nNeighborhoods and Health\n\n\n\n\n14\n04/14/24\n04/16/24\nAccess to Health Care; Network Analysis; Spatial Interaction Models\nA#5\n\n\n\n15\n04/21/24\n04/23/24\nHealth Care Utilization; Locating Health Care Services\n\nThanksgiving Break\n\n\n16\n04/28/24\n\nCourse summary\n\nLast day of classes\n\n\nEXAM\n05/05/24\n\n\nFinal Paper/Presentation\nStarts at 12:30 pm"
+  },
+  {
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software Requirements and Resources",
+    "section": "",
+    "text": "This document contains a number of resources that will (hopefully) assist you in accessing the software we will be using throughout the course. Dr. D is not an IT person, but he did manage to install these software packages on both his Mac and Windows computers. You can contact him if you are having issues, but please also feel free to reach out to UNC ITS for assistance.\nIn a departure from prior versions of the course, GEOG 541 will not rely on ESRI software (ArcGIS or ArcPro). We will be using QGIS and R. The reasons for this change are many, but the most salient ones are 1) ESRI software still does not run on Mac computers, 2) the newest version of ESRI’s GIS software (ArcPro) is not good software (QGIS has basically closed the gap on functionality and usability), 3) GIS programming is becoming a required skill for just about any GIS user, and 4) the knowledge you gain in this course should not be tied to a specific software package."
+  },
+  {
+    "objectID": "software.html#qgis",
+    "href": "software.html#qgis",
+    "title": "Software Requirements and Resources",
+    "section": "QGIS",
+    "text": "QGIS\nQGIS is an Open Source Geographic Information System. QGIS aims to be a user-friendly GIS, providing common functions and features. The initial goal of the project was to provide a GIS data viewer. QGIS has reached the point in its evolution where it is being used for daily GIS data-viewing needs, for data capture, for advanced GIS analysis, and for presentations in the form of sophisticated maps, atlases and reports.\n\nInstall QGIS on your personal computer\n\nGo to https://qgis.org/download/, and click the button for the Long Term Version.\nAn installation guide can be found here: https://qgis.org/resources/installation-guide/\nAdd the QGIS User Manual to your bookmarks (or some other easily accessible place): https://docs.qgis.org/3.34/en/docs/user_manual/index.html"
+  },
+  {
+    "objectID": "software.html#r",
+    "href": "software.html#r",
+    "title": "Software Requirements and Resources",
+    "section": "R",
+    "text": "R\nWe will be using R for some of this course. The good news about this is 1) R coding is quickly becoming a sought-after skill across industry and academia, 2) R is free and runs on both Mac and Windows OS computers (and Unix/Linux), and 3) I do not expect you to have any R experience, thus I will give you explicit instructions for any work we do in R.\n\nInstall R on your personal computer (new install)\n\nWindows users\n\nNavigate to https://cran.r-project.org/bin/windows/base/\n\nClick the link to download R 4.3.1 for Windows\n\nFollow the installation instructions provided here\n\nMac users\n\nNavigate to https://cran.r-project.org/bin/macosx/\nDownload the appropriate R-4.3.1.pkg file (Should I use M1/M2 or Intel?… Click Apple &gt; About This Mac and find Processor information)\nDouble click on the file R-4.3.1.pkg and follow instructions to install\n\n\n\n\nUpdate R on your personal computer\nPerform this only if R is already installed and you would like to keep your current installed packages!\n\nWindows users\n\nFollow the instructions here\n\nMac users\n\nContact Dr. D!"
+  },
+  {
+    "objectID": "software.html#r-studio",
+    "href": "software.html#r-studio",
+    "title": "Software Requirements and Resources",
+    "section": "R Studio",
+    "text": "R Studio\n\nInstall RStudio on your personal computer (new install)\n\nNavigate to https://www.rstudio.com/\n\nClick the button that says “DOWNLOAD RSTUDIO” (near the top-right of page)\n\nClick the “DOWNLOAD RSTUDIO” button\n\nThere should be a blue button that you can use to download the most up-to-date version of RStudio for your OS\nNote: if you are running an older OS, click on the link for older versions and contact Dr. D or ITS about getting a running version of the software on your computer\n\n\n\n\nUpdate RStudio on your personal computer\nPerform this only if RStudio is already installed\n\nOpen RStudio\n\nClick on the Help menu and choose Check for Updates"
+  },
+  {
+    "objectID": "software.html#geoda",
+    "href": "software.html#geoda",
+    "title": "Software Requirements and Resources",
+    "section": "GeoDa",
+    "text": "GeoDa\nGeoDa is a free, open-source software for performing exploratory spatial data analysis. It is housed at the Center for Spatial Data Science at the University of Chicago. GeoDa runs on Windows, Mac, or Unix/Linux-based OS.\n\nInstall GeoDa on your personal computer\n\nGo to http://geodacenter.github.io/download.html, and click the appropriate button for your OS\nAn installation guide (not super helpful) and tour of the software can be found here: http://geodacenter.github.io/docs/Geoda_tour.pdf; a large number of tutorials can be found here: http://geodacenter.github.io/documentation.html"
+  },
+  {
+    "objectID": "software.html#satscan",
+    "href": "software.html#satscan",
+    "title": "Software Requirements and Resources",
+    "section": "SaTScan",
+    "text": "SaTScan\nSaTScan is a free software that analyzes spatial, temporal and space-time data for clustering using spatial, temporal, or space-time scan statistics. SaTScan runs on Windows or Mac OS.\n\nInstall SaTScan on your personal computer\n\nNavigate to https://www.satscan.org/download.html, and request a password. Once you have received the password, click the link for Proceed to Download Page: https://www.satscan.org/download_satscan.html.\nAn installation and user guide is available at: https://www.satscan.org/cgi-bin/satscan/register.pl/SaTScan_Users_Guide.pdf?todo=process_userguide_download"
+  },
+  {
+    "objectID": "software.html#other-resources",
+    "href": "software.html#other-resources",
+    "title": "Software Requirements and Resources",
+    "section": "Other Resources",
+    "text": "Other Resources\n\nLibrary Data Services\n\nLibrary Data Services is located on the second floor of Davis Library. They offer walk up assistance with many of the software packages we will be working with during this semester (QGIS and R, yes… GeoDa and SaTScan maybe).\n\n\n\nVirtual Software Options\nSome (all?) of these software pacakages are available through the UNC Virtual Lab. However, Dr. D does not use the Virtual Lab, so he cannot provide guidance or troubleshoot problems."
   }
 ]

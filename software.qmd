@@ -1,0 +1,100 @@
+---
+title: "Software Requirements and Resources"
+date: 'Updated: `r format(Sys.Date(), "%B %d, %Y")`'
+output: 
+  html_document:
+    theme: flatly
+    css: styles.css
+    toc: true
+    toc_float: true
+    toc_depth: 2
+---
+
+```{css, echo=FALSE}
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This document contains a number of resources that will (hopefully) assist you in accessing the software we will be using throughout the course. I am not an IT person, but I did manage to install these software packages on both his Mac and Windows computers. You can contact me if you are having issues, but please also feel free to reach out to [USC IT desk](https://sc.edu/about/offices_and_divisions/division_of_information_technology/contact/index.php) for assistance.
+
+Please note that GEOG 510 will not rely on ESRI software (ArcGIS or ArcPro). Instead, we will be using open-source software such as QGIS and R. The reasons for this change are many, but the most salient ones are 1) ESRI software still does not run on Mac computers (without the need for partitioning or installing a virtual machine), 2) the newest version of ESRI's GIS software (ArcPro) is not as intuitive and is clunky (and QGIS has basically closed the gap on functionality and usability), and 3) GIS programming is becoming a required skill for just about any GIS user. Regardless of whatever software is used, the knowledge you gain in this course should not be tied to a specific software package.
+
+## QGIS
+
+QGIS is an Open Source Geographic Information System. QGIS aims to be a user-friendly GIS, providing common functions and features. The initial goal of the project was to provide a GIS data viewer. QGIS has reached the point in its evolution where it is being used for daily GIS data-viewing needs, for data capture, for advanced GIS analysis, and for presentations in the form of sophisticated maps, atlases and reports.
+
+### Install QGIS on your personal computer
+
+-   Go to https://qgis.org/download/, and click the button for the *Long Term Version*.
+-   An installation guide can be found here: https://qgis.org/resources/installation-guide/
+-   Add the QGIS User Manual to your bookmarks (or some other easily accessible place): https://docs.qgis.org/3.34/en/docs/user_manual/index.html
+
+## R
+
+We will be using R for some of this course. The good news about this is 1) R coding is quickly becoming a sought-after skill across industry and academia, 2) R is free and runs on both Mac and Windows OS computers (and Unix/Linux), and 3) I do not expect you to have any R experience, thus I will give you explicit instructions for any work we do in R.
+
+### Install R on your personal computer (**new install**)
+
+-   Windows users
+    -   Navigate to https://cran.r-project.org/bin/windows/base/\
+    -   Click the link to download R 4.3.1 for Windows\
+    -   [Follow the installation instructions provided here](https://cran.r-project.org/bin/windows/base/README.R-4.3.1)
+-   Mac users
+    -   Navigate to https://cran.r-project.org/bin/macosx/
+    -   Download the appropriate R-4.3.1.pkg file (Should I use M1/M2 or Intel?... Click Apple \> About This Mac and find Processor information)
+    -   Double click on the file R-4.3.1.pkg and follow instructions to install
+
+### Update R on your personal computer
+
+**Perform this only if R is already installed and you would like to keep your current installed packages!**
+
+-   Windows users
+    -   [Follow the instructions here](https://www.r-statistics.com/2013/03/updating-r-from-r-on-windows-using-the-installr-package/)
+-   Mac users
+    -   Contact Dr. D!
+
+## R Studio
+
+### Install RStudio on your personal computer (**new install**)
+
+-   Navigate to https://www.rstudio.com/\
+-   Click the button that says “DOWNLOAD RSTUDIO” (near the top-right of page)\
+-   Click the “DOWNLOAD RSTUDIO” button
+    -   There should be a blue button that you can use to download the most up-to-date version of RStudio for your OS
+    -   Note: if you are running an older OS, click on the link for [older versions](https://www.rstudio.com/products/rstudio/older-versions/) and contact Dr. D or ITS about getting a running version of the software on your computer
+
+### Update RStudio on your personal computer
+
+**Perform this only if RStudio is already installed**
+
+-   Open RStudio\
+-   Click on the Help menu and choose Check for Updates
+
+## GeoDa
+
+GeoDa is a free, open-source software for performing exploratory spatial data analysis. It is housed at the Center for Spatial Data Science at the University of Chicago. GeoDa runs on Windows, Mac, or Unix/Linux-based OS.
+
+### Install GeoDa on your personal computer
+
+-   Go to http://geodacenter.github.io/download.html, and click the appropriate button for your OS
+-   An installation guide (not super helpful) and tour of the software can be found here: http://geodacenter.github.io/docs/Geoda_tour.pdf; a large number of tutorials can be found here: http://geodacenter.github.io/documentation.html
+
+## SaTScan
+
+SaTScan is a free software that analyzes spatial, temporal and space-time data for clustering using spatial, temporal, or space-time scan statistics. SaTScan runs on Windows or Mac OS.
+
+### Install SaTScan on your personal computer
+
+-   Navigate to https://www.satscan.org/download.html, and request a password. Once you have received the password, click the link for Proceed to Download Page: https://www.satscan.org/download_satscan.html.
+-   An installation and user guide is available at: https://www.satscan.org/cgi-bin/satscan/register.pl/SaTScan_Users_Guide.pdf?todo=process_userguide_download
+
+## Other Resources
+
+### 
