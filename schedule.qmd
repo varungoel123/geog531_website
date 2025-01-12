@@ -1,10 +1,11 @@
 ---
 title: "Schedule"
+date: 'Updated: `r format(Sys.Date(), "%B %d, %Y")`'
 ---
 
 ------
 
-Please note that this schedule is subject to change (specifically, lecture topics and due dates). **Please refer to the Assignments area on the Canvas page for official due dates.**  
+Please note that this schedule is subject to change (specifically, lecture topics and due dates). Please check this page periodically in case there are any changes  
 
 
 ```{r include = FALSE}

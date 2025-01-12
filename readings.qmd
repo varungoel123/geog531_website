@@ -1,0 +1,97 @@
+---
+title: "Readings"
+date: 'Updated: `r format(Sys.Date(), "%B %d, %Y")`'
+---
+
+
+------------------------------------------------------------------------
+
+#### Introduction to Health Geography and GIS
+
+-   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Introduction and Chapter 1
+
+------------------------------------------------------------------------
+
+#### Introduction to Spatial Data; Projections and Coordinate Systems
+
+-   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 2
+-   O’Sullivan, D., & Unwin, D. J. (2010). Geographic Information Analysis (2nd ed.). Hoboken, NJ: John Wiley & Sons, Inc., Chapter 1
+
+------------------------------------------------------------------------
+
+#### Spatial Data for Public Health; Making Data Mappable
+
+-   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 3
+
+------------------------------------------------------------------------
+
+#### Mapping Health Information; Map Design
+
+-   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 4
+-   Koch, T. (2005). Cartographies Of Disease: Maps, Mapping, And Medicine. Redlands, CA: ESRI Press. Chapter 1
+
+------------------------------------------------------------------------
+
+#### Basic GIS Operations
+
+-   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 5
+
+------------------------------------------------------------------------
+
+#### Pattern and Process; Spatial Neighbors
+
+-   O’Sullivan, D., & Unwin, D. J. (2010). Geographic Information Analysis (2nd ed.). Hoboken, NJ: John Wiley & Sons, Inc., Chapter 4
+
+------------------------------------------------------------------------
+
+#### Disease Clusters; Grouping and Regionalization; Applied Autocorrelation/Clustering/Grouping
+
+-   Sabel, C. E., & Loytonen, M. (2004). Clustering of Disease. In R. Maheswaran & M. Craglia (Eds.), GIS in Public Health Practice (pp. 51–67). CRC Press.
+
+-   Omer, S. B., Enger, K. S., Moulton, L. H., Halsey, N. A., Stokley, S., & Salmon, D. A. (2008). Geographic Clustering of Nonmedical Exemptions to School Immunization Requirements and Associations With Geographic Clustering of Pertussis. American Journal of Epidemiology, 168(12), 1389–1396.
+
+-   Delamater, P.L., Leslie, T.F., Yang, Y.T., 2018. Examining the spatiotemporal evolution of vaccine refusal: nonmedical exemptions from vaccination in California, 2000–2013. BMC Public Health 18, 1–13.
+
+------------------------------------------------------------------------
+
+#### Environmental Hazards; Spatial Interpolation
+
+-   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 6
+
+------------------------------------------------------------------------
+
+#### Disease Risk and Diffusion; Ecology of Disease
+
+-   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapters 7 and 8
+
+------------------------------------------------------------------------
+
+#### Spatial Regression Techniques; Temporal Analysis and Change Detection
+
+-   Sparks, P. J., & Sparks, C. S. (2010). An application of spatially autoregressive models to the study of US county mortality rates. Population, Space and Place, 16(6), 465–481.
+
+------------------------------------------------------------------------
+
+#### Neighborhoods and Health
+
+-   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 11
+
+-   Diez Roux, A. V. (2001). Investigating Neighborhood and Area Effects on Health. American Journal of Public Health, 91(11), 1783–1789.
+
+------------------------------------------------------------------------
+
+#### Access to Health Care; Network Analysis; Spatial Interaction Models
+
+-   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 9
+
+-   Delamater, P. L., Messina, J. P., Shortridge, A. M., & Grady, S. C. (2012). Measuring geographic access to health care: raster and network-based methods. International Journal of Health Geographics, 11(15), 1–18.
+
+-   Delamater, P. L. (2013). Spatial accessibility in suboptimally configured health care systems: A modified two-step floating catchment area (M2SFCA) metric. Health & Place, 24, 30–43.
+
+------------------------------------------------------------------------
+
+#### Health Care Utilization; Locating Health Care Services
+
+-   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 10
+
+------------------------------------------------------------------------
