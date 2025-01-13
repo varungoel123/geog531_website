@@ -1,6 +1,7 @@
 ---
 title: "Software Requirements and Resources"
-date: 'Updated: `r format(Sys.Date(), "%B %d, %Y")`'
+date: last-modified
+date-format: medium
 output: 
   html_document:
     theme: flatly
@@ -9,18 +10,6 @@ output:
     toc_float: true
     toc_depth: 2
 ---
-
-```{css, echo=FALSE}
-a {
-  color: royalblue;
-}
-
-a:hover {
-  color: darkorange;
-}
-
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 This document contains a number of resources that will (hopefully) assist you in accessing the software we will be using throughout the course. I am not an IT person, but I did manage to install these software packages on both his Mac and Windows computers. You can contact me if you are having issues, but please also feel free to reach out to [USC IT desk](https://sc.edu/about/offices_and_divisions/division_of_information_technology/contact/index.php) for assistance.
 

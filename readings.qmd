@@ -1,6 +1,7 @@
 ---
 title: "Readings"
-date: 'Updated: `r format(Sys.Date(), "%B %d, %Y")`'
+date: last-modified
+date-format: medium
 ---
 
 
