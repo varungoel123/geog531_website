@@ -7,6 +7,8 @@ website:
     background: primary
     search: true
     left:
+    - text: "Home"
+      href: index.qmd
     - text: "Schedule"
       href: schedule.qmd
     - text: "Materials"
@@ -18,6 +20,7 @@ website:
       menu:
       - software.qmd
       - data.qmd
+      - tutorials.qmd
       
       
 format:
