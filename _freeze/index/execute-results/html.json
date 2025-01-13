@@ -1,14 +1,11 @@
 {
-  "hash": "55be982fc804f832ddb2d99a7929f48b",
+  "hash": "4b89b62c632b0eb52f6cd2868e37d371",
   "result": {
-    "markdown": "---\ntitle: \"GEOG 510: GIS and Spatial Analysis in Public Health\"\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nwk1.date <- as.Date(\"2020-01-08\")\n```\n:::\n\n\n<h1><mark><b>GEOG 215</b></mark></h1>\n\n[Welcome to the official website of <i>Introduction to Spatial Data Science</i> for Spring 2020 at the University of North Carolina Chapel Hill]{style=\"font-size:16pt;\\\"\"}- - **Instructor:** Varun Goel\\> - **Teaching Assistant:** Prabisha Shreshta\\> - **Graduate Research consultant:** Kate Brandt\\> - **Lectures:** Monday, Wednesday *3:35 pm - 4:50 pm*\\> - **Location:** <mark>Carolina (Hurston) Hall 204</mark>\\> - **Class Discussion Page:** [Click here](https://piazza.com/unc/spring2020/geog215/home){target=\"_blank\"}\\> \\### **Office Hours:**\\> **Location:** *223 Carolina (Hurston) Hall* \\> **Varun Goel:** Mon 11am - 12pm, Thu 2 - 4pm, Fri 2 - 3pm\\> **Prabisha Shrestha:** Mon 1 - 2pm, Wed 12 - 2pm\\> [**Sign-up for office hours/consultation here**](https://docs.google.com/spreadsheets/d/1nICT2k-BMOJwfCB9ufyiJesJ7cbwPErWAMVoUMy0hs0/edit?usp=sharing){target=\"_blank\"}\n",
-    "supporting": [],
-    "filters": [
-      "rmarkdown/pagebreak.lua"
+    "markdown": "---\ntitle: \"Geog 510: GIS and Spatial Analysis for Public Health\"\ndate: 'Updated: `r format(Sys.Date(), \"%B %d, %Y\")`'\noutput:\n  html_document:\n    theme: flatly\n    toc: yes\n    toc_float: yes\n    toc_depth: 3\n---\n\n```{css, echo=FALSE}\na {\n  color: royalblue;\n}\n\na:hover {\n  color: darkorange;\n}\n```\n\n\n\n------\n\n### Instructor Information \n\n**Instructor:** Dr. Varun Goel \n**Office:** Callcott 111  \n**Appointment link:** [Click Here](https://outlook.office.com/bookwithme/user/675339bb37584ebaa37d12437cb4f286@sc.edu/meetingtype/aKkUKwRTska6ndT42c8OWg2?anonymous&ep=mlink)  \n**Email:** <a href=\"mailto:varungoel@sc.edu\">varungoel@sc.edu</a>  \n\n------\n\n\n**Instructor:** Varun Goel\n\n\n\n**Location:** \n\n\n\n\n\n### Course Essentials\n\n**Meeting times:** Monday, Wednesday *2:20 pm - 3:35pm*   \n**Meeting location:** Callcott 302 \n**Student Support Hours:** Mon 11am - 12pm, Thu 2 - 4pm, Fri 2 - 3pm\n**Appointment link:** [Click Here](https://outlook.office.com/bookwithme/user/675339bb37584ebaa37d12437cb4f286@sc.edu/meetingtype/aKkUKwRTska6ndT42c8OWg2?anonymous&ep=mlink)  \n\n------\n\n### Required Text\n\nCromley, E. K., & McLaferty, S. L. (2012). GIS and Public Health (2nd edition). New York: Guilford Press. [**This is available for free via the USC Library!**](https://catalog.lib.unc.edu/catalog/UNCb7325669) I will also post .pdfs of the chapters on blackboard. Additional readings will be posted on blackboard or available online. See the Readings document for a list of all course readings.  \n\n------\n\n### Updated Syllabus\n\nThe latest class syllabus can downloaded [here](./Geog510_GISandHealth_SP25_011225.docx)\n\n------\n\n",
+    "supporting": [
+      "index_files"
     ],
-    "includes": {},
-    "engineDependencies": {},
-    "preserve": {},
-    "postProcess": true
+    "filters": [],
+    "includes": {}
   }
 }
