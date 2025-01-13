@@ -1,0 +1,14 @@
+---
+title: "Lectures"
+date: last-modified
+date-format: medium
+---
+
+
+------------------------------------------------------------------------
+
+#### Week 1: Introduction to Health Geography and GIS
+
+-   [Monday, Jan 13, 2024](./lectures/GEOG510_Lec1_IntroGEOG510.pdf)
+
+------------------------------------------------------------------------
