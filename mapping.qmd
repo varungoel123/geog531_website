@@ -1,7 +1,7 @@
 ---
 title: "Map Submission Checklist"
 date: last-modified
-date-format: medium 
+date-format: medium
 ---
 
 ```{r setup, include=FALSE}
