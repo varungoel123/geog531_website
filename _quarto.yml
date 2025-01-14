@@ -21,6 +21,7 @@ website:
       - software.qmd
       - data.qmd
       - tutorials.qmd
+      - mapping.qmd
       
       
 format:

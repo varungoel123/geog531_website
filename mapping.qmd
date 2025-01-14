@@ -1,0 +1,97 @@
+---
+title: "Map Submission Checklist"
+date: last-modified
+date-format: medium
+output:
+  rmdformats::robobook:
+      highlight: kate
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(rmdformats)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo = FALSE,
+	             cache = TRUE,
+               prompt = FALSE,
+               tidy = TRUE,
+               comment = NA,
+               message = FALSE,
+               warning = FALSE)
+opts_knit$set(width=75)
+```
+
+
+
+This document contains a list of things that you should consider for every "display" map you make for GEOG 541.  
+
+## File name
+
+Make sure that the exported map .pdf file is named using the naming format provided in the assignment instructions.
+
+******
+
+## Map elements
+
+Each map should have each of the following elements (**unless specifically noted in the assignment instructions**). The elements should be placed on the map layout such that they do not overlap the focus data or region, do not touch each other, and do not overlap the neatline.  
+
+The elements are: **Name, Title, Legend, Scale bar, North arrow**
+
+******
+
+## Focus area / extent
+
+Your map should be “zoomed” to the proper extent in the data frame to highlight or focus on a specific area or region, which will be explained (or apparent) in the lab text. The area or region should be roughly centered within the map frame (while also considering balance and the placement of map elements). None of the focus data or region being mapped should fall outside of the map window (neatline).
+
+******
+
+## Margins and alignment
+
+There should be some space between the map frame (neatline) and the edge of the page. The map frame should be centered to the page both horizontally and vertically. The page size and page dimensions should also be modified to account for the size/shape of the data frame.
+
+******
+
+## Legend
+
+Check these straightforward legend options/parameters for every map.
+
+* *Layer names* have been changed to something that makes sense
+* *Rounded values* for numeric data (2-3 decimal places)
+
+
+******
+
+## Figure/Ground
+
+Background layers should have a light grey fill **and** light grey outlines. Ask yourself: Is my study area distinguished from "background" features based on fill/line colors alone? <- the answer should be "YES".
+
+******
+
+## Layer Order
+
+Make sure the layers in the Layer panel are in the correct order. Watch for boundaries between foreground and background layers.
+
+******
+
+## Text Size
+
+Thing to consider:
+
+* Does the size of the text for each item match or convey its actual importance for my map?, e.g., the title text should be bigger than numbers in the scale bar.
+* Is all text big enough to be read in the resulting .pdf file? If not, increase text size.
+
+******
+
+## Hierarchy
+
+Does the placement of the map elements properly convey their importance, given our understanding of visual hierarchy?  For maps, most important information and/or elements should be at the top and less important should be at the bottom. **In other words, save the top of your map for the title and put everything else near the bottom if possible.**
+
+******
+
+## Final Check
+
+Did you open the resulting .pdf file and verify that everything looks okay?

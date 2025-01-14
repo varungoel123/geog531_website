@@ -102,6 +102,83 @@
     "href": "data.html#health-data",
     "title": "Data Resources",
     "section": "Health Data",
-    "text": "Health Data\nPlease note that I have not worked with data from all of these sources, so I might not be able to offer much help with troubleshooting any issues you encounter when searching or downloading from some of the websites listed. Also, I did not recheck the links in the most recent update.\n\nResources\n\nWHO, Global Health Observatory Data Repository, By Theme, By Country\nWHO, Mortality Database\nUS National Center for Health Statistics (NCHS) (mostly survey data)\nUS Health Resources and Services Administration Data Warehouse\nNational Information Center on Health Services Research and Health Care Technology (NICHSR) List of Databases/Repositories (You will have to go to each and actually find the useable data. I have used a few of the data sources on this list, and navigating their website to get to the data download can be somewhat tedious. This could be a good place to begin your search though.)\n\n\n\n\nGoogle Search Tips For Health Data\nIf you’re trying to fnd health related data, remember that it pretty unlikely that you will find the health data as a spatial data layer. Try a search such as, study area health data statistics. For example, michigan health data statistics. Other strings can be used such as, michigan reportable diseases data statistics.\nIf you are study a place in the US, you may want to try to include a “geography” identifer in the search, such as maryland county health data statistics, which turned up this link and this link which both appear very promising.\nIf you’ve already found spatial data and are trying to locate tabular data for a particular subject, use a search string with the word table and the geographic resolution (unit) of your spatial data included, e.g., study area topic unit table. For example, you could search for, england vaccination local authorities table.\nYou can also try this type of search for “country or region” data and add the government entity that would likely collect or distribute the data. For example, you could search for something similar to, Ecuador ministry of health statistics data.\n\n\n\nGoogle Dataset Search (link)\n\n\n\nOther Data\nPlease note that I have not worked with data from all of these sources, so I might not be able to offer much help with troubleshooting any issues you encounter when searching or downloading from some of the websites listed. Also, I did not recheck the links in the most recent update.\n\nDatasets for Data Mining and Data Science (a lot of links here!)\n\nData: Government, State, City, Local and Public (numerous links here!)\n\nData: APIs, Hubs, Marketplaces, and Platforms (numerous links here!)"
+    "text": "Health Data\nPlease note that I have not worked with data from all of these sources, so I might not be able to offer much help with troubleshooting any issues you encounter when searching or downloading from some of the websites listed. Also, I did not recheck the links in the most recent update.\n\nResources\n\nWHO, Global Health Observatory Data Repository, By Theme, By Country\nWHO, Mortality Database\nUS National Center for Health Statistics (NCHS) (mostly survey data)\nUS Health Resources and Services Administration Data Warehouse\nNational Information Center on Health Services Research and Health Care Technology (NICHSR) List of Databases/Repositories (You will have to go to each and actually find the useable data. I have used a few of the data sources on this list, and navigating their website to get to the data download can be somewhat tedious. This could be a good place to begin your search though.)\n\n\n\n\nGoogle Search Tips For Health Data\nIf you’re trying to find health related data, remember that it pretty unlikely that you will find the health data as a spatial data layer. Try a search such as, study area health data statistics. For example, michigan health data statistics. Other strings can be used such as, michigan reportable diseases data statistics.\nIf you are study a place in the US, you may want to try to include a “geography” identifer in the search, such as maryland county health data statistics, which turned up this link and this link which both appear very promising.\nIf you’ve already found spatial data and are trying to locate tabular data for a particular subject, use a search string with the word table and the geographic resolution (unit) of your spatial data included, e.g., study area topic unit table. For example, you could search for, england vaccination local authorities table.\nYou can also try this type of search for “country or region” data and add the government entity that would likely collect or distribute the data. For example, you could search for something similar to, Ecuador ministry of health statistics data.\n\n\n\nGoogle Dataset Search (link)\n\n\n\nOther Data\nPlease note that I have not worked with data from all of these sources, so I might not be able to offer much help with troubleshooting any issues you encounter when searching or downloading from some of the websites listed. Also, I did not recheck the links in the most recent update.\n\nDatasets for Data Mining and Data Science (a lot of links here!)\n\nData: Government, State, City, Local and Public (numerous links here!)\n\nData: APIs, Hubs, Marketplaces, and Platforms (numerous links here!)"
+  },
+  {
+    "objectID": "mapping.html",
+    "href": "mapping.html",
+    "title": "Map Submission Checklist",
+    "section": "",
+    "text": "This document contains a list of things that you should consider for every “display” map you make for GEOG 541."
+  },
+  {
+    "objectID": "mapping.html#file-name",
+    "href": "mapping.html#file-name",
+    "title": "Map Submission Checklist",
+    "section": "File name",
+    "text": "File name\nMake sure that the exported map .pdf file is named using the naming format provided in the assignment instructions."
+  },
+  {
+    "objectID": "mapping.html#map-elements",
+    "href": "mapping.html#map-elements",
+    "title": "Map Submission Checklist",
+    "section": "Map elements",
+    "text": "Map elements\nEach map should have each of the following elements (unless specifically noted in the assignment instructions). The elements should be placed on the map layout such that they do not overlap the focus data or region, do not touch each other, and do not overlap the neatline.\nThe elements are: Name, Title, Legend, Scale bar, North arrow"
+  },
+  {
+    "objectID": "mapping.html#focus-area-extent",
+    "href": "mapping.html#focus-area-extent",
+    "title": "Map Submission Checklist",
+    "section": "Focus area / extent",
+    "text": "Focus area / extent\nYour map should be “zoomed” to the proper extent in the data frame to highlight or focus on a specific area or region, which will be explained (or apparent) in the lab text. The area or region should be roughly centered within the map frame (while also considering balance and the placement of map elements). None of the focus data or region being mapped should fall outside of the map window (neatline)."
+  },
+  {
+    "objectID": "mapping.html#margins-and-alignment",
+    "href": "mapping.html#margins-and-alignment",
+    "title": "Map Submission Checklist",
+    "section": "Margins and alignment",
+    "text": "Margins and alignment\nThere should be some space between the map frame (neatline) and the edge of the page. The map frame should be centered to the page both horizontally and vertically. The page size and page dimensions should also be modified to account for the size/shape of the data frame."
+  },
+  {
+    "objectID": "mapping.html#legend",
+    "href": "mapping.html#legend",
+    "title": "Map Submission Checklist",
+    "section": "Legend",
+    "text": "Legend\nCheck these straightforward legend options/parameters for every map.\n\nLayer names have been changed to something that makes sense\nRounded values for numeric data (2-3 decimal places)"
+  },
+  {
+    "objectID": "mapping.html#figureground",
+    "href": "mapping.html#figureground",
+    "title": "Map Submission Checklist",
+    "section": "Figure/Ground",
+    "text": "Figure/Ground\nBackground layers should have a light grey fill and light grey outlines. Ask yourself: Is my study area distinguished from “background” features based on fill/line colors alone? &lt;- the answer should be “YES”."
+  },
+  {
+    "objectID": "mapping.html#layer-order",
+    "href": "mapping.html#layer-order",
+    "title": "Map Submission Checklist",
+    "section": "Layer Order",
+    "text": "Layer Order\nMake sure the layers in the Layer panel are in the correct order. Watch for boundaries between foreground and background layers."
+  },
+  {
+    "objectID": "mapping.html#text-size",
+    "href": "mapping.html#text-size",
+    "title": "Map Submission Checklist",
+    "section": "Text Size",
+    "text": "Text Size\nThing to consider:\n\nDoes the size of the text for each item match or convey its actual importance for my map?, e.g., the title text should be bigger than numbers in the scale bar.\nIs all text big enough to be read in the resulting .pdf file? If not, increase text size."
+  },
+  {
+    "objectID": "mapping.html#hierarchy",
+    "href": "mapping.html#hierarchy",
+    "title": "Map Submission Checklist",
+    "section": "Hierarchy",
+    "text": "Hierarchy\nDoes the placement of the map elements properly convey their importance, given our understanding of visual hierarchy? For maps, most important information and/or elements should be at the top and less important should be at the bottom. In other words, save the top of your map for the title and put everything else near the bottom if possible."
+  },
+  {
+    "objectID": "mapping.html#final-check",
+    "href": "mapping.html#final-check",
+    "title": "Map Submission Checklist",
+    "section": "Final Check",
+    "text": "Final Check\nDid you open the resulting .pdf file and verify that everything looks okay?"
   }
 ]
