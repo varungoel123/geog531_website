@@ -33,12 +33,12 @@ We will be using R for some of this course. The good news about this is 1) R cod
 
 -   Windows users
     -   Navigate to https://cran.r-project.org/bin/windows/base/\
-    -   Click the link to download R 4.3.1 for Windows\
+    -   Click the link to download R 4.4.2 for Windows\
     -   [Follow the installation instructions provided here](https://cran.r-project.org/bin/windows/base/README.R-4.3.1)
 -   Mac users
     -   Navigate to https://cran.r-project.org/bin/macosx/
-    -   Download the appropriate R-4.3.1.pkg file (Should I use M1/M2 or Intel?... Click Apple \> About This Mac and find Processor information)
-    -   Double click on the file R-4.3.1.pkg and follow instructions to install
+    -   Download the appropriate R-4.4.2.pkg file (Should I use M1/M2 or Intel?... Click Apple \> About This Mac and find Processor information)
+    -   Double click on the file R-4.4.2.pkg and follow instructions to install
 
 ### Update R on your personal computer
 
@@ -47,7 +47,7 @@ We will be using R for some of this course. The good news about this is 1) R cod
 -   Windows users
     -   [Follow the instructions here](https://www.r-statistics.com/2013/03/updating-r-from-r-on-windows-using-the-installr-package/)
 -   Mac users
-    -   Contact Dr. D!
+    -   Contact me!
 
 ## R Studio
 
@@ -57,7 +57,7 @@ We will be using R for some of this course. The good news about this is 1) R cod
 -   Click the button that says “DOWNLOAD RSTUDIO” (near the top-right of page)\
 -   Click the “DOWNLOAD RSTUDIO” button
     -   There should be a blue button that you can use to download the most up-to-date version of RStudio for your OS
-    -   Note: if you are running an older OS, click on the link for [older versions](https://www.rstudio.com/products/rstudio/older-versions/) and contact Dr. D or ITS about getting a running version of the software on your computer
+    -   Note: if you are running an older OS, click on the link for [older versions](https://www.rstudio.com/products/rstudio/older-versions/) and contact Dr. G or IT services about getting a running version of the software on your computer
 
 ### Update RStudio on your personal computer
 
