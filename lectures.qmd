@@ -4,7 +4,6 @@ date: last-modified
 date-format: medium
 ---
 
-
 ------------------------------------------------------------------------
 
 #### Week 1: Introduction to Health Geography and GIS
@@ -12,4 +11,3 @@ date-format: medium
 -   [Monday, Jan 13, 2025](./lectures/GEOG510_Lec1_IntroGEOG510.pdf)
 
 -   [Wednesday, Jan 15, 2025](./lectures/GEOG541_Lec2_GeoGISI.pdf)
-------------------------------------------------------------------------
