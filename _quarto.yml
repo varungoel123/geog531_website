@@ -9,8 +9,6 @@ website:
     left:
     - text: "Home"
       href: index.qmd
-    - text: "Schedule"
-      href: schedule.qmd
     - text: "Materials"
       menu:
       - text: "Lectures"

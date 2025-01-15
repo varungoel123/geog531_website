@@ -11,4 +11,5 @@ date-format: medium
 
 -   [Monday, Jan 13, 2025](./lectures/GEOG510_Lec1_IntroGEOG510.pdf)
 
+-   [Wednesday, Jan 15, 2025](./lectuGEOG541_Lec2_GeoGISI.pdf.pdf)
 ------------------------------------------------------------------------

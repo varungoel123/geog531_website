@@ -49,3 +49,36 @@ Cromley, E. K., & McLaferty, S. L. (2012). GIS and Public Health (2nd edition). 
 The latest class syllabus can downloaded [here](./Geog510_GISandHealth_SP25_011225.docx)
 
 ------------------------------------------------------------------------
+
+### Updated Schedule
+
+------
+
+Please note that this schedule is subject to change (specifically, lecture topics and due dates). Please check this page periodically in case there are any changes  
+
+
+```{r include = FALSE}
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(magrittr)
+
+## Read data
+schedule <- read_csv("schedule.csv")
+## Format date column
+schedule$TUES %<>% as.Date("%m/%d/%y") %>% format("%m/%d/%y")
+schedule$THUR %<>% as.Date("%m/%d/%y") %>% format("%m/%d/%y")
+```
+
+```{r echo = FALSE}
+## No NAs
+opts <- options(knitr.kable.NA = "")
+## Print table
+kable(schedule) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = T) %>%
+  column_spec(1, width = "4em") %>%
+  column_spec(2, width = "5.5em") %>%
+  column_spec(3, width = "5.5em") %>%
+  column_spec(5, width = "9em") %>%
+  column_spec(6, width = "12.5em")
+```
