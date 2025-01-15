@@ -6,6 +6,8 @@ date-format: medium
 
 ------------------------------------------------------------------------
 
+Note: The password for all password protected content is on Piazza
+
 #### Introduction to Health Geography and GIS
 
 -   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Introduction and Chapter 1
