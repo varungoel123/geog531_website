@@ -4,7 +4,6 @@ date: last-modified
 date-format: medium
 ---
 
-
 ------------------------------------------------------------------------
 
 #### Introduction to Health Geography and GIS
@@ -16,7 +15,7 @@ date-format: medium
 #### Introduction to Spatial Data; Projections and Coordinate Systems
 
 -   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 2
--   O’Sullivan, D., & Unwin, D. J. (2010). Geographic Information Analysis (2nd ed.). Hoboken, NJ: John Wiley & Sons, Inc., Chapter 1
+-   [O’Sullivan, D., & Unwin, D. J. (2010). Geographic Information Analysis (2nd ed.). Hoboken, NJ: John Wiley & Sons, Inc., Chapter 1](./readings/OSullivan_2010_GIA_Chp1.pdf)
 
 ------------------------------------------------------------------------
 
