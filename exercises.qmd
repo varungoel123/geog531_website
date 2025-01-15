@@ -1,0 +1,14 @@
+---
+title: "In Class Exercises"
+date: last-modified
+date-format: medium
+---
+
+
+------------------------------------------------------------------------
+
+#### Week 1: Introduction to Health Geography and GIS
+
+-   [Exercise 1: Piazza and Logistics (Wednesday, Jan 15, 2025)](./exercises/GEOG510_ex1_piazzaAndLogistics.docx)
+
+------------------------------------------------------------------------
