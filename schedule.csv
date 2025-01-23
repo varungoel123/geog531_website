@@ -1,7 +1,7 @@
 WEEK,TUES,THUR,TOPICS,DELIVERABLES,NOTES
 1,1/13/24,1/15/24,Introduction to GEOG 541 and Health Geography; Geographic Concepts and GIS,,
-2,,1/22/24,Introduction to Spatial Health Data; Projections and Coordinate Systems; Data Quality and Metadata,,Dr. Martin Luther King Jr. Day
-3,1/27/24,1/29/24,"Geocoding, Table and Spatial Join; Data Integration",,
+2,,1/22/24,Spatial data fundamentals; Projections and Coordinate Systems; Data Quality and Metadata,,Dr. Martin Luther King Jr. Day + snow day (slides to be skimmed before week 3 class)
+3,1/27/24,1/29/24,"Introduction to Spatial Health Data; Geocoding, Table and Spatial Join; Data Integration",,
 4,2/3/24,2/5/24,Mapping Health Information; Map Design,A#1,Virtual/Recorded
 5,2/10/24,2/12/24,"Query and Field Calculation; GIS Overlay, Distance, Buffer; Spatial Variation and Clustering",,
 6,2/17/24,2/19/24,Pattern and Process; Spatial Neighbors and Autocorrelation,,
