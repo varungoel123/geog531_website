@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="QGIS Basics and Fundamentals, 100 points ">
+<meta name="author" content="GEOG 510, GIS and Spatial Analysis for Public Health ">
+<meta name="author" content="Varun Goel">
+
+<title>GEOG 510 - Geog 510: Assignment #1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">GEOG 510</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-materials" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Materials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-materials">    
+        <li>
+    <a class="dropdown-item" href="../lectures.html" rel="" target="">
+ <span class="dropdown-text">Lectures</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../readings.html" rel="" target="">
+ <span class="dropdown-text">Readings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercises.html" rel="" target="">
+ <span class="dropdown-text">Exercises</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../assignments.html" rel="" target="">
+ <span class="dropdown-text">Assignments</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../software.html" rel="" target="">
+ <span class="dropdown-text">Software Requirements and Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../data.html" rel="" target="">
+ <span class="dropdown-text">Data Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials.html" rel="" target="">
+ <span class="dropdown-text">Tutorials and Technical Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../mapping.html" rel="" target="">
+ <span class="dropdown-text">Map Submission Checklist</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#install-qgis" id="toc-install-qgis" class="nav-link active" data-scroll-target="#install-qgis">Install QGIS</a></li>
+  <li><a href="#qgis-modules" id="toc-qgis-modules" class="nav-link" data-scroll-target="#qgis-modules">QGIS Modules</a></li>
+  <li><a href="#answer-document" id="toc-answer-document" class="nav-link" data-scroll-target="#answer-document">Answer Document</a></li>
+  <li><a href="#questionstasks" id="toc-questionstasks" class="nav-link" data-scroll-target="#questionstasks">Questions/Tasks</a>
+  <ul class="collapse">
+  <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables">Deliverables</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Geog 510: Assignment #1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>QGIS Basics and Fundamentals, 100 points  </p>
+             <p>GEOG 510, GIS and Spatial Analysis for Public Health  </p>
+             <p>Varun Goel </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Jan 22, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<style type="text/css">
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+</style>
+</div>
+<hr>
+<p>For this assignment, you will be working through a series of QGIS training modules, which are designed to get you up to speed on spatial data and representation, working with QGIS, and some basic GIS functionality. Working through these will be important so the class can move into some of the more advanced topics and uses of GIS by the end of the semester.</p>
+<p>I suggest that you complete each module assigned, but make your own decision on how much time to spend on each part given your prior GIS experience. For those of you with absolutely no GIS experience, I suggest diving in headfirst and working through every single step (time spent now will pay off later). For those of you with moderate to good GIS skills, make sure that you are at least skimming the reading within the module and completing all of the steps to brush up and ensure that you fill in any holes in your GIS knowledge. For GIS power users, I would suggest that (at the very least) you read through each module to make sure that you are familiar with all the operations and terminology included in each.</p>
+<hr>
+<section id="install-qgis" class="level2">
+<h2 class="anchored" data-anchor-id="install-qgis">Install QGIS</h2>
+<p>If you have not installed QGIS yet, do it <strong>immediately</strong> using the instructions provided in the Software Document on the website.</p>
+<hr>
+</section>
+<section id="qgis-modules" class="level2">
+<h2 class="anchored" data-anchor-id="qgis-modules">QGIS Modules</h2>
+<p>Navigate to the <a href="https://docs.qgis.org/3.34/en/docs/training_manual/index.html">QGIS Training Module website</a>. Complete the following modules. Note that many of the modules are quite short, while others are a bit more in depth. Please plan ahead and begin working on these early to give yourself enough time to complete them all. Please review the questions below prior to working through the modules.</p>
+<ul>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/foreword/foreword.html#why-qgis">1.1.1. Why QGIS</a> (read only)</li>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/foreword/intro.html">1.2. About the exercises</a> (get data)</li>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/basic_map/overview.html#">2.1. Lesson: An Overview of the Interface</a></li>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/basic_map/preparation.html">2.2. Lesson: Adding your first layers</a></li>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/basic_map/mapviewnavigation.html">2.3. Lesson: Navigating the Map Canvas</a></li>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/vector_classification/attribute_data.html#">3.1. Lesson: Vector Attribute Data</a></li>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/vector_classification/classification.html#lesson-classification">3.3. Lesson: Classification (minus 3.3.5)</a></li>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/map_composer/map_composer.html">4.1. Lesson: Using Print Layout</a></li>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/vector_analysis/reproject_transform.html">6.1. Lesson: Reprojecting and Transforming Data (minus 6.1.4)</a></li>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/vector_analysis/basic_analysis.html#">6.2. Lesson: Vector Analysis</a> (this one is quite long!)</li>
+<li><a href="https://docs.qgis.org/3.34/en/docs/training_manual/rasters/data_manipulation.html#">7.1. Lesson: Working with Raster Data (minus 7.1.2)</a></li>
+</ul>
+<hr>
+</section>
+<section id="answer-document" class="level2">
+<h2 class="anchored" data-anchor-id="answer-document">Answer Document</h2>
+<p>Create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 510, and Assignment #1 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.</p>
+<p>Please save the file using the following naming format, <strong>userid_assignment1.docx</strong>. For example, my file would be <strong>vgoel_assignment1.docx</strong>. Please follow the file naming format for your document, as this really helps me to stay organized and be a more efficient grader. Upload your assignment document in your respective ‘assignments’ folder on OneDrive.</p>
+<p>You will find minimum and maximum word ranges for some questions. I am a huge fan of concise, clear, and organized writing. If the range is 100-200 words and you believe that you have provided a complete and coherent answer in 100 words… feel free to do so! Please, make every effort to stay within the maximum limit that I have provided for each question as well.</p>
+<hr>
+</section>
+<section id="questionstasks" class="level2">
+<h2 class="anchored" data-anchor-id="questionstasks">Questions/Tasks</h2>
+<p><strong>1. Provide a short reflection (200-300 words) with your thoughts on the basic user interface of QGIS (Modules 2.1, 2.2, and 2.3). Feel free to use the following prompts to guide your answer: Did you find the interface and layout intuitive? Were any portions of the modules difficult to complete or understand? Do you now feel confident in your ability to add/load data layers? Did anything surprise you about working in QGIS?</strong></p>
+<p><strong>2. Module 4.1 (4.1.6) requires you to export the map you created as a graphics file. Export your map as a .jpg file and insert it into your answer document.</strong></p>
+<p><strong>3. In your own words (100-200 words), summarize and compare/contrast “Project on the Fly” in QGIS and changing/modifying the CRS of a spatial data layer (see Module 6.1).</strong></p>
+<p><strong>4. Module 6.2 required you to create multiple buffers (and use them to implement a distance-based analysis). Think of a health- or health care-related analysis where integrating buffers (or distance-based analysis such as that presented in 6.2) may provide useful/interesting results. Use the format in 6.2.2 to list potential criteria for your analysis.</strong></p>
+<p><strong>5. Now that you have had some initial GIS experience, describe a health-related research topic or problem that interests you and how you think GIS and/or geographic thinking can/should be integrated. This description can be mostly theoretical if you have no prior GIS/Geography experience. Try to stretch your ideas past simply “mapping the data” and descriptive analysis to consider how it can be used in explanation, prediction, or intervention. (300-400 words)</strong></p>
+<hr>
+<section id="deliverables" class="level3">
+<h3 class="anchored" data-anchor-id="deliverables">Deliverables</h3>
+<p>Upload your answer document (<strong>userid_assignment1.docx</strong>) to your folder in OneDrive.</p>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
