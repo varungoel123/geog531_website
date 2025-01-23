@@ -17,6 +17,8 @@ website:
         href: readings.qmd
       - text: "Exercises"
         href: exercises.qmd
+      - text: "Assignments"
+        href: assignments.qmd
       
     - text: "Resources"
       menu:

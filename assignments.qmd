@@ -1,0 +1,14 @@
+---
+title: "Assignments"
+date: last-modified
+date-format: medium
+---
+
+
+------------------------------------------------------------------------
+
+####  List of Assignments
+
+-   [Assignment 1: QGIS fundamentals (due Wednesday, Feb 05 before class)](./assignments/assignment1.html)
+
+------------------------------------------------------------------------

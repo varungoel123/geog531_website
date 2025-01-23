@@ -1,0 +1,97 @@
+---
+title: "Geog 510: Assignment #1"
+author:
+- QGIS Basics and Fundamentals, 100 points \newline
+- GEOG 510, GIS and Spatial Analysis for Public Health \newline
+- Varun Goel
+date: last-modified
+date-format: medium
+output:
+  html_document:
+    theme: flatly
+    toc: yes
+    toc_float: yes
+    toc_depth: 3
+---
+
+```{css, echo=FALSE}
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+```
+
+------------------------------------------------------------------------
+
+For this assignment, you will be working through a series of QGIS training modules, which are designed to get you up to speed on spatial data and representation, working with QGIS, and some basic GIS functionality. Working through these will be important so the class can move into some of the more advanced topics and uses of GIS by the end of the semester.
+
+I suggest that you complete each module assigned, but make your own decision on how much time to spend on each part given your prior GIS experience. For those of you with absolutely no GIS experience, I suggest diving in headfirst and working through every single step (time spent now will pay off later). For those of you with moderate to good GIS skills, make sure that you are at least skimming the reading within the module and completing all of the steps to brush up and ensure that you fill in any holes in your GIS knowledge. For GIS power users, I would suggest that (at the very least) you read through each module to make sure that you are familiar with all the operations and terminology included in each.
+
+------------------------------------------------------------------------
+
+## Install QGIS
+
+If you have not installed QGIS yet, do it **immediately** using the instructions provided in the Software Document on the website.
+
+------------------------------------------------------------------------
+
+## QGIS Modules
+
+Navigate to the [QGIS Training Module website](https://docs.qgis.org/3.34/en/docs/training_manual/index.html). Complete the following modules. Note that many of the modules are quite short, while others are a bit more in depth. Please plan ahead and begin working on these early to give yourself enough time to complete them all. Please review the questions below prior to working through the modules.
+
+-   [1.1.1. Why QGIS](https://docs.qgis.org/3.34/en/docs/training_manual/foreword/foreword.html#why-qgis) (read only)
+-   [1.2. About the exercises](https://docs.qgis.org/3.34/en/docs/training_manual/foreword/intro.html) (get data)
+-   [2.1. Lesson: An Overview of the Interface](https://docs.qgis.org/3.34/en/docs/training_manual/basic_map/overview.html#)
+-   [2.2. Lesson: Adding your first layers](https://docs.qgis.org/3.34/en/docs/training_manual/basic_map/preparation.html)
+-   [2.3. Lesson: Navigating the Map Canvas](https://docs.qgis.org/3.34/en/docs/training_manual/basic_map/mapviewnavigation.html)
+-   [3.1. Lesson: Vector Attribute Data](https://docs.qgis.org/3.34/en/docs/training_manual/vector_classification/attribute_data.html#)
+-   [3.3. Lesson: Classification (minus 3.3.5)](https://docs.qgis.org/3.34/en/docs/training_manual/vector_classification/classification.html#lesson-classification)
+-   [4.1. Lesson: Using Print Layout](https://docs.qgis.org/3.34/en/docs/training_manual/map_composer/map_composer.html)
+-   [6.1. Lesson: Reprojecting and Transforming Data (minus 6.1.4)](https://docs.qgis.org/3.34/en/docs/training_manual/vector_analysis/reproject_transform.html)
+-   [6.2. Lesson: Vector Analysis](https://docs.qgis.org/3.34/en/docs/training_manual/vector_analysis/basic_analysis.html#) (this one is quite long!)
+-   [7.1. Lesson: Working with Raster Data (minus 7.1.2)](https://docs.qgis.org/3.34/en/docs/training_manual/rasters/data_manipulation.html#)
+
+------------------------------------------------------------------------
+
+## Answer Document
+
+Create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 510, and Assignment #1 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.
+
+Please save the file using the following naming format, **userid_assignment1.docx**. For example, my file would be **vgoel_assignment1.docx**. Please follow the file naming format for your document, as this really helps me to stay organized and be a more efficient grader. Upload your assignment document in your respective 'assignments' folder on OneDrive.
+
+You will find minimum and maximum word ranges for some questions. I am a huge fan of concise, clear, and organized writing. If the range is 100-200 words and you believe that you have provided a complete and coherent answer in 100 words... feel free to do so! Please, make every effort to stay within the maximum limit that I have provided for each question as well.
+
+------------------------------------------------------------------------
+
+## Questions/Tasks
+
+**1. Provide a short reflection (200-300 words) with your thoughts on the basic user interface of QGIS (Modules 2.1, 2.2, and 2.3). Feel free to use the following prompts to guide your answer: Did you find the interface and layout intuitive? Were any portions of the modules difficult to complete or understand? Do you now feel confident in your ability to add/load data layers? Did anything surprise you about working in QGIS?**
+
+**2. Module 4.1 (4.1.6) requires you to export the map you created as a graphics file. Export your map as a .jpg file and insert it into your answer document.**
+
+**3. In your own words (100-200 words), summarize and compare/contrast "Project on the Fly" in QGIS and changing/modifying the CRS of a spatial data layer (see Module 6.1).**
+
+**4. Module 6.2 required you to create multiple buffers (and use them to implement a distance-based analysis). Think of a health- or health care-related analysis where integrating buffers (or distance-based analysis such as that presented in 6.2) may provide useful/interesting results. Use the format in 6.2.2 to list potential criteria for your analysis.**
+
+**5. Now that you have had some initial GIS experience, describe a health-related research topic or problem that interests you and how you think GIS and/or geographic thinking can/should be integrated. This description can be mostly theoretical if you have no prior GIS/Geography experience. Try to stretch your ideas past simply “mapping the data” and descriptive analysis to consider how it can be used in explanation, prediction, or intervention. (300-400 words)**
+
+------------------------------------------------------------------------
+
+### Deliverables
+
+Upload your answer document (**userid_assignment1.docx**) to your folder in OneDrive.
+
+------------------------------------------------------------------------
