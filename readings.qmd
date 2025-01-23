@@ -8,26 +8,26 @@ date-format: medium
 
 Note: The password for all password protected content is on Piazza
 
-#### Introduction to Health Geography and GIS
+#### Week 1: Introduction to Health Geography and GIS
 
 -   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Introduction and Chapter 1
 
 ------------------------------------------------------------------------
 
-#### Introduction to Spatial Data; Projections and Coordinate Systems
+#### Week 2: Introduction to Spatial Data; Projections and Coordinate Systems
 
 -   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 2
 -   [O’Sullivan, D., & Unwin, D. J. (2010). Geographic Information Analysis (2nd ed.). Hoboken, NJ: John Wiley & Sons, Inc., Chapter 1](./readings/OSullivan_2010_GIA_Chp1.pdf)
 
 ------------------------------------------------------------------------
 
-#### Spatial Data for Public Health; Making Data Mappable
+#### Week 3: Spatial Data for Public Health; Making Data Mappable
 
 -   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 3
 
 ------------------------------------------------------------------------
 
-#### Mapping Health Information; Map Design
+#### Week 4: Mapping Health Information; Map Design
 
 -   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapter 4
 -   Koch, T. (2005). Cartographies Of Disease: Maps, Mapping, And Medicine. Redlands, CA: ESRI Press. Chapter 1
