@@ -16,4 +16,6 @@ date-format: medium
 
 -   [Demo 1: Data Storage and Management](./exercises/demo1_storageAndManagement.html){target="_blank"}
 
+-   [Demo 2: Coordinate Reference Systems](./exercises/demo2_CRS.html){target="_blank"}
+
 ------------------------------------------------------------------------
