@@ -1,9 +1,8 @@
 ---
-title: "In Class Exercises"
+title: "In Class Demos and Exercises"
 date: last-modified
 date-format: medium
 ---
-
 
 ------------------------------------------------------------------------
 
@@ -15,6 +14,6 @@ date-format: medium
 
 #### Week 3: Spatial Data fundamentals, Coordinate systems
 
--   [Demo 1: Data Storage and Management](./exercises/demo1_storageAndManagement.html){target="_blank"} 
+-   [Demo 1: Data Storage and Management](./exercises/demo1_storageAndManagement.html){target="_blank"}
 
 ------------------------------------------------------------------------
