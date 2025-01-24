@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="In Class Demonstration #1 ">
+<meta name="author" content="GEOG 510, GIS &amp; Spatial Analysis for Public Health ">
+<meta name="author" content="Varun Goel">
 
-<title>GEOG 510 - In Class Exercises</title>
+<title>GEOG 510 - Data Storage and Management</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -71,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">GEOG 510</span>
     </a>
   </div>
@@ -82,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -91,19 +94,19 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-materials">    
         <li>
-    <a class="dropdown-item" href="./lectures.html" rel="" target="">
+    <a class="dropdown-item" href="../lectures.html" rel="" target="">
  <span class="dropdown-text">Lectures</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./readings.html" rel="" target="">
+    <a class="dropdown-item" href="../readings.html" rel="" target="">
  <span class="dropdown-text">Readings</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./exercises.html" rel="" target="">
+    <a class="dropdown-item" href="../exercises.html" rel="" target="">
  <span class="dropdown-text">Exercises</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./assignments.html" rel="" target="">
+    <a class="dropdown-item" href="../assignments.html" rel="" target="">
  <span class="dropdown-text">Assignments</span></a>
   </li>  
     </ul>
@@ -114,19 +117,19 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-resources">    
         <li>
-    <a class="dropdown-item" href="./software.html" rel="" target="">
+    <a class="dropdown-item" href="../software.html" rel="" target="">
  <span class="dropdown-text">Software Requirements and Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./data.html" rel="" target="">
+    <a class="dropdown-item" href="../data.html" rel="" target="">
  <span class="dropdown-text">Data Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tutorials.html" rel="" target="">
+    <a class="dropdown-item" href="../tutorials.html" rel="" target="">
  <span class="dropdown-text">Tutorials and Technical Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./mapping.html" rel="" target="">
+    <a class="dropdown-item" href="../mapping.html" rel="" target="">
  <span class="dropdown-text">Map Submission Checklist</span></a>
   </li>  
     </ul>
@@ -143,27 +146,36 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#spatial-data-layersfiles" id="toc-spatial-data-layersfiles" class="nav-link active" data-scroll-target="#spatial-data-layersfiles">Spatial Data Layers/Files</a></li>
+  <li><a href="#data-nonstorage-in-qgis" id="toc-data-nonstorage-in-qgis" class="nav-link" data-scroll-target="#data-nonstorage-in-qgis">Data (non)Storage in QGIS</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">In Class Exercises</h1>
+<h1 class="title">Data Storage and Management</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Authors</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Jan 24, 2025</p>
-    </div>
+             <p>In Class Demonstration #1  </p>
+             <p>GEOG 510, GIS &amp; Spatial Analysis for Public Health  </p>
+             <p>Varun Goel </p>
+          </div>
   </div>
+    
   
     
   </div>
@@ -171,19 +183,68 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<div class="cell">
+<style type="text/css">
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+</style>
+</div>
 <hr>
-<section id="week-1-introduction-to-health-geography-and-gis" class="level4">
-<h4 class="anchored" data-anchor-id="week-1-introduction-to-health-geography-and-gis">Week 1: Introduction to Health Geography and GIS</h4>
-<ul>
-<li><a href="./exercises/GEOG510_ex1_piazzaAndLogistics.docx">Exercise 1: Piazza and Logistics (Wednesday, Jan 15, 2025)</a></li>
-</ul>
+<p>An important part of learning GIS is understanding how files and digital data are stored and accessed by the GIS software. This short demonstration attempts to point out some of the particularities that you will encounter as you download, store, and manage spatial (and other) data files both within and outside the GIS software.</p>
+<p>The <a href="https://drive.google.com/file/d/1KvOCxTtMu6Mta1BC3vfTwAE5_YzEsdNy/view?usp=sharing" target="_blank">data are available here for download</a> if you would like to follow along. Download the file <em>GEOG510_demo1_data.zip</em> to your hard drive (note where you downloaded the file!) and unzip it.</p>
+<p><strong>Note that throughout this document, I use the term “right click”. This means “control click” for Mac users!</strong></p>
+<hr>
+<section id="spatial-data-layersfiles" class="level3">
+<h3 class="anchored" data-anchor-id="spatial-data-layersfiles">Spatial Data Layers/Files</h3>
+<ol type="1">
+<li><p>Using Windows Explorer (<strong>NOT</strong> Internet Explorer) on Windows or Finder on Mac, navigate to the unzipped contents of GEOG541_demo1_data, click on the folder <code>Relational/spatial</code>, and view the files. What you are seeing is a single spatial data layer (a common but hopefully dying format known as a shapefile). Notice that the “stem” of the file names is the same for each file (with different file extensions or types). The data format has its own internal logic and GIS software knows how to handle these files.</p></li>
+<li><p>Open QGIS. In the top menu, select Project | New. Locate the Browser panel. This is basically a simplistic file/folder manager within the QGIS environment. Navigate to the folder <code>Relational/spatial</code>. Notice the difference in how QGIS displays the shapefile <em>tl_2016_06_tract_alb.shp</em> (compared to Explorer or Finder). Right click on the layer and notice that there are a couple of “file management” type options available. Choose Layer Properties. Click on each tab.</p></li>
+<li><p>You can also use the Browser panel to view/preview some non-spatial data file types. Navigate to <code>Relational/attributes</code>, right click on <em>CA_kind_0015_clean_TCT_AllData.csv</em>, and choose Layer Properties. This functionality can be highly useful if/when you are searching for the right file to use or if you have multiple csv files and cannot remember which one you need to work with.</p></li>
+<li><p>Now, in the Browser panel, navigate to the folder <code>Object_Rel</code>. Click the arrow next to <em>CA_Vacc.gdb</em> and note that it contains multiple layers (one spatial, one non-spatial). This spatial data type is called a geodatabase. It is like a container that can store multiple spatial data layers.</p></li>
+<li><p>In Explorer or Finder, navigate to the folder <code>Object_Rel</code>. Notice that, at a file system level, a geodatabase is simply a folder containing .gdb in the folder name! Also note that the naming and organization structure of a geodatabase is quite complex (and not easy to understand).</p></li>
+<li><p>Go back to QGIS and, in the Browser panel, navigate to the folder <code>Object_Rel</code>. Click the arrow next to <em>CA_vacc_geopackage.gpkg</em>. This spatial data type is called a geopackage. It is like a container that can store multiple spatial data layers. This file has the same data contained within it as the geodatabase file.</p></li>
+<li><p>Go back to Explorer or Finder, navigate to the folder <code>Object_Rel</code>. Notice that, at a file system level, a geopackage is a single file.</p></li>
+</ol>
+<section id="why-is-this-important" class="level4 highlightblock">
+<h4 class="anchored" data-anchor-id="why-is-this-important">Why is this important?</h4>
+<p>Given the semi complex nature of file/folder storage for spatial data layers, is very, very easy to make the files unusable if doing file/folder management manually using Explorer or Finder. If possible, use the Browser panel in QGIS to perform basic file/folder management duties. If using Explorer or Finder, take care to move all folders/files associated with each layer.</p>
+</section>
 <hr>
 </section>
-<section id="week-3-spatial-data-fundamentals-coordinate-systems" class="level4">
-<h4 class="anchored" data-anchor-id="week-3-spatial-data-fundamentals-coordinate-systems">Week 3: Spatial Data fundamentals, Coordinate systems</h4>
+<section id="data-nonstorage-in-qgis" class="level3">
+<h3 class="anchored" data-anchor-id="data-nonstorage-in-qgis">Data (non)Storage in QGIS</h3>
+<p>Another extremely important aspect of using QGIS is understanding how GIS software interacts with spatial (and other) data layers when performing mapping and analysis. There are two extremely important concepts to learn,</p>
 <ul>
-<li><a href="./exercises/demo1_storageAndManagement.html" target="_blank">Demo 1: Data Storage and Management</a></li>
+<li><p>When you add a data layer to the Layers panel of QGIS, this is simply creating a link to where the layer is stored on your hard drive. The data layer does not move on your computer. The contents of the layer are not stored inside of QGIS. The software simply creates a link to the layer’s location.</p></li>
+<li><p>A QGIS project file (.qgz) can be used to save display properties, layer order, map layouts, and preferences… but it <strong>does not</strong> contain/store the actual spatial data layers.</p></li>
 </ul>
+<ol start="8" type="1">
+<li><p>In QGIS, add <code>Object_Rel/CA_Vacc_geopackage.gpkg/tl_2016_06_tract_alb</code> to the Layers panel using drag and drop from the Browser panel. If you get a pop up window asking about the geographic transformation, choose the default option. The layer should display in the map panel.</p></li>
+<li><p>In the Layers panel, right click on tl_2016_06_tract_alb and choose Properties. If the Information tab (on the left) is not selected, click on it. Note that the Path to the file containing the data is shown (along with other basic information about the data). Click OK on the Layer Properties window.</p></li>
+<li><p>In the top menu, choose Project | Save As. Save as <em>File_paths_test.qgz</em> in the <code>Object_Rel</code> folder.</p></li>
+<li><p>Close QGIS.</p></li>
+<li><p>Go to Explorer or Finder and navigate to the folder <code>Object_Rel</code>. Move the file <em>File_paths_test.qgz</em> from the <code>Object_Rel</code> folder to the <code>Relational</code> folder.</p></li>
+<li><p>Once it is moved, double click on <em>File_paths_test.qgz</em>. You should get a pop up window named <strong>Handle Unavailable Layers</strong>. Click on tl_2016_06_tract_alb and click the Browse button. Navigate to <code>Object_Rel</code> and click on <em>CA_Vacc_geopackage.gpkg</em>. Click Apply Changes.</p></li>
+</ol>
+<section id="what-happened" class="level4 highlightblock">
+<h4 class="anchored" data-anchor-id="what-happened">What happened?</h4>
+<p>When <em>File_paths_test.qgz</em> was moved on the hard drive, the link between this file and the data layers was broken. Remember, when adding a layer, QGIS <strong>only</strong> creates a link to the layer’s location. As such, if either the .qgz or the data layers file is moved, this link will be broken! QGIS uses relative file paths, meaning the data location are stored in relation to where the .qgz file is stored. In this case, as long as the file path between from the .qgz file to the spatial data layer files is not changed, the software will always be able to find the file.</p>
+</section>
+<hr>
+<ol start="14" type="1">
+<li><p>In the top menu, choose Project | Save. Close QGIS.</p></li>
+<li><p>In Explorer or Finder create a new folder called <code>QGIS_test</code> and move the <code>Object_Rel</code> and <code>Relational</code> folders inside of this new folder. Navigate to the <code>Relational</code> folder and double click on <em>File_paths_test.qgz</em>. What happened and why?</p></li>
+</ol>
 <hr>
 
 
