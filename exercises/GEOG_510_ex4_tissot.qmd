@@ -62,11 +62,11 @@ In this exercise, you will use QGIS to create Tissot Indicatix Circles and will 
 
 8.  Change the projection of the Map Panel to any equal area projection! What do you notice?
 
-**Q2. In 1-2 sentences, describe what the various sizes and shapes of the circle might tell you about the projection. Does, it preserve area, shape, both, neither?**
+**Q2. Take a screenshot of your map and paste it. In 1-2 sentences, describe what the various sizes and shapes of the circle might tell you about the projection. Does, it preserve area, shape, both, neither?**
 
 9.  Change the projection of the Map Panel to any conformal projection! What do you notice?
 
-**Q3. In 1-2 sentences, describe what the various sizes and shapes of the circle might tell you about the projection. Does, it preserve area, shape, both, neither?**
+**Q3. Take a screenshot of your map and paste it. In 1-2 sentences, describe what the various sizes and shapes of the circle might tell you about the projection. Does, it preserve area, shape, both, neither?**
 
 Submission instruction. Save your word file as "username_ex2.docx" and upload it to your relevant OneDrive folder.
 
