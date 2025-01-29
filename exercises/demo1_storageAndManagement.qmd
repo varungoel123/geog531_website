@@ -34,7 +34,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 An important part of learning GIS is understanding how files and digital data are stored and accessed by the GIS software. This short demonstration attempts to point out some of the particularities that you will encounter as you download, store, and manage spatial (and other) data files both within and outside the GIS software.
 
-The [data are available here for download ](https://drive.google.com/file/d/1KvOCxTtMu6Mta1BC3vfTwAE5_YzEsdNy/view?usp=sharing){target="_blank"} if you would like to follow along. Download the file *GEOG510_demo1_data.zip* to your hard drive (note where you downloaded the file!) and unzip it.
+The [data are available here for download](https://drive.google.com/file/d/156_nkg50wXw_ns0q5h-g4RWxfGw-PwpG/view?usp=share_link){target="_blank"} if you would like to follow along. Download the file *GEOG510_demo1_data.zip* to your hard drive (note where you downloaded the file!) and unzip it.
 
 **Note that throughout this document, I use the term "right click". This means "control click" for Mac users!**
 
