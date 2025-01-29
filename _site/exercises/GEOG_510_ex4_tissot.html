@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="In Class Exercise #2 ">
+<meta name="author" content="GEOG 510, GIS and Spatial Analysis in Public Health ">
+<meta name="author" content="Varun Goel">
 
-<title>GEOG 510 - In Class Demos and Exercises</title>
+<title>GEOG 510 - Tissot Indicatrix and CRS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -71,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">GEOG 510</span>
     </a>
   </div>
@@ -82,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -91,19 +94,19 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-materials">    
         <li>
-    <a class="dropdown-item" href="./lectures.html" rel="" target="">
+    <a class="dropdown-item" href="../lectures.html" rel="" target="">
  <span class="dropdown-text">Lectures</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./readings.html" rel="" target="">
+    <a class="dropdown-item" href="../readings.html" rel="" target="">
  <span class="dropdown-text">Readings</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./exercises.html" rel="" target="">
+    <a class="dropdown-item" href="../exercises.html" rel="" target="">
  <span class="dropdown-text">Exercises</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./assignments.html" rel="" target="">
+    <a class="dropdown-item" href="../assignments.html" rel="" target="">
  <span class="dropdown-text">Assignments</span></a>
   </li>  
     </ul>
@@ -114,19 +117,19 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-resources">    
         <li>
-    <a class="dropdown-item" href="./software.html" rel="" target="">
+    <a class="dropdown-item" href="../software.html" rel="" target="">
  <span class="dropdown-text">Software Requirements and Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./data.html" rel="" target="">
+    <a class="dropdown-item" href="../data.html" rel="" target="">
  <span class="dropdown-text">Data Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tutorials.html" rel="" target="">
+    <a class="dropdown-item" href="../tutorials.html" rel="" target="">
  <span class="dropdown-text">Tutorials and Technical Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./mapping.html" rel="" target="">
+    <a class="dropdown-item" href="../mapping.html" rel="" target="">
  <span class="dropdown-text">Map Submission Checklist</span></a>
   </li>  
     </ul>
@@ -143,27 +146,37 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#download-data" id="toc-download-data" class="nav-link active" data-scroll-target="#download-data">Download Data</a></li>
+  <li><a href="#add-data-layers" id="toc-add-data-layers" class="nav-link" data-scroll-target="#add-data-layers">Add Data Layers</a></li>
+  <li><a href="#change-projection" id="toc-change-projection" class="nav-link" data-scroll-target="#change-projection">Change Projection</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">In Class Demos and Exercises</h1>
+<h1 class="title">Tissot Indicatrix and CRS</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Authors</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Jan 29, 2025</p>
-    </div>
+             <p>In Class Exercise #2  </p>
+             <p>GEOG 510, GIS and Spatial Analysis in Public Health  </p>
+             <p>Varun Goel </p>
+          </div>
   </div>
+    
   
     
   </div>
@@ -171,22 +184,56 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<div class="cell">
+<style type="text/css">
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+</style>
+</div>
 <hr>
-<section id="week-1-introduction-to-health-geography-and-gis" class="level4">
-<h4 class="anchored" data-anchor-id="week-1-introduction-to-health-geography-and-gis">Week 1: Introduction to Health Geography and GIS</h4>
-<ul>
-<li><a href="./exercises/GEOG510_ex1_piazzaAndLogistics.docx">Exercise 1: Piazza and Logistics (Wednesday, Jan 15, 2025)</a></li>
-</ul>
+<p>In this exercise, you will use QGIS to create Tissot Indicatix Circles and will explore the Coordinate Reference System (CRS) and projections functionality in QGIS.</p>
+<p><strong>Note that throughout this document, if I use the term “right click,” this means “control click” for Mac users!</strong></p>
 <hr>
+<section id="download-data" class="level3">
+<h3 class="anchored" data-anchor-id="download-data">Download Data</h3>
+<ol type="1">
+<li><p>Navigate to <a href="https://hub.arcgis.com/datasets/esri::world-countries-generalized/about" class="uri">https://hub.arcgis.com/datasets/esri::world-countries-generalized/about</a>. Click the <strong>Download</strong> button, scroll down to GeoJSON, and click the <strong>Download</strong> button. Save the file as <strong>World_Countries.geojson</strong> to your hard drive (a great place to save would be your GEOG 510 folder).</p></li>
+<li><p>Navigate to <a href="https://hub.arcgis.com/datasets/esri::world-latitude-and-longitude-grids/explore?layer=0" class="uri">https://hub.arcgis.com/datasets/esri::world-latitude-and-longitude-grids/explore?layer=0</a>. Click the <strong>Download</strong> button, scroll down to GeoJSON, and click the <strong>Download</strong> button. Save the file as <strong>World_Grid.geojson</strong> to your hard drive (a great place to save would be your GEOG 510 folder).</p></li>
+<li><p>Now, <a href="https://drive.google.com/file/d/1rCVyFBVBMC8mwW6P-be7UbFjmR9kfIRj/view?usp=sharing">download Tissot.gpkg here</a>. A great place to save would be your GEOG 510 folder.</p></li>
+</ol>
 </section>
-<section id="week-3-spatial-data-fundamentals-coordinate-systems" class="level4">
-<h4 class="anchored">Week 3: Spatial Data fundamentals, Coordinate systems</h4>
-<ul>
-<li><p><a href="./exercises/demo1_storageAndManagement.html" target="_blank">Demo 1: Data Storage and Management</a></p></li>
-<li><p><a href="./exercises/fileManagement_tips.html" target="_blank">Useful tip: File Folder management</a></p></li>
-<li><p><a href="./exercises/demo2_CRS.html" target="_blank">Demo 2: Coordinate Reference Systems</a></p></li>
-<li><h2 id="exercise-2-tissot-indicatrix-and-crs" class="anchored" data-anchor-id="week-3-spatial-data-fundamentals-coordinate-systems"><a href="./exercises/GEOG_510_ex4_tissot.html" target="_blank">Exercise 2: Tissot Indicatrix and CRS</a></h2></li>
-</ul>
+<section id="add-data-layers" class="level3">
+<h3 class="anchored" data-anchor-id="add-data-layers">Add Data Layers</h3>
+<ol start="4" type="1">
+<li><p>Open QGIS. In the top menu, select Project | New.</p></li>
+<li><p>Add World_Countries.geojson to the Layers panel (you can do this by dragging from the Browser panel or clicking the Open Data Source Manager button).</p></li>
+<li><p>Add World_Grid.geojson to the Layers panel (you can do this by dragging from the Browser panel or clicking the Open Data Source Manager button).</p></li>
+<li><p>Add Tissot.gpkg to the Layers panel (you can do this by dragging from the Browser panel or clicking the Open Data Source Manager button).</p></li>
+</ol>
+<p><strong>Q1. Open a new word file, and take a screenshot of your map and paste it. In 1-2 sentences, describe what the various sizes and shapes of the circle might tell you about the projection. Does, it preserve area, shape, both, neither?</strong></p>
+</section>
+<section id="change-projection" class="level3">
+<h3 class="anchored" data-anchor-id="change-projection">Change Projection</h3>
+<ol start="8" type="1">
+<li>Change the projection of the Map Panel to any equal area projection! What do you notice?</li>
+</ol>
+<p><strong>Q2. In 1-2 sentences, describe what the various sizes and shapes of the circle might tell you about the projection. Does, it preserve area, shape, both, neither?</strong></p>
+<ol start="9" type="1">
+<li>Change the projection of the Map Panel to any conformal projection! What do you notice?</li>
+</ol>
+<p><strong>Q3. In 1-2 sentences, describe what the various sizes and shapes of the circle might tell you about the projection. Does, it preserve area, shape, both, neither?</strong></p>
+<p>Submission instruction. Save your word file as “username_ex2.docx” and upload it to your relevant OneDrive folder.</p>
+<hr>
 
 
 </section>

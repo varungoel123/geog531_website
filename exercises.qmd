@@ -20,4 +20,5 @@ date-format: medium
 
 -   [Demo 2: Coordinate Reference Systems](./exercises/demo2_CRS.html){target="_blank"}
 
+-   [Exercise 2: Tissot Indicatrix and CRS](./exercises/GEOG_510_ex4_tissot.html){target="_blank"}
 ------------------------------------------------------------------------
