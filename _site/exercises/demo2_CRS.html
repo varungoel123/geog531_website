@@ -202,7 +202,7 @@ div.highlightblock {
 </div>
 <hr>
 <p>For data to be “spatial,” the observations must be explicitly tied to locations on the Earth’s surface. All spatial data has (or should have) a Coordinate Reference System (CRS), which describes the underlying system used to store location information in the data. Additionally, in QGIS, the Map Panel (canvas) has a CRS defined to display spatial data. It is important to understand that the CRS of the data and the Map Panel serve different (but linked) purposes.</p>
-<p><a href="https://drive.google.com/file/d/1hCXio7-WU2OjsrRVsqx7lAo_Fr68e0oz/view?usp=sharing" target="_blank">The data for this demonstration are available here</a> if you would like to follow along. Download the file <em>GEOG541_demo2_data.zip</em> to your hard drive (note where you downloaded the file!) and unzip it.</p>
+<p><a href="https://drive.google.com/file/d/1hCXio7-WU2OjsrRVsqx7lAo_Fr68e0oz/view?usp=sharing" target="_blank">The data for this demonstration are available here</a> if you would like to follow along. Download the file <em>GEOG510_demo2_data.zip</em> to your hard drive (note where you downloaded the file!) and unzip it.</p>
 <p><strong>Note that throughout this document, if I use the term “right click,” this means “control click” for Mac users!</strong></p>
 <hr>
 <section id="crs-of-the-map-canvas" class="level3">
@@ -215,9 +215,9 @@ div.highlightblock {
 <section id="crs-of-data-layers" class="level3">
 <h3 class="anchored" data-anchor-id="crs-of-data-layers">CRS of data layers</h3>
 <ol start="3" type="1">
-<li><p>In the Browser panel, navigate to the folder <code>GEOG541_demo2_data</code>. Right click on the layer CA_tracts_albers located inside CA_tracts_albers.gpkg, and choose Layer Properties. In the Metadata tab, you can find the CRS information for this layer (EPSG:3310 - NAD83 / California Albers - Projected).</p></li>
+<li><p>In the Browser panel, navigate to the folder <code>GEOG510_demo2_data</code>. Right click on the layer CA_tracts_albers located inside CA_tracts_albers.gpkg, and choose Layer Properties. In the Metadata tab, you can find the CRS information for this layer (EPSG:3310 - NAD83 / California Albers - Projected).</p></li>
 <li><p>Right click on the layer CA_vacc_15_wgs84.shp, and choose Layer Properties. Note that the CRS information for this layer is EPSG:4326 - WGS 84 - Geographic.</p></li>
-<li><p>In Explorer or Finder, navigate to the folder <code>GEOG541_demo2_data</code>. Right/control click on the file CA_vacc_15_wgs84.prj and choose Open With (or similar). On Windows, open with Notepad. On Mac, open with Text Edit. What’s contained in this file?</p></li>
+<li><p>In Explorer or Finder, navigate to the folder <code>GEOG510_demo2_data</code>. Right/control click on the file CA_vacc_15_wgs84.prj and choose Open With (or similar). On Windows, open with Notepad. On Mac, open with Text Edit. What’s contained in this file?</p></li>
 </ol>
 </section>
 <section id="working-with-crs-in-qgis" class="level3">
@@ -226,7 +226,7 @@ div.highlightblock {
 <li><p>Drag the layer CA_tracts_albers located inside CA_tracts_albers.gpkg into the Layers panel or directly into the Map canvas. You may get a pop up window asking about a Transformation for the layer. If so, click OK. Now, look at the Status bar. What happened? The CRS of the Map canvas was redefined to match that of the data layer.</p></li>
 <li><p>Drag the layer CA_vacc_15_wgs84.shp into the Layers panel or directly into the Map canvas. QGIS has projected this layer “on the fly” meaning that, although the data are stored in the WGS 84 CRS, they are being displayed in the California Albers CRS.</p></li>
 <li><p>In the top menu, go to View | Panels | Processing Toolbox. Expand the arrow next to Vector geometry and then click Add geometry attributes. Note the options for Calculate Using! Choose one and click okay. What happened?</p></li>
-<li><p>In the Layers Panel, right click on CA_vacc_15_wgs84 and choose Export | Save Features As. Note the options for CRS. Choose Project CRS. Save as CA_vacc_15_albers.gpkg in the <code>GEOG541_demo2_data</code> folder.</p></li>
+<li><p>In the Layers Panel, right click on CA_vacc_15_wgs84 and choose Export | Save Features As. Note the options for CRS. Choose Project CRS. Save as CA_vacc_15_albers.gpkg in the <code>GEOG510_demo2_data</code> folder.</p></li>
 <li><p>In the Layers Panel, right click on CA_vacc_15_wgs84 and choose Layer CRS. Note the options… one important one is that you can change the Map canvas CRS to match one the layers! Choose Set Project CRS from Layer. What happened?</p></li>
 <li><p>You can also change the Map canvas CRS by clicking on the CRS information in bottom right of Status bar… or by navigating to Project | Properties!</p></li>
 </ol>

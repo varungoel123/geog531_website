@@ -42,7 +42,7 @@ The [data are available here for download](https://drive.google.com/file/d/156_n
 
 ### Spatial Data Layers/Files
 
-1.  Using Windows Explorer (**NOT** Internet Explorer) on Windows or Finder on Mac, navigate to the unzipped contents of GEOG541_demo1_data, click on the folder `Relational/spatial`, and view the files. What you are seeing is a single spatial data layer (a common but hopefully dying format known as a shapefile). Notice that the “stem” of the file names is the same for each file (with different file extensions or types). The data format has its own internal logic and GIS software knows how to handle these files.
+1.  Using Windows Explorer (**NOT** Internet Explorer) on Windows or Finder on Mac, navigate to the unzipped contents of GEOG510_demo1_data, click on the folder `Relational/spatial`, and view the files. What you are seeing is a single spatial data layer (a common but hopefully dying format known as a shapefile). Notice that the “stem” of the file names is the same for each file (with different file extensions or types). The data format has its own internal logic and GIS software knows how to handle these files.
 
 2.  Open QGIS. In the top menu, select Project \| New. Locate the Browser panel. This is basically a simplistic file/folder manager within the QGIS environment. Navigate to the folder `Relational/spatial`. Notice the difference in how QGIS displays the shapefile *tl_2016_06_tract_alb.shp* (compared to Explorer or Finder). Right click on the layer and notice that there are a couple of “file management” type options available. Choose Layer Properties. Click on each tab.
 
