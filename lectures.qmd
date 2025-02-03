@@ -14,13 +14,16 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Wednesday, Jan 15, 2025](./lectures/GEOG541_Lec2_GeoGISI.pdf)
 
-#### Week 2: Foundational concepts in Geography and GIS, Spatial Data, Coordinate Systems
-
+#### Week 2/3: Foundational concepts in Geography and GIS, Spatial Data, Coordinate Systems
 
 -   [Foundational concepts in Geography and GIS](./lectures/GEOG510_Lec3_GeoGISII.pdf)
 
 -   [Spatial Data fundamentals](./lectures/GEOG510_Lec4_IntroSpData.pdf)
 
 -   [Projections and Coordinate System fundamentals](./lectures/GEOG510_Lec5_ProjCoordSys.pdf)
+
+#### Week 4: Spatial Health Data, Geocoding and Tabular Join
+
+-   [Spatial Health Data](./lectures/GEOG510_Lec7_SpDataPubHealth.pdf)
 
 -   [Data Quality and Metadata](./lectures/GEOG510_Lec6_DataQualMetadata.pdf)
