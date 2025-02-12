@@ -21,3 +21,12 @@ date-format: medium
 -   [Demo 2: Coordinate Reference Systems](./exercises/demo2_CRS.html){target="_blank"}
 
 -    [Exercise 2: Tissot Indicatrix and CRS](./exercises/GEOG_510_ex4_tissot.html){target="_blank"}
+
+
+------------------------------------------------------------------------
+
+#### Week 4: Geocoding
+
+-   [Demo 3: Plugins and Geocoding](./exercises/GEOG510_demo3_PluginGeocode.qmd){target="_blank"}
+
+-    [Exercise 3: Geocoding and Joins](./exercises/GEOG510_ex3_GeocodeJoins.qmd){target="_blank"}
