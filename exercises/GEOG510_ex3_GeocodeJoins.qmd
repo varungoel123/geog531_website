@@ -52,7 +52,7 @@ In this exercise, you will use QGIS to geocode a set of points, then will use a 
 
 4.  Use the instructions provided in the QGIS Plugins and Geocoding In Class Demonstration (#3) to install and activate the MMQGIS plugin.
 
-5.  In the top menu, navigate to MMQGIS \| Geocode \| Geocode CSV with Web Service. Choose NC_Psych_Hosps.csv as the input. QGIS attemps to find the correct fields for Address, City, and State (verify this worked). For Web Service, choose OpenStreetMap / Nominatim. For Output File Name, click the little button with three dots and Save As NC_Psych_Hosps_osm_geocoded.gpkg. For Not Found Output List, Save As NC_Psych_Hosps_osm_geocoded_notfound.csv. Click Apply. **The process will likely take a couple of minutes to complete (just hold tight until you see the results appear in the Layers panel).** Go answer Question #1 in the Quiz on Canvas.
+5.  In the top menu, navigate to MMQGIS \| Geocode \| Geocode CSV with Web Service. Choose NC_Psych_Hosps.csv as the input. QGIS attemps to find the correct fields for Address, City, and State (verify this worked). For Web Service, choose OpenStreetMap / Nominatim. For Output File Name, click the little button with three dots and Save As NC_Psych_Hosps_osm_geocoded.gpkg. For Not Found Output List, Save As NC_Psych_Hosps_osm_geocoded_notfound.csv. Click Apply. **The process will likely take a couple of minutes to complete (just hold tight until you see the results appear in the Layers panel).** 
 
 6. Create a new MS word file and type in answers to your exercise questionsa there. 
 
