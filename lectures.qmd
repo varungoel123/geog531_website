@@ -22,8 +22,14 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Projections and Coordinate System fundamentals](./lectures/GEOG510_Lec5_ProjCoordSys.pdf)
 
-#### Week 4: Spatial Health Data, Geocoding and Tabular Join
+#### Week 4: Spatial Health Data, 
 
 -   [Spatial Health Data](./lectures/GEOG510_Lec7_SpDataPubHealth.pdf)
 
 -   [Data Quality and Metadata](./lectures/GEOG510_Lec6_DataQualMetadata.pdf)
+
+#### Week 5: Geocoding and Joins, Data Integration
+
+-   [Geocoding and Joins](./lectures/GEOG510_Lec8_GeocodeTabSpJoin.pdf)
+
+-   [Data Integration](./lectures/GEOG510_Lec9_DataIntegration.pdf)
