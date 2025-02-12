@@ -54,6 +54,10 @@ In this exercise, you will use QGIS to geocode a set of points, then will use a 
 
 5.  In the top menu, navigate to MMQGIS \| Geocode \| Geocode CSV with Web Service. Choose NC_Psych_Hosps.csv as the input. QGIS attemps to find the correct fields for Address, City, and State (verify this worked). For Web Service, choose OpenStreetMap / Nominatim. For Output File Name, click the little button with three dots and Save As NC_Psych_Hosps_osm_geocoded.gpkg. For Not Found Output List, Save As NC_Psych_Hosps_osm_geocoded_notfound.csv. Click Apply. **The process will likely take a couple of minutes to complete (just hold tight until you see the results appear in the Layers panel).** Go answer Question #1 in the Quiz on Canvas.
 
+6. Create a new MS word file and type in answers to your exercise questionsa there. 
+
+**Q1: How many of the results were geocoded successfully? How many were not?**
+
 ### Table Join
 
 Note that NC_Psych_Hosps_osm_geocoded.gpkg only has location information. This isn't super useful as/is. However, we do have the number of beds at each facility stored in a .csv file, which we can append to the geocoded locations using a table join.
@@ -64,20 +68,31 @@ Note that NC_Psych_Hosps_osm_geocoded.gpkg only has location information. This i
 
 ### Field Calculator
 
-QGIS does not do a great job reading in data types in .csv files. Thus, the psychiatric bed information that was appended to the spatial features using the table join is not quite usable yet (beds are stored as character data)! In the next step, you will create a new numeric field in the NC_Psych_Hosps_osm_geocoded layer to store this information.
+8.  Right click on NC_Psych_Hosps_osm_geocoded and choose Properties. In the menu on the left, choose Fields. 
 
-8.  Right click on NC_Psych_Hosps_osm_geocoded and choose Properties. In the menu on the left, choose Fields. Click the Field Calculator button (at the top, with colored dots on it).
+**Q2: What 'Type' is the "NC_Psych_Hosps_Beds_PSYCHBEDS" field stored as? Is this a nominal, ordinal, or an integer/ratio variable? If we were to calculate the average number of beds in NC hospitals using this field, would we able to do that or not? Why or why not?**
 
-9.  In the Field Calculator window, make sure Create a new field is selected. In Output field name, put BEDS. In the Output field type, choose Whole number (integer). In the Expression area type or copy/paste: `"NC_Psych_Hosps_Beds_PSYCHBEDS"` (or find this in Fields and Values). Click OK.
+QGIS does not do a great job reading in data types in .csv files. Thus, the psychiatric bed information that was appended to the spatial features using the table join is not quite usable yet (beds are stored as character data)! In the next step, you will create a new numeric field in the NC_Psych_Hosps_osm_geocoded layer to store this information.Click the Field Calculator button (at the top, with colored dots on it).
 
-10. Open the attribute table of NC_Psych_Hosps_osm_geocoded and note the appended information! Go answer Question #2 in the Quiz on Canvas.
+9.  In the Field Calculator window, make sure Create a new field is selected. In Output field name, put BEDS. In the Output field type, choose Whole number (integer 32 bit is ok). In the Expression area type or copy/paste: `"NC_Psych_Hosps_Beds_PSYCHBEDS"` (or find this in Fields and Values and double click the correct field). Click OK.
+
+10. Open the attribute table of NC_Psych_Hosps_osm_geocoded and note the appended information!
 
 ------------------------------------------------------------------------
 
 ### Spatial Join
 
-Note that the attribute table of NC_Psych_Hosps_osm_geocoded does not contain the county that each facility is located in. Since there's no logical way to table join this information, this is job for spatial join!
+**Q3: By looking at the attribute table of NC_Psych_Hosps_osm_geocoded, can we determine the county that each facility is located in? Why would we need to use a spatial join here as compared to tabular join? **
 
-11. In the top menu, navigate to Vector \| Data Management Tools \| Join Attributes by Location. The "Join to features in" layer is the layer that will be "receiving" the information. The "By comparing to" layer is the layer providing the information. In this case, the "Join to features in" layer should be NC_Psych_Hosps_osm_geocoded and the "By comparing to" layer should be NC_counties. For Features they (geometric predicate), intersect should be selected (this will assign information to each point from each polygon). In this case, you can simply create a temporary layer. Click OK.
 
-12. Go answer Question #3 in the Quiz on Canvas.
+11. In the top menu, navigate to Vector \| Data Management Tools \| Join Attributes by Location. The "Join to features in" layer is the layer that will be "receiving" the information. The "By comparing to" layer is the layer providing the information. In this case, the "Join to features in" layer should be NC_Psych_Hosps_osm_geocoded and the "By comparing to" layer should be NC_counties. For Features they (geometric predicate), intersect should be selected (this will assign information to each point from each polygon). In this case, you can simply create a temporary layer. Leave everything else as it is and Click Run.
+
+**Q4: How many columns does the new joined layer has? (Note: you can take a look by right clicking the layer -> Properties -> Information and looking at the Fields metadata)**
+
+**Q5: Which county has the hospital with the highest number of beds?)**
+
+12. Note that while we used the default QGIS tools for creating a new field and conducting joins, you can also the MMQGIS package which is even more intuitive. Give it a try at some point.
+
+13. Save your word file as 'username_ex3.docx' and save to your respective folder.
+
+

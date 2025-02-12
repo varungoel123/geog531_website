@@ -225,7 +225,9 @@ div.highlightblock {
 <ol start="4" type="1">
 <li><p>Use the instructions provided in the QGIS Plugins and Geocoding In Class Demonstration (#3) to install and activate the MMQGIS plugin.</p></li>
 <li><p>In the top menu, navigate to MMQGIS | Geocode | Geocode CSV with Web Service. Choose NC_Psych_Hosps.csv as the input. QGIS attemps to find the correct fields for Address, City, and State (verify this worked). For Web Service, choose OpenStreetMap / Nominatim. For Output File Name, click the little button with three dots and Save As NC_Psych_Hosps_osm_geocoded.gpkg. For Not Found Output List, Save As NC_Psych_Hosps_osm_geocoded_notfound.csv. Click Apply. <strong>The process will likely take a couple of minutes to complete (just hold tight until you see the results appear in the Layers panel).</strong> Go answer Question #1 in the Quiz on Canvas.</p></li>
+<li><p>Create a new MS word file and type in answers to your exercise questionsa there.</p></li>
 </ol>
+<p><strong>Q1: How many of the results were geocoded successfully? How many were not?</strong></p>
 </section>
 <section id="table-join" class="level3">
 <h3 class="anchored" data-anchor-id="table-join">Table Join</h3>
@@ -237,20 +239,28 @@ div.highlightblock {
 </section>
 <section id="field-calculator" class="level3">
 <h3 class="anchored" data-anchor-id="field-calculator">Field Calculator</h3>
-<p>QGIS does not do a great job reading in data types in .csv files. Thus, the psychiatric bed information that was appended to the spatial features using the table join is not quite usable yet (beds are stored as character data)! In the next step, you will create a new numeric field in the NC_Psych_Hosps_osm_geocoded layer to store this information.</p>
 <ol start="8" type="1">
-<li><p>Right click on NC_Psych_Hosps_osm_geocoded and choose Properties. In the menu on the left, choose Fields. Click the Field Calculator button (at the top, with colored dots on it).</p></li>
-<li><p>In the Field Calculator window, make sure Create a new field is selected. In Output field name, put BEDS. In the Output field type, choose Whole number (integer). In the Expression area type or copy/paste: <code>"NC_Psych_Hosps_Beds_PSYCHBEDS"</code> (or find this in Fields and Values). Click OK.</p></li>
-<li><p>Open the attribute table of NC_Psych_Hosps_osm_geocoded and note the appended information! Go answer Question #2 in the Quiz on Canvas.</p></li>
+<li>Right click on NC_Psych_Hosps_osm_geocoded and choose Properties. In the menu on the left, choose Fields.</li>
+</ol>
+<p><strong>Q2: What ‘Type’ is the “NC_Psych_Hosps_Beds_PSYCHBEDS” field stored as? Is this a nominal, ordinal, or an integer/ratio variable? If we were to calculate the average number of beds in NC hospitals using this field, would we able to do that or not? Why or why not?</strong></p>
+<p>QGIS does not do a great job reading in data types in .csv files. Thus, the psychiatric bed information that was appended to the spatial features using the table join is not quite usable yet (beds are stored as character data)! In the next step, you will create a new numeric field in the NC_Psych_Hosps_osm_geocoded layer to store this information.Click the Field Calculator button (at the top, with colored dots on it).</p>
+<ol start="9" type="1">
+<li><p>In the Field Calculator window, make sure Create a new field is selected. In Output field name, put BEDS. In the Output field type, choose Whole number (integer 32 bit is ok). In the Expression area type or copy/paste: <code>"NC_Psych_Hosps_Beds_PSYCHBEDS"</code> (or find this in Fields and Values and double click the correct field). Click OK.</p></li>
+<li><p>Open the attribute table of NC_Psych_Hosps_osm_geocoded and note the appended information!</p></li>
 </ol>
 <hr>
 </section>
 <section id="spatial-join" class="level3">
 <h3 class="anchored" data-anchor-id="spatial-join">Spatial Join</h3>
-<p>Note that the attribute table of NC_Psych_Hosps_osm_geocoded does not contain the county that each facility is located in. Since there’s no logical way to table join this information, this is job for spatial join!</p>
+<p><strong>Q3: By looking at the attribute table of NC_Psych_Hosps_osm_geocoded, can we determine the county that each facility is located in? Why would we need to use a spatial join here as compared to tabular join? </strong></p>
 <ol start="11" type="1">
-<li><p>In the top menu, navigate to Vector | Data Management Tools | Join Attributes by Location. The “Join to features in” layer is the layer that will be “receiving” the information. The “By comparing to” layer is the layer providing the information. In this case, the “Join to features in” layer should be NC_Psych_Hosps_osm_geocoded and the “By comparing to” layer should be NC_counties. For Features they (geometric predicate), intersect should be selected (this will assign information to each point from each polygon). In this case, you can simply create a temporary layer. Click OK.</p></li>
-<li><p>Go answer Question #3 in the Quiz on Canvas.</p></li>
+<li>In the top menu, navigate to Vector | Data Management Tools | Join Attributes by Location. The “Join to features in” layer is the layer that will be “receiving” the information. The “By comparing to” layer is the layer providing the information. In this case, the “Join to features in” layer should be NC_Psych_Hosps_osm_geocoded and the “By comparing to” layer should be NC_counties. For Features they (geometric predicate), intersect should be selected (this will assign information to each point from each polygon). In this case, you can simply create a temporary layer. Leave everything else as it is and Click Run.</li>
+</ol>
+<p><strong>Q4: How many columns does the new joined layer has? (Note: you can take a look by right clicking the layer -&gt; Properties -&gt; Information and looking at the Fields metadata)</strong></p>
+<p><strong>Q5: Which county has the hospital with the highest number of beds?)</strong></p>
+<ol start="12" type="1">
+<li><p>Note that while we used the default QGIS tools for creating a new field and conducting joins, you can also the MMQGIS package which is even more intuitive. Give it a try at some point.</p></li>
+<li><p>Save your word file as ‘username_ex3.docx’ and save to your respective folder.</p></li>
 </ol>
 
 
