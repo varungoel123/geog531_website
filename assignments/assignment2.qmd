@@ -40,7 +40,7 @@ library(tidyverse)
 
 This assignment is split into two main portions. For the first (and larger) part of the assignment, you will be working through a number of tasks related to importing, pre-processing, and summarizing data. In this part, you will also be creating two maps in an effort for you to begin developing this skill. For the second part, you will be searching for data (related to your topic of interest) and begin the process of making sure that it is ready for use in a GIS.
 
-On your computer, create a folder for Assignment #2 and a folder (inside of that one) to store data. Download GEOG541_assignment2_data.zip from the course Canvas page into the data folder and then unzip the contents.
+On your computer, create a folder for Assignment #2 and a folder (inside of that one) to store data. [Download GEOG541_assignment2_data.zip from here](https://drive.google.com/file/d/1DN3Snj0QVuJzP1WBqRfZrKz7jlY29bcn/view?usp=share_link) into the data folder and then unzip the contents.
 
 Create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 510, and Assignment #2 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.
 
