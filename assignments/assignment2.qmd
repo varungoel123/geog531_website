@@ -1,7 +1,8 @@
 ---
 title: "Geog 510: Assignment #2"
 author:
-- Working with Spatial Data, 100 points \newline
+- Working with Spatial Data, **100 points** \newline
+- Due before class on Monday, **March 03, 2025**
 - GEOG 510, GIS and Spatial Analysis for Public Health \newline
 - Varun Goel
 date: last-modified
