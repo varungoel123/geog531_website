@@ -4,11 +4,12 @@ date: last-modified
 date-format: medium
 ---
 
-
 ------------------------------------------------------------------------
 
-####  List of Assignments
+#### List of Assignments
 
 -   [Assignment 1: QGIS fundamentals (due Wednesday, Feb 05 before class)](./assignments/assignment1.html)
+
+-   [Assignment 2: Working with spatial data (due Monday, March 03 before class)](./assignments/assignment2.qmd)
 
 ------------------------------------------------------------------------

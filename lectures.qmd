@@ -33,3 +33,8 @@ Note: password for files is provided on class piazza discussion board
 -   [Geocoding and Joins](./lectures/GEOG510_Lec8_GeocodeTabSpJoin.pdf)
 
 -   [Data Integration](./lectures/GEOG510_Lec9_DataIntegration.pdf)
+
+#### Week 6: Mapping Health data
+
+-   [Mapping Health Data](./lectures/GEOG510_Lec10_MappingHealData.pdf)
+

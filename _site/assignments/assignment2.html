@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Working with Spatial Data, 100 points ">
+<meta name="author" content="GEOG 510, GIS and Spatial Analysis for Public Health ">
+<meta name="author" content="Varun Goel">
+
+<title>GEOG 510 - Geog 510: Assignment #2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">GEOG 510</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-materials" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Materials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-materials">    
+        <li>
+    <a class="dropdown-item" href="../lectures.html" rel="" target="">
+ <span class="dropdown-text">Lectures</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../readings.html" rel="" target="">
+ <span class="dropdown-text">Readings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercises.html" rel="" target="">
+ <span class="dropdown-text">Exercises</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../assignments.html" rel="" target="">
+ <span class="dropdown-text">Assignments</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../software.html" rel="" target="">
+ <span class="dropdown-text">Software Requirements and Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../data.html" rel="" target="">
+ <span class="dropdown-text">Data Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials.html" rel="" target="">
+ <span class="dropdown-text">Tutorials and Technical Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../mapping.html" rel="" target="">
+ <span class="dropdown-text">Map Submission Checklist</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#part-1" id="toc-part-1" class="nav-link active" data-scroll-target="#part-1">Part #1</a>
+  <ul class="collapse">
+  <li><a href="#geocoding" id="toc-geocoding" class="nav-link" data-scroll-target="#geocoding">Geocoding</a></li>
+  <li><a href="#data-pre-processing" id="toc-data-pre-processing" class="nav-link" data-scroll-target="#data-pre-processing">Data Pre-processing</a></li>
+  </ul></li>
+  <li><a href="#part-2" id="toc-part-2" class="nav-link" data-scroll-target="#part-2">Part #2</a>
+  <ul class="collapse">
+  <li><a href="#data-source-document" id="toc-data-source-document" class="nav-link" data-scroll-target="#data-source-document">Data Source Document</a></li>
+  <li><a href="#make-your-own-map-and-describe-process" id="toc-make-your-own-map-and-describe-process" class="nav-link" data-scroll-target="#make-your-own-map-and-describe-process">Make Your Own Map and Describe Process</a></li>
+  <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables">Deliverables</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Geog 510: Assignment #2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Working with Spatial Data, 100 points  </p>
+             <p>GEOG 510, GIS and Spatial Analysis for Public Health  </p>
+             <p>Varun Goel </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Feb 16, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<style type="text/css">
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+</style>
+</div>
+<hr>
+<p>This assignment is split into two main portions. For the first (and larger) part of the assignment, you will be working through a number of tasks related to importing, pre-processing, and summarizing data. In this part, you will also be creating two maps in an effort for you to begin developing this skill. For the second part, you will be searching for data (related to your topic of interest) and begin the process of making sure that it is ready for use in a GIS.</p>
+<p>On your computer, create a folder for Assignment #2 and a folder (inside of that one) to store data. Download GEOG541_assignment2_data.zip from the course Canvas page into the data folder and then unzip the contents.</p>
+<p>Create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 510, and Assignment #2 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.</p>
+<p>Please save the file using the following naming format, <strong>userid_assignment2.docx</strong>. For example, my file would be <strong>vgoel_assignment2.docx</strong>. Please follow the file naming format for your document, as this really helps me to stay organized and grade more efficiently. If you do not follow this correctly, I will deduct <strong>10 points</strong> from your assignment for not reading the instructions properly. Upload your assignment document to your <em>relevant checkpoint assignments folder in OneDrive</em>.</p>
+<p>When the assignment requires you to create a map, export your completed map as a .pdf document using the following naming format, <strong>userid_assignment2_map#.pdf. For example, the second map I create for this assignment would be </strong>vgoel_assignment2_map2.pdf**, and so on. Please follow the file naming format for your maps as well. Upload the maps you create in this lab as separate .pdf documents.</p>
+<hr>
+<section id="part-1" class="level2">
+<h2 class="anchored" data-anchor-id="part-1">Part #1</h2>
+<section id="geocoding" class="level3">
+<h3 class="anchored" data-anchor-id="geocoding">Geocoding</h3>
+<p>In the next section, you will be geocoding the location of Michigan acute care hospitals using two different geocoders. Then, you will perform both a table and spatial join to add attribute values to the hospital location data.</p>
+<hr>
+<section id="geocoding-using-an-online-geocoding-service" class="level4">
+<h4 class="anchored" data-anchor-id="geocoding-using-an-online-geocoding-service">Geocoding using an online geocoding service</h4>
+<p>The US Census Bureau provides a free, online geocoder for addresses in the US, Puerto Rico, and the US Island Areas. You can geocode up to 10,000 addresses per submission.</p>
+<ol type="1">
+<li>Navigate to the <a href="https://geocoding.geo.census.gov/geocoder/">Census Geocoder page</a>. In the top menu, choose <strong>Find Locations | Batch Address Processing</strong>. There is a <a href="https://www2.census.gov/geo/pdfs/maps-data/data/Census_Geocoder_User_Guide.pdf">specific format you need to follow when submitting data</a> (a csv file must <strong>not</strong> have a header row and must have the following fields: ID, Address, City, State, and Zip). Fortunately for you, I am a kind professor and have provided you with a file that conforms to this format. Click on the Browse button, and then choose MIhospitals.csv. The Benchmark should be Public_AR_Current. Click the Get Results button and save your geocoded output file in your data folder as MIhospitals_census_geocoded.csv.</li>
+</ol>
+<hr>
+</section>
+<section id="import-xy-data-into-qgis" class="level4">
+<h4 class="anchored" data-anchor-id="import-xy-data-into-qgis">Import X,Y data into QGIS</h4>
+<p>Now, you will convert the tabular data (containing the geocoded locations from the Census Bureau) into a spatial data file in QGIS. Remember, tables are not spatial data files… even if they contain spatial information. Some processing is required to define the numbers found in the tables as coordinate locations on Earth’s surface.</p>
+<ol start="2" type="1">
+<li><p>The output file from the US Census requires some light data wrangling before it can be read/used in QGIS. Open MIhospitals_census_geocoded.csv using Excel or some other spreadsheet-like software (but the instructions are based on Excel). <strong>Insert two new (blank) columns to the right of the field</strong> containing the coordinate locations (the coordinate locations should be in the <em>F</em> column if viewing the file in Excel).</p></li>
+<li><p>In the first row, in the first blank cell (cell G1), type <code>=TEXTSPLIT(F1, ",")</code>, then hit the return key. If done correctly, G1 should contain the value before the comma in F1 and H1 should contain the value after the comma in F1. Copy/paste to the rest of the rows. Delete the formula from <strong>all rows</strong> without a value in F, e.g., F4, F79, etc.</p></li>
+<li><p>Add a blank row above the first row and insert the following values in the new row (this will function as the header row or column names when importing):</p></li>
+</ol>
+<p>FAC_ID,ADDRESS,GC_RESULT,GC_TYPE,GC_ADDRESS,GC_LOCATION,LONGITUDE,LATITUDE,TIGER_ID,TIGER_SIDE</p>
+<ol start="5" type="1">
+<li><p>Save the file and close Excel.</p></li>
+<li><p>Open QGIS and create a new project. Open the Data Source Manager (button on the menu bar or in the top menu Layer | Data Source Manager). In the Data Source Manager, click on <strong>Delimited Text</strong> in the menu on the left. Use the following options:</p>
+<ul>
+<li>For File name, use the three dots button and navigate to Mihospitals_census_geocoded.csv</li>
+<li>Under Geometry Definition, make sure the LONGITUDE is selected for X field and LATITUDE is selected for Y field. For Geometry CRS, choose EPSG:4326 - WGS 84 (this is the CRS used by the US Census Bureau for the results).</li>
+<li>Leave all other options on their default settings, then click Add.</li>
+</ul></li>
+</ol>
+<p>You should now see the points displayed in the map canvas and have a point layer called MIhospitals_census_geocoded in the Layers panel. <strong>This layer is simply held in temporary memory</strong>; thus, it is good practice to actually create a new permanent file that will store this layer.</p>
+<ol start="7" type="1">
+<li>To do so, right click on MIhospitals_census_geocoded and choose Export | Save Features As. Save the file as MIhospitals_census_geocoded.gpkg in your correct folder (it should be added to the Layers panel after you click OK). Remove the “csv version” of MIhospitals_census_geocoded from the Layers panel.</li>
+</ol>
+<hr>
+</section>
+<section id="geocoding-inside-of-qgis-using-mmqgis" class="level4">
+<h4 class="anchored" data-anchor-id="geocoding-inside-of-qgis-using-mmqgis">Geocoding inside of QGIS using MMQGIS</h4>
+<p>Next, you will geocode the same original data using QGIS.</p>
+<ol start="8" type="1">
+<li><p>Use the instructions provided in the QGIS Plugins and Geocoding In Class Demonstration (#4) to install and activate the MMQGIS plugin.</p></li>
+<li><p>Add MIhospitals_with_header.csv to the Layers panel in QGIS.</p></li>
+<li><p>In the top menu, navigate to MMQGIS | Geocode | Geocode CSV with Web Service. Choose MIhospitals_with_header.csv as the input. QGIS attemps to find the correct fields for Address, City, and State (verify this worked). For Web Service, choose OpenStreetMap / Nominatim. For Output File Name, click the little button with three dots and Save As MIhospitals_osm_geocoded.gpkg. For Not Found Output List, Save As MIhospitals_osm_geocoded_notfound.csv. Click Apply. The process will likely take a few minutes to complete (just hold tight until you see the results appear in the Layers panel).</p></li>
+<li><p>Add MI_counties to the Layers panel (it’s okay if you get a warning about the CRS!… it is just a warning). Arrange the layers so that the county polygons are not covering the points.</p></li>
+<li><p>Change the CRS of the map canvas to Michigan GeoRef (NAD83 / Michigan Oblique Mercator, EPSG:3078).</p></li>
+<li><p>Now would be a good time to save your project file, which saves your progress thus far. Go to Project | Save As and save your project as assignment2_geocode.qgs.</p></li>
+<li><p>Using the Map Composer, make a map that highlights at least 3-4 locations that are different between the two geocoded results. <a href="https://docs.qgis.org/3.34/en/docs/training_manual/map_composer/map_composer.html">Click here for the QGIS tutorial</a>. Use the following for guidance:</p>
+<ul>
+<li>Make sure you choose symbols for the two hospital layers that are distinguishable.</li>
+<li>Turn on Labels for MI_osm_geocode layer (use the field, FAC_ID).</li>
+<li>Use the layer MI_Counties as the base layer for Michigan (use light fill and line colors)<br>
+</li>
+<li>Make sure the map has a title, legend, scale bar, north arrow, and your name!</li>
+<li>Make sure that you try to make something that looks visually pleasing (colors are good, elements are aligned, layout is balanced, etc).</li>
+<li>When complete, export your map using userid_assignment2_map1.pdf.</li>
+</ul></li>
+<li><p>Close the Map Composer. Save your project file, then close QGIS.</p></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="data-pre-processing" class="level3">
+<h3 class="anchored" data-anchor-id="data-pre-processing">Data Pre-processing</h3>
+<p>We often have to do a number of steps to make our data manageable and mappable. In the next section, you will remove extraneous information from the attribute table of the new spatial features you just created. Then, you will join information from a table to that file and create a map.</p>
+<ol start="16" type="1">
+<li>Open QGIS and create a new project. Add MIhospitals_census_geocoded to the Layers panel. Change the CRS of the map canvas to Michigan GeoRef (NAD83 / Michigan Oblique Mercator, EPSG:3078).</li>
+</ol>
+<hr>
+<section id="delete-fields-in-attribute-table" class="level4">
+<h4 class="anchored" data-anchor-id="delete-fields-in-attribute-table">Delete fields in attribute table</h4>
+<p><strong>It is very important to note that the next step is a destructive editing step</strong>. It edits the original file and there’s no recovering the original information. If you are not sure that you are okay with this, make a copy of the original file first (right click on the layer in the Layers panel and choose Export | Save Features As).</p>
+<ol start="17" type="1">
+<li><p>Right click on MIhospitals_census_geocoded and choose Properties. In the menu on the left, choose Fields. Click on the little button that looks like a pencil to toggle editing ON/OFF. Click on the fields that you want to delete (using control/command clicking)… in this case, you can delete GC_ADDRESS, GC_LOCATION, TIGER_ID, and TIGER_SIDE. When ready, click the Delete Field button (with a little red X). Click the button to toggle editing back to OFF. Save your edits. Click OK.</p></li>
+<li><p>Now would be a good time to save your project file, which saves your progress thus far. Go to Project | Save As and save your project as assignment2_tablejoin.qgs.</p></li>
+</ol>
+<hr>
+</section>
+<section id="table-join" class="level4">
+<h4 class="anchored" data-anchor-id="table-join">Table Join</h4>
+<p>A table join allows you to merge information from two separate layers/tables based on a common ID value. In QGIS, these can occur between/among spatial and non-spatial data layers. Table joins are one of most common data preparation steps using in GIS.</p>
+<ol start="19" type="1">
+<li><p>Add MI_hosp_attributes.csv to the Layers panel. This table contains the attributes that you will be joining to the features in the MIhospitals_census_geocoded layer. Open both attribute tables and inspect the available fields. Identify the <strong>key field</strong> you will be using for the join.</p></li>
+<li><p>Right click on MIhospitals_census_geocoded and choose Properties. In the menu on the left, choose Joins. Click on the little green “plus” button at the bottom. For Join Layer, choose MI_hosp_attributes. The <strong>key fields</strong> are the Join field and the Target field. Choose the correct fields for the join. Leave everything else unchanged and click OK.</p></li>
+<li><p>Open the attribute table of MIhospitals_census_geocoded and note the joined fields. If you scroll down in the attribute table, you should notice that some of the hospitals have NULL values in the joined fields. This is because there was not a “matching” or “corresponding” entry for these features in the MI_hosp_attributes.csv file. This is okay for the purposes of this lab. However, it is good practice to always check the output of a table join to ensure that nothing fishy happened during the join. A simple way to do this when you have a lot of features (and you don’t feel like manually checking each of them) is to perform an attribute query on one of the joined fields. Close the attribute table.</p></li>
+</ol>
+<section id="table-joins-are-not-permanent" class="level5 highlightblock">
+<h5 class="anchored" data-anchor-id="table-joins-are-not-permanent">Table joins are not permanent</h5>
+<p>A table join is not a permanent operation. The joined data only exists in temporary memory in QGIS. Sometimes this is a good thing… because you might only need the joined data for a single map or operation. Other times, you might be building a layer that you will need multiple times in the future. To make the join permanent, right click on the layer in the Layer panel and export as a new file.</p>
+</section>
+<p><br></p>
+<p>You are required to make a Graduated Symbol map of Michigan’s hospital sizes. However, QGIS read in the attribute data for the hospitals as “character” data type rather than “numeric” (character data is not recognized as numeric). So, you will calculate a new numeric field for use in mapping.</p>
+<ol start="22" type="1">
+<li><p>Right click on MIhospitals_census_geocoded and choose Properties. In the menu on the left, choose Fields. Click the Field Calculator button (looks like some colored dots). In the Field Calculator window, make sure Create a new field is selected. In Output field name, put BEDS. In the Expression area, type or copy/paste: <code>to_real("MI_hosp_attributes_BEDS")</code>. Click OK.</p></li>
+<li><p>Using the Map Composer, create a Graduated Symbol map of Michigan’s hospital sizes using the BEDS field (the number of beds at each hospital). Use the following for guidance:</p>
+<ul>
+<li>The entire state should be on the map</li>
+<li>Do not use Labels.</li>
+<li>Use the layer MI_Counties as the base layer for Michigan.</li>
+<li>Make sure the map has a title, legend, scale bar, north arrow, and your name!</li>
+<li>Make sure that you try to make something that looks visually pleasing (colors are good, elements are aligned, layout is balanced, etc).</li>
+<li>When complete, export your map using userid_assignment2_map2.pdf.</li>
+</ul></li>
+<li><p>Close the Map Composer. Save your project file and then close QGIS.</p></li>
+</ol>
+<hr>
+</section>
+<section id="spatial-join" class="level4">
+<h4 class="anchored" data-anchor-id="spatial-join">Spatial Join</h4>
+<p>A spatial join allows you to transfer attribute information from one spatial layer to another based on shared location. In this section, you will be performing a spatial join to assign population data to a Zip Code layer for mapping purposes. This section also begins the process of illustrating how multiple operations must be performed to complete an analysis.</p>
+<ol start="25" type="1">
+<li>Since you spent a lot of time creating a nice Michigan map layout in the previous section, you should use that hard work and effort again. Open QGIS and navigate to Project | Open, then open assignment2_tablejoin.qgs. Remove all the layers that were loaded in the Layers panel, then add the MI_zipcodes.gpkg and MI_block_pop.gpkg layers. The Zip Code layer is a polygon layer representing the areal extent of Zip Codes. The Block population layer is a point layer of the Census Block centroids and contains population information in the field POP (note: this layer has a lot of points in it, you may want to make it not visible). Go to Project | Save As and save the project as assignment2_spatialjoin.qgs.</li>
+</ol>
+<section id="recycling-map-layouts" class="level5 highlightblock">
+<h5 class="anchored" data-anchor-id="recycling-map-layouts">Recycling map layouts</h5>
+<p>To save time, I often spend a lot of time on my first “study area” map, especially if I know that I will be creating numerous maps of the same region. Then, I just reuse that project file and map composition (save with a new name) as a template.</p>
+</section>
+<p><br></p>
+<p>You will now spatially join the population information in the MI_block_pop layer to the MI_zipcodes layer. This operation uses shared “location” to transfer attributes. In this case, each Zip Code will be receiving population information from the Block points that fall inside it.</p>
+<ol start="26" type="1">
+<li><p>We need a tool that is available in the Processing Toolbox to join and summarize information simultaneously. To open the Processing Toolbox, in the top menu navigate to View | Panels | Processing Toolbox. In the Processing Toolbox, under Vector General, double click on Join Attributes by Location <strong>(summary)</strong>.</p></li>
+<li><p>The Base Layer is the layer that will be “receiving” the information. The Join Layer is the layer providing the information. In this case, the Base Layer should be MI_zipcodes and the Join Layer should be MI_block_pop. Click the little wrench next to the Join Layer and change the option for Invalid feature filtering to Do Not Filter (there are a few Zip Code polygons that may cause this process to fail if not ignored). For Geometric predicate, intersects should be selected (this will assign information for points falling inside each polygon). For Fields to summarise, choose <code>POP</code>. For Summaries to Calculate, choose <code>sum</code>. Save as a new file, MI_zipcodes_pop.gpkg.</p></li>
+</ol>
+<p>Open the attribute table of MI_zipcodes_pop. Note that there is now a field called POP_sum. This is the sum of the block population points falling in each Zip Code. Now, you will import hospital utilization data, join it to your new Zip Code layer (with population information), and calculate a new field containing the hospital utilization rate (epidemiologists, we can call this a rate because it is utilization over a year).</p>
+<ol start="28" type="1">
+<li><p>Add MI_PD.csv to the Layer panel. The field PD contains the number of patient days spent in a hospital for residents of each Zip Code (measured during a calendar year). A patient day is equal to one person staying one night in the hospital. Use a table join (see Steps 19-20) to join the patient day table to the MI_zipcodes_pop layer you created in the previous step. After the table join, open the attribute table and verify that you now have patient days and population for each Zip Code.</p></li>
+<li><p>Use the Field Calculator to make the utilization rate calculation by dividing the number of patient days by the population for each Zip Code (see Step 22). In the Field Calculator window, make sure Create a new field is selected. In Output field name, put PD_rate. In the Output field type, choose Decimal number. In the Expression area, type or copy/paste: <code>"MI_PD_PD" / "POP_sum"</code>. Click OK.</p></li>
+<li><p>Using the Map Layout you already created in the Map Composer, create a Choropleth map of Michigan’s patient day utilization rate by Zip Code. Use the utilization rate field that you just calculated (PD_rate). Use the following for guidance:</p>
+<ul>
+<li>The entire state should be on the map</li>
+<li>Do not use Labels.</li>
+<li>Make sure the map has a title, legend, scale bar, north arrow, and your name!</li>
+<li>Make sure that you try to make something that looks visually pleasing (colors are good, elements are aligned, layout is balanced, etc).</li>
+<li>When complete, export your map using Lastname_GEOG541_Assignment2_Map3.pdf.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+</section>
+<section id="part-2" class="level2">
+<h2 class="anchored" data-anchor-id="part-2">Part #2</h2>
+<section id="data-source-document" class="level3">
+<h3 class="anchored" data-anchor-id="data-source-document">Data Source Document</h3>
+<p>Choose a study area that you would like to focus on for your GEOG 510 project. Search for both spatial and non-spatial data (that can be made spatial) for your study area that you can download. These data could be potentially related to the topic you chose for Assignment 1 - but if you do not want to pursue your idea further or if you cannot find data, you may choose a different topic). You will definitely need <strong>administrative boundaries</strong> and <strong>population data</strong>. You will have to find some <strong>health-related data</strong>. Find and download at least 4 data layers (or tables that can become layers) that you think you might use in your project. Use the following guidance:</p>
+<ul>
+<li><strong>The data must be downloadable</strong></li>
+<li><strong>At least one</strong> of these layers should be “non-spatial” data that can be spatialized via geocoding, plot X,Y, or table join</li>
+<li><strong>At least one</strong> of the layers must be health-related (which does not include administrative boundaries or population demographic or socioeconomic characteristics, but may include non health outcome data such as environmental hazards or health facilities).</li>
+</ul>
+<p>Create a table that has basic information about the layers you locate, including filename, data type, and the data source (e.g., link to webpage or downloadable data). Insert this table into your assignment document.</p>
+<hr>
+</section>
+<section id="make-your-own-map-and-describe-process" class="level3">
+<h3 class="anchored" data-anchor-id="make-your-own-map-and-describe-process">Make Your Own Map and Describe Process</h3>
+<p>Create a map from non-spatial data that you find. This will require either Geocode and/or Import X,Y data for addresses/points or performing a table join. Provide a short explanation of why you chose this data, as well as a short but detailed written description of how you went from “downloaded data” to “map”. Describe any interesting spatial patterns or distributions that you see. Remember to follow good design principles in creating your map and include all map elements. When complete, export your map using userid_assignment2_map4.pdf. Additionally, export your map using userud_assignment2_map4.png.</p>
+<p>In the appropriate area on the Piazza discussion board, insert your .png map directly into a post and copy/paste your explanation.</p>
+<hr>
+</section>
+<section id="deliverables" class="level3">
+<h3 class="anchored" data-anchor-id="deliverables">Deliverables</h3>
+<p>Upload your answer document (userid_assignment2.docx) to your OneDrive folder Upload your 4 maps (pdf files) to your OneDrive folder Post to Piazza Discussion Board post</p>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
