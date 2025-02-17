@@ -42,17 +42,19 @@ This assignment is split into two main portions. For the first (and larger) part
 
 On your computer, create a folder for Assignment #2 and a folder (inside of that one) to store data. [Download GEOG541_assignment2_data.zip from here](https://drive.google.com/file/d/1DN3Snj0QVuJzP1WBqRfZrKz7jlY29bcn/view?usp=share_link) into the data folder and then unzip the contents.
 
-Create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 510, and Assignment #2 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.
+Create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 510, and Assignment #2 at the top of the document. Answer/complete each of the questions/tasks below.
+
+[**Note: There are 4 answerable questions for the word document. While you do not need to copy/paste anything related to rest of the tasks in the document, you can copy/paste graphics or comments in the document to support your work**]{style="color: #800000;"}
 
 Please save the file using the following naming format, **userid_assignment2.docx**. For example, my file would be **vgoel_assignment2.docx**. Please follow the file naming format for your document, as this really helps me to stay organized and grade more efficiently. If you do not follow this correctly, I will deduct **10 points** from your assignment for not reading the instructions properly. Upload your assignment document to your *relevant checkpoint assignments folder in OneDrive*.
 
-When the assignment requires you to create a map, export your completed map as a .pdf document using the following naming format, **userid_assignment2_map#.pdf. For example, the second map I create for this assignment would be **vgoel_assignment2_map2.pdf**, and so on. Please follow the file naming format for your maps as well. Upload the maps you create in this lab as separate .pdf documents.
+When the assignment requires you to create a map, export your completed map as a .pdf document using the following naming format, **userid_assignment2_map#.pdf. For example, the second map I create for this assignment would be** vgoel_assignment2_map2.pdf\*\*, and so on. Please follow the file naming format for your maps as well. Upload the maps you create in this lab as separate .pdf documents.
 
 ------------------------------------------------------------------------
 
 ## Part #1
 
-### Geocoding
+### [Geocoding]{.underline}
 
 In the next section, you will be geocoding the location of Michigan acute care hospitals using two different geocoders. Then, you will perform both a table and spatial join to add attribute values to the hospital location data.
 
@@ -70,9 +72,11 @@ The US Census Bureau provides a free, online geocoder for addresses in the US, P
 
 Now, you will convert the tabular data (containing the geocoded locations from the Census Bureau) into a spatial data file in QGIS. Remember, tables are not spatial data files... even if they contain spatial information. Some processing is required to define the numbers found in the tables as coordinate locations on Earth's surface.
 
-2.  The output file from the US Census requires some light data wrangling before it can be read/used in QGIS. Open MIhospitals_census_geocoded.csv using Excel or some other spreadsheet-like software (but the instructions are based on Excel). **Insert two new (blank) columns to the right of the field** containing the coordinate locations (the coordinate locations should be in the *F* column if viewing the file in Excel).
+2.  The output file from the US Census requires some light data wrangling before it can be read/used in QGIS. Open MIhospitals_census_geocoded.csv using Excel or some other spreadsheet-like software (but the instructions are based on Excel).
 
-3.  In the first row, in the first blank cell (cell G1), type `=TEXTSPLIT(F1, ",")`, then hit the return key. If done correctly, G1 should contain the value before the comma in F1 and H1 should contain the value after the comma in F1. Copy/paste to the rest of the rows. Delete the formula from **all rows** without a value in F, e.g., F4, F79, etc.
+[**Q1. How many records were not geocoded at all? Write down your answer in your word file**]{style="color: #800000;"}
+
+3.  **Insert two new (blank) columns to the right of the field** containing the coordinate locations (the coordinate locations should be in the *F* column if viewing the file in Excel). In the first row, in the first blank cell (cell G1), type `=TEXTSPLIT(F1, ",")`, then hit the return key. If done correctly, G1 should contain the value before the comma in F1 and H1 should contain the value after the comma in F1. Copy/paste to the rest of the rows. Delete the formula from **all rows** without a value in F, e.g., F4, F79, etc.
 
 4.  Add a blank row above the first row and insert the following values in the new row (this will function as the header row or column names when importing):
 
@@ -88,7 +92,7 @@ FAC_ID,ADDRESS,GC_RESULT,GC_TYPE,GC_ADDRESS,GC_LOCATION,LONGITUDE,LATITUDE,TIGER
 
 You should now see the points displayed in the map canvas and have a point layer called MIhospitals_census_geocoded in the Layers panel. **This layer is simply held in temporary memory**; thus, it is good practice to actually create a new permanent file that will store this layer.
 
-7. To do so, right click on MIhospitals_census_geocoded and choose Export \| Save Features As. Save the file as MIhospitals_census_geocoded.gpkg in your correct folder (it should be added to the Layers panel after you click OK). Remove the "csv version" of MIhospitals_census_geocoded from the Layers panel.
+7.  To do so, right click on MIhospitals_census_geocoded and choose Export \| Save Features As. Save the file as MIhospitals_census_geocoded.gpkg in your correct folder (it should be added to the Layers panel after you click OK). Remove the "csv version" of MIhospitals_census_geocoded from the Layers panel.
 
 ------------------------------------------------------------------------
 
@@ -101,6 +105,8 @@ Next, you will geocode the same original data using QGIS.
 9.  Add MIhospitals_with_header.csv to the Layers panel in QGIS.
 
 10. In the top menu, navigate to MMQGIS \| Geocode \| Geocode CSV with Web Service. Choose MIhospitals_with_header.csv as the input. QGIS attemps to find the correct fields for Address, City, and State (verify this worked). For Web Service, choose OpenStreetMap / Nominatim. For Output File Name, click the little button with three dots and Save As MIhospitals_osm_geocoded.gpkg. For Not Found Output List, Save As MIhospitals_osm_geocoded_notfound.csv. Click Apply. The process will likely take a few minutes to complete (just hold tight until you see the results appear in the Layers panel).
+
+[**Q2: How many records were NOT Geocoded using MMQGIS? Write your answer in the word file.**]{style="color: #800000;"}
 
 11. Add MI_counties to the Layers panel (it's okay if you get a warning about the CRS!... it is just a warning). Arrange the layers so that the county polygons are not covering the points.
 
@@ -121,7 +127,7 @@ Next, you will geocode the same original data using QGIS.
 
 ------------------------------------------------------------------------
 
-### Data Pre-processing
+### [Data Pre-processing]{.underline}
 
 We often have to do a number of steps to make our data manageable and mappable. In the next section, you will remove extraneous information from the attribute table of the new spatial features you just created. Then, you will join information from a table to that file and create a map.
 
@@ -194,7 +200,7 @@ You will now spatially join the population information in the MI_block_pop layer
 
 27. The Base Layer is the layer that will be "receiving" the information. The Join Layer is the layer providing the information. In this case, the Base Layer should be MI_zipcodes and the Join Layer should be MI_block_pop. Click the little wrench next to the Join Layer and change the option for Invalid feature filtering to Do Not Filter (there are a few Zip Code polygons that may cause this process to fail if not ignored). For Geometric predicate, intersects should be selected (this will assign information for points falling inside each polygon). For Fields to summarise, choose `POP`. For Summaries to Calculate, choose `sum`. Save as a new file, MI_zipcodes_pop.gpkg.
 
-Open the attribute table of MI_zipcodes_pop. Note that there is now a field called POP_sum. This is the sum of the block population points falling in each Zip Code. Now, you will import hospital utilization data, join it to your new Zip Code layer (with population information), and calculate a new field containing the hospital utilization rate (epidemiologists, we can call this a rate because it is utilization over a year).
+Open the attribute table of MI_zipcodes_pop. Note that there is now a field called POP_sum. This is the sum of the block population points falling in each Zip Code. Now, you will import hospital utilization data, join it to your new Zip Code layer (with population information), and calculate a new field containing the hospital utilization rate (We can call this a rate because it is utilization over a year).
 
 28. Add MI_PD.csv to the Layer panel. The field PD contains the number of patient days spent in a hospital for residents of each Zip Code (measured during a calendar year). A patient day is equal to one person staying one night in the hospital. Use a table join (see Steps 19-20) to join the patient day table to the MI_zipcodes_pop layer you created in the previous step. After the table join, open the attribute table and verify that you now have patient days and population for each Zip Code.
 
@@ -206,13 +212,13 @@ Open the attribute table of MI_zipcodes_pop. Note that there is now a field call
     -   Do not use Labels.
     -   Make sure the map has a title, legend, scale bar, north arrow, and your name!
     -   Make sure that you try to make something that looks visually pleasing (colors are good, elements are aligned, layout is balanced, etc).
-    -   When complete, export your map using Lastname_GEOG541_Assignment2_Map3.pdf.
+    -   When complete, export your map using userid_assignment2_map3.pdf.
 
 ------------------------------------------------------------------------
 
 ## Part #2
 
-### Data Source Document
+### [Data Source Document]{.underline}
 
 Choose a study area that you would like to focus on for your GEOG 510 project. Search for both spatial and non-spatial data (that can be made spatial) for your study area that you can download. These data could be potentially related to the topic you chose for Assignment 1 - but if you do not want to pursue your idea further or if you cannot find data, you may choose a different topic). You will definitely need **administrative boundaries** and **population data**. You will have to find some **health-related data**. Find and download at least 4 data layers (or tables that can become layers) that you think you might use in your project. Use the following guidance:
 
@@ -220,22 +226,28 @@ Choose a study area that you would like to focus on for your GEOG 510 project. S
 -   **At least one** of these layers should be “non-spatial” data that can be spatialized via geocoding, plot X,Y, or table join
 -   **At least one** of the layers must be health-related (which does not include administrative boundaries or population demographic or socioeconomic characteristics, but may include non health outcome data such as environmental hazards or health facilities).
 
-Create a table that has basic information about the layers you locate, including filename, data type, and the data source (e.g., link to webpage or downloadable data). Insert this table into your assignment document.
+[**Q3: Create a table that has basic information about the layers you locate, including filename, data type, and the data source (e.g., link to webpage or downloadable data). Insert this table into your assignment document.**]{style="color: #800000;"}
 
 ------------------------------------------------------------------------
 
-### Make Your Own Map and Describe Process
+### [Make Your Own Map and Describe Process]{.underline}
 
-Create a map from non-spatial data that you find. This will require either Geocode and/or Import X,Y data for addresses/points or performing a table join. Provide a short explanation of why you chose this data, as well as a short but detailed written description of how you went from “downloaded data” to “map”. Describe any interesting spatial patterns or distributions that you see. Remember to follow good design principles in creating your map and include all map elements. When complete, export your map using userid_assignment2_map4.pdf. Additionally, export your map using userud_assignment2_map4.png.
+Create a map from non-spatial data that you find. This will require either Geocode and/or Import X,Y data for addresses/points or performing a table join. Provide a short explanation of why you chose this data, as well as a short but detailed written description of how you went from “downloaded data” to “map”. Describe any interesting spatial patterns or distributions that you see. Remember to follow good design principles in creating your map and include all map elements. When complete, export your map using **userid_assignment2_map4.pdf**. Additionally, export your map using **userid_assignment2_map4.png**.
 
 In the appropriate area on the Piazza discussion board, insert your .png map directly into a post and copy/paste your explanation.
 
+[**Q4: (0-10 points extra credit depending on your answer) In 1-3 sentences each, provide a reflection on the assignment using the following prompts**]{style="color: #800000;"}
+
+-   [**What did you like about this assignment?** ]{style="color: #800000;"}
+-   [**What aspect of QGIS do you feel more comfortable with as compared to before?**- **What did you most struggle with while working on the assignment** ?]{style="color: #800000;"}
+-   [**Do you have any questions/concerns about your final project? I will go through them and help you wherever I can**]{style="color: #800000;"}
+
 ------------------------------------------------------------------------
 
-### Deliverables
+### [Deliverables]{.underline}
 
-Upload your answer document (userid_assignment2.docx) to your OneDrive folder
-Upload your 4 maps (pdf files) to your OneDrive folder
-Post to Piazza Discussion Board post
+-   **Upload your answer document (userid_assignment2.docx) to your OneDrive folder**
+-   **Upload your 4 maps (pdf files) to your OneDrive folder**
+-   **Post to Piazza Discussion Board post**
 
 ------------------------------------------------------------------------

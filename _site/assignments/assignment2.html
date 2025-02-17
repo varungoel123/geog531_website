@@ -153,14 +153,14 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#part-1" id="toc-part-1" class="nav-link active" data-scroll-target="#part-1">Part #1</a>
   <ul class="collapse">
-  <li><a href="#geocoding" id="toc-geocoding" class="nav-link" data-scroll-target="#geocoding">Geocoding</a></li>
-  <li><a href="#data-pre-processing" id="toc-data-pre-processing" class="nav-link" data-scroll-target="#data-pre-processing">Data Pre-processing</a></li>
+  <li><a href="#geocoding" id="toc-geocoding" class="nav-link" data-scroll-target="#geocoding"><u>Geocoding</u></a></li>
+  <li><a href="#data-pre-processing" id="toc-data-pre-processing" class="nav-link" data-scroll-target="#data-pre-processing"><u>Data Pre-processing</u></a></li>
   </ul></li>
   <li><a href="#part-2" id="toc-part-2" class="nav-link" data-scroll-target="#part-2">Part #2</a>
   <ul class="collapse">
-  <li><a href="#data-source-document" id="toc-data-source-document" class="nav-link" data-scroll-target="#data-source-document">Data Source Document</a></li>
-  <li><a href="#make-your-own-map-and-describe-process" id="toc-make-your-own-map-and-describe-process" class="nav-link" data-scroll-target="#make-your-own-map-and-describe-process">Make Your Own Map and Describe Process</a></li>
-  <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables">Deliverables</a></li>
+  <li><a href="#data-source-document" id="toc-data-source-document" class="nav-link" data-scroll-target="#data-source-document"><u>Data Source Document</u></a></li>
+  <li><a href="#make-your-own-map-and-describe-process" id="toc-make-your-own-map-and-describe-process" class="nav-link" data-scroll-target="#make-your-own-map-and-describe-process"><u>Make Your Own Map and Describe Process</u></a></li>
+  <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables"><u>Deliverables</u></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -219,14 +219,15 @@ div.highlightblock {
 <hr>
 <p>This assignment is split into two main portions. For the first (and larger) part of the assignment, you will be working through a number of tasks related to importing, pre-processing, and summarizing data. In this part, you will also be creating two maps in an effort for you to begin developing this skill. For the second part, you will be searching for data (related to your topic of interest) and begin the process of making sure that it is ready for use in a GIS.</p>
 <p>On your computer, create a folder for Assignment #2 and a folder (inside of that one) to store data. <a href="https://drive.google.com/file/d/1DN3Snj0QVuJzP1WBqRfZrKz7jlY29bcn/view?usp=share_link">Download GEOG541_assignment2_data.zip from here</a> into the data folder and then unzip the contents.</p>
-<p>Create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 510, and Assignment #2 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.</p>
+<p>Create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 510, and Assignment #2 at the top of the document. Answer/complete each of the questions/tasks below.</p>
+<p><span style="color: #800000;"><strong>Note: There are 4 answerable questions for the word document. While you do not need to copy/paste anything related to rest of the tasks in the document, you can copy/paste graphics or comments in the document to support your work</strong></span></p>
 <p>Please save the file using the following naming format, <strong>userid_assignment2.docx</strong>. For example, my file would be <strong>vgoel_assignment2.docx</strong>. Please follow the file naming format for your document, as this really helps me to stay organized and grade more efficiently. If you do not follow this correctly, I will deduct <strong>10 points</strong> from your assignment for not reading the instructions properly. Upload your assignment document to your <em>relevant checkpoint assignments folder in OneDrive</em>.</p>
-<p>When the assignment requires you to create a map, export your completed map as a .pdf document using the following naming format, <strong>userid_assignment2_map#.pdf. For example, the second map I create for this assignment would be </strong>vgoel_assignment2_map2.pdf**, and so on. Please follow the file naming format for your maps as well. Upload the maps you create in this lab as separate .pdf documents.</p>
+<p>When the assignment requires you to create a map, export your completed map as a .pdf document using the following naming format, <strong>userid_assignment2_map#.pdf. For example, the second map I create for this assignment would be</strong> vgoel_assignment2_map2.pdf**, and so on. Please follow the file naming format for your maps as well. Upload the maps you create in this lab as separate .pdf documents.</p>
 <hr>
 <section id="part-1" class="level2">
 <h2 class="anchored" data-anchor-id="part-1">Part #1</h2>
 <section id="geocoding" class="level3">
-<h3 class="anchored" data-anchor-id="geocoding">Geocoding</h3>
+<h3 class="anchored" data-anchor-id="geocoding"><u>Geocoding</u></h3>
 <p>In the next section, you will be geocoding the location of Michigan acute care hospitals using two different geocoders. Then, you will perform both a table and spatial join to add attribute values to the hospital location data.</p>
 <hr>
 <section id="geocoding-using-an-online-geocoding-service" class="level4">
@@ -241,8 +242,11 @@ div.highlightblock {
 <h4 class="anchored" data-anchor-id="import-xy-data-into-qgis">Import X,Y data into QGIS</h4>
 <p>Now, you will convert the tabular data (containing the geocoded locations from the Census Bureau) into a spatial data file in QGIS. Remember, tables are not spatial data files… even if they contain spatial information. Some processing is required to define the numbers found in the tables as coordinate locations on Earth’s surface.</p>
 <ol start="2" type="1">
-<li><p>The output file from the US Census requires some light data wrangling before it can be read/used in QGIS. Open MIhospitals_census_geocoded.csv using Excel or some other spreadsheet-like software (but the instructions are based on Excel). <strong>Insert two new (blank) columns to the right of the field</strong> containing the coordinate locations (the coordinate locations should be in the <em>F</em> column if viewing the file in Excel).</p></li>
-<li><p>In the first row, in the first blank cell (cell G1), type <code>=TEXTSPLIT(F1, ",")</code>, then hit the return key. If done correctly, G1 should contain the value before the comma in F1 and H1 should contain the value after the comma in F1. Copy/paste to the rest of the rows. Delete the formula from <strong>all rows</strong> without a value in F, e.g., F4, F79, etc.</p></li>
+<li>The output file from the US Census requires some light data wrangling before it can be read/used in QGIS. Open MIhospitals_census_geocoded.csv using Excel or some other spreadsheet-like software (but the instructions are based on Excel).</li>
+</ol>
+<p><span style="color: #800000;"><strong>Q1. How many records were not geocoded at all? Write down your answer in your word file</strong></span></p>
+<ol start="3" type="1">
+<li><p><strong>Insert two new (blank) columns to the right of the field</strong> containing the coordinate locations (the coordinate locations should be in the <em>F</em> column if viewing the file in Excel). In the first row, in the first blank cell (cell G1), type <code>=TEXTSPLIT(F1, ",")</code>, then hit the return key. If done correctly, G1 should contain the value before the comma in F1 and H1 should contain the value after the comma in F1. Copy/paste to the rest of the rows. Delete the formula from <strong>all rows</strong> without a value in F, e.g., F4, F79, etc.</p></li>
 <li><p>Add a blank row above the first row and insert the following values in the new row (this will function as the header row or column names when importing):</p></li>
 </ol>
 <p>FAC_ID,ADDRESS,GC_RESULT,GC_TYPE,GC_ADDRESS,GC_LOCATION,LONGITUDE,LATITUDE,TIGER_ID,TIGER_SIDE</p>
@@ -268,6 +272,9 @@ div.highlightblock {
 <li><p>Use the instructions provided in the QGIS Plugins and Geocoding In Class Demonstration (#4) to install and activate the MMQGIS plugin.</p></li>
 <li><p>Add MIhospitals_with_header.csv to the Layers panel in QGIS.</p></li>
 <li><p>In the top menu, navigate to MMQGIS | Geocode | Geocode CSV with Web Service. Choose MIhospitals_with_header.csv as the input. QGIS attemps to find the correct fields for Address, City, and State (verify this worked). For Web Service, choose OpenStreetMap / Nominatim. For Output File Name, click the little button with three dots and Save As MIhospitals_osm_geocoded.gpkg. For Not Found Output List, Save As MIhospitals_osm_geocoded_notfound.csv. Click Apply. The process will likely take a few minutes to complete (just hold tight until you see the results appear in the Layers panel).</p></li>
+</ol>
+<p><span style="color: #800000;"><strong>Q2: How many records were NOT Geocoded using MMQGIS? Write your answer in the word file.</strong></span></p>
+<ol start="11" type="1">
 <li><p>Add MI_counties to the Layers panel (it’s okay if you get a warning about the CRS!… it is just a warning). Arrange the layers so that the county polygons are not covering the points.</p></li>
 <li><p>Change the CRS of the map canvas to Michigan GeoRef (NAD83 / Michigan Oblique Mercator, EPSG:3078).</p></li>
 <li><p>Now would be a good time to save your project file, which saves your progress thus far. Go to Project | Save As and save your project as assignment2_geocode.qgs.</p></li>
@@ -287,7 +294,7 @@ div.highlightblock {
 </section>
 </section>
 <section id="data-pre-processing" class="level3">
-<h3 class="anchored" data-anchor-id="data-pre-processing">Data Pre-processing</h3>
+<h3 class="anchored" data-anchor-id="data-pre-processing"><u>Data Pre-processing</u></h3>
 <p>We often have to do a number of steps to make our data manageable and mappable. In the next section, you will remove extraneous information from the attribute table of the new spatial features you just created. Then, you will join information from a table to that file and create a map.</p>
 <ol start="16" type="1">
 <li>Open QGIS and create a new project. Add MIhospitals_census_geocoded to the Layers panel. Change the CRS of the map canvas to Michigan GeoRef (NAD83 / Michigan Oblique Mercator, EPSG:3078).</li>
@@ -347,7 +354,7 @@ div.highlightblock {
 <li><p>We need a tool that is available in the Processing Toolbox to join and summarize information simultaneously. To open the Processing Toolbox, in the top menu navigate to View | Panels | Processing Toolbox. In the Processing Toolbox, under Vector General, double click on Join Attributes by Location <strong>(summary)</strong>.</p></li>
 <li><p>The Base Layer is the layer that will be “receiving” the information. The Join Layer is the layer providing the information. In this case, the Base Layer should be MI_zipcodes and the Join Layer should be MI_block_pop. Click the little wrench next to the Join Layer and change the option for Invalid feature filtering to Do Not Filter (there are a few Zip Code polygons that may cause this process to fail if not ignored). For Geometric predicate, intersects should be selected (this will assign information for points falling inside each polygon). For Fields to summarise, choose <code>POP</code>. For Summaries to Calculate, choose <code>sum</code>. Save as a new file, MI_zipcodes_pop.gpkg.</p></li>
 </ol>
-<p>Open the attribute table of MI_zipcodes_pop. Note that there is now a field called POP_sum. This is the sum of the block population points falling in each Zip Code. Now, you will import hospital utilization data, join it to your new Zip Code layer (with population information), and calculate a new field containing the hospital utilization rate (epidemiologists, we can call this a rate because it is utilization over a year).</p>
+<p>Open the attribute table of MI_zipcodes_pop. Note that there is now a field called POP_sum. This is the sum of the block population points falling in each Zip Code. Now, you will import hospital utilization data, join it to your new Zip Code layer (with population information), and calculate a new field containing the hospital utilization rate (We can call this a rate because it is utilization over a year).</p>
 <ol start="28" type="1">
 <li><p>Add MI_PD.csv to the Layer panel. The field PD contains the number of patient days spent in a hospital for residents of each Zip Code (measured during a calendar year). A patient day is equal to one person staying one night in the hospital. Use a table join (see Steps 19-20) to join the patient day table to the MI_zipcodes_pop layer you created in the previous step. After the table join, open the attribute table and verify that you now have patient days and population for each Zip Code.</p></li>
 <li><p>Use the Field Calculator to make the utilization rate calculation by dividing the number of patient days by the population for each Zip Code (see Step 22). In the Field Calculator window, make sure Create a new field is selected. In Output field name, put PD_rate. In the Output field type, choose Decimal number. In the Expression area, type or copy/paste: <code>"MI_PD_PD" / "POP_sum"</code>. Click OK.</p></li>
@@ -357,7 +364,7 @@ div.highlightblock {
 <li>Do not use Labels.</li>
 <li>Make sure the map has a title, legend, scale bar, north arrow, and your name!</li>
 <li>Make sure that you try to make something that looks visually pleasing (colors are good, elements are aligned, layout is balanced, etc).</li>
-<li>When complete, export your map using Lastname_GEOG541_Assignment2_Map3.pdf.</li>
+<li>When complete, export your map using userid_assignment2_map3.pdf.</li>
 </ul></li>
 </ol>
 <hr>
@@ -367,25 +374,35 @@ div.highlightblock {
 <section id="part-2" class="level2">
 <h2 class="anchored" data-anchor-id="part-2">Part #2</h2>
 <section id="data-source-document" class="level3">
-<h3 class="anchored" data-anchor-id="data-source-document">Data Source Document</h3>
+<h3 class="anchored" data-anchor-id="data-source-document"><u>Data Source Document</u></h3>
 <p>Choose a study area that you would like to focus on for your GEOG 510 project. Search for both spatial and non-spatial data (that can be made spatial) for your study area that you can download. These data could be potentially related to the topic you chose for Assignment 1 - but if you do not want to pursue your idea further or if you cannot find data, you may choose a different topic). You will definitely need <strong>administrative boundaries</strong> and <strong>population data</strong>. You will have to find some <strong>health-related data</strong>. Find and download at least 4 data layers (or tables that can become layers) that you think you might use in your project. Use the following guidance:</p>
 <ul>
 <li><strong>The data must be downloadable</strong></li>
 <li><strong>At least one</strong> of these layers should be “non-spatial” data that can be spatialized via geocoding, plot X,Y, or table join</li>
 <li><strong>At least one</strong> of the layers must be health-related (which does not include administrative boundaries or population demographic or socioeconomic characteristics, but may include non health outcome data such as environmental hazards or health facilities).</li>
 </ul>
-<p>Create a table that has basic information about the layers you locate, including filename, data type, and the data source (e.g., link to webpage or downloadable data). Insert this table into your assignment document.</p>
+<p><span style="color: #800000;"><strong>Q3: Create a table that has basic information about the layers you locate, including filename, data type, and the data source (e.g., link to webpage or downloadable data). Insert this table into your assignment document.</strong></span></p>
 <hr>
 </section>
 <section id="make-your-own-map-and-describe-process" class="level3">
-<h3 class="anchored" data-anchor-id="make-your-own-map-and-describe-process">Make Your Own Map and Describe Process</h3>
-<p>Create a map from non-spatial data that you find. This will require either Geocode and/or Import X,Y data for addresses/points or performing a table join. Provide a short explanation of why you chose this data, as well as a short but detailed written description of how you went from “downloaded data” to “map”. Describe any interesting spatial patterns or distributions that you see. Remember to follow good design principles in creating your map and include all map elements. When complete, export your map using userid_assignment2_map4.pdf. Additionally, export your map using userud_assignment2_map4.png.</p>
+<h3 class="anchored" data-anchor-id="make-your-own-map-and-describe-process"><u>Make Your Own Map and Describe Process</u></h3>
+<p>Create a map from non-spatial data that you find. This will require either Geocode and/or Import X,Y data for addresses/points or performing a table join. Provide a short explanation of why you chose this data, as well as a short but detailed written description of how you went from “downloaded data” to “map”. Describe any interesting spatial patterns or distributions that you see. Remember to follow good design principles in creating your map and include all map elements. When complete, export your map using <strong>userid_assignment2_map4.pdf</strong>. Additionally, export your map using <strong>userid_assignment2_map4.png</strong>.</p>
 <p>In the appropriate area on the Piazza discussion board, insert your .png map directly into a post and copy/paste your explanation.</p>
+<p><span style="color: #800000;"><strong>Q4: (0-10 points extra credit depending on your answer) In 1-3 sentences each, provide a reflection on the assignment using the following prompts</strong></span></p>
+<ul>
+<li><span style="color: #800000;"><strong>What did you like about this assignment?</strong></span></li>
+<li><span style="color: #800000;"><strong>What aspect of QGIS do you feel more comfortable with as compared to before?</strong>- <strong>What did you most struggle with while working on the assignment</strong> ?</span></li>
+<li><span style="color: #800000;"><strong>Do you have any questions/concerns about your final project? I will go through them and help you wherever I can</strong></span></li>
+</ul>
 <hr>
 </section>
 <section id="deliverables" class="level3">
-<h3 class="anchored" data-anchor-id="deliverables">Deliverables</h3>
-<p>Upload your answer document (userid_assignment2.docx) to your OneDrive folder Upload your 4 maps (pdf files) to your OneDrive folder Post to Piazza Discussion Board post</p>
+<h3 class="anchored" data-anchor-id="deliverables"><u>Deliverables</u></h3>
+<ul>
+<li><strong>Upload your answer document (userid_assignment2.docx) to your OneDrive folder</strong></li>
+<li><strong>Upload your 4 maps (pdf files) to your OneDrive folder</strong></li>
+<li><strong>Post to Piazza Discussion Board post</strong></li>
+</ul>
 <hr>
 
 
