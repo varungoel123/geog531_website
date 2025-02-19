@@ -30,3 +30,9 @@ date-format: medium
 -   [Demo 3: Plugins and Geocoding](./exercises/GEOG510_demo3_PluginGeocode.qmd){target="_blank"}
 
 -    [Exercise 3: Geocoding and Joins](./exercises/GEOG510_ex3_GeocodeJoins.qmd){target="_blank"}
+
+------------------------------------------------------------------------
+
+#### Week 5: Mapping Health data
+
+-   [Demo 4 and Exercise Map: Composing Maps](./exerciGEOG510_demo4ex4_MapComposer.qmd){target="_blank"}
