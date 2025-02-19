@@ -238,7 +238,7 @@ In the appropriate area on the Piazza discussion board, insert your .png map dir
 
 [**Q4: (0-10 points extra credit depending on your answer) In 1-3 sentences each, provide a reflection on the assignment using the following prompts**]{style="color: #800000;"}
 
--   [**What did you like about this assignment?** ]{style="color: #800000;"}
+-   [**What did you like about this assignment?**]{style="color: #800000;"}
 -   [**What aspect of QGIS do you feel more comfortable with as compared to before?**- **What did you most struggle with while working on the assignment** ?]{style="color: #800000;"}
 -   [**Do you have any questions/concerns about your final project? I will go through them and help you wherever I can**]{style="color: #800000;"}
 

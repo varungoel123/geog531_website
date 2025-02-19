@@ -1,0 +1,95 @@
+---
+title: 'Composing Maps in QGIS'
+author:
+- In Class Demonstration and Exercise \#4 \newline
+- GEOG 510, GIS and Spatial Analysis in Public Health \newline
+- Varun Goel
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    mathjax: null
+---
+
+```{css, echo=FALSE}
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------------------------
+
+This demonstration focuses on creating maps for display in QGIS using the map composer.
+
+If you want to follow along, you can [download the data here](https://drive.google.com/file/d/1IT8ZQChJP9GIjrtrNuVwT3wVzxfTGLz5/view?usp=sharing).
+
+**Note that throughout this document, if I use the term "right click," this means "control click" for Mac users!**
+
+------------------------------------------------------------------------
+
+### Preparation
+
+1.  Start a new project in QGIS and add all the 4 layers to the Layers panel. Change the CRS to EPSG:32119, `NAD83 / North Carolina` on the fly.
+
+2.  Make sure that your layers are arranged in the right order. All states in the background, followed by NC state boundary, followed by counties, and then tracts.
+
+3.  Now, we will create map of the census tract areas in NC. To do so, navigate to the Tract layer and create a Graduated Symbols map for `ALAND`, which corresponds to the census tract land area in square meters.
+
+4.  Create a new print layout using the map composer.
+
+5.  Show page properties and create custom page size to fit North Carolina's shape (297 \* 130 should suffice).
+
+6.  Align (center) the map frame to the page.
+
+### Border Transparency and Width
+
+7.  Notice the default map. It is not ideal for publishing yet. Hence we will make some changes to our layers to make the map more aesthetically pleasing.
+8.  Set border transparency for tracts layer (roughly 20%).
+9.  Set up symbology for counties and states layers using fill color, as well as border width and transparency.
+
+### Legend Add legend to map layout.
+
+10. Remove unnecessary items from legend. Change name of layer.
+11. Change precision of values (trim) in Layers Panel if needed.
+12. Change font size of layer name.
+13. Change spacing of items to edge of legend.
+14. Add neatline to legend.
+
+### Other Map Elements
+
+18. Add Title, North Arrow, and Scale Bar.
+
+### Export
+
+19. Export as image.
+
+20. Export as pdf.
+
+------------------------------------------------------------------------
+
+### IN CLASS EXERCISE 4
+
+In this exercise, you will use your mapping skills to improve a not so good looking map examining the geographic variation of obesity prevalence in North Carolina.
+
+1.  To get started, [download the folder here](https://drive.google.com/file/d/1oDqNz1pY0Vi0nyK99wgCfJ7sw3co0HYH/view?usp=sharing) and unzip it.
+
+2.  You will notice that along with the .gpkg files, the folder also has .qgz (QGIS project) file. Open the QGIS project file.
+
+3.  You will notice that the file already shows some work started by an analyst lacking good map making skills. Your task is to improve the map, so that it looks similar to the `NC Obesity Map.pdf` file in your folder.
+
+4.  This is a self-directed exercise, and it is ok if your recreated map is not 100% the same as the provided map. However, observe the map legend, coloring, and styling to get a sense of what symbols and choices you might need to make in QGIS. Experiment till you get close to the recreated map. Make sure to put **YOUR NAME** on the map.
+
+5.  **Deliverable: Export your map as a pdf file labeled \`userid_nc_obesity_map.pdf\` and save it in your relevant OneDrive folder**.
