@@ -35,4 +35,4 @@ date-format: medium
 
 #### Week 5: Mapping Health data
 
--   [Demo 4 and Exercise Map: Composing Maps](./exerciGEOG510_demo4ex4_MapComposer.qmd){target="_blank"}
+-   [Demo 4 and Exercise Map: Composing Maps](./exercises/GEOG510_demo4ex4_MapComposer.qmd){target="_blank"}
