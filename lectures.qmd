@@ -38,3 +38,5 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Mapping Health Data](./lectures/GEOG510_Lec10_MappingHealData.pdf)
 
+-   [Map Composition and Design](./lectures/GEOG510_Lec11_MapDesign.pdf)
+
