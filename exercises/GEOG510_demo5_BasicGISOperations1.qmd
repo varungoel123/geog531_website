@@ -1,0 +1,168 @@
+---
+title: 'Basic GIS Operations: Select, Field Calculator, Load Layer from web source'
+author:
+- In Class Demonstration \#5 \newline
+- GEOG 510, GIS and Spatial Analysis in Public Health \newline
+- Varun Goel
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    mathjax: null
+---
+
+```{css, echo=FALSE}
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------------------------
+
+This demonstration focuses on selecting features via queries in QGIS, calculating new fields, and highlighting some oft-encountered issues in a GIS-based analysis.
+
+If you want to follow along, the [data can be downloaded here](https://drive.google.com/file/d/1NFHyRD0lfjyORsBH0HlSPsuYzRtOfrpx/view?usp=sharing).
+
+**Note that throughout this document, if I use the term "right click," this means "control click" for Mac users!**
+
+------------------------------------------------------------------------
+
+### Preparation (field types of .csv files)
+
+1.  Start a new project in QGIS and add Tracts_CB_500k_2010_NC.gpkg to the Layers panel. Change the CRS to EPSG:32119, `NAD83 / North Carolina`.
+
+2.  Using the Browser panel in QGIS, drag PLACES_2023_tract_NC.csv to the Layers panel. Open the attribute table and view the data.
+
+3.  Open the Properties of PLACES_2023_tract_NC.csv by right-clicking on it in the Layers panel. In the Layer Properties window, navigate to Fields (on the left). What do you notice about the `Type`? Does this make sense given what you saw in the attribute table?
+
+4.  Close the Layer Properties window and the attribute table. Remove PLACES_2023_tract_NC.csv from the Layers Panel.
+
+5.  Open the Data Source Manager. In the pop up window, on the left, choose Delimited Text. Choose PLACES_2023_tract_NC.csv for the File name. Click the arrow next to Record and Fields Options to expand the content. Make sure that **Detect field types** is selected! In the Sample Data area (at the bottom), make sure that all fields that should be `Decimal (double)` are tagged as this type. In the Geometry Definition area, make sure the \*\*No geometry\* is selected. Click Add.
+
+6.  Open the Properties of PLACES_2023_tract_NC.csv and navigate to Fields (on the left) to confirm that the fields now have the correct data type. Close the Properties window.
+
+------------------------------------------------------------------------
+
+### Basic Attribute Query (Selection)
+
+In this section, we will perform a simple select by attributes operation by selecting features from the tracts layer based on the value in the `CENSUSAREA` field.
+
+7.  Open the attribute table of Tracts_CB_500k_2010_NC. Click the button to Select features using an expression to open the Select by Expression window.
+
+8.  Build the following query in the expression area (via typing, copy/paste, or graphically), which will select all tracts having a value greater than 100 in the CENSUSAREA field:
+
+    `"CENSUSAREA" > 100`
+
+9.  Click the Select Features button. You should notice that some features are highlighted in both the attribute table (in blue) and on the map (in yellow). Note on the map, these are all the largest tracts (which should make sense given the query).
+
+10. Test the following selection-related operations and functionality:
+
+    -   Invert selection
+    -   Zoom to selection
+    -   Display only selected features (bottow left of attribute table)
+    -   Deselect features <br><br>
+
+11. Make sure that all features are deselected.
+
+------------------------------------------------------------------------
+
+### Select by Location
+
+In this section, we will select features based on their location. The simplest (but probably not very useful/helpful) way to do this is simply via graphical interaction with the map.
+
+12. Use the Select Features by Area or Single Click tool to select one or more features. Use "shift" click, to add additional features to the selection.
+
+13. Make sure that all features are deselected.
+
+A more interesting approach to selecting features by location is to select features in one layer based on their spatial relationship with features in another layer. In the following part of the demo, we will select the tracts that have a hospital located within their boundaries. But, before we do this, we will learn how to add a layer from a website using an **Open Geospatial Consortium Web Feature Service (OGC WFS)**.
+
+::: highlightblock
+#### Add Layer via OGC WFS
+
+14. Navigate to https://www.nconemap.gov/datasets/0b5a8fe009144b9bbeb7c4cee9ab7fa9_0/explore. On the bottom left, click on the button for "I want to use this". Click the little navy blue button with two squares on it under OGC WFS. This will copy the web location to your computer's clipboard.
+
+15. In QGIS, open the Data Source Manager. In the pop up window, on the left, choose **WFS / OGC API - Features**. Click the New button, provide a name (e.g., NC One Map Hospitals) and paste the web location from the prior step into the URL box. Leave everything else on the default settings and click OK.
+
+16. Your connection should now be listed at the top. Click the Connect button and you should see 4 entries populated in the window below. Make sure that Hospitals is selected and click the Add button on the bottom right of the Data Source Manager window (if you can see the Layers panel, you should be able to see it appear!). Click Close.
+:::
+
+<br>
+
+17. Click the button for Select by Location (or go to Vector \| Research Tools \| Select by Location). In this case we will be selecting features from `Tracts_CB_500k_2010_NC` where the features `intersect` comparing to the hospitals layer. Click OK. How many tracts were selected?
+
+::: highlightblock
+#### Export Selected Features
+
+It is important to remember that selecting features does not alter the original data layer in any way. If you want to save the selected features, you must export them to a new layer.
+
+18. Right click on the Tracts_CB_500k_2010_NC layer in the Layers Panel and choose Export \| Save Selected Features As. Write the output to a .gpkg file on your computer. Deselect all features after exporting.
+:::
+
+<br>
+
+## Selection Example
+
+In the next section, we will be working through the steps required to select all tracts with a large number of people that have not received the Colon Cancer screen who live near a hospital (e.g., to identify a potential intervention population). There are a number of steps that are required to complete this compound selection analysis.
+
+I want to use table join to join the attribute data from the PLACES table to the spatial features in the tracts data. However, there is no key field to do this join, so we must create one!
+
+### Field Calculator
+
+19. Open the Field Calculator (either in the main view of QGIS or from the attribute table of Tracts_CB_500k_2010_NC). To create a GEOID field that matches the PLACES data, we will concatenate data from three fields to create a matching entry. Make sure that Create a new field is checked. Give the new output field the name `GEOID` and make it a Text field type.
+
+20. In the Expression area, type, copy/paste, or graphically build the following expression, then click OK:
+
+    `concat(  "STATE" ,  "COUNTY" ,  "TRACT" )` <br><br>
+
+::: highlightblock
+##### Preview
+
+If you are unsure whether your expression will produce the desired output, look near the bottom left of the Field Calculator window to see a preview of the output from the expression!
+:::
+
+<br>
+
+### Data Wrangling
+
+21. Use table join to join the attributes from the PLACES data table to the Tracts_CB_500k_2010_NC layer.
+
+22. Use the field calculator to create a new field with the number of people who are not up date on colon cancer screening (`COLON_SCREEN` is percent of people up to date). Make sure that the new field is Decimal type. The calculation is as follows:
+
+    `((100 - "PLACES_2023_tract_NC_COLON_SCREEN") / 100) *  "PLACES_2023_tract_NC_TotalPopulation"` <br><br> 
+    
+#### Select Within a Distance
+
+Next, we will select tracts within 2 miles of each hospital location.
+
+23. If the Processing Toolbox is not open, go to View \| Panels \| Processing Toolbox. In the Processing Toolbox, expand the arrow for Vector selection, and then select Select within distance. Choose Tracts_CB_500k_2010_NC for Select features from and the Hospitals layer for the By comparing to the features from. Uh oh... notice that **Where the features are within** (this is the distance) is defined in *degrees*. This is because the tracts data layer uses decimal degrees in its CRS. Click Close.
+
+### More Data Wrangling
+
+24. Export the Tracts_CB_500k_2010_NC layer as a new layer, **but make sure to choose Project CRS: ESPG:32119... as the CRS!** Save at Tracts_CB_500k_2010_NC_CRS32119.gpkg.
+
+#### Select Within a Distance (Redux)
+
+25. In the Processing Toolbox, expand the arrow for Vector selection, and then select Select within distance. Choose Tracts_CB_500k_2010_NC_CRS32119 for Select features from and the Hospitals layer for the By comparing to the features from. In the **Where the features are within** area choose 2 miles. Click Run.
+
+### Select From Selection
+
+26. Use the Select by Expression (attribute selection) tool to select only tracts that have **more than 1000 people** not up date on colon cancer screening. Since you only want to select tracts from those selected in the prior step, click the little arrow next to the Select Features button and choose `Filter Current Selection`. How many tracts meet the criteria of more than 1000 not up date on colon cancer screening and within 2 miles of a hospital?
+
+### Field Summary
+
+27. Use the Show Statistical Summary tool to determine the total population estimate in meeting the above criteria.
+
+------------------------------------------------------------------------
