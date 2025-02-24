@@ -1,8 +1,9 @@
 ---
 title: 'Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize'
 author:
-- In Class Group Exercise \#5 \newline
-- 20 points
+- In Class Group Exercise \#5 (mini assignment)\newline
+- 50 points
+- Due March 7th, 11:59 PM
 - GEOG 510, GIS and Spatial Analyis in Public Health \newline
 - Varun Goel
 
@@ -57,8 +58,6 @@ Create a word document named \`youruserid_ex5.docx' to answer the exercise quest
 4.  The relevant demographic information is provided in the file `sc_bg_demographics.csv` . **`GeoID`** is a unique census BG identifier, **`total_pop`** = population of each census BG, and **`poc_perc`** = % of disadvantage people in each BG.
 
 5.  As you input the file into QGIS, please **be careful and consider appropriate field types**. Think about which ones need to be a string, integer or decimal. Choosing the correct field types will save you a lot of headache later.
-
-Q1.What field types did you select for your 3 columns of tabular data and why? (1-2 sentences)
 
 ::: highlightblock
 [**Field Types**]{.underline}
