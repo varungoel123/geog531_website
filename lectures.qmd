@@ -22,7 +22,7 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Projections and Coordinate System fundamentals](./lectures/GEOG510_Lec5_ProjCoordSys.pdf)
 
-#### Week 4: Spatial Health Data, 
+#### Week 4: Spatial Health Data
 
 -   [Spatial Health Data](./lectures/GEOG510_Lec7_SpDataPubHealth.pdf)
 
@@ -39,4 +39,8 @@ Note: password for files is provided on class piazza discussion board
 -   [Mapping Health Data](./lectures/GEOG510_Lec10_MappingHealData.pdf)
 
 -   [Map Composition and Design](./lectures/GEOG510_Lec11_MapDesign.pdf)
+
+#### Week 7: Queries, Field Calculations, Patterns and Processes
+
+-   [Queries and Field Calculations](./lectures/GEOG510_Lec12_QueryFieldCalc.pdf)
 
