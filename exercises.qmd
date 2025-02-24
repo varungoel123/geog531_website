@@ -12,7 +12,7 @@ date-format: medium
 
 ------------------------------------------------------------------------
 
-#### Week 3: Spatial Data fundamentals, Coordinate systems
+#### Week 3/4: Spatial Data fundamentals, Coordinate systems
 
 -   [Demo 1: Data Storage and Management](./exercises/demo1_storageAndManagement.html){target="_blank"}
 
@@ -25,7 +25,7 @@ date-format: medium
 
 ------------------------------------------------------------------------
 
-#### Week 4: Geocoding
+#### Week 5: Geocoding
 
 -   [Demo 3: Plugins and Geocoding](./exercises/GEOG510_demo3_PluginGeocode.qmd){target="_blank"}
 
@@ -33,7 +33,7 @@ date-format: medium
 
 ------------------------------------------------------------------------
 
-#### Week 5: Mapping Health data
+#### Week 6: Mapping Health data
 
 -   [Demo 4 and Exercise Map: Composing Maps](./exercises/GEOG510_demo4ex4_MapComposer.qmd){target="_blank"}
 
