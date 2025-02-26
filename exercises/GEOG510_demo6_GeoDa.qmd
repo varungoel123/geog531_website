@@ -1,0 +1,94 @@
+---
+title: 'Introduction to GeoDa'
+author:
+- In Class Demonstration \#6 \newline
+- GEOG 510, GIS and Public Health \newline
+- Varun Goel
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    mathjax: null
+---
+
+```{css, echo=FALSE}
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 5px 10px 4px 10px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+******
+
+This exercise walks you through some of the basic functionality provided by **GeoDa**.  If you have not installed GeoDa on your computer, do so now (for instructions, see the Software Document on the website).
+
+If you want to follow along, the [data are located here](https://drive.google.com/file/d/1M0mpRX9aRhWXInY4hnL-q_b8M6vFqa8g/view?usp=sharing)
+
+**Note that throughout this document, if I use the term "right click," this means "control click" for Mac users!**  
+
+******
+
+### Load/View Data
+
+@. Open GeoDa. Go to File | New (or click the button that looks like a folder) and load  NC_ZIP_Lyme_2016_2018.gpkg. These data are incident cases of Lyme Disease by Zip Code over the years 2016-2018 in North Carolina.
+
+@. The button to see the attribute table looks like a table and should be the fourth one from the right on the GeoDa toolbar. Open the attribute table for NC_ZIP_Lyme_2016_2018.gpkg. Note that each observation has a Zip Code, name, population count (`pop20`), and count of Lyme Disease cases over this period (`cases`).
+
+### Map Rates
+
+@. GeoDa offers the ability to map rates based on two fields in the data table. Navigate to Map | Rates-Calculated Map | Raw Rate (or right click in the map area and choose Rates | Raw Rates). Choose cases for the Event Variable and pop for the Base Variable, and then change the Map Themes to Natural Breaks and the number of Categories to 5. Click OK.
+
+@. The data you are viewing is for display only. To write the Raw Rates to the attribute table of NC_ZIP_Lyme_2016_2018.gpkg, right click in the map and choose Save Rates (you can leave the default name).
+
+<div class = "highlightblock">
+
+##### Temporary Data 
+
+Much like QGIS, many of the operations we do in GeoDa are held in your computer's temporary memory until you explicitly save them to the hard drive. For example, the field that you just added has not been permanently added to the NC_ZIP_Lyme_2016_2018.gpkg file! To finalize/save any changes you make to a spatial data layer (and attribute table) in GeoDa, in the top menu, choose File | Save. Do this now.
+
+</div>
+<br>
+
+@. Navigate to Map | Rates-Calculated Map | Excess Risk. hoose cases for the Event Variable and pop for the Base Variable, and then Click OK.  
+
+@. Change the map to Rates | Empirical Bayes, and then write the rates to the table.
+
+##### Field Calculator
+
+@. Next, calculate the difference between the Raw Rates and the Empirical Bayes Rates (to highlight wher they differ). To calculate a new field in GeoDa, in the top menu choose Table | Calculator. In the Calculator popup, change the tab to Bivariate. Click the button for Add variable and name the variable EB_diff and change Insert before to after the last variable. For the first variable, choose the EB Rate variable. For the Operator, choose SUBTRACT. For the second variable, choose the Raw Rate variable. Click Apply.
+
+##### Sort Table
+
+@. Open the attribute table. To sort the table by a specific column, double click on that column. Sort the NC_ZIP_Lyme_2016_2018.gpkg table by pop20 in decending order (biggest population to smallest). Look at the difference column. Scroll down and notice that the more people per Zip Code, the (generally) smaller the adjustment from the Raw Rate in the EB Rate calculation.
+
+@. Try to change the map type to Rates | Spatial Empirical Bayes. You should get a warning about not having a required weights file. This is because this method requires defining neighbors for each observation and you have not done this yet!
+
+### Neighborhoods / Weights
+
+@. To implement any spatial analysis in GeoDa, you must first identify a spatial neighborhood definition (to identify “what is near”). In GeoDa this is handled through the Weights Manager.  Navigate to Tools | Weights Manager or click the “W” button in the GeoDa toolbar.  This is where you can create a set of spatial weights or load weights you previously created for this data.
+
+@. Use zip_code as the ID Variable. Choose 1st order, Queen contiguity weights (should be the default). Click Create and save the weights to the same location as NC_ZIP_Lyme_2016_2018.gpkg. I suggest adding something about the neighborhood definition to the file name, e.g., NC_ZIP_Lyme_2016_2018_Queen_1.gal. NOTE: you will get a warning about a neighborliness observation, that is okay!
+
+@. Once you create the spatial neighborhood (weights), there are some options for exploring the nature of the connections via the weights manager. Note the histogram shows the distribution of the number of neighbors identified for each observation. The Connectivity Map and Graph are interactive maps that are quite interesting.
+
+@. Create another set of weights using an Absolute Distance Threshold and compare them to the Queen contiguity weights.
+
+@. Create another set of weights using *k* nearest neighbors and compare.
+
+@. Create another set of weights using 2nd order Queen contiguity (but don't include first order neighbors). Make sure to look at the Connectivity Map of this definition!
+
+@. Now, go back to your map window and create a map of the Spatial Empirical Bayes smoothed rates using either the 1st order Queen weights, the *k* nearest, or the Distance Threshold weights.
+
+---
