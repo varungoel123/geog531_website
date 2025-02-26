@@ -44,3 +44,5 @@ date-format: medium
 - [Demo 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize](./exercises/GEOG510_demo5_BasicGISOperations1.qmd){target="_blank"}
 
 -   [Exercise 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize](./exercises/GEOG510_ex5_basicVectorOperations.qmd){target="_blank"}
+
+- [Demo 6: Introduction to GEODA](./exercises/GEOG510_demo6_GeoDa.qmd){target="_blank"}
