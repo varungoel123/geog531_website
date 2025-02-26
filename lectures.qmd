@@ -44,3 +44,4 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Queries and Field Calculations](./lectures/GEOG510_Lec12_QueryFieldCalc.pdf)
 
+-   [Introduction to Spatial Variation and Clustering](./lectures/GEOG510_Lec14_SpVarClustering.pdf)
