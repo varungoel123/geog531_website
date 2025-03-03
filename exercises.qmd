@@ -46,3 +46,10 @@ date-format: medium
 -   [Exercise 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize](./exercises/GEOG510_ex5_basicVectorOperations.qmd){target="_blank"}
 
 - [Demo 6: Introduction to GEODA](./exercises/GEOG510_demo6_GeoDa.qmd){target="_blank"}
+
+
+------------------------------------------------------------------------
+
+#### Week 7:  Neighbors, point pattern analysis, and spatial clustering
+
+-   [Exercise 5: Introduction to Kernel Density Estimation](./exercises/GEOG510_ex6_kde.qmd){target="_blank"}

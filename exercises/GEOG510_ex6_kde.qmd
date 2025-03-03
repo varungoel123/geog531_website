@@ -1,0 +1,77 @@
+---
+title: 'Kernel Density Estimation (KDE) using QGIS'
+author:
+- In Class  Exercise \#6 \newline
+- 10 points
+- GEOG 510, GIS and Spatial Analyis in Public Health \newline
+- Varun Goel
+
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    mathjax: null
+---
+
+```{css, echo=FALSE}
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------------------------
+
+In this exercise, you will learn how to use kernel density estimation to explore spatial distribution and clustering of point patterns (such as locations of cases on cholera) in QGIS.
+
+**Note that throughout this document, if I use the term "right click," this means "control click" for Mac users!**
+
+------------------------------------------------------------------------
+
+### Download Data and Open QGIS
+
+1.  [Download the data (and QGIS project file) here](https://drive.google.com/file/d/1kis_C66VMmozQXsard7JR4vXvzohIbgU/view?usp=sharing) and unzip into your relevant geog 510 exercise folder. Open the provided QGIS project file.
+
+2.  Zoom to one of the layers, and take a look at the map. Does this look familiar? (Hint: Game of thrones and the true king of the Seven Kingdoms)
+
+### Kernal Density Estimation
+
+3.  Each point in the `death_nd_by_house` is the location of households that were visited during the Cholera outbreak. Of interest is the `deaths` field in the attribute table that indicates the number of deaths (or no deaths) in each household during the Cholera outbreak. We will run Kernel Density Estimation on this dataset.
+
+4.  Similar to ArcGIS toolbox, QGIS has a powerful set of toolboxes available at your disposal. Navigate to `Processing` option in the top menu and and click on `Toolbox`. You can also click on the toolbox using the "blue wheel" icon (![](images/clipboard-2297226931.png){width="17" height="19"}). Now navigate to `Interpolation` -\> `Heatmap (Kernel Density Estimation).`
+
+5.  In the heatmap window, choose the file containing location of deaths as your point layer. Choose the radius as `100 meters`. Leave everything else as it is and press `Run`. It may take a minute or two for the analysis to run. Once it is finished, close the window.
+
+6.  You will notice a new grayscale raster file. This is the output of the Kernel Density Estimation. To make sense of it, right click the raster file, go to `Properties -> Symbology`. Change the `Render Type` to `Singleband pseudocolor`. Choose the `YlOrRd` color ramp. Click classify and press OK.
+
+7.  What do you notice? Does this support what you know about the 1854 London Cholera Outbreak?
+
+8.  Let us re-run the KDE again. Open the `Heatmap` tool, select the correct Point Layer, and expand the `Advanced Parameters` option. In the `Weight from field` option, select the `deaths` field. This time save the layer in your folder as `heatmap_weighted_100m.tif`. Run the analysis and close the window once done.
+
+9.  Repeat Step 6 on this newly created heatmap layer.
+
+10. What do you notice? Did the clustering of Cholera change? Is this pattern more in line about what we know about the 1854 Cholera outbreak? What do you think might explain the difference between the 2 heatmaps?
+
+11. Now you will experiment with both the `radius` and `cell size` parameters of KDE, and see how those parameters influence the patterns that you observe. Create 4 KDE surfaces of weighted cholera deaths.
+
+    -   For the first KDE surface, keep the radius to a distance between 10-30 meters, and Pixel size of 1 or less for both X and Y. It should be the same for both X and Y. So for example if you chose 1 as your pixel size, this denotes that each pixel will be 1\*1 sq meters. Save this KDE as `heatmap_r[your radius]_px[your pixel size].tif.`
+
+    -   For the 2nd KDE surface, keep the radius to the same distance as before, but change Pixel size to a number between 10-50 meters. Save this KDE using the above file format.
+
+    -   For the third KDE surface, keep the radius to a distance between 250-400 meters, and Pixel size of 1 or less for both X and Y. Save this KDE using the appropriate file format.
+
+    -   For the 4th KDE surface, keep the radius to the same distance as before, but change Pixel size to a number between 10-50 meters. Save this KDE using the above file format.
+
+12. Adjust the color scheme as you did for earlier heatmaps. Paste all of these 4 heatmaps along with a description (maximum 100 words) of how changing the radius or cell size influences the interpretation of the spatial distribution of cholera. For this exercise you can simply take screen shots of your heatmap (you dont need the legend). Save the word file as \`yourusername_ex6.docx' into your relevant OneDrive folder.
