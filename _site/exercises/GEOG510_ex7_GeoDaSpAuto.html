@@ -227,7 +227,7 @@ div.highlightblock {
 <section id="map-and-calculate-incidence-rate" class="level3">
 <h3 class="anchored" data-anchor-id="map-and-calculate-incidence-rate">Map and Calculate Incidence Rate</h3>
 <ol start="4" type="1">
-<li><p>Navigate to Map | Rates-Calculated Map | Empirical Bayes (or right click in the map area and choose Rates | Empirical Bayes). Choose cases for the Event Variable and pop for the Base Variable, and then change the Map Themes to Natural Breaks and the number of Categories to 5. Click OK.</p></li>
+<li><p>Navigate to Map | Rates-Calculated Map | Empirical Bayes (or right click in the map area and choose Rates | Empirical Bayes). Choose cases for the Event Variable and pop for the Base Variable, and then change the Map Themes to Natural Breaks and the number of Categories to 5. Click OK. <u><strong>Take a screenshot of this map and paste it in your word file. It will come handy when answering questions later.</strong></u></p></li>
 <li><p>Write the Empirical Bayes Rates to the attribute table of NC_ZIP_Lyme_2016_2018.gpkg, right click in the map and choose Save Rates (you can leave the default name).</p></li>
 </ol>
 <hr>
@@ -249,7 +249,7 @@ div.highlightblock {
 <li><p>Calculate Moran’s I. To do this, in the top menu, click on <strong>Space | Univariate Moran’s I</strong>. <strong>Choose R_EBS</strong> (Empirical Bayes smoothed rates) as the First variable, as we are testing the spatial pattern of the rates of Lyme Disease. Make sure NC_ZIP_Lyme_2016_2018_Queen_1 is selected for the weights. Click OK. <em>NOTE: Because some of the tracts do not have any contiguous neighbors, you should get a warning stating this. This is okay.</em></p></li>
 <li><p>You should get a popup window containing a Moran’s I scatterplot with the Moran’s I value at the top. To run a hypothesis test (and get a p-value) comparing the results to a null hypothesis of complete spatial randomness (CSR), right click anywhere inside the Moran’s I window and choose <strong>Randomization | 999 Permutations</strong>. You should get another popup window that contains the pseudo p-value based on the value of your data compared to the random permutations.</p></li>
 </ol>
-<p><span style="color: red;"><strong>Q.2 What is the Moran’s I value and pseudo p-value? What is your interpretation of this output?</strong></span></p>
+<p><span style="color: red;"><strong>Q.2 What is the Moran’s I value and pseudo p-value? What is your interpretation of this output? (less than 100 words)</strong></span></p>
 <hr>
 </section>
 <section id="local-spatial-autocorrelation" class="level3">
@@ -259,7 +259,7 @@ div.highlightblock {
 <li><p>In the top menu, click on <strong>Space | Univariate Local Moran’s I</strong>. Choose <strong>R_EBS (Empirical Bayes smoothed rates)</strong> as the First variable, as we are testing the spatial pattern of the rates of Lyme Disease. Make sure NC_ZIP_Lyme_2016_2018_Queen_1 is selected for the weights. Click OK. You will get a popup window asking “What windows to open?”. Make sure that all options are selected and click OK.</p></li>
 <li><p>Right click in one of the pop up maps. Change the <u><strong>Significance Filter from 0.05 to 0.01</strong></u>. Note that the number of Zip Codes highlighted in both maps change!</p></li>
 </ol>
-<p><span style="color: red;"><strong>Q.3) Paste this map (screenshot is ok) into your word file. How many Zip Codes were identified as being in a High High cluster? How many in a Low Low cluster? Provide a short explanation of why one would expect the pattern of High High observations and Low High outliers given the original choropleth map?</strong></span></p>
+<p><span style="color: red;"><strong>Q.3) Paste this map (screenshot is ok) into your word file. How many Zip Codes were identified as being in a High High cluster? How many in a Low Low cluster? Provide a short explanation (less than 100 words) of why one would expect the pattern of High High observations and Low High outliers given the original choropleth map?</strong></span></p>
 <hr>
 <ol start="12" type="1">
 <li>Now, create a new set of weights using a choice of distance weights (distance threshold or K-nearest neighbors. For distance threshold, make sure to choose a distance above the minimum threshold, and for K-nearest neighbors, choose a number between 4-10.</li>

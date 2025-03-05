@@ -55,7 +55,7 @@ In this exercise, you will work with Lyme Disease incidence data in North Caroli
 
 ### Map and Calculate Incidence Rate
 
-4.  Navigate to Map \| Rates-Calculated Map \| Empirical Bayes (or right click in the map area and choose Rates \| Empirical Bayes). Choose cases for the Event Variable and pop for the Base Variable, and then change the Map Themes to Natural Breaks and the number of Categories to 5. Click OK.
+4.  Navigate to Map \| Rates-Calculated Map \| Empirical Bayes (or right click in the map area and choose Rates \| Empirical Bayes). Choose cases for the Event Variable and pop for the Base Variable, and then change the Map Themes to Natural Breaks and the number of Categories to 5. Click OK. [**Take a screenshot of this map and paste it in your word file. It will come handy when answering questions later.**]{.underline}
 
 5.  Write the Empirical Bayes Rates to the attribute table of NC_ZIP_Lyme_2016_2018.gpkg, right click in the map and choose Save Rates (you can leave the default name).
 
@@ -81,7 +81,7 @@ We use *global* spatial autocorrelation metrics to answer the question, "conside
 
 9.  You should get a popup window containing a Moran's I scatterplot with the Moran's I value at the top. To run a hypothesis test (and get a p-value) comparing the results to a null hypothesis of complete spatial randomness (CSR), right click anywhere inside the Moran's I window and choose **Randomization \| 999 Permutations**. You should get another popup window that contains the pseudo p-value based on the value of your data compared to the random permutations.
 
-[**Q.2 What is the Moran's I value and pseudo p-value? What is your interpretation of this output?** ]{style="color: red;"}
+[**Q.2 What is the Moran's I value and pseudo p-value? What is your interpretation of this output? (less than 100 words)**]{style="color: red;"}
 
 ------------------------------------------------------------------------
 
@@ -93,7 +93,7 @@ We often want to understand spatial autocorrelation at a regional level. We use 
 
 11. Right click in one of the pop up maps. Change the [**Significance Filter from 0.05 to 0.01**]{.underline}. Note that the number of Zip Codes highlighted in both maps change!
 
-[**Q.3) Paste this map (screenshot is ok) into your word file. How many Zip Codes were identified as being in a High High cluster? How many in a Low Low cluster? Provide a short explanation of why one would expect the pattern of High High observations and Low High outliers given the original choropleth map?** ]{style="color: red;"}
+[**Q.3) Paste this map (screenshot is ok) into your word file. How many Zip Codes were identified as being in a High High cluster? How many in a Low Low cluster? Provide a short explanation (less than 100 words) of why one would expect the pattern of High High observations and Low High outliers given the original choropleth map?** ]{style="color: red;"}
 
 ------------------------------------------------------------------------
 
