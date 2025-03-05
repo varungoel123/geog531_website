@@ -49,3 +49,5 @@ Note: password for files is provided on class piazza discussion board
 #### Week 8: Spatial Neighbors, Spatial Clustering
 
 -   [Spatial Neighbors](./lectures/GEOG510_Lec15_SpNeighbors.pdf)
+
+-   [Spatial Clustering I: Attributes](./lectures/GEOG510_Lec16_ClusteringI.pdf)
