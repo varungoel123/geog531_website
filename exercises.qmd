@@ -52,4 +52,6 @@ date-format: medium
 
 #### Week 7:  Neighbors, point pattern analysis, and spatial clustering
 
--   [Exercise 5: Introduction to Kernel Density Estimation](./exercises/GEOG510_ex6_kde.qmd){target="_blank"}
+-   [Exercise 6: Introduction to Kernel Density Estimation](./exercises/GEOG510_ex6_kde.qmd){target="_blank"}
+
+-   [Exercise 7: Spatial Autocorrelation in GeoDa](./exercises/GEOG510_ex7_GeoDaSpAuto.qmd){target="_blank"}
