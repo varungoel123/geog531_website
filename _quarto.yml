@@ -19,6 +19,10 @@ website:
         href: exercises.qmd
       - text: "Assignments"
         href: assignments.qmd
+      - text: "Final Project Paper"
+        href: final_project/GEOG510_FinalProject.qmd
+      - text: "Final Project Presentations and Assessment"
+        href: final_project/GEOG510_FinalPresentation.qmd
       
     - text: "Resources"
       menu:

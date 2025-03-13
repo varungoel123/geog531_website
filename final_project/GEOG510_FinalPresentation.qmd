@@ -1,0 +1,84 @@
+---
+title: 'GEOG 510: Final Project Presentation and Peer Assessment'
+author:
+- 50 points \newline
+- GEOG 510, GIS & Spatial Analysis in Public Health \newline
+- Varun Goel
+date: 'Updated: `r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  html_document:
+    theme: flatly
+    highlight: null
+    mathjax: null
+---
+
+```{css, echo=FALSE}
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+```
+
+------------------------------------------------------------------------
+
+## Overview
+
+We will [**meet in our regular classroom on Monday, May 5th at 12:30 pm - 2:30 pm**]{.underline} for the final presentations and evaluations. Each *Graduate student* you will present their final project for a 12-15 minutes while each *undergraduate students* will conduct an in-class assessment of 2 presentations during the class time.
+
+------------------------------------------------------------------------
+
+## Final Presentation (Graduate Students only)
+
+### Content and Organization
+
+Your presentation should have a title slide that includes a title, your name, and the date. You do not need to include an Outline or Overview slide for this presentation. Your presentation should have a final slide that signals that the presentation is over (I will discuss this in class).
+
+Your presentation should highlight the following information and you may want to even use this as a guide for constructing your slides:
+
+-   Topic and study area
+-   Research Question(s)
+-   Data
+-   Methods
+-   Results (and answer to Research Question)
+-   Discussion
+-   Conclusions (and why important to use GIS or spatial data)
+
+Plan how you will use your minutes wisely. You do not want to spend too much time on any single one of the above sections to the detriment of others.
+
+### Evaluation
+
+Your presentation will be evaluated on the four measures listed below. Each measure will not be weighted the same, but please pay attention to each of them.
+
+-   Quality and importance of information presented
+-   Design of presentation slides and graphics
+-   Quality of oral delivery
+-   Time
+-   
+
+### Deliverable
+
+Upload your final presentation in pptx or pdf format (such as userid_finalpresentation.pptx) to your OneDrive folder by [**May 4, 11:59 pm.**]{.underline}
+
+------------------------------------------------------------------------
+
+## Peer Assessment (Undergraduate Students only)
+
+Each undergraduate student will write a peer assessment for 2 presentations based on a grading criteria that will be distributed at the beginning of class. Assessments will be handed back to the instructor at the end of class.  
+
+------------------------------------------------------------------------
+
+
+
