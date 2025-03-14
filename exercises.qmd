@@ -55,3 +55,9 @@ date-format: medium
 -   [Exercise 6: Introduction to Kernel Density Estimation](./exercises/GEOG510_ex6_kde.qmd){target="_blank"}
 
 -   [Exercise 7: Spatial Autocorrelation in GeoDa](./exercises/GEOG510_ex7_GeoDaSpAuto.qmd){target="_blank"}
+
+------------------------------------------------------------------------
+
+#### Week 9:  Scan statistics, patterns vs process
+
+-   [Demo 8: Introduction to Kernel Density Estimation](./exercises/GEOG510_demo8_SaTScan.qmd){target="_blank"}

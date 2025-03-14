@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="In Class Demonstration #8 ">
+<meta name="author" content="GEOG 510, GIS and Spatial Analysis in Public Health ">
+<meta name="author" content="Varun Goel">
 
-<title>GEOG 510 - In Class Demos and Exercises</title>
+<title>GEOG 510 - Introduction to SaTScan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -71,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">GEOG 510</span>
     </a>
   </div>
@@ -82,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -91,27 +94,27 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-materials">    
         <li>
-    <a class="dropdown-item" href="./lectures.html" rel="" target="">
+    <a class="dropdown-item" href="../lectures.html" rel="" target="">
  <span class="dropdown-text">Lectures</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./readings.html" rel="" target="">
+    <a class="dropdown-item" href="../readings.html" rel="" target="">
  <span class="dropdown-text">Readings</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./exercises.html" rel="" target="">
+    <a class="dropdown-item" href="../exercises.html" rel="" target="">
  <span class="dropdown-text">Exercises</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./assignments.html" rel="" target="">
+    <a class="dropdown-item" href="../assignments.html" rel="" target="">
  <span class="dropdown-text">Assignments</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./final_project/GEOG510_FinalProject.html" rel="" target="">
+    <a class="dropdown-item" href="../final_project/GEOG510_FinalProject.html" rel="" target="">
  <span class="dropdown-text">Final Project Paper</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./final_project/GEOG510_FinalPresentation.html" rel="" target="">
+    <a class="dropdown-item" href="../final_project/GEOG510_FinalPresentation.html" rel="" target="">
  <span class="dropdown-text">Final Project Presentations and Assessment</span></a>
   </li>  
     </ul>
@@ -122,19 +125,19 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-resources">    
         <li>
-    <a class="dropdown-item" href="./software.html" rel="" target="">
+    <a class="dropdown-item" href="../software.html" rel="" target="">
  <span class="dropdown-text">Software Requirements and Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./data.html" rel="" target="">
+    <a class="dropdown-item" href="../data.html" rel="" target="">
  <span class="dropdown-text">Data Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tutorials.html" rel="" target="">
+    <a class="dropdown-item" href="../tutorials.html" rel="" target="">
  <span class="dropdown-text">Tutorials and Technical Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./mapping.html" rel="" target="">
+    <a class="dropdown-item" href="../mapping.html" rel="" target="">
  <span class="dropdown-text">Map Submission Checklist</span></a>
   </li>  
     </ul>
@@ -151,27 +154,37 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#prepare-satscan" id="toc-prepare-satscan" class="nav-link active" data-scroll-target="#prepare-satscan">Prepare SaTScan</a></li>
+  <li><a href="#run-satscan" id="toc-run-satscan" class="nav-link" data-scroll-target="#run-satscan">Run SaTScan</a></li>
+  <li><a href="#create-mappable-data-from-satscan" id="toc-create-mappable-data-from-satscan" class="nav-link" data-scroll-target="#create-mappable-data-from-satscan">Create Mappable Data from SaTScan</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">In Class Demos and Exercises</h1>
+<h1 class="title">Introduction to SaTScan</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Authors</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Mar 14, 2025</p>
-    </div>
+             <p>In Class Demonstration #8  </p>
+             <p>GEOG 510, GIS and Spatial Analysis in Public Health  </p>
+             <p>Varun Goel </p>
+          </div>
   </div>
+    
   
     
   </div>
@@ -179,61 +192,85 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<div class="cell">
+<style type="text/css">
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 5px 10px 4px 10px;
+}
+</style>
+</div>
 <hr>
-<section id="week-1-introduction-to-health-geography-and-gis" class="level4">
-<h4 class="anchored" data-anchor-id="week-1-introduction-to-health-geography-and-gis">Week 1: Introduction to Health Geography and GIS</h4>
+<p>This exercise walks you through a cluster analysis in <strong>SaTScan</strong>. If you have not installed SaTScan on your computer, do so now (for instructions, see the Software Document on Canvas).</p>
+<p>If you want to follow along, the <a href="https://drive.google.com/file/d/1GEp27zWzFdr7cZId6ad0X4nlVMzCkica/view?usp=sharing">data are located here</a>. We will be working with the Lyme Disease incidence data for this demonstration.</p>
+<p><strong>Note that throughout this document, if I use the term “right click,” this means “control click” for Mac users!</strong></p>
+<hr>
+<section id="prepare-satscan" class="level3">
+<h3 class="anchored" data-anchor-id="prepare-satscan">Prepare SaTScan</h3>
+<ol type="1">
+<li>Open SaTScan and choose <u>Create New Session</u>. Navigate to the <u>Analysis tab</u>. We are working with cross-sectional data, so we will be performing a <strong>Purely Spatial Analysis</strong>. Our probability model is <strong>Poisson</strong> because we are working with Lyme Disease cases. In this case, we want to scan only for clusters having <strong>High Rates</strong>.</li>
+<li>Click on the Advanced button and navigate to the Spatial Window tab. This is where you can set the <u>“maximum” spatial size</u> of the identified clusters and can choose between <u>Circular</u> and <u>Elliptic</u> cluster shapes. For this analysis, we will keep things simple and leave them on their default values, but knowing where to change these values is important. Click Close.</li>
+<li>Click the Input tab. Here we have to import a Case File. We will use the <strong>.dbf file</strong> (attribute table) from a shapefile version of the Lyme Disease data. Click the button with the three little dots for Case File and select <strong><code>NC_ZIP_Lyme_2016_2018.dbf</code></strong>. Click Next. In the popup window:</li>
+</ol>
 <ul>
-<li><a href="./exercises/GEOG510_ex1_piazzaAndLogistics.docx">Exercise 1: Piazza and Logistics (Wednesday, Jan 15, 2025)</a></li>
+<li>Choose <u>ZIP_CODE</u> for Location or Identifier</li>
+<li>Choose <u>CASES</u> for Number of Cases</li>
+<li>Click Next, then click Next again</li>
+<li>Save the imported input file as <code>NC_ZIP_Lyme_2016_2018.cas</code>, then click Import.</li>
 </ul>
+<ol start="4" type="1">
+<li>Click the button with the three little dots for Population File and select <code>NC_ZIP_Lyme_2016_2018.dbf</code>. Click Next. In the popup window:</li>
+</ol>
+<ul>
+<li>Choose <u>ZIP_CODE</u> for Location or Identifier</li>
+<li>Choose <u>POP20</u> for Number of Cases</li>
+<li>Click Next, then click Next again</li>
+<li>Save the imported input file as <code>NC_ZIP_Lyme_2016_2018.pop</code>, then click Import.</li>
+</ul>
+<ol start="5" type="1">
+<li>Click the button with the three little dots for Coordinates File and select <code>NC_ZIP_Lyme_2016_2018.shp</code>. Click Next. SaTScan loves working with geographic point data, so it calculates the centroids of the polygons for you. In the popup window:</li>
+</ol>
+<ul>
+<li>Change the top option to <u>Cartesian</u> …</li>
+<li>Choose <u>ZIP_CODE</u> for Location or Identifier</li>
+<li>Choose <u>Longitude / X for X and Latitude / Y for Y</u></li>
+<li>Click Next, then click Next again</li>
+<li>Save the imported input file as <code>NC_ZIP_Lyme_2016_2018.geo</code>, then click Import.</li>
+</ul>
+<ol start="6" type="1">
+<li>Click on the Output tab. Write the Main Results File to <code>NC_ZIP_Lyme_2016_2018_Clusters.txt</code>. Make sure the little boxes are <u>selected for all options under dBase</u>. Click on <u>Advanced and explore options (especially overlap!)</u>.</li>
+</ol>
 <hr>
 </section>
-<section id="week-34-spatial-data-fundamentals-coordinate-systems" class="level4">
-<h4 class="anchored" data-anchor-id="week-34-spatial-data-fundamentals-coordinate-systems">Week 3/4: Spatial Data fundamentals, Coordinate systems</h4>
-<ul>
-<li><p><a href="./exercises/demo1_storageAndManagement.html" target="_blank">Demo 1: Data Storage and Management</a></p></li>
-<li><p><a href="./exercises/fileManagement_tips.html" target="_blank">Useful tip: File Folder management</a></p></li>
-<li><p><a href="./exercises/demo2_CRS.html" target="_blank">Demo 2: Coordinate Reference Systems</a></p></li>
-<li><p><a href="./exercises/GEOG_510_ex4_tissot.html" target="_blank">Exercise 2: Tissot Indicatrix and CRS</a></p></li>
-</ul>
+<section id="run-satscan" class="level3">
+<h3 class="anchored" data-anchor-id="run-satscan">Run SaTScan</h3>
+<ol start="7" type="1">
+<li>To run SaTScan, click the little green triangle button (near the top of the main SaTScan window). Another way to do this is to go to the top menu and choose Session execute.</li>
+</ol>
+<p>When SaTScan is done, NC_ZIP_Lyme_2016_2018_Clusters.txt will pop up. This file contains some basic information about the input data and resulting clusters, as well as the members of and statistics for each cluster. Scroll to the top and note the nature of the output. In this case, we want to map our output, so we will be working in QGIS to do that. See the SaTScan Users Guide for more detailed information about the potential output options and what is included in each file. Prior to closing SaTScan, save your session.</p>
 <hr>
 </section>
-<section id="week-5-geocoding" class="level4">
-<h4 class="anchored" data-anchor-id="week-5-geocoding">Week 5: Geocoding</h4>
-<ul>
-<li><p><a href="./exercises/GEOG510_demo3_PluginGeocode.html" target="_blank">Demo 3: Plugins and Geocoding</a></p></li>
-<li><p><a href="./exercises/GEOG510_ex3_GeocodeJoins.html" target="_blank">Exercise 3: Geocoding and Joins</a></p></li>
-</ul>
+<section id="create-mappable-data-from-satscan" class="level3">
+<h3 class="anchored" data-anchor-id="create-mappable-data-from-satscan">Create Mappable Data from SaTScan</h3>
+<ol start="8" type="1">
+<li>Open QGIS and create a new project. Add <code>NC_ZIP_Lyme_2016_2018.shp</code>. Diplay <u>Case Rate</u> variable.</li>
+<li>Add <code>NC_ZIP_Lyme_2016_2018_Clusters.col.dbf</code> to the QGIS Layers panel (you can drag/drop). This file contains information about the center, size, and statistical attributes of each of the clusters identified in SaTScan.</li>
+<li>Create a temporary point layer of the cluster centers. In the Processing Toolbox, navigate to <u>Vector creation | Create points layer from tabl</u>e. For the Input layer choose <code>NC_ZIP_Lyme_2016_2018_Clusters.col</code>. Select the appropriate fields for X (X) and Y (Y), and <u>make sure that the CRS is EPSG:32119</u> click OK. These are the center points of the clusters.</li>
+<li>Open the attribute table of the output. Note that some “clusters” are single observations. Also, note that the p-value for some of the clusters is above our general threshold for statistical significance.</li>
+<li>Use an attribute query to select only points with a RADIUS greater than 0 and a p-value less than or equal to 0.05.</li>
+<li>to <u>Vector | Geoprocessing Tools | Buffer</u>. For Input layer, choose the “Points from table” file. <strong>Make sure that Selected features only is checked!</strong> For Distance, click the little button all the way to the right (next to the word meters) and choose Field type: … | RADIUS (<strong>this is the variable distance!</strong>). Leave everything else on the default value (including Dissolve result), and then click Run.</li>
+<li>Install and activate the “Select Within” plugin. Go to Vector | Select Within | Select Within. Use this tool to select and then export the Zip Codes falling within the high clusters. Use the Centroid option. <strong>We use this selection method because centroids are what were used to define the clusters in SaTScan!</strong></li>
+<li>In case you have issues creating files in this demo, you can also <a href="https://drive.google.com/file/d/1Im1FIhPsf-lNtjN4tUVe7RtwW2e6tQoD/view?usp=sharing">download the data with all generated files from this demo here</a>.</li>
+</ol>
 <hr>
-</section>
-<section id="week-6-mapping-health-data" class="level4">
-<h4 class="anchored" data-anchor-id="week-6-mapping-health-data">Week 6: Mapping Health data</h4>
-<ul>
-<li><a href="./exercises/GEOG510_demo4ex4_MapComposer.html" target="_blank">Demo 4 and Exercise Map: Composing Maps</a></li>
-</ul>
-<hr>
-</section>
-<section id="week-6-gis-operations-spatial-patterns-and-processes" class="level4">
-<h4 class="anchored" data-anchor-id="week-6-gis-operations-spatial-patterns-and-processes">Week 6: GIS operations, spatial patterns and processes</h4>
-<ul>
-<li><p><a href="./exercises/GEOG510_demo5_BasicGISOperations1.html" target="_blank">Demo 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize</a></p></li>
-<li><p><a href="./exercises/GEOG510_ex5_basicVectorOperations.html" target="_blank">Exercise 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize</a></p></li>
-<li><p><a href="./exercises/GEOG510_demo6_GeoDa.html" target="_blank">Demo 6: Introduction to GEODA</a></p></li>
-</ul>
-<hr>
-</section>
-<section id="week-7-neighbors-point-pattern-analysis-and-spatial-clustering" class="level4">
-<h4 class="anchored" data-anchor-id="week-7-neighbors-point-pattern-analysis-and-spatial-clustering">Week 7: Neighbors, point pattern analysis, and spatial clustering</h4>
-<ul>
-<li><p><a href="./exercises/GEOG510_ex6_kde.html" target="_blank">Exercise 6: Introduction to Kernel Density Estimation</a></p></li>
-<li><p><a href="./exercises/GEOG510_ex7_GeoDaSpAuto.html" target="_blank">Exercise 7: Spatial Autocorrelation in GeoDa</a></p></li>
-</ul>
-<hr>
-</section>
-<section id="week-9-scan-statistics-patterns-vs-process" class="level4">
-<h4 class="anchored" data-anchor-id="week-9-scan-statistics-patterns-vs-process">Week 9: Scan statistics, patterns vs process</h4>
-<ul>
-<li><a href="./exercises/GEOG510_demo8_SaTScan.html" target="_blank">Demo 8: Introduction to Kernel Density Estimation</a></li>
-</ul>
 
 
 </section>
