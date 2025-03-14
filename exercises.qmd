@@ -60,4 +60,4 @@ date-format: medium
 
 #### Week 9:  Scan statistics, patterns vs process
 
--   [Demo 8: Introduction to Kernel Density Estimation](./exercises/GEOG510_demo8_SaTScan.qmd){target="_blank"}
+-   [Demo 8: Introduction to SatScan](./exercises/GEOG510_demo8_SaTScan.qmd){target="_blank"}
