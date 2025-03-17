@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Applied Overlay and Clusters/Autocorrelation, 150 points ">
+<meta name="author" content="GEOG 541, GIS and Public Health ">
+<meta name="author" content="Paul Delamater">
+<meta name="dcterms.date" content="2025-03-17">
+
+<title>GEOG 510 - GEOG 541: Assignment #3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">GEOG 510</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-materials" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Materials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-materials">    
+        <li>
+    <a class="dropdown-item" href="../lectures.html" rel="" target="">
+ <span class="dropdown-text">Lectures</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../readings.html" rel="" target="">
+ <span class="dropdown-text">Readings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercises.html" rel="" target="">
+ <span class="dropdown-text">Exercises</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../assignments.html" rel="" target="">
+ <span class="dropdown-text">Assignments</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../final_project/GEOG510_FinalProject.html" rel="" target="">
+ <span class="dropdown-text">Final Project Paper</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../final_project/GEOG510_FinalPresentation.html" rel="" target="">
+ <span class="dropdown-text">Final Project Presentations and Assessment</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../software.html" rel="" target="">
+ <span class="dropdown-text">Software Requirements and Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../data.html" rel="" target="">
+ <span class="dropdown-text">Data Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials.html" rel="" target="">
+ <span class="dropdown-text">Tutorials and Technical Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../mapping.html" rel="" target="">
+ <span class="dropdown-text">Map Submission Checklist</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#part-1-using-spatial-overlay-and-learning-some-new-tricks-in-qgis" id="toc-part-1-using-spatial-overlay-and-learning-some-new-tricks-in-qgis" class="nav-link active" data-scroll-target="#part-1-using-spatial-overlay-and-learning-some-new-tricks-in-qgis">Part #1: Using Spatial Overlay and Learning Some New Tricks in QGIS</a></li>
+  <li><a href="#part-2-spatial-clusteringautocorrelation-analysis" id="toc-part-2-spatial-clusteringautocorrelation-analysis" class="nav-link" data-scroll-target="#part-2-spatial-clusteringautocorrelation-analysis">Part #2: Spatial Clustering/Autocorrelation Analysis</a></li>
+  <li><a href="#part-3-clusteringautocorrelation-using-your-own-data" id="toc-part-3-clusteringautocorrelation-using-your-own-data" class="nav-link" data-scroll-target="#part-3-clusteringautocorrelation-using-your-own-data">Part #3: Clustering/Autocorrelation using your own data</a>
+  <ul class="collapse">
+  <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables">Deliverables</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">GEOG 541: Assignment #3</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Applied Overlay and Clusters/Autocorrelation, 150 points  </p>
+             <p>GEOG 541, GIS and Public Health  </p>
+             <p>Paul Delamater </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 17, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<style type="text/css">
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+</style>
+</div>
+<hr>
+<p>Similar to the last assignment, this assignment is split into parts. In the first part, you will be working with data I provide to hone your overlay and table manipulation (GIS) skills. In the second part, you will be required to use SaTScan and Geoda for this lab. So, if you have not yet downloaded and installed them, do so ASAP (see Software Document posted on Canvas). In the third part, you will be working with your own data to answer some simple questions about the observed spatial pattern. Please at least skim through the entire assignment document before beginning.</p>
+<p>On your computer, create a folder for Assignment #3 and a folder (inside of that one) to store data. Download GEOG541_assignment3_data.zip from the course Canvas page into the data folder and then unzip the contents.</p>
+<p>Create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 541, and Assignment #3 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.</p>
+<p>Please save the file using the following naming format, <strong>Lastname_GEOG541_Assignment3.docx</strong>. For example, my file would be <strong>Delamater_GEOG541_Assignment3.docx</strong>. Please follow the file naming format for your document, as this really helps us to stay organized and be more efficient graders. Upload your assignment document on Canvas when complete.</p>
+<p>When the assignment requires you to create a map, export your completed map as a .pdf document using the following naming format, Lastname_GEOG541_Assignment3_Map#.pdf. For example, the second map I create for this assignment would be Delamater_GEOG541_Assignment3_Map2.pdf. Please follow the file naming format for your maps as well. Upload the maps you create in this lab as separate .pdf documents.</p>
+<hr>
+<section id="part-1-using-spatial-overlay-and-learning-some-new-tricks-in-qgis" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-using-spatial-overlay-and-learning-some-new-tricks-in-qgis">Part #1: Using Spatial Overlay and Learning Some New Tricks in QGIS</h2>
+<p>In this example, you will use US County data to assign population estimates to Zip Codes (i.e., you have a polygon file of South Carolina Zip Codes, but they do not have population assigned to them). There are multiple approaches to doing this operation; the one you will implement requires “distributing” the population of each County to the Zip Code(s) it falls inside based on the proportion of the Tract area falling in each Zip Code. For example, if 1/3 of a Tract’s area falls in one Zip Code and 2/3 of its area falls in another, we would use those proportions to allocate the population from the Tract to the Zip Codes. This is a pretty straightforward procedure, but will require an overlay operation (Intersect), a couple of field calculations, some table manipulation, and a table join.</p>
+<hr>
+<section id="load-data-and-calculate-new-field-based-on-geometry-properties" class="level4">
+<h4 class="anchored" data-anchor-id="load-data-and-calculate-new-field-based-on-geometry-properties">Load Data and Calculate New Field Based on Geometry Properties</h4>
+<ol class="example" type="1">
+<li><p>Open QGIS and create a new project. Add MI_ZIP.gpkg and MI_TCT_POP.gpkg from the <code>assignment3_data/MI</code> folder to the Layers panel. It would be a great idea to save/name your project file now so you can come back to it later if necessary.</p></li>
+<li><p>Prior to adding a new field with attributes based on geometry, you can set which units you want QGIS to use. For example, in the following example, we want area to be returned in square kilometers and distance to be returned in kilometers. In the top menu, navigate to Project | Properties. On the left, click on the General tab and find Measurements. Change the distance and area units to kilometers and square kilometers (then click OK).</p></li>
+<li><p>Add a new field containing each tract’s area to the MI_TCT_POP attribute table first opening up the layer’s attribute table. Next, use the field calculator to add a new Decimal number field called TCTAREA, with the following expression: <code>$area</code>. Close the attribute table after you have confirmed that the new field has been populated.</p></li>
+</ol>
+<hr>
+<section id="question-1-what-is-the-maximum-area-for-any-tract-howwhere-did-you-find-this-information" class="level5">
+<h5 class="anchored" data-anchor-id="question-1-what-is-the-maximum-area-for-any-tract-howwhere-did-you-find-this-information"><strong>Question #1</strong>: What is the maximum area for any Tract? How/where did you find this information?</h5>
+<hr>
+</section>
+</section>
+<section id="intersect" class="level4">
+<h4 class="anchored" data-anchor-id="intersect">Intersect</h4>
+<p>You will now create the new spatial features based on shared geometry (overlap) of the Zip Code and Census Tract boundaries.</p>
+<ol start="4" class="example" type="1">
+<li><p>In the top menu, navigate to Vector | Geoprocessing Tools | Intersection. For the Input layer select MI_TCT_POP, and for the Overlay layer select MI_ZIP. Save the output as MI_TCT_ZIP_INT.gpkg in your <code>assignment3_data/MI</code> folder. Leave all other options on their default settings. Click Run.</p></li>
+<li><p>Once complete, zoom in a bit and click MI_TCT_ZIP_INT on/of so you can see either MI_TCT_POP or MI_ZIP underneath. What do you notice? I notice that MI_TCT_ZIP_INT looks a bit “messy” because these two sets of areal units do not hierarchically nest. Open the table of MI_TCT_ZIP_INT. You should notice that these intersected polygon features have the attributes of both input files! For each polygon in this layer, you know its tract and Zip Code “membership.”</p></li>
+</ol>
+<hr>
+<section id="question-2-how-many-polygons-were-created-in-the-intersected-layer" class="level5">
+<h5 class="anchored" data-anchor-id="question-2-how-many-polygons-were-created-in-the-intersected-layer"><strong>Question #2</strong>: How many polygons were created in the “intersected” layer?</h5>
+<hr>
+</section>
+</section>
+<section id="calculate-area-again-and-allocate-population" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-area-again-and-allocate-population">Calculate Area Again and Allocate Population</h4>
+<p>To allocate the population for each tract, we need to calculate the proportion of the area of the tract that is located in each Zip Code. First, we need to add a new field to MI_TCT_ZIP_INT with the area of each polygon. Then, we will use the field calculator to perform the allocation.</p>
+<ol start="6" class="example" type="1">
+<li><p>Follow Step 3 to add a new field in MI_TCT_ZIP_INT with the area of each polygon (call this field TCTZIPAREA).</p></li>
+<li><p>Add a new Decimal number field named ZIPPOP to MI_TCT_ZIP_INT using the Field Calculator. This field will contain the formula Population * (Intersect area / Total area) for each Tract/Zip intersected polygon. The expression is:</p>
+<p><code>"POP100"  *  ( "TCTZIPAREA" /  "TCTAREA" )</code></p></li>
+</ol>
+<hr>
+</section>
+<section id="aggregate-the-zip-code-population" class="level4">
+<h4 class="anchored" data-anchor-id="aggregate-the-zip-code-population">Aggregate the Zip Code Population</h4>
+<p>Now, because multiple tracts contribute to each Zip Code’s population (open the attribute table of MI_TCT_ZIP_INT and sort it by the ZIPN field), we need to aggregate the allocated tract population to the Zip Code level.</p>
+<ol start="8" class="example" type="1">
+<li><p>Go to the Processing Toolbox | Vector Analysis | Statistics by categories. For Input vector layer, choose MI_TCT_ZIP_INT. For Field to calculate statistics on, choose ZIPPOP (this is the field we will be summing). For Field(s) with categories, choose ZIPN (this is the field that contains the groups we will sum over). For the output, you can simply write as a temporary file because you won’t need it after the next step.</p></li>
+<li><p>Open up the output table (should be called Statistics by category unless you gave it a different name). Note the various statistics for each Zip Code. The important one here is <code>sum</code> which contains the sum of the tract population falling in each Zip Code (by area proportion).</p></li>
+</ol>
+<hr>
+<section id="question-3-what-is-the-maximum-population-in-any-zip-code-which-zip-code-has-the-maximum-population" class="level5">
+<h5 class="anchored" data-anchor-id="question-3-what-is-the-maximum-population-in-any-zip-code-which-zip-code-has-the-maximum-population"><strong>Question #3</strong>: What is the maximum population in any Zip Code? Which Zip Code has the maximum population?</h5>
+<hr>
+</section>
+</section>
+<section id="table-join-one-more-field-calculation-and-make-a-map" class="level4">
+<h4 class="anchored" data-anchor-id="table-join-one-more-field-calculation-and-make-a-map">Table Join, One More Field Calculation, and Make a Map</h4>
+<ol start="10" class="example" type="1">
+<li>You’re almost done with the first part of the assignment. The remaining task is to create a choropleth map of population density by Zip Code in Michigan. However, to complete this, you’ll need to implement the following steps (that you should already know how to do!) in order:</li>
+</ol>
+<ul>
+<li>Table join the Statistics by category table to the Zip Code spatial features<br>
+</li>
+<li>Calculate a new field with each Zip Code’s area</li>
+<li>Calculate a new field containing population density (People per square kilometer)</li>
+<li>Make a choropleth map of population density. Consider this an “internal” map: make sure that the geographic extent is correct, you have chosen an appropriate color scheme, and include a title, legend, and your name. Export the map as a .pdf file using the <em>Lastname</em>_GEOG541_Assignment3_Map1.pdf.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-2-spatial-clusteringautocorrelation-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-spatial-clusteringautocorrelation-analysis">Part #2: Spatial Clustering/Autocorrelation Analysis</h2>
+<p>In this portion of the assignment, you will be performing a variety of global and local clustering and autocorrelation operations using personal medical exemption (PME) data in 2015 from Dr.&nbsp;D’s vaccination in California research. This analysis will provide us with quantitative information regarding the spatial patterns of medical exemption use in California. You will be comparing the autocorrelation/clustering output from GeoDa and SaTScan and making maps using QGIS. One of the things you will also be examining is the effect of neighbor definition on spatial clustering results.</p>
+<hr>
+<ol start="11" class="example" type="1">
+<li>Open GeoDa. Create a new project and load data by navigating in the top menu to File | New and choosing CA_TCT_ME_2015.gpkg from <code>assignment3_data/CA</code> (or by dragging the file into the specified area from Finder/Explorer). This layer contains the number of kindergarteners enrolled in 2015 and the number claiming an medical exemption (ME) for census tracts in California. This layer was created from school-level data using a spatial join of schools to tracts.</li>
+</ol>
+<hr>
+<section id="calculate-a-new-field-in-geoda" class="level4">
+<h4 class="anchored" data-anchor-id="calculate-a-new-field-in-geoda">Calculate a New Field in GeoDa</h4>
+<p>GeoDa is not really a GIS software, but it does have a number of GIS-like capabilities, such as displaying/mapping data and manipulating data layers. In this case, you will use GeoDa to calculate a new field.</p>
+<ol start="12" class="example" type="1">
+<li><p>Open the attribute table of CA_TCT_ME_2015 by clicking the Table button on the GeoDa toolbar. Notice that this only contains the count values for enrollment and MEs. To perform our first operations, we will need ME rates (proportions). In the top menu, choose Table | Calculator. In the popup window, select the Rates tab. We will be using the raw rate of MEs for each tract, so make sure Raw Rates is selected as the Method. On the left, click the button for Add Variable because we need a new field to hold our calculated values. In the popup window, name the variable PME15R, Type should be real, Insert before should be set to “after last variable”. Leave the rest of the options on their default settings. Click Add. Choose pme15 as the Event Variable and enr15 as the Base Variable. Click Apply.</p></li>
+<li><p>Map the new variable you calculated by right-clicking inside of the GeoDa map window, selecting Change Current Map Type | Natural Breaks | 5, and selecting PME15R. You should now have a choropleth map of PME15R (personal medical exemption rates in 2015).</p></li>
+</ol>
+<div class="highlightblock">
+<section id="temporary-data" class="level5">
+<h5 class="anchored" data-anchor-id="temporary-data">Temporary Data</h5>
+<p>Much like QGIS, many of the operations we do in GeoDa are held in your computer’s temporary memory until you explicitly save them to the hard drive. For example, the field that you just calculated (PME15R) has not been permanently added to the CA_TCT_ME_2015 file! To finalize/save any changes you make to a spatial data layer (and attribute table) in GeoDa, in the top menu, choose File | Save. Do this now.</p>
+</section>
+<section id="project-management-in-geoda" class="level5">
+<h5 class="anchored" data-anchor-id="project-management-in-geoda">Project Management in GeoDa</h5>
+<p>The project management in GeoDa is also similar to QGIS in that you can save the “work” you’ve done as a “project” file. This is somewhat similar to saving a project in QGIS. To save your project, in the top menu, choose File | Save Project. Do this now and save your project as GEOG541_ME_TCT.gda in the <code>assignment3_data/CA</code> folder.</p>
+</section>
+</div>
+<hr>
+</section>
+<section id="define-neighbors-and-global-spatial-autocorrelation-in-geoda" class="level4">
+<h4 class="anchored" data-anchor-id="define-neighbors-and-global-spatial-autocorrelation-in-geoda">Define Neighbors and Global Spatial Autocorrelation in GeoDa</h4>
+<p>One of the first things that we often ask about the spatial variation in our data is, “considering all the observations (values), is the overall pattern clustered, random, or dispersed?”. We use <em>global</em> spatial autocorrelation metrics to answer this question. To perform this analysis, we need to first define neighbors for each observation (because autocorrelation operations require comparing each observation’s value to the value of its neighbors).</p>
+<ol start="14" class="example" type="1">
+<li><p>To define spatial neighbors, click the Weights button on the toolbar (the big W) or navigate in the top menu to Tools | Weights Manager. In the Weights Manager popup window, click Create (since we don’t have any created yet). Choose <code>geoid</code> as the Weights File ID Variable – this is what will link the values in the weights matrix back to the original spatial data layer. For this set of weights, we will use Queen contiguity and only consider 1st order neighbors (Order of contiguity = 1). Make sure these parameters are selected in the Weights File Creation popup window and choose Create. When prompted, save the weights file as CA_TCT_ME_2015_Queen.gal in <code>assignment3_data/CA</code>. Close the “weights” popup windows when complete. <em>NOTE: Because some of the tracts do not have any contiguous neighbors, you should get a warning stating this. This is okay.</em></p></li>
+<li><p>Calculate Moran’s I with GeoDa. To do this, in the top menu, click on Space | Univariate Moran’s I. Choose PME15R as the variable, as we are testing the spatial pattern of the rates of medical exemptions. Make sure CA_TCT_ME_2015_Queen.gal is selected for the weights. Click OK. <em>NOTE: Because some of the tracts do not have any contiguous neighbors, you should get a warning stating this. This is okay.</em></p></li>
+<li><p>Nothing really exciting should happen other than a popup window containing a Moran’s I scatterplot with the Moran’s I value at the top. To run a hypothesis test (and get a p-value) comparing the results to a null hypothesis of complete spatial randomness (CSR), right click anywhere inside the Moran’s I window and choose Randomization | 999 Permutations. You should get another popup window that contains the pseudo p-value based on the value of your data compared to the random permutations. Click Run and things will change slightly – this is due to the random element in the permutation approach. Jot down the I value, the E[I] value, and pseudo p- value and close this window.</p></li>
+</ol>
+<section id="expectation-of-normal-distribution" class="level5 highlightblock">
+<h5 class="anchored" data-anchor-id="expectation-of-normal-distribution">Expectation of normal distribution</h5>
+<p>One nice thing that GeoDa does is not “expect” that your data are normally distributed, and thus uses a permutation approach (randomly shuffle the values in space and calculate the statistic many times) to generate pseudo p-values rather than a Z-score based formula.</p>
+</section>
+<hr>
+<section id="question-4-provide-the-three-values-from-step-16-and-a-quick-description-of-each-proving-to-me-that-you-understand-what-each-means.-use-the-output-to-briefly-answer-in-3-4-sentences-are-pme-rates-in-2015-in-california-spatially-clustered-are-these-results-important-hint-examine-the-magnitude-of-the-morans-i-value" class="level5">
+<h5 class="anchored" data-anchor-id="question-4-provide-the-three-values-from-step-16-and-a-quick-description-of-each-proving-to-me-that-you-understand-what-each-means.-use-the-output-to-briefly-answer-in-3-4-sentences-are-pme-rates-in-2015-in-california-spatially-clustered-are-these-results-important-hint-examine-the-magnitude-of-the-morans-i-value"><strong>Question #4</strong>: Provide the three values from Step 16 and a quick description of each (proving to me that you understand what each means). Use the output to briefly answer (in 3-4 sentences), Are PME Rates in 2015 in California spatially clustered? Are these results important? (hint, examine the <strong>magnitude</strong> of the Moran’s I value)</h5>
+<hr>
+<p>Now, you will conduct a similar test, but use an alternate neighbor definition. Doing this is hugely important for any spatial analysis, as it serves as a sensitivity test. Basically, it helps you determine whether your results are simply a result of the particular neighbor definition.</p>
+<ol start="17" class="example" type="1">
+<li><p>Redo Step 14, but define neighbors as 10 Nearest Neighbors (look for k-Nearest Neighbors) <strong>without</strong> Inverse distance. Save the file as CA_TCT_ME_2015_10NN.gwt.</p></li>
+<li><p>Redo Steps 15 and 16, but use CA_TCT_ME_2015_10NN.gwt for the weights.</p></li>
+</ol>
+<hr>
+</section>
+<section id="question-5-provide-the-three-values-from-step-18.-briefly-describe-in-3-4-sentences-whetherhow-the-change-in-neighbor-definition-affected-the-morans-i-results.-were-the-results-sensitive-to-the-neighbor-definition-and-why-do-you-think-that" class="level5">
+<h5 class="anchored" data-anchor-id="question-5-provide-the-three-values-from-step-18.-briefly-describe-in-3-4-sentences-whetherhow-the-change-in-neighbor-definition-affected-the-morans-i-results.-were-the-results-sensitive-to-the-neighbor-definition-and-why-do-you-think-that"><strong>Question #5</strong>: Provide the three values from Step 18. Briefly describe (in 3-4 sentences) whether/how the change in neighbor definition affected the Moran’s I results. Were the results sensitive to the neighbor definition (and why do you think that)?</h5>
+<hr>
+</section>
+</section>
+<section id="local-spatial-autocorrelation-in-geoda" class="level4">
+<h4 class="anchored" data-anchor-id="local-spatial-autocorrelation-in-geoda">Local Spatial Autocorrelation in GeoDa</h4>
+<p>Global spatial autocorrelation methods only provide a single value for our entire dataset. But, we often want to understand if the spatial pattern is clustered, random, dispersed at a local or regional level. We use local spatial autocorrelation metrics (e.g., LISA, Getis Ord G*) to accomplish this. These methods produce a measure of autocorrelation for each observation in your data, thus allowing you to identify hotspots and coldspots (ugh… clusters of high values and low values), as well as outlier values.</p>
+<ol start="19" class="example" type="1">
+<li>For this exercise, we will calculate LISA with GeoDa. To do this, in the top menu, click on Space | Univariate Local Moran’s I. Choose PME15R as the variable, as we are testing the spatial pattern of the rates of medical exemptions. Make sure CA_TCT_ME_2015_Queen.gal is selected for the weights. Click OK. You will get a popup window asking “What windows to open?”. Make sure that all options are selected and click OK.</li>
+</ol>
+<p>The Moran’s I scatterplot should look very familiar to you, as this is the exact same output from the global Moran’s I test we ran earlier. You can close this window. You will also see two maps, 1. the LISA results showing observations by category: High-High (hotspot), Low-Low (coldspot), Low- High (low outlier), High-Low (high outlier), and Neighborless (No Data) and 2. the significance associated with the LISA results for all observations (based on 999 permutations). Note that only observations that were significant at a level of p &lt; 0.05 are highlighted in the categorical map.</p>
+<ol start="20" class="example" type="1">
+<li><p>Save the results of the GeoDa LISA analysis to the attribute table of CA_TCT_ME_2015 by right clicking inside the LISA results window and selecting Save Results. Make sure that all outputs are selected, and then choose OK. Permanently save the LISA results to the file (see note above).</p></li>
+<li><p>Save your project and exit GeoDa.</p></li>
+</ol>
+<p>GeoDa is not a production-quality mapping software, in any way shape or form. It is fen for exploratory mapping or sharing maps among colleagues, but it should not be used to create maps for dissertations/theses/articles. Later in this lab, you will be tasked with creating a map of the GeoDa output.</p>
+<hr>
+</section>
+<section id="spatial-clustering-in-satscan" class="level4">
+<h4 class="anchored" data-anchor-id="spatial-clustering-in-satscan">Spatial Clustering in SaTScan</h4>
+<p>The theory behind clustering in SaTScan is a bit different than how we conceptualize clustering when using spatial autocorrelation. SaTScan searches through the data and identifies sets of neighboring observations that, in combination, demonstrate high or low risk compared to the overall risk in the study region. In spatial autocorrelation analysis, we are simply looking at the similarity in values among neighboring regions.</p>
+<p>SaTScan is a spatial clustering software… no more and no less. It does that one function extremely well, and really does not do much of anything else. When working with your own data, you may have to do some wrangling of the data in another software before it is SaTScan ready. Thankfully, it will read shapefiles though!</p>
+<ol start="22" class="example" type="1">
+<li><p>Open SaTScan and choose Create New Session. You should get a window with three tabs, Input, Analysis, and Output. We will actually start on the Analysis tab. For this exercise, we are working with cross-sectional data, so we will be performing a <strong>Purely Spatial Analysis</strong>. Our probability model is <strong>Poisson</strong> because we are working with medical exemptions, which are a medical condition that should be randomly distributed in the population of incoming kindergarteners (and thus be randomly spatially distributed). In this case, we want to scan for clusters having <strong>High or Low Rates</strong>. Click on the Advanced button and navigate to the Spatial Window tab. This is where you can set the “maximum” spatial size of the identified clusters and can choose between Circular and Elliptic cluster shapes. For this analysis, we will keep things simple and leave them on their default values, but knowing where to change these values is important. Click Close.</p></li>
+<li><p>Click the Input tab. Here we have to import a Case File. We will use the .dbf file (attribute table) of CA_TCT_ME_2015 (same data we worked with earlier, but saved in a different file format). Click the button with the three little dots for Case File, navigate to <code>assignment3_data/CA/shp</code>, and select CA_TCT_ME_2015.dbf. You will now hold SaTScan’s hand and assign the proper fields in the .dbf file to SaTScan’s required format. Click Next. In the popup window:</p></li>
+</ol>
+<ul>
+<li><p>Click on the word “unassigned” to the right of Location ID and choose GEOID. This is basically defining unique IDs for each feature (this is important for linking together all the observations “inside” of SaTScan, and to be able to link the results from SaTScan back to the layer for mapping in ArcMap).</p></li>
+<li><p>Click on the word “unassigned” to the right of Number of Cases and choose PME15. We choose this variable because SaTScan uses the count data! Click Next, then click Next again.</p></li>
+<li><p>Save the imported input file as PME15_cases.cas in <code>assignment3_data/CA</code>. Click Import.</p></li>
+</ul>
+<ol start="24" class="example" type="1">
+<li><p>Click the button with the three little dots for Population File, navigate to <code>assignment3_data/CA/shp</code>, and select CA_TCT_ME_2015.dbf. Click Next. Choose GEOID for the Location ID and ENR15 for the Population. Leave everything else unassigned. Click Next. Save the imported input file as ENR15_population.pop in <code>assignment3_data/CA</code>. Click Import.</p></li>
+<li><p>Click the button with the three little dots for Coordinates File, navigate to <code>assignment3_data/CA/shp</code>, and select CA_TCT_ME_2015_geocentroids.shp. SaTScan loves working with geographic point data, so this is a file with geographic centroids of the tract polygons from earlier – I created this file in QGIS prior to the analysis for you. Click Next. Choose GEOID for the Location ID, Longitude / X for X, and Latitude / Y for Y. Leave everything else unassigned. Click Next. Save the imported input file as CA_TCT_coords.geo in <code>assignment3_data/CA</code>. Click Import.</p></li>
+<li><p><strong>IMPORTANT</strong>: Change the top option (Display SaTScan Variables For) to Cartesian (x,y) Coordinates. We do this because this data layer is projected in a Cartesian (projected) coordinate system and we want SaTScan to know this to use the proper formulas for distance calculations. Leave everything else on the Input tab on the defaults.</p></li>
+</ol>
+<section id="neighbors-in-satscan" class="level5 highlightblock">
+<h5 class="anchored" data-anchor-id="neighbors-in-satscan">Neighbors in SaTScan</h5>
+<p>By default, SaTScan uses Euclidean distance to define spatial neighbors (in the scan window). However, you can provide non-distance based neighbors by clicking on the Advanced button in the Input tab, clicking on the Spatial Neighbors tab, and providing a Non-Euclidean neighbors file (you will have to research the format this file is in, as I have never done this!).</p>
+</section>
+<p><br></p>
+<ol start="27" class="example" type="1">
+<li><p>Click on the Output tab. Write the Main Results File to TCT_PME_Scan_Clusters.txt in <code>assignment3_data/CA</code>. Make sure the little boxes are selected for dBase for <strong>Cluster Information</strong> and <strong>Location Information</strong>. One odd thing about SaTScan is that if you are working in Cartesian Coordinates, it will not allow you to write out a shapefile of the cluster output. However, we can easily create a spatial data layer afterwards using the dBase files in QGIS. To run SaTScan, click the little green triangle button (near the top of the main SaTScan window). Another way to do this is to go to the top menu and choose Session execute.</p></li>
+<li><p>When SaTScan is done, TCT_PME_Scan_Clusters.txt will pop up. This file contains some basic information about the input data and resulting clusters, as well as the members of and statistics for each cluster. Scroll to the top and note the nature of the output. In this case, we want to map our output, so we will be working in QGIS to do that. See the SaTScan Users Guide for more detailed information about the potential output options and what is included in each file. Prior to closing SaTScan, save your session in <code>assignment3_data/CA</code>.</p></li>
+</ol>
+<hr>
+</section>
+<section id="create-mappable-data-from-satscan-output-using-qgis" class="level4">
+<h4 class="anchored" data-anchor-id="create-mappable-data-from-satscan-output-using-qgis">Create Mappable Data from SaTScan Output using QGIS</h4>
+<p>The first thing we will do is create a spatial data layer representing the spatial extent of the clusters in QGIS. Remember, a cluster in SaTScan is a collection of observations, but showing the extent of a cluster can be useful for visualization/comparative purposes.</p>
+<ol start="29" class="example" type="1">
+<li><p>Open QGIS and create a new project. Add CA_TCT_ME_2015.gpkg.</p></li>
+<li><p>Add TCT_PME_Scan_Clusters.col.dbf to the QGIS Layers panel (you can drag/drop). This file contains information about the center, size, and statistical attributes of each of the clusters identified in SaTScan. First, we will create a temporary point layer of the cluster centers. In the Processing Toolbox, navigate to Vector creation | Create points layer from table. For the Input layer choose TCT_PME_Scan_Clusters.col. Select the appropriate fields for X (X) and Y (Y), and make sure that the CRS is EPSG:3310 click OK. These are the center points of the clusters.</p></li>
+</ol>
+<p>In the following steps, you will use a variable distance Buffer to create spatial representations of the extent of each cluster. However, you should open the attribute table of the “Points from table” file first. Do this and look in the RADIUS field. Notice that some of the entries have 0 radius? Now, look in the NUMBER_LOC field and you will see that these are “single observation” clusters. We will not include these in our map (and, we do not want to attempt to create a 0 distance buffer from points!).</p>
+<ol start="31" class="example" type="1">
+<li>Use an attribute query to select only points with a RADIUS greater than 0.</li>
+</ol>
+<hr>
+<section id="question-6-how-many-total-clusters-did-satscan-identify-how-many-of-those-clusters-contained-more-than-one-observation" class="level5">
+<h5 class="anchored" data-anchor-id="question-6-how-many-total-clusters-did-satscan-identify-how-many-of-those-clusters-contained-more-than-one-observation"><strong>Question #6</strong>: How many total clusters did SatScan identify? How many of those clusters contained more than one observation?</h5>
+<hr>
+<ol start="32" class="example" type="1">
+<li><p>Once the features are selected, navigate to Vector | Geoprocessing Tools | Buffer. For Input layer, choose the “Points from table” file. <strong>Make sure that Selected features only is checked!</strong> For Distance, click the little button all the way to the right (next to the word meters) and choose Field type: … | RADIUS (<strong>this is the variable distance!</strong>). Leave everything else on the default value (including Dissolve result), and then click Run. Because you had only a subset of features in your “Events” layer selected, the buffers should have only been created for those features. Change the symbology so that the buffer polygons do not have a fill (Fill Style = No Brush).</p></li>
+<li><p>Remember that we chose to scan for High or Low clusters in SaTScan? Now, create separate layers for the buffers of High Relative Risk and Low Relative Risk clusters. You can do this using the REL_RISK field in the buffer output. Any cluster with a relative risk less than 1 is “Low” and any greater than 1 is “High”. Use attribute queries and then export the features into separate layers stored in <code>assignment3_data/CA</code>. Turn off the original buffer layer after you have created the new High and Low layers.</p></li>
+</ol>
+<hr>
+</section>
+<section id="question-7-of-the-clusters-with-more-than-one-observation-how-many-were-low-and-how-many-were-high" class="level5">
+<h5 class="anchored" data-anchor-id="question-7-of-the-clusters-with-more-than-one-observation-how-many-were-low-and-how-many-were-high"><strong>Question #7</strong>: Of the clusters with more than one observation, how many were “Low” and how many were “High”?</h5>
+<hr>
+<ol start="34" class="example" type="1">
+<li><p>Install and activate the “Select Within” plugin. Go to Vector | Select Within | Select Within. Use this tool to select and then export the tracts from falling within the 1) high clusters and 2) low clusters (separately). You are selecting from CA_TCT_ME_2015; use the Centroid option. <strong>We use this selection method because centroids are what were used to define the clusters in SaTScan!</strong> Once you have the tracts selected, save them as new layers in <code>assignment3_data/CA</code> (make sure to distinguish between “high” and “low”).</p></li>
+<li><p>Make two maps that contain the results of the LISA (local autocorrelation) result from GeoDa and the SaTScan results. We will say that this map layout is for “internal” purposes and your audience knows California very well. Some guidance is below, as well as an (incomplete) example.</p></li>
+</ol>
+<ul>
+<li>For map elements, only include the map data, legend, and title (that clearly distinguishes which results came from which method).</li>
+<li>Although this in an internal map, the two maps should be the exact same size… and have the exact same extent!</li>
+<li>Use a similar category/color scheme to GeoDa for your maps. For the GeoDa output, there should be a field with values that range from 0 to 5 (the default name that GeoDa gives this field is LISA_CL). The correspondence is as such, 1: High-High, 2: Low-Low, 3: Low-High, 4: High-Low, 5: No neighbors, and 0: Nonsignifcant results.</li>
+<li>For the SaTScan map, include both the tracts within the clusters and the cluster extents. Include both High and Low clusters. Make sure that your order of layers is (from the bottom): Low Polygons, High Polygons, Low Circle, High Circle.</li>
+<li>Use similar colors to map high and low results between the two methods.</li>
+<li>Use CA_state.gpkg as a background layer because not all tracts had a school in California</li>
+<li>For this map, you <strong>have to use the transparency method for the tract borders!</strong></li>
+<li>Make sure to save your QGIS project file(s). Export the map as a .pdf file using the <em>Lastname</em>_GEOG541_Assignment3_Map2.pdf.</li>
+</ul>
+<hr>
+</section>
+<section id="question-8-compare-the-output-of-the-satscan-and-lisa-analysis.-briefly-describe-50-100-words-similarities-and-differences.-in-3-5-sentences-explain-why-would-we-expect-them-to-produce-somewhat-different-results." class="level5">
+<h5 class="anchored" data-anchor-id="question-8-compare-the-output-of-the-satscan-and-lisa-analysis.-briefly-describe-50-100-words-similarities-and-differences.-in-3-5-sentences-explain-why-would-we-expect-them-to-produce-somewhat-different-results."><strong>Question #8</strong>: Compare the output of the SaTScan and LISA analysis. Briefly describe (50-100 words) similarities and differences. In 3-5 sentences, explain why would we “expect” them to produce somewhat different results.</h5>
+<hr>
+<p><img src="../resources/graphics/GeoDa_SaTScan_maps_example.png" class="img-fluid"></p>
+<hr>
+</section>
+</section>
+</section>
+<section id="part-3-clusteringautocorrelation-using-your-own-data" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-clusteringautocorrelation-using-your-own-data">Part #3: Clustering/Autocorrelation using your own data</h2>
+<p>Perform both a global autocorrelation analysis and a local autocorrelation analysis using one of the data layers that you downloaded for last assignment (it would be best to use your outcome here!). You can use any of the methods that were discussed in class (if you want to use a different one, check in with me first). If you have unmarked point data, email me about potential global autocorrelation methods (we’re not covering any global methods for this type of data).</p>
+<p>In your answer document, report the results of the global autocorrelation and a 4-6 sentence interpretation of these results. Create a map of the local autocorrelation/clustering analysis and provide a 6-10 sentence interpretation of these results. Provide a 3-4 sentence description of whether you think that this spatial pattern is driven by a 1st or 2nd order spatial process (review the lecture slides before making your determination). Remember to follow good design principles in creating your map and include all map elements. Name your map <em>Lastname</em>_GEOG541_Assignment3_Map3.pdf.</p>
+<hr>
+<section id="deliverables" class="level3">
+<h3 class="anchored" data-anchor-id="deliverables">Deliverables</h3>
+<p>Upload your answer document (Lastname_GEOG541_Assignment3.docx)<br>
+Upload your 3 maps (pdf files)</p>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

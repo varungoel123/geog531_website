@@ -69,7 +69,7 @@ Prior to completing any spatial autocorrelation analysis, we need to define our 
 
 7.  GeoDa provides some basic information and a few tools to explore the nature of the neighborhood definition via the weights manager.
 
-[**Q1. What is the average number of neighbors given 1st order, Queen contiguity?** ]{style="color: red;"}
+[**Q1. What is the average number of neighbors given 1st order, Queen contiguity?**]{style="color: red;"}
 
 ------------------------------------------------------------------------
 
@@ -93,7 +93,7 @@ We often want to understand spatial autocorrelation at a regional level. We use 
 
 11. Right click in one of the pop up maps. Change the [**Significance Filter from 0.05 to 0.01**]{.underline}. Note that the number of Zip Codes highlighted in both maps change!
 
-[**Q.3) Paste this map (screenshot is ok) into your word file. How many Zip Codes were identified as being in a High High cluster? How many in a Low Low cluster? Provide a short explanation (less than 100 words) of why one would expect the pattern of High High observations and Low High outliers given the original choropleth map?** ]{style="color: red;"}
+[**Q.3) Paste this map (screenshot is ok) into your word file. How many Zip Codes were identified as being in a High High cluster? How many in a Low Low cluster? Provide a short explanation (less than 100 words) of why one would expect the pattern of High High observations and Low High outliers given the original choropleth map?**]{style="color: red;"}
 
 ------------------------------------------------------------------------
 

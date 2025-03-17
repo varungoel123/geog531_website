@@ -51,3 +51,11 @@ Note: password for files is provided on class piazza discussion board
 -   [Spatial Neighbors](./lectures/GEOG510_Lec15_SpNeighbors.pdf)
 
 -   [Spatial Clustering I: Attributes](./lectures/GEOG510_Lec16_ClusteringI.pdf)
+
+#### Week 9: Spatial Clustering and Grouping
+
+-   [Spatial Clustering: Scan-based clustering](./lectures/GEOG510_Lec17_ClusteringII.pdf)
+
+
+
+
