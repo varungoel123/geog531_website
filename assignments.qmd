@@ -12,4 +12,6 @@ date-format: medium
 
 -   [Assignment 2: Working with spatial data (due Monday, March 03 before class)](./assignments/assignment2.qmd)
 
+-   [Assignment 3: Applied Autocorrelation/Clustering (due Monday, March 31 before class)](./assignments/assignment3.qmd)
+
 ------------------------------------------------------------------------
