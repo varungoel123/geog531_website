@@ -48,7 +48,7 @@ Note: The password for all password protected content is on Piazza
 
 #### Pattern and Process; Spatial Neighbors
 
--   O’Sullivan, D., & Unwin, D. J. (2010). Geographic Information Analysis (2nd ed.). Hoboken, NJ: John Wiley & Sons, Inc., Chapter 4
+-   -   [O’Sullivan, D., & Unwin, D. J. (2010). Geographic Information Analysis (2nd ed.). Hoboken, NJ: John Wiley & Sons, Inc., Chapter 4](./readiOSullivan_2010_GIA_Chp4.pdf)
 
 ------------------------------------------------------------------------
 
