@@ -52,9 +52,13 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Spatial Clustering I: Attributes](./lectures/GEOG510_Lec16_ClusteringI.pdf)
 
-#### Week 9: Spatial Clustering and Grouping
+#### Week 9: Spatial Clustering and Grouping, Patterns and Processes
 
 -   [Spatial Clustering: Scan-based clustering](./lectures/GEOG510_Lec17_ClusteringII.pdf)
+
+-   [Patterns & Processes](./lectures/GEOG510_Lec17_PatternProcessClustering.pdf)
+
+-   [Grouping and Regionalization (supplemental slides)](./lectures/GEOG510_supplemental_groupingAdvancedClustering.pdf)
 
 
 
