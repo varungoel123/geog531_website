@@ -67,3 +67,5 @@ date-format: medium
 #### Week 11:  Environmental Hazards, Spatial Interpolation, Rasters
 
 -   [Demo 9: Raster Analysis using LandScan](./exercises/GEOG510_demo9_LandscanRaster.qmd){target="_blank"}
+
+-   [Exercise 8: Exposure Assessment using Raster Data](./exercises/GEOG510_ex8_exposureAssessment.qmd){target="_blank"}

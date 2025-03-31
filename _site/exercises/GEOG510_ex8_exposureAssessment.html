@@ -6,8 +6,12 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="In Class Exercise #8 ">
+<meta name="author" content="10 points">
+<meta name="author" content="GEOG 510, GIS and Spatial Analysis in Public Health ">
+<meta name="author" content="Varun Goel">
 
-<title>GEOG 510 - In Class Demos and Exercises</title>
+<title>GEOG 510 - Exposure Assessment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +27,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,7 +65,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -71,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">GEOG 510</span>
     </a>
   </div>
@@ -82,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -91,27 +95,27 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-materials">    
         <li>
-    <a class="dropdown-item" href="./lectures.html" rel="" target="">
+    <a class="dropdown-item" href="../lectures.html" rel="" target="">
  <span class="dropdown-text">Lectures</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./readings.html" rel="" target="">
+    <a class="dropdown-item" href="../readings.html" rel="" target="">
  <span class="dropdown-text">Readings</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./exercises.html" rel="" target="">
+    <a class="dropdown-item" href="../exercises.html" rel="" target="">
  <span class="dropdown-text">Exercises</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./assignments.html" rel="" target="">
+    <a class="dropdown-item" href="../assignments.html" rel="" target="">
  <span class="dropdown-text">Assignments</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./final_project/GEOG510_FinalProject.html" rel="" target="">
+    <a class="dropdown-item" href="../final_project/GEOG510_FinalProject.html" rel="" target="">
  <span class="dropdown-text">Final Project Paper</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./final_project/GEOG510_FinalPresentation.html" rel="" target="">
+    <a class="dropdown-item" href="../final_project/GEOG510_FinalPresentation.html" rel="" target="">
  <span class="dropdown-text">Final Project Presentations and Assessment</span></a>
   </li>  
     </ul>
@@ -122,19 +126,19 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-resources">    
         <li>
-    <a class="dropdown-item" href="./software.html" rel="" target="">
+    <a class="dropdown-item" href="../software.html" rel="" target="">
  <span class="dropdown-text">Software Requirements and Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./data.html" rel="" target="">
+    <a class="dropdown-item" href="../data.html" rel="" target="">
  <span class="dropdown-text">Data Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./tutorials.html" rel="" target="">
+    <a class="dropdown-item" href="../tutorials.html" rel="" target="">
  <span class="dropdown-text">Tutorials and Technical Resources</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./mapping.html" rel="" target="">
+    <a class="dropdown-item" href="../mapping.html" rel="" target="">
  <span class="dropdown-text">Map Submission Checklist</span></a>
   </li>  
     </ul>
@@ -151,27 +155,40 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
+  <li><a href="#open-qgis-and-load-layer" id="toc-open-qgis-and-load-layer" class="nav-link" data-scroll-target="#open-qgis-and-load-layer">Open QGIS and Load layer</a></li>
+  <li><a href="#exposure-based-on-nearest-station" id="toc-exposure-based-on-nearest-station" class="nav-link" data-scroll-target="#exposure-based-on-nearest-station">Exposure based on Nearest Station</a></li>
+  <li><a href="#exposure-based-on-pixels-inside-boundary" id="toc-exposure-based-on-pixels-inside-boundary" class="nav-link" data-scroll-target="#exposure-based-on-pixels-inside-boundary">Exposure based on Pixels Inside Boundary</a></li>
+  <li><a href="#calculate-and-map-difference" id="toc-calculate-and-map-difference" class="nav-link" data-scroll-target="#calculate-and-map-difference">Calculate and Map Difference</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">In Class Demos and Exercises</h1>
+<h1 class="title">Exposure Assessment</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    
     <div>
-    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-heading">Authors</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Mar 30, 2025</p>
-    </div>
+             <p>In Class Exercise #8  </p>
+             <p>10 points </p>
+             <p>GEOG 510, GIS and Spatial Analysis in Public Health  </p>
+             <p>Varun Goel </p>
+          </div>
   </div>
+    
   
     
   </div>
@@ -179,69 +196,70 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<div class="cell">
+<style type="text/css">
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+</style>
+</div>
 <hr>
-<section id="week-1-introduction-to-health-geography-and-gis" class="level4">
-<h4 class="anchored" data-anchor-id="week-1-introduction-to-health-geography-and-gis">Week 1: Introduction to Health Geography and GIS</h4>
-<ul>
-<li><a href="./exercises/GEOG510_ex1_piazzaAndLogistics.docx">Exercise 1: Piazza and Logistics (Wednesday, Jan 15, 2025)</a></li>
-</ul>
+<p>In this exercise, you estimate population-level (Census Tract) exposure to Ozone in Los Angeles County, CA. The Ozone layers were created using air quality monitoring data downloaded from the EPA.</p>
+<p><strong>Note that throughout this document, if I use the term “right click,” this means “control click” for Mac users!</strong></p>
 <hr>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<ol type="1">
+<li><a href="https://drive.google.com/file/d/1jUnxGy2Xxq2Bo1AnYIaQtlYFCStxXaW8/view?usp=sharing">Download the data here</a> and unzip.</li>
+</ol>
 </section>
-<section id="week-34-spatial-data-fundamentals-coordinate-systems" class="level4">
-<h4 class="anchored" data-anchor-id="week-34-spatial-data-fundamentals-coordinate-systems">Week 3/4: Spatial Data fundamentals, Coordinate systems</h4>
-<ul>
-<li><p><a href="./exercises/demo1_storageAndManagement.html" target="_blank">Demo 1: Data Storage and Management</a></p></li>
-<li><p><a href="./exercises/fileManagement_tips.html" target="_blank">Useful tip: File Folder management</a></p></li>
-<li><p><a href="./exercises/demo2_CRS.html" target="_blank">Demo 2: Coordinate Reference Systems</a></p></li>
-<li><p><a href="./exercises/GEOG_510_ex4_tissot.html" target="_blank">Exercise 2: Tissot Indicatrix and CRS</a></p></li>
-</ul>
-<hr>
+<section id="open-qgis-and-load-layer" class="level3">
+<h3 class="anchored" data-anchor-id="open-qgis-and-load-layer">Open QGIS and Load layer</h3>
+<ol start="2" type="1">
+<li><p>Open QGIS, then open the project file <code>GEOG510_ex8.qgz</code>.</p></li>
+<li><p>Look through the data (but don’t change the layer order!)</p></li>
+</ol>
 </section>
-<section id="week-5-geocoding" class="level4">
-<h4 class="anchored" data-anchor-id="week-5-geocoding">Week 5: Geocoding</h4>
+<section id="exposure-based-on-nearest-station" class="level3">
+<h3 class="anchored" data-anchor-id="exposure-based-on-nearest-station">Exposure based on Nearest Station</h3>
+<p>In the following steps, you will be assigning an Ozone value to each tract based on the nearest monitoring station value.</p>
+<ol start="4" type="1">
+<li>In the Processing Toolbox, navigate to Vector general | Join Attributes by Nearest. Use the following options (leave everything else unchanged) and click Run:
 <ul>
-<li><p><a href="./exercises/GEOG510_demo3_PluginGeocode.html" target="_blank">Demo 3: Plugins and Geocoding</a></p></li>
-<li><p><a href="./exercises/GEOG510_ex3_GeocodeJoins.html" target="_blank">Exercise 3: Geocoding and Joins</a></p></li>
-</ul>
-<hr>
+<li>Input layer: LA_county_tract_centroids</li>
+<li>Input layer 2: O3_pts_ca</li>
+</ul></li>
+<li>Table join the resulting layer to the LA_county_tract (polygon) layer. In the LA_county_tract layer, calculate a new field called O3_nearest using the joined <strong>ozone</strong> field. Once this is calculated, remove the table join.</li>
+</ol>
 </section>
-<section id="week-6-mapping-health-data" class="level4">
-<h4 class="anchored" data-anchor-id="week-6-mapping-health-data">Week 6: Mapping Health data</h4>
+<section id="exposure-based-on-pixels-inside-boundary" class="level3">
+<h3 class="anchored" data-anchor-id="exposure-based-on-pixels-inside-boundary">Exposure based on Pixels Inside Boundary</h3>
+<p>In the following steps, you will be assigning an Ozone value to each tract based on the average Ozone level of pixels falling within each tract’s boundary.</p>
+<ol start="6" type="1">
+<li>In the Processing Toolbox, navigate to Raster analysis | Zonal statistics. Use the following options (leave everything else unchanged) and click Run:
 <ul>
-<li><a href="./exercises/GEOG510_demo4ex4_MapComposer.html" target="_blank">Demo 4 and Exercise Map: Composing Maps</a></li>
-</ul>
-<hr>
+<li>Input layer: LA_county_tract</li>
+<li>Raster layer 2: Ozone_CA_LA_2023_interp</li>
+<li>Statistics to calculate: Mean</li>
+</ul></li>
+<li>Table join the resulting layer to the LA_county_tract (polygon) layer. In the LA_county_tract layer, calculate a new field called O3_zonal using the joined **_mean** field. Once this is calculated, remove the table join.</li>
+</ol>
 </section>
-<section id="week-6-gis-operations-spatial-patterns-and-processes" class="level4">
-<h4 class="anchored" data-anchor-id="week-6-gis-operations-spatial-patterns-and-processes">Week 6: GIS operations, spatial patterns and processes</h4>
-<ul>
-<li><p><a href="./exercises/GEOG510_demo5_BasicGISOperations1.html" target="_blank">Demo 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize</a></p></li>
-<li><p><a href="./exercises/GEOG510_ex5_basicVectorOperations.html" target="_blank">Exercise 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize</a></p></li>
-<li><p><a href="./exercises/GEOG510_demo6_GeoDa.html" target="_blank">Demo 6: Introduction to GEODA</a></p></li>
-</ul>
-<hr>
-</section>
-<section id="week-7-neighbors-point-pattern-analysis-and-spatial-clustering" class="level4">
-<h4 class="anchored" data-anchor-id="week-7-neighbors-point-pattern-analysis-and-spatial-clustering">Week 7: Neighbors, point pattern analysis, and spatial clustering</h4>
-<ul>
-<li><p><a href="./exercises/GEOG510_ex6_kde.html" target="_blank">Exercise 6: Introduction to Kernel Density Estimation</a></p></li>
-<li><p><a href="./exercises/GEOG510_ex7_GeoDaSpAuto.html" target="_blank">Exercise 7: Spatial Autocorrelation in GeoDa</a></p></li>
-</ul>
-<hr>
-</section>
-<section id="week-9-scan-statistics-patterns-vs-process" class="level4">
-<h4 class="anchored" data-anchor-id="week-9-scan-statistics-patterns-vs-process">Week 9: Scan statistics, patterns vs process</h4>
-<ul>
-<li><a href="./exercises/GEOG510_demo8_SaTScan.html" target="_blank">Demo 8: Introduction to SatScan</a></li>
-</ul>
-<hr>
-</section>
-<section id="week-11-environmental-hazards-spatial-interpolation-rasters" class="level4">
-<h4 class="anchored" data-anchor-id="week-11-environmental-hazards-spatial-interpolation-rasters">Week 11: Environmental Hazards, Spatial Interpolation, Rasters</h4>
-<ul>
-<li><p><a href="./exercises/GEOG510_demo9_LandscanRaster.html" target="_blank">Demo 9: Raster Analysis using LandScan</a></p></li>
-<li><p><a href="./exercises/GEOG510_ex8_exposureAssessment.html" target="_blank">Exercise 8: Exposure Assessment using Raster Data</a></p></li>
-</ul>
+<section id="calculate-and-map-difference" class="level3">
+<h3 class="anchored" data-anchor-id="calculate-and-map-difference">Calculate and Map Difference</h3>
+<ol start="8" type="1">
+<li><p>In the LA_county_tract layer, calculate a new field called DIFF using the following expression: <code>"O3_zonal" - "O3_nearest"</code></p></li>
+<li><p>Create a simple map layout showing the tract level differences in exposure estimates. Use a diverging color scheme! The resulting map only needs to have the map and legend. Export as a .png file and upload to your OneDrive folder using the “youruserid_ex8.png” format.</p></li>
+</ol>
 
 
 </section>
