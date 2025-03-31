@@ -60,6 +60,7 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Grouping and Regionalization (supplemental slides)](./lectures/GEOG510_supplemental_groupingAdvancedClustering.pdf)
 
+#### Week 11: Environmental Hazards, Spatial Interpolation, Rasters
 
-
+-   [Environmental Hazards](./lectures/GEOG510_Lec18_EnvHaz.pdf)
 
