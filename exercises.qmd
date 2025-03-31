@@ -61,3 +61,9 @@ date-format: medium
 #### Week 9:  Scan statistics, patterns vs process
 
 -   [Demo 8: Introduction to SatScan](./exercises/GEOG510_demo8_SaTScan.qmd){target="_blank"}
+
+------------------------------------------------------------------------
+
+#### Week 11:  Environmental Hazards, Spatial Interpolation, Rasters
+
+-   [Demo 9: Raster Analysis using LandScan](./exercises/GEOG510_demo9_LandscanRaster.qmd){target="_blank"}
