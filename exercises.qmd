@@ -69,3 +69,5 @@ date-format: medium
 -   [Demo 9: Raster Analysis using LandScan](./exercises/GEOG510_demo9_LandscanRaster.qmd){target="_blank"}
 
 -   [Exercise 8: Exposure Assessment using Raster Data](./exercises/GEOG510_ex8_exposureAssessment.qmd){target="_blank"}
+
+-   [Exercise 9: Spatial Interpolation](./exercises/GEOG510_ex9_Interpolation.qmd){target="_blank"}
