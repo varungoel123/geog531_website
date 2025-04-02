@@ -64,3 +64,5 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Environmental Hazards](./lectures/GEOG510_Lec18_EnvHaz.pdf)
 
+-   [Spatial Interpolation](./lectures/GEOG510_Lec19_SpInterp.pdf)
+
