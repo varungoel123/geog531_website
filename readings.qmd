@@ -74,6 +74,11 @@ Note: The password for all password protected content is on Piazza
 
 -   Cromley, E. K., & McLafferty, S. L. (2012). GIS and public health (2nd ed.). New York: Guilford Press. Chapters 7 and 8
 
+-   [Cohen J, Tita G. Diffusion in homicide: Exploring a general method for detecting spatial diffusion processes. Journal of quantitative criminology. 1999 Dec;15:451-93.](./readings/CohenTita1999.pdf)
+
+-   [Baudains P, Johnson SD, Braithwaite AM. Geographic patterns of diffusion in the 2011 London riots. Applied Geography. 2013 Dec 1;45:211-9.](./readings/Baudains2011.pdf)
+
+
 ------------------------------------------------------------------------
 
 #### Spatial Regression Techniques; Temporal Analysis and Change Detection
