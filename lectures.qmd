@@ -66,3 +66,9 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Spatial Interpolation](./lectures/GEOG510_Lec19_SpInterp.pdf)
 
+#### Week 12: Disease Diffusion, Disease Ecology, Regrssion
+
+-   [Disease Diffusion](./lectures/GEOG510_Lec20_DisRiskDiff.pdf)
+
+-   [Supplemental lecture: Vaccines and Agent-based modeling](./lectures/GEOG510_Lec20a_simulationVaccine.pdf)
+
