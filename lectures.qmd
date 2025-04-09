@@ -72,3 +72,5 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Supplemental lecture: Vaccines and Agent-based modeling](./lectures/GEOG510_Lec20a_simulationVaccine.pdf)
 
+-   [Introduction to Regression](./lectures/GEOG510_Lec21_Reg.pdf)
+
