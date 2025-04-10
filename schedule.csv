@@ -1,5 +1,5 @@
 WEEK,TUES,THUR,TOPICS,DELIVERABLES,NOTES
-1,1/13/24,1/15/24,Introduction to GEOG 541 and Health Geography; Geographic Concepts and GIS,,
+1,1/13/24,1/15/24,Introduction to GEOG 510 and Health Geography; Geographic Concepts and GIS,,
 2,,1/22/24,Spatial data fundamentals; Projections and Coordinate Systems; Data Quality and Metadata,,Dr. Martin Luther King Jr. Day + snow day (slides to be skimmed before week 3 class)
 3,1/27/24,1/29/24,Introduction to Spatial Health Data; ,,
 4,2/3/24,2/5/24,,A#1,Virtual/Recorded
@@ -9,10 +9,10 @@ WEEK,TUES,THUR,TOPICS,DELIVERABLES,NOTES
 8,3/3/24,3/5/24,Disease Clusters; Grouping and Regionalization,A#2,
 9,,,,,Spring Break
 10,3/17/24,3/19/24,Applied Autocorrelation/Clustering/Grouping,A#3,
-11,3/24/24,3/26/24,Environmental Hazards; Spatial Interpolation,,Virtual/Recorded
+11,3/24/24,3/26/24,NO CLASS: Away for conference,,Virtual/Recorded
 12,3/31/24,4/2/24,Disease Risk and Diffusion; Ecology of Disease,A#4,
-13,4/7/24,4/9/24,Spatial Regression Techniques; Temporal Analysis and Change Detection,,
-14,4/14/24,4/16/24,Neighborhoods and Health,,
-15,4/21/24,4/23/24,Access to Health Care; Network Analysis; Spatial Interaction Models,A#5,Thanksgiving Break
-16,4/28/24,,Course summary,,Last day of classes
-EXAM,5/5/24,,,Final Paper/Presentation,Starts at 12:30 pm
+13,4/7/24,4/9/24,"Correlation, Regression, Confounding",,
+14,4/14/24,4/16/24,Spatial Regression Techniques; Temporal Analysis and Change Detection,,
+15,4/21/24,4/23/24,Neighborhoods and Health,A#5,
+16,4/28/24,,Access to Health Care; Network Analysis; Spatial Interaction Models,,Last day of classes
+FINAL EXAM,5/5/24,,,Final Presentation/Peer Assessment; Final paper due,Starts at 12:30 pm
