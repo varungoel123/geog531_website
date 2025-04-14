@@ -80,7 +80,7 @@ There are a number of "rules of thumb" for what is an allowable level of multico
 
 ------------------------------------------------------------------------
 
-##### **Question #1**: Dr. Goel decided that you will use the following independent variables in your regression analysis – POP, E2SFCA, HINS0064, EDBApl, FEMPCT, WHITEPCT. In 3-5 sentences, explain how he came to this decision and point out instances (specifically, tell which variables or which model) in which he disregarded his personal rules of thumb (use NOTE above).
+##### [Question #1: Dr. Goel decided that you will use the following independent variables in your regression analysis – POP, E2SFCA, HINS0064, EDBApl, FEMPCT, WHITEPCT. In 3-5 sentences, explain how he came to this decision and point out instances (specifically, tell which variables or which model) in which he disregarded his personal rules of thumb (use NOTE above).]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
@@ -98,7 +98,7 @@ There are a number of ways to deal with (X) variables that are causing multicoll
 
 ------------------------------------------------------------------------
 
-##### **Question #2**: What was the Multicollinearity Condition Number for the 2nd and 3rd OLS regressions from Step 7?
+##### [Question #2: What was the Multicollinearity Condition Number for the 2nd and 3rd OLS regressions from Step 7?]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
@@ -106,15 +106,15 @@ There are a number of ways to deal with (X) variables that are causing multicoll
 
 ------------------------------------------------------------------------
 
-##### **Question #3**: Do you need to run a spatial regression? \[the answer is Yes\]. In 2-3 sentences, explain why this is the case (using evidence from the OLS output).
+##### [Question #3: Do you need to run a spatial regression? \[the answer is Yes\]. In 2-3 sentences, explain why this is the case (using evidence from the OLS output).]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
-##### **Question #4**: Copy/paste the summary results of your 3rd OLS regression from Step 7 into your lab document. Make sure that the font stays as Courier!
+##### [Question #4: Copy/paste the summary results of your 3rd OLS regression from Step 7 into your lab document. Make sure that the font stays as Courier!]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
-##### **Question #5**: Which type of spatial regression model should you run based on a) theory and b) the diagnostics (see lecture slides or GeoDa handbook). Provide 1-3 sentences for each. Keep in mind that hospitalizations are not contagious.
+##### [Question #5: Which type of spatial regression model should you run based on a) theory and b) the diagnostics (see lecture slides or GeoDa handbook). Provide 1-3 sentences for each. Keep in mind that hospitalizations are not contagious.]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
@@ -122,11 +122,11 @@ There are a number of ways to deal with (X) variables that are causing multicoll
 
 ------------------------------------------------------------------------
 
-##### **Question #6**: Copy/paste the summary results of Spatial Error model into your lab document. Make sure that the font stays as Courier!
+##### [Question #6: Copy/paste the summary results of Spatial Error model into your lab document. Make sure that the font stays as Courier!]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
-##### **Question #7**: Describe how the coefficient values changed in the spatial error model (compared to the 3rd OLS model). Are the effect sizes bigger/smaller? Is there anything notable that changed in the significance of the coefficients?
+##### [Question #7: Describe how the coefficient values changed in the spatial error model (compared to the 3rd OLS model). Are the effect sizes bigger/smaller? Is there anything notable that changed in the significance of the coefficients?]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
@@ -136,11 +136,9 @@ There are a number of ways to deal with (X) variables that are causing multicoll
 While writing this assignment, I found out that the authors of GeoDa say that generating a pseudo P-value for the Moran's I results of regression residuals is not an acceptable approach. Thus, to evaluate remaining spatial autocorrelation in the residuals, we will use the magnitude of the Moran's I value, rather than the pseudo P-value.
 :::
 
-<p>
-
 ------------------------------------------------------------------------
 
-##### **Question #8**: What is the Moran's I value of the residuals from the Spatial Error model? Is this a small/medium/large amount of remaining spatial autocorrelation?
+##### [Question #8: What is the Moran's I value of the residuals from the Spatial Error model? Is this a small/medium/large amount of remaining spatial autocorrelation?]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
@@ -148,15 +146,15 @@ While writing this assignment, I found out that the authors of GeoDa say that ge
 
 ------------------------------------------------------------------------
 
-##### **Question #9**: Copy/paste the summary results of Spatial Lag model into your lab document. Make sure that the font stays as Courier!
+##### [Question #9: Copy/paste the summary results of Spatial Lag model into your lab document. Make sure that the font stays as Courier!]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
-##### **Question #10**: Based on AIC, which model (Spatial Lag or Spatial Error) fits the observed hospitalization data better? (See Step #9 on AIC interpretation)
+##### [Question #10: Based on AIC, which model (Spatial Lag or Spatial Error) fits the observed hospitalization data better? (See Step #9 on AIC interpretation)]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
-##### **Question #11**: What is the Moran's I value of the residuals of the Spatial Lag model? Is this a small/medium/large amount of remaining spatial autocorrelation?
+##### [Question #11: What is the Moran's I value of the residuals of the Spatial Lag model? Is this a small/medium/large amount of remaining spatial autocorrelation?]{style="color: green;"}
 
 ------------------------------------------------------------------------
 
@@ -165,8 +163,6 @@ While writing this assignment, I found out that the authors of GeoDa say that ge
 ::: highlightblock
 **Extra Credit Opportunity: 10 points** Figure out in GeoDa how to create a histogram of your regression residuals to evaluate normality and and a scatterplot to evaluate heteroscedasticity in the residuals. Paste the graphics directly into your assignment document. Make sure that the graphics are large enough that I can evaluate that you have plotted the correct values.
 :::
-
-<p>
 
 ------------------------------------------------------------------------
 
@@ -182,11 +178,11 @@ While writing this assignment, I found out that the authors of GeoDa say that ge
 
 While it is not necessary to implement a regression analysis for your final projects, regression can be a powerful tool to test hypotheses related to spatial processes driving the observed spatial patterns of your health outcoome. In this part, you are asked to conceptualize what a regression analysis may look like for you, so that you can more confidently implement it in your final projects if you choose to.
 
-##### **Question #13**: Frame your main research question in the context of an independent (x) and dependent (Y) variable. For example, my main question is to look at how does daily average temperature (X variable) impact percentage of people with mental health distress in each censusc tract of South Carolina (Y variable). Be as specific as you can so that you will have a better idea of what exact data you need to have.
+##### [Question #13: Frame your main research question in the context of an independent (x) and dependent (Y) variable. For example, my main question is to look at how does daily average temperature (X variable) impact percentage of people with mental health distress in each censusc tract of South Carolina (Y variable). Be as specific as you can so that you will have a better idea of what exact data you need to have.]{style="color: green;"}
 
-##### **Question #14**: Name atleast 3 potential confounders/other independent variables (other than Age, Sex, and population) that you would include in your analysis. Age, Sex, and populationare almost always variables in many health analysis, so I want you to think beyond them. Also explain why do you think they may be potential confounders to be added. Be as specific as you can so that you will have a better idea of what exact data you need to have.
+##### [Question #14: Name atleast 3 potential confounders/other independent variables (other than Age, Sex, and population) that you would include in your analysis. Age, Sex, and populationare almost always variables in many health analysis, so I want you to think beyond them. Also explain why do you think they may be potential confounders to be added. Be as specific as you can so that you will have a better idea of what exact data you need to have.]{style="color: green;"}
 
-##### **Question #15**: Think about the potential motivation of why a spatial regression may be important for your question, in the context of 1st order and 2nd order spatial analysis. In 3-5 sentences, explain the motivation/reasoning behind why you would want to use one spatial regression and if so, which one ( or both, or not? Link your reasoning to the type of 1st order and 2nd order spatial processes that may be driving your research question for your analysis.
+##### [Question #15: Think about the potential motivation of why a spatial regression may be important for your question, in the context of 1st order and 2nd order spatial analysis. In 3-5 sentences, explain the motivation/reasoning behind why you would want to use one spatial regression and if so, which one ( or both, or not? Link your reasoning to the type of 1st order and 2nd order spatial processes that may be driving your research question for your analysis.]{style="color: green;"}
 
 ::: highlightblock
 **Extra Credit Opportunity: upto 40 points** I will grant upto 40 points if you actually conduct a regression analysis for your own final project data. This will be based on the sophistication and accuracy of your analysis, but even a non-horrible simple OLS regression will fetch 10 points.
