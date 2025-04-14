@@ -74,3 +74,5 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Introduction to Regression](./lectures/GEOG510_Lec21_Reg.pdf)
 
+-   [Regression: Part 2](./lectures/GEOG510_Lec22_RegContinued.pdf)
+
