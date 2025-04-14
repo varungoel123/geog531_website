@@ -98,11 +98,13 @@ This exercise walks you through an example of a regression analysis in **GeoDa**
 
 **Based on this algorithm, which model should we use? Based on your understanding of the process occurring, which model should we use?**
 
+8. To visually examine whether our residuals are correlated spatially, you can also examine them in GeoDA by running Global/Local Moran's I on the OLS residuals. To do so, you need to join the residuals to your GeoDA table. To do so, you can select 'Save Table' in your regression tab, and press ok. 
+
 ******
 
 ### Spatial Regression
 
-8. Perform the regression and examine the output.
+9. Perform the regression and examine the output.
 
 **What important information that you can glean from the regression results?**
 

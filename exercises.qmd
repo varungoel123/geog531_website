@@ -71,3 +71,8 @@ date-format: medium
 -   [Exercise 8: Exposure Assessment using Raster Data](./exercises/GEOG510_ex8_exposureAssessment.qmd){target="_blank"}
 
 -   [Exercise 9: Spatial Interpolation](./exercises/GEOG510_ex9_Interpolation.qmd){target="_blank"}
+
+#### Week 13:  Correlation, Regression, Spatial Regression
+
+-   [Demo 10: Regression and Spatial Regression](./exercises/GEOG510_demo10_Regression.qmd){target="_blank"}
+
