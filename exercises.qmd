@@ -76,3 +76,5 @@ date-format: medium
 
 -   [Demo 10: Regression and Spatial Regression](./exercises/GEOG510_demo10_Regression.qmd){target="_blank"}
 
+-   [Exercise 10: Regression and Spatial Regression](./exercises/GEOG510_ex10_SpatialRegression.qmd){target="_blank"}
+

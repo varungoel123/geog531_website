@@ -1,0 +1,97 @@
+---
+title: 'Regression'
+author:
+- In Class Exercise \#10 \newline
+- 20 points
+- GEOG 510, GIS & Spatial Analysis in Public Health \newline
+- Varun Goel
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    mathjax: null
+---
+
+```{css, echo=FALSE}
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 5px 10px 4px 10px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------------------------
+
+In this exercise, you will be conducting a regression analysis using **GeoDa**. The data are located [here](https://drive.google.com/file/d/1aRqtl7UAakWyHB_5cN5OYMriRXX2ZERZ/view?usp=share_link).
+
+Create a word file with an appropriate filename. You will be submit your results/screenshots in this file. Upload the file to your relevant OneDrive folder when done.
+
+**Note that throughout this document, if I use the term "right click," this means "control click" for Mac users!**
+
+------------------------------------------------------------------------
+
+### Load/View Data
+
+1.  Open GeoDa. Go to File \| New (or click the button that looks like a folder) and load CA_PME_16_data.gpkg. These data are related to Medical Exemptions from vaccination for kindergarteners and socioeconomic variables by census tract in California.
+
+2.  Open the attribute table to view the fields included in the data layer. They are defined as follows:
+
+    **Dependent Variables**
+
+    -   **pmer16**: Proportion of kindergarteners with a Medical Exemption in 2016
+
+    -   **pmerch1516**: Raw change in proportion of kindergarteners with a Medical Exemption in 2015 to 2016
+
+    **Independent Variables**
+
+    -   **pber15**: Proportion of kindergarteners with a Personal Belief Exemption in 2016
+    -   **enr16**: Number of kindergarteners entering school in 2016
+    -   **white16**: Proportion of the population who are White (non Hispanic)
+    -   **black16**: Proportion of the population who are Black (non Hispanic)
+    -   **hisp16**: Proportion of the population who are Hispanic
+    -   **edshlt16**: Proportion of the population (age 25+ years) with a high school diploma (only) or less
+    -   **edba16**: Proportion of the population (age 25+ years) with a bachelor's degree
+    -   **edgr16**: Proportion of the population (age 25+ years) with a graduate or professional degree
+    -   **mhi16**: Median Household Income
+    -   **pci16**: Per Capita Income
+
+------------------------------------------------------------------------
+
+### Assess Multicollinearity
+
+3.  Open Correlation_Matrix.csv and determine which independent variables should not be included in a model together. Try to maximize the number of variables that can be included!
+
+**Q1) Which variables did you exclude from your model? Explain your reasoning in 1-3 sentences.**
+
+------------------------------------------------------------------------
+
+### Weights
+
+4.  In GeoDa, create a set of 1st order queen neighbors for the features in CA_PME_16_data.gpkg. (Note: You will get a warning, that is okay!)
+
+------------------------------------------------------------------------
+
+### Regression
+
+5.  Perform a regular OLS regression, which will provide you diagnostic information about whether or not you need to use a spatial regression model. In the top menu, click Regression \| Regression or click the REG button on the main menu bar. In the dialog box, add **pmer16** as the Dependent Variable. Add the variables you determined can/should be included as independent variables as the Covariates. Make sure the weights file you created in the prior step is selected as the Weights File. In the Models area, make sure that [**Classic**]{.underline} is selected. Click Run.
+
+    **Q2) Copy paste your OLS output (you can take a screenshot). Looking at your regression output parameters, mention in 1 sentence which assumptions of OLS were violated (normality of errors, multicollinearity, heteroscedasticity).**
+
+    **Q3) Also, by looking at the regression output, explain in 2-4 sentences, which variables were statistically significant, and whether they were positively or negatively related with pmer16.**
+
+6.  Using the same OLS output, determine whether you should run a spatial regression model (hint, use Moran's I of residuals) and which model is most appropriate (see Demo for guidance).
+
+    **Q4) Explain in 1-3 sentences, which model did you deem to be most appropriate and why?**
+
+    **Q5) If necessary, run a spatial regression model and copy/paste the results.**
