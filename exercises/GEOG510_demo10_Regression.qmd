@@ -1,0 +1,109 @@
+---
+title: 'Regression'
+author:
+- In Class Demonstration \#10 \newline
+- GEOG 510, GIS & Spatial Analysis for Public Health \newline
+- Varun Goel
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    mathjax: null
+---
+
+```{css, echo=FALSE}
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 5px 10px 4px 10px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+******
+
+This exercise walks you through an example of a regression analysis in **GeoDa**. If you want to follow along, the data are located [here](https://drive.google.com/file/d/1Qyr3SaHZXuZCI9l4I7Wq9PjLsLUmlUwa/view?usp=share_link).
+
+**Note that throughout this document, if I use the term "right click," this means "control click" for Mac users!**  
+
+******
+
+### Load/View Data
+
+1.. Open GeoDa. Go to File | New (or click the button that looks like a folder) and load Vacc_zipcode_data.gpkg. These data are COVID-19 Vaccine Uptake and socioeconomic variables by Zip Code in North Carolina.
+
+2. Open the attribute table to view the fields included in the data layer. They are defined as follows:
+
+    * **vacc_c**: Number of people aged 5+ years who had completed the COVID-19 vaccination series
+    * **pop_5p**: Number of people aged 5+ years
+    * **vacc_pct_c**: Proportion of people who had completed the COVID-19 vaccination series
+    * **mhi**: Median household income
+    * **ed_bachpl**: Proportion of the population (age 25+ years) with a bachelor's degree (or higher)
+    * **unins**: Proportion of the population (age 0--64) without health insurance
+    * **lang_noneng**: Proportion of households where English is not first languange
+    * **rep**: Proportion of registered voters who registered as Republicans
+
+******
+ 
+### Assess Multicollinearity
+
+3. Open Vacc_zipcode_data_correlation.xlsx and determine whether any variables should be removed.
+
+******
+
+### Weights
+
+4. Create a set of 1st order queen neighbors for the features in Vacc_zipcode_data.gpkg.
+
+******
+
+### OLS Regression
+
+5. Perform a regular OLS regression, which will provide you diagnostic information about whether or not you need to use a spatial regression model. In the top menu, click Regression | Regression or click the REG button on the main menu bar. In the dialog box, add **vacc_pct_c** as the Dependent Variable. Add **ed_bachpl**, **unins**, **lang_noneng**, and **rep** as the Covariates. Make sure the weights file you created in the prior step is selected as the Weights File. In the Models area, make sure that Classic is selected. Click Run. The regression output should be printed to a new window. Locate the following information in the regression output:
+
+    * R2
+    * F-statistic
+    * p-value of overall model
+    * beta values (coefficients) for the independent variables
+    * p-values for the coefficients
+    * Moran’s I of the regression residuals
+    * p-value of Moran’s I of the regression residuals
+
+**Do we need to perform a spatial regression?… Why or why not?**
+
+6. Stop, but do not close Geoda!
+
+******
+
+### Determine Spatial Regression Model
+
+7. Locate the Lagrange test results in the regression output. Work your way through the following algorithm.  Check Lagrange Multiplier (xxx) p values (PROB in Geoda)   
+
+    * If neither is significant, use OLS results (or modify neighborhood)   
+    * If only one (lag or error) is significant, use that model   
+    * If both are significant, Check Robust LM (xxx) p values  
+      * If neither is significant, use model with lowest non-robust p value (from above)    
+      * If only one (lag or error) is significant, use that model   
+      * If both are significant, use model with lowest p value  
+
+**Based on this algorithm, which model should we use? Based on your understanding of the process occurring, which model should we use?**
+
+******
+
+### Spatial Regression
+
+8. Perform the regression and examine the output.
+
+**What important information that you can glean from the regression results?**
+
+---
