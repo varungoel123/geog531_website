@@ -6,12 +6,12 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Spatial Regression, 110 points ">
-<meta name="author" content="GEOG 541, GIS and Public Health ">
-<meta name="author" content="Paul Delamater">
+<meta name="author" content="Spatial Regression, 150 points points ">
+<meta name="author" content="GEOG 510, GIS &amp; Spatial Analysis in Public Health ">
+<meta name="author" content="Varun Goel">
 <meta name="dcterms.date" content="2025-04-14">
 
-<title>GEOG 510 - GEOG 541: Assignment #5</title>
+<title>GEOG 510 - GEOG 510: Assignment #4</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -159,8 +159,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#part-1-regression-analysis-of-hospital-utilization-rates" id="toc-part-1-regression-analysis-of-hospital-utilization-rates" class="nav-link active" data-scroll-target="#part-1-regression-analysis-of-hospital-utilization-rates">Part #1: Regression Analysis of Hospital Utilization Rates</a></li>
-  <li><a href="#part-2-project-preliminary-analysis-and-results" id="toc-part-2-project-preliminary-analysis-and-results" class="nav-link" data-scroll-target="#part-2-project-preliminary-analysis-and-results">Part #2: Project Preliminary analysis and results</a>
+  <li><a href="#part-1-regression-analysis-of-hospital-utilization-rates-120-points" id="toc-part-1-regression-analysis-of-hospital-utilization-rates-120-points" class="nav-link active" data-scroll-target="#part-1-regression-analysis-of-hospital-utilization-rates-120-points">Part #1: Regression Analysis of Hospital Utilization Rates (120 points)</a></li>
+  <li><a href="#part-2-thinking-about-regression-for-your-project-question-30-points" id="toc-part-2-thinking-about-regression-for-your-project-question-30-points" class="nav-link" data-scroll-target="#part-2-thinking-about-regression-for-your-project-question-30-points">Part #2: Thinking about regression for your project question (30 points)</a>
   <ul class="collapse">
   <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables">Deliverables</a></li>
   </ul></li>
@@ -172,7 +172,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">GEOG 541: Assignment #5</h1>
+<h1 class="title">GEOG 510: Assignment #4</h1>
 </div>
 
 
@@ -182,9 +182,9 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Authors</div>
     <div class="quarto-title-meta-contents">
-             <p>Spatial Regression, 110 points  </p>
-             <p>GEOG 541, GIS and Public Health  </p>
-             <p>Paul Delamater </p>
+             <p>Spatial Regression, 150 points points  </p>
+             <p>GEOG 510, GIS &amp; Spatial Analysis in Public Health  </p>
+             <p>Varun Goel </p>
           </div>
   </div>
     
@@ -218,54 +218,52 @@ div.highlightblock {
 </style>
 </div>
 <hr>
-<p>This assignment is split into two parts. In the first part of this assignment, you will be working with hospital utilization (Zip Code level polygon data) to conduct a basic spatial regression analysis in GeoDa. In the second part, you will be required to demonstrate some progress on the analysis portion of your final project using your own data. Please at least skim through the entire assignment document before beginning.</p>
-<p>On your computer, create a folder for Assignment #5 and a folder (inside of that one) to store data. Download GEOG541_assignment5_data.zip from the course Canvas page into the data folder and then unzip the contents.</p>
-<p>For the first part of the assignment, create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 541, and Assignment #5 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.</p>
-<p>Please save the file using the following naming format, <strong>Lastname_GEOG541_Assignment5.docx</strong>. For example, my file would be <strong>Delamater_GEOG541_Assignment5.docx</strong>. Please follow the file naming format for your document, as this really helps us to stay organized and be more efficient graders. Upload your assignment document on Canvas when complete.</p>
-<p>For the second part of the assignment, create a document using some form of word processing software (Microsoft Word is preferred). Put your name, GEOG 541, and Project Preliminary Results at the top of the document. Copy/paste graphics or outputs directly into the document where applicable and requested. Please save the file using the following naming format, <strong>Lastname_GEOG541_ProjResults.docx</strong>. For example, my file would be <strong>Delamater_GEOG541_ProjResults.docx</strong>. Please follow the file naming format for your document, as this really helps us to stay organized and be more efficient graders.</p>
+<p>This assignment is split into two parts. In the first part of this assignment, you will be working with hospital utilization (Zip Code level polygon data) to conduct a basic spatial regression analysis in GeoDa. In the second part, you will be asked to formulate a question for your final project that can be asked through using multiple/Spatial Regression. Please at least skim through the entire assignment document before beginning.</p>
+<p>On your computer, create a folder for Assignment #4 and a folder (inside of that one) to store data. <a href="https://drive.google.com/file/d/1CQFKE0ODxHb6TQXEHuQQfhPZRo_c6k1A/view?usp=sharing">Download GEOG510_assignment4_data.zip from here</a> into the data folder and then unzip the contents.</p>
+<p>For the assignment, create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 510, and Assignment #4 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.</p>
+<p>Please save the file using the following naming format, <strong>userid_assignment4.docx</strong>. For example, my file would be <strong>vgoel_assignment4.docx</strong>. Please follow the file naming format for your document. Upload your assignment document to your OneDrive folder when complete.</p>
 <hr>
-<section id="part-1-regression-analysis-of-hospital-utilization-rates" class="level2">
-<h2 class="anchored" data-anchor-id="part-1-regression-analysis-of-hospital-utilization-rates">Part #1: Regression Analysis of Hospital Utilization Rates</h2>
-<p>In this analysis, you will be exploring the underlying factors that affect variations in hospital utilization (at a Zip Code level) in Michigan. This question (and data) is a streamlined/simplified version of one of the research questions from my dissertation research. My main question was whether the availability of hospital beds (measured as spatial accessibility) affected hospital utilization while controlling for other factors that could also affect variation in hospital utilization. You will be walking through a multiple spatial regression analysis in GeoDa to help answer this.</p>
+<section id="part-1-regression-analysis-of-hospital-utilization-rates-120-points" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-regression-analysis-of-hospital-utilization-rates-120-points">Part #1: Regression Analysis of Hospital Utilization Rates (120 points)</h2>
+<p>In this analysis, you will be exploring the underlying factors that affect variations in hospital utilization (at a Zip Code level) in Michigan (data courtesy Dr.&nbsp;Paul Delamater). The main question is whether the availability of hospital beds (measured as spatial accessibility) affected hospital utilization while controlling for other potential confounders that could also affect variation in hospital utilization. You will be walking through a multiple spatial regression analysis in GeoDa to help answer this.</p>
 <hr>
 <section id="import-data-and-interpolation" class="level4">
 <h4 class="anchored" data-anchor-id="import-data-and-interpolation">Import data and Interpolation</h4>
-<ol class="example" type="1">
-<li><p>Open QGIS and add the mi_zip_util layer from the MI_Zip_Util.gpkg in your <code>assignment5_data</code> folder. <em>NOTE: the next steps might take a bit of time. GeoDa can save your work in a Project file. It might be a good idea to create one and save as you go.</em></p></li>
+<ol type="1">
+<li><p>Open QGIS and add the mi_zip_util layer from the MI_Zip_Util.gpkg in your <code>GEOG510_assignment4_data</code> folder. <em>NOTE: the next steps might take a bit of time. GeoDa can save your work in a Project file. It might be a good idea to create one and save as you go.</em></p></li>
 <li><p>Open the attribute table to view the fields included in the data layer. They are defined as follows:</p>
 <ul>
 <li><strong>CL895</strong>: The ID associated with each observation. Some of the Zip Codes in MI were grouped with neighboring Zip Codes prior to the analysis (this was a data issue in the hospitalization data), so they do not have traditional Zip Code numbers. However, this is ultimately Zip Code level data.</li>
 <li><strong>AAPDr</strong>: The Age-adjusted Patient Day rate. This is our dependent (Y) variable. This is total days spent in the hospital for residents of each Zip Code divided by the total number of residents in each Zip Code. The values were then age-adjusted using an indirect standardization approach.</li>
 <li><strong>POP</strong>: The total Population of each Zip Code.</li>
-<li><strong>E2SFCA</strong>: The measure of spatial accessibility (or availability) of hospital beds available to residents of each region. It is called the Enhanced 2 Step Floating Catchment Area metric, and its calculation integrates supply (hospital beds), potential demand (Population), and the distance separating supply and demand locations. Higher values indicate higher spatial accessibility (availability). We will cover this metric in more detail later in our course.</li>
+<li><strong>E2SFCA</strong>: (MAIN X VARIABLE) The measure of spatial accessibility (or availability) of hospital beds available to residents of each region. It is called the Enhanced 2 Step Floating Catchment Area metric, and its calculation integrates supply (hospital beds), potential demand (Population), and the distance separating supply and demand locations. Higher values indicate higher spatial accessibility (availability). We will cover this metric in more detail later in our course.</li>
 <li><strong>HINS0064</strong>: The proportion of the Population aged 0-64 that has some form of health insurance. This age group is often used for health insurance because, theoretically, everyone in the US over the age of 65 has health insurance via Medicare.</li>
 <li><strong>EDBApl</strong>: The proportion of the Population aged 25 and above that has a bachelor’s degree or higher.</li>
 <li><strong>FEMPCT</strong>: The proportion of the Population that is female.</li>
 <li><strong>WHITEPCT</strong>: The proportion of the Population that is white.</li>
-<li><strong>POPDENS</strong>: The Population density in units of people per km<sup>2</sup>.
-<p></p></li>
+<li><strong>POPDENS</strong>: The Population density in units of people per km<sup>2</sup>.</li>
 </ul></li>
 <li><p>Prior to performing any multiple regression, we should check for correlation among our independent variables (unless the model you are using specifically accounts for this). If there is correlation present, our independent variables aren’t truly “independent” and will cause issues in the results (called multicollinearity). We can evaluate the potential for multicollinearity prior to regression by calculating the Pearson’s R of the variables, or we can evaluate it after the regression by calculating the variance inflation factor (VIF) of each variable.</p></li>
 </ol>
 <div class="highlightblock">
-<p>There are a number of “rules of thumb” for what is an allowable level of multicollinearity in a regression model (discussed in Lecture #26). I tend to use both Pearson’s R and VIF. My own personal rules of thumb are much more strict than others I’ve seen in the literature. <strong>Personally, I only feel truly comfortable including X variables in a model that have a pairwise Pearson’s R value of less than 0.5 and/or a VIF value of less than 2.</strong> However, I let these stretch somewhat depending on each project… e.g., I may let a variable in with values slightly higher than my thresholds… and I just deal with being somewhat uncomfortable about it.</p>
+<p>There are a number of “rules of thumb” for what is an allowable level of multicollinearity in a regression model (discussed in Lecture #21). I tend to use both Pearson’s R and VIF. My own personal rules of thumb are much more strict than others I’ve seen in the literature. <strong>Personally, I only feel truly comfortable including X variables in a model that have a pairwise Pearson’s R value of less than 0.5 and/or a VIF value of less than 2.</strong> However, I let these stretch somewhat depending on each project, especially if there is strong justification and theory behind the variable.</p>
 </div>
 <p>
 </p><p><br></p>
-<ol start="4" class="example" type="1">
-<li>The Pearson’s R values (Correlation_matrix.csv) and the VIF values (VIF_values.csv) for the potential independent variables are included in the <code>assignment5_data</code> folder folder. The R code I used to do these calculations is named Assess_multicollinearity.R and is located in the <code>code</code> folder. Examine the Pearson’s R and VIF values for all models and use them to answer the following question.</li>
+<ol start="4" type="1">
+<li>The Pearson’s R values (Correlation_matrix.csv) and the VIF values (VIF_values.csv) for the potential independent variables are included in the <code>GEOG510_assignment4_data</code> folder folder. The R code I used to do these calculations is named Assess_multicollinearity.R and is located in the <code>code</code> folder. Examine the Pearson’s R and VIF values for all models and use them to answer the following question.</li>
 </ol>
 <hr>
-<section id="question-1-dr.-d-decided-that-you-will-use-the-following-independent-variables-in-your-regression-analysis-pop-e2sfca-hins0064-edbapl-fempct-whitepct.-in-3-5-sentences-explain-how-he-came-to-this-decision-and-point-out-instances-specifically-tell-which-variables-or-which-model-in-which-he-disregarded-his-personal-rules-of-thumb-use-note-above." class="level5">
-<h5 class="anchored" data-anchor-id="question-1-dr.-d-decided-that-you-will-use-the-following-independent-variables-in-your-regression-analysis-pop-e2sfca-hins0064-edbapl-fempct-whitepct.-in-3-5-sentences-explain-how-he-came-to-this-decision-and-point-out-instances-specifically-tell-which-variables-or-which-model-in-which-he-disregarded-his-personal-rules-of-thumb-use-note-above."><strong>Question #1</strong>: Dr.&nbsp;D decided that you will use the following independent variables in your regression analysis – POP, E2SFCA, HINS0064, EDBApl, FEMPCT, WHITEPCT. In 3-5 sentences, explain how he came to this decision and point out instances (specifically, tell which variables or which model) in which he disregarded his personal rules of thumb (use NOTE above).</h5>
+<section id="question-1-dr.-goel-decided-that-you-will-use-the-following-independent-variables-in-your-regression-analysis-pop-e2sfca-hins0064-edbapl-fempct-whitepct.-in-3-5-sentences-explain-how-he-came-to-this-decision-and-point-out-instances-specifically-tell-which-variables-or-which-model-in-which-he-disregarded-his-personal-rules-of-thumb-use-note-above." class="level5">
+<h5 class="anchored" data-anchor-id="question-1-dr.-goel-decided-that-you-will-use-the-following-independent-variables-in-your-regression-analysis-pop-e2sfca-hins0064-edbapl-fempct-whitepct.-in-3-5-sentences-explain-how-he-came-to-this-decision-and-point-out-instances-specifically-tell-which-variables-or-which-model-in-which-he-disregarded-his-personal-rules-of-thumb-use-note-above."><strong>Question #1</strong>: Dr.&nbsp;Goel decided that you will use the following independent variables in your regression analysis – POP, E2SFCA, HINS0064, EDBApl, FEMPCT, WHITEPCT. In 3-5 sentences, explain how he came to this decision and point out instances (specifically, tell which variables or which model) in which he disregarded his personal rules of thumb (use NOTE above).</h5>
 <hr>
-<ol start="5" class="example" type="1">
-<li><p>You can now close the correlation matrix and VIF tables. Navigate back to GeoDa (with MI_Zip_Util.gpkg loaded). When working with spatial data and regression in GeoDa, in order to evaluate whether the residuals of a regression model are spatially autocorrelated, you must first define the neighbors and their weights. Click on Tools | Weights Manager or click the “W” button on the main menu bar. Click Create. Use CL895 as the ID Variable. Use Queen contiguity for the weights. Name them MI_ZIP_Util_queen.gal and store in the <code>assignment5_data</code> folder. After you create the weights, you can close the Weights Manager.</p></li>
+<ol start="5" type="1">
+<li><p>You can now close the correlation matrix and VIF tables. Navigate back to GeoDa (with MI_Zip_Util.gpkg loaded). When working with spatial data and regression in GeoDa, in order to evaluate whether the residuals of a regression model are spatially autocorrelated, you must first define the neighbors and their weights. Click on Tools | Weights Manager or click the “W” button on the main menu bar. Click Create. Use CL895 (zipcode equivalent) as the ID Variable. Use Queen contiguity for the weights. Name them MI_ZIP_Util_queen.gal and store in the <code>GEOG510_assignment4_data</code> folder. After you create the weights, you can close the Weights Manager.</p></li>
 <li><p>You will now perform a regular OLS regression, which will also provide you diagnostic information about whether or not you should use a spatial regression model. In the top menu, click Regression | Regression or click the REG button on the main menu bar. In the dialog box, add <strong>AAPDr</strong> as the Dependent Variable. Add the variables from Question #1 (only) as the Covariates. Make sure MI_ZIP_Util.gal is selected as the Weights File. In the Models area, make sure that Classic is selected. Click Run.</p></li>
 <li><p>Review the Regression output, which should appear in a new window called Regression Report. Some things of note, the model is significant <code>[Prob(F-statistic)]</code>; the coefficients are all significant except for POP; uh oh… the Multicollinearity Condition Number (MCN) is extremely high (much higher than the recommendation of 30). Go back to the Regression window and remove HINS0064 from the covariates, then click Run. Note the MCN value is still too high. Now, remove FEMPCT from the covariates, then click Run.</p></li>
 </ol>
 <div class="highlightblock">
-<p>There are a number of ways to deal with (X) variables that are causing multicollinearity in a regression model. Removal of variables from the model is just one of them. In this case, I determined which variables to remove (to get a decent MCN) via a trial and error process and examination of the bivariate correlation matrix. However, other solutions are Stepwise Regression (automated variable removal), Principal Components Analysis (to extract “components” that capture the variation in a set of X variables), and others.</p>
+<p>There are a number of ways to deal with (X) variables that are causing multicollinearity in a regression model. Removal of variables from the model is just one of them. In this case, I determined which variables to remove (to get a decent MCN) via a trial and error process and examination of the bivariate correlation matrix. However, other solutions are Stepwise Regression (automated variable removal), Principal Components Analysis (to extract “components” that capture the variation in a set of X variables), and others. Another method that I use a lot is to rely on Directed Acyclic Graphs (DAGs) to get a set of minimum confounders to include in the model. The DAGs rely a lot on theory and are a cornerstone of epidemiological research. Please let me know if you need more information/resources especially for your final projects.</p>
 </div>
 <p>
 </p><hr>
@@ -273,7 +271,7 @@ div.highlightblock {
 <section id="question-2-what-was-the-multicollinearity-condition-number-for-the-2nd-and-3rd-ols-regressions-from-step-7" class="level5">
 <h5 class="anchored" data-anchor-id="question-2-what-was-the-multicollinearity-condition-number-for-the-2nd-and-3rd-ols-regressions-from-step-7"><strong>Question #2</strong>: What was the Multicollinearity Condition Number for the 2nd and 3rd OLS regressions from Step 7?</h5>
 <hr>
-<ol start="8" class="example" type="1">
+<ol start="8" type="1">
 <li>Now, we have a model that meets our requirement of independent X variables. Now, let’s examine whether the residuals have spatial autocorrelation. Scroll down in the regression output and look for DIAGNOSTICS FOR SPATIAL DEPENDENCE. Here you will find the Moran’s I test of the regression residuals.</li>
 </ol>
 <hr>
@@ -289,7 +287,7 @@ div.highlightblock {
 <section id="question-5-which-type-of-spatial-regression-model-should-you-run-based-on-a-theory-and-b-the-diagnostics-see-lecture-slides-or-geoda-handbook.-provide-1-3-sentences-for-each.-keep-in-mind-that-hospitalizations-are-not-contagious." class="level5">
 <h5 class="anchored" data-anchor-id="question-5-which-type-of-spatial-regression-model-should-you-run-based-on-a-theory-and-b-the-diagnostics-see-lecture-slides-or-geoda-handbook.-provide-1-3-sentences-for-each.-keep-in-mind-that-hospitalizations-are-not-contagious."><strong>Question #5</strong>: Which type of spatial regression model should you run based on a) theory and b) the diagnostics (see lecture slides or GeoDa handbook). Provide 1-3 sentences for each. Keep in mind that hospitalizations are not contagious.</h5>
 <hr>
-<ol start="9" class="example" type="1">
+<ol start="9" type="1">
 <li>In the regression window, change from a Classic model to a Spatial Error model. Click Run. Examine the results in the Regression Report window. The output we will focus on is AIC (Akaike info criterion). Note that the AIC value -1,249.99 is lower than the AIC value from the OLS model -945.992 indicating a better model fit. Also, note that Lambda (the spatial error coefficient) is highly significant.</li>
 </ol>
 <hr>
@@ -301,11 +299,11 @@ div.highlightblock {
 <section id="question-7-describe-how-the-coefficient-values-changed-in-the-spatial-error-model-compared-to-the-3rd-ols-model.-are-the-effect-sizes-biggersmaller-is-there-anything-notable-that-changed-in-the-significance-of-the-coefficients" class="level5">
 <h5 class="anchored" data-anchor-id="question-7-describe-how-the-coefficient-values-changed-in-the-spatial-error-model-compared-to-the-3rd-ols-model.-are-the-effect-sizes-biggersmaller-is-there-anything-notable-that-changed-in-the-significance-of-the-coefficients"><strong>Question #7</strong>: Describe how the coefficient values changed in the spatial error model (compared to the 3rd OLS model). Are the effect sizes bigger/smaller? Is there anything notable that changed in the significance of the coefficients?</h5>
 <hr>
-<ol start="10" class="example" type="1">
+<ol start="10" type="1">
 <li>Write the predicted values, the residuals, and prediction errors from your spatial error model to your attribute table by clicking on the Save to Table button in the Regression window (keep the default names). After you have saved the values to your table, run a Moran’s I on the residuals by navigating to Space | Univariate Moran’s I in the top menu. Choose ERR_RESIDU as the variable.</li>
 </ol>
 <div class="highlightblock">
-<p>While writing this assignment, I found out that the authors of GeoDa say that generating a pseudo P-value for the Moran’s I results of regression residuals is not an acceptable approach. I honestly have no idea why this is. Thus, to evaluate remaining spatial autocorrelation in the residuals, we will use the magnitude of the Moran’s I value, rather than the pseudo P-value.</p>
+<p>While writing this assignment, I found out that the authors of GeoDa say that generating a pseudo P-value for the Moran’s I results of regression residuals is not an acceptable approach. Thus, to evaluate remaining spatial autocorrelation in the residuals, we will use the magnitude of the Moran’s I value, rather than the pseudo P-value.</p>
 </div>
 <p>
 </p><hr>
@@ -313,7 +311,7 @@ div.highlightblock {
 <section id="question-8-what-is-the-morans-i-value-of-the-residuals-from-the-spatial-error-model-is-this-a-smallmediumlarge-amount-of-remaining-spatial-autocorrelation" class="level5">
 <h5 class="anchored" data-anchor-id="question-8-what-is-the-morans-i-value-of-the-residuals-from-the-spatial-error-model-is-this-a-smallmediumlarge-amount-of-remaining-spatial-autocorrelation"><strong>Question #8</strong>: What is the Moran’s I value of the residuals from the Spatial Error model? Is this a small/medium/large amount of remaining spatial autocorrelation?</h5>
 <hr>
-<ol start="11" class="example" type="1">
+<ol start="11" type="1">
 <li>Now, run a Spatial Lag regression model using the same set of variables. In the Regression window, change to a Spatial Lag model and click Run. Save the results to your attribute table. The spatial lag parameter is Rho, which is identified as W_AAPDr in the output.</li>
 </ol>
 <hr>
@@ -329,11 +327,11 @@ div.highlightblock {
 <section id="question-11-what-is-the-morans-i-value-of-the-residuals-of-the-spatial-lag-model-is-this-a-smallmediumlarge-amount-of-remaining-spatial-autocorrelation" class="level5">
 <h5 class="anchored" data-anchor-id="question-11-what-is-the-morans-i-value-of-the-residuals-of-the-spatial-lag-model-is-this-a-smallmediumlarge-amount-of-remaining-spatial-autocorrelation"><strong>Question #11</strong>: What is the Moran’s I value of the residuals of the Spatial Lag model? Is this a small/medium/large amount of remaining spatial autocorrelation?</h5>
 <hr>
-<ol start="12" class="example" type="1">
+<ol start="12" type="1">
 <li>Unfortunately, similar to many health-related models that use observed data, the residuals from both the spatial error and lag models both fail the tests of normality and heteroscedasticity. This is extremely common with ecological (aggregated) spatial data. In this case, we will assume that these violations <strong>do not</strong> undermine our ability to make inference from the results of the model.</li>
 </ol>
 <div class="highlightblock">
-<p><strong>Extra Credit Opportunity:</strong> Figure out in GeoDa how to create a histogram of your regression residuals to evaluate normality and and a scatterplot to evaluate heteroscedasticity in the residuals. Paste the graphics directly into your assignment document. Make sure that the graphics are large enough that I can evaluate that you have plotted the correct values.</p>
+<p><strong>Extra Credit Opportunity: 10 points</strong> Figure out in GeoDa how to create a histogram of your regression residuals to evaluate normality and and a scatterplot to evaluate heteroscedasticity in the residuals. Paste the graphics directly into your assignment document. Make sure that the graphics are large enough that I can evaluate that you have plotted the correct values.</p>
 </div>
 <p>
 </p><hr>
@@ -341,39 +339,33 @@ div.highlightblock {
 <section id="question-12-going-back-to-the-original-research-question-does-the-availability-of-hospital-beds-affect-hospital-utilization-while-controlling-for-other-factors-what-is-the-direction-of-this-relationship-use-the-output-of-your-regression-analysis-to-justifyexplain-your-answer-limit-your-explanation-to-the-analysis-we-performed." class="level5">
 <h5 class="anchored" data-anchor-id="question-12-going-back-to-the-original-research-question-does-the-availability-of-hospital-beds-affect-hospital-utilization-while-controlling-for-other-factors-what-is-the-direction-of-this-relationship-use-the-output-of-your-regression-analysis-to-justifyexplain-your-answer-limit-your-explanation-to-the-analysis-we-performed."><strong>Question #12</strong>: Going back to the original research question, does the availability of hospital beds affect hospital utilization (while controlling for other factors)? What is the direction of this relationship? Use the output of your regression analysis to justify/explain your answer (limit your explanation to the analysis we performed).</h5>
 <hr>
-<ol start="13" class="example" type="1">
+<ol start="13" type="1">
 <li>Save your project and close GeoDa.</li>
 </ol>
 <hr>
 </section>
 </section>
 </section>
-<section id="part-2-project-preliminary-analysis-and-results" class="level2">
-<h2 class="anchored" data-anchor-id="part-2-project-preliminary-analysis-and-results">Part #2: Project Preliminary analysis and results</h2>
-<p>Begin implementing the method(s) you proposed in your project proposal. You must at the very least generate some preliminary results that demonstrate you are making progress on your analysis. Keep in mind that this likely won’t be your final analysis, but it is a good idea to at least work through the required steps. Construct your document in an outline fashion.A good way to set this up is to use the following sections/headings:</p>
-<ul>
-<li>Research Question</li>
-<li>Data and Methods</li>
-<li>Results</li>
-<li>Description/Interpretation of Results</li>
-</ul>
-<p>Complete the following for your preliminary analysis:</p>
-<ul>
-<li>Include your Research Question and make sure that it is clearly presented<br>
-</li>
-<li>Use a few (roughly 5-8) sentences to explain/describe the input data and method(s) / technique(s) that you used.<br>
-</li>
-<li>Copy and paste any important output from the analysis into the document (screenshots are fine for this!) - make sure you include enough of the method/technique’s output that I will be able to at least somewhat interpret the results.<br>
-</li>
-<li>Finally, describe/interpret your preliminary findings. In this section, make sure to explicitly and clearly link your research question and the results of your analysis (the answer to your question). Prove to me that you have a basic understanding of your method and your results!</li>
-</ul>
-<p>Please try to construct something that is legible and organized… as this will help me evaluate your analysis and results.</p>
+<section id="part-2-thinking-about-regression-for-your-project-question-30-points" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-thinking-about-regression-for-your-project-question-30-points">Part #2: Thinking about regression for your project question (30 points)</h2>
+<p>While it is not necessary to implement a regression analysis for your final projects, regression can be a powerful tool to test hypotheses related to spatial processes driving the observed spatial patterns of your health outcoome. In this part, you are asked to conceptualize what a regression analysis may look like for you, so that you can more confidently implement it in your final projects if you choose to.</p>
+<section id="question-13-frame-your-main-research-question-in-the-context-of-an-independent-x-and-dependent-y-variable.-for-example-my-main-question-is-to-look-at-how-does-daily-average-temperature-x-variable-impact-percentage-of-people-with-mental-health-distress-in-each-censusc-tract-of-south-carolina-y-variable.-be-as-specific-as-you-can-so-that-you-will-have-a-better-idea-of-what-exact-data-you-need-to-have." class="level5">
+<h5 class="anchored" data-anchor-id="question-13-frame-your-main-research-question-in-the-context-of-an-independent-x-and-dependent-y-variable.-for-example-my-main-question-is-to-look-at-how-does-daily-average-temperature-x-variable-impact-percentage-of-people-with-mental-health-distress-in-each-censusc-tract-of-south-carolina-y-variable.-be-as-specific-as-you-can-so-that-you-will-have-a-better-idea-of-what-exact-data-you-need-to-have."><strong>Question #13</strong>: Frame your main research question in the context of an independent (x) and dependent (Y) variable. For example, my main question is to look at how does daily average temperature (X variable) impact percentage of people with mental health distress in each censusc tract of South Carolina (Y variable). Be as specific as you can so that you will have a better idea of what exact data you need to have.</h5>
+</section>
+<section id="question-14-name-atleast-3-potential-confoundersother-independent-variables-other-than-age-sex-and-population-that-you-would-include-in-your-analysis.-age-sex-and-populationare-almost-always-variables-in-many-health-analysis-so-i-want-you-to-think-beyond-them.-also-explain-why-do-you-think-they-may-be-potential-confounders-to-be-added.-be-as-specific-as-you-can-so-that-you-will-have-a-better-idea-of-what-exact-data-you-need-to-have." class="level5">
+<h5 class="anchored" data-anchor-id="question-14-name-atleast-3-potential-confoundersother-independent-variables-other-than-age-sex-and-population-that-you-would-include-in-your-analysis.-age-sex-and-populationare-almost-always-variables-in-many-health-analysis-so-i-want-you-to-think-beyond-them.-also-explain-why-do-you-think-they-may-be-potential-confounders-to-be-added.-be-as-specific-as-you-can-so-that-you-will-have-a-better-idea-of-what-exact-data-you-need-to-have."><strong>Question #14</strong>: Name atleast 3 potential confounders/other independent variables (other than Age, Sex, and population) that you would include in your analysis. Age, Sex, and populationare almost always variables in many health analysis, so I want you to think beyond them. Also explain why do you think they may be potential confounders to be added. Be as specific as you can so that you will have a better idea of what exact data you need to have.</h5>
+</section>
+<section id="question-15-think-about-the-potential-motivation-of-why-a-spatial-regression-may-be-important-for-your-question-in-the-context-of-1st-order-and-2nd-order-spatial-analysis.-in-3-5-sentences-explain-the-motivationreasoning-behind-why-you-would-want-to-use-one-spatial-regression-and-if-so-which-one-or-both-or-not-link-your-reasoning-to-the-type-of-1st-order-and-2nd-order-spatial-processes-that-may-be-driving-your-research-question-for-your-analysis." class="level5">
+<h5 class="anchored" data-anchor-id="question-15-think-about-the-potential-motivation-of-why-a-spatial-regression-may-be-important-for-your-question-in-the-context-of-1st-order-and-2nd-order-spatial-analysis.-in-3-5-sentences-explain-the-motivationreasoning-behind-why-you-would-want-to-use-one-spatial-regression-and-if-so-which-one-or-both-or-not-link-your-reasoning-to-the-type-of-1st-order-and-2nd-order-spatial-processes-that-may-be-driving-your-research-question-for-your-analysis."><strong>Question #15</strong>: Think about the potential motivation of why a spatial regression may be important for your question, in the context of 1st order and 2nd order spatial analysis. In 3-5 sentences, explain the motivation/reasoning behind why you would want to use one spatial regression and if so, which one ( or both, or not? Link your reasoning to the type of 1st order and 2nd order spatial processes that may be driving your research question for your analysis.</h5>
+<div class="highlightblock">
+<p><strong>Extra Credit Opportunity: upto 40 points</strong> I will grant upto 40 points if you actually conduct a regression analysis for your own final project data. This will be based on the sophistication and accuracy of your analysis, but even a non-horrible simple OLS regression will fetch 10 points.</p>
+</div>
 <p><strong>If you have any questions, do not hesitate to ask!</strong></p>
 <hr>
+</section>
 <section id="deliverables" class="level3">
 <h3 class="anchored" data-anchor-id="deliverables">Deliverables</h3>
-<p>Upload your answer document (Lastname_GEOG541_Assignment5.docx)<br>
-Upload your document with preliminary analysis and results (Lastname_GEOG541_ProjResults.docx)</p>
+<p>Upload your answer document to OneDrive.</p>
 <hr>
 
 
