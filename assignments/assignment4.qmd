@@ -1,0 +1,219 @@
+---
+title: 'GEOG 541: Assignment #5'
+author:
+- Spatial Regression, 110 points \newline
+- GEOG 541, GIS and Public Health \newline
+- Paul Delamater
+date: 'Updated: `r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  html_document:
+    theme: flatly
+    highlight: null
+    mathjax: null
+---
+
+```{css, echo=FALSE}
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+```
+
+******
+
+This assignment is split into two parts. In the first part of this assignment, you will be working with hospital utilization (Zip Code level polygon data) to conduct a basic spatial regression analysis in GeoDa. In the second part, you will be required to demonstrate some progress on the analysis portion of your final project using your own data. Please at least skim through the entire assignment document before beginning.
+
+On your computer, create a folder for Assignment #5 and a folder (inside of that one) to store data. Download GEOG541_assignment5_data.zip from the course Canvas page into the data folder and then unzip the contents.
+
+For the first part of the assignment, create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 541, and Assignment #5 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.
+
+Please save the file using the following naming format, **Lastname_GEOG541_Assignment5.docx**. For example, my file would be **Delamater_GEOG541_Assignment5.docx**. Please follow the file naming format for your document, as this really helps us to stay organized and be more efficient graders. Upload your assignment document on Canvas when complete.
+
+For the second part of the assignment, create a document using some form of word processing software (Microsoft Word is preferred). Put your name, GEOG 541, and Project Preliminary Results at the top of the document. Copy/paste graphics or outputs directly into the document where applicable and requested. Please save the file using the following naming format, **Lastname_GEOG541_ProjResults.docx**. For example, my file would be **Delamater_GEOG541_ProjResults.docx**. Please follow the file naming format for your document, as this really helps us to stay organized and be more efficient graders.
+
+******
+
+## Part #1: Regression Analysis of Hospital Utilization Rates
+
+In this analysis, you will be exploring the underlying factors that affect variations in hospital utilization (at a Zip Code level) in Michigan.  This question (and data) is a streamlined/simplified version of one of the research questions from my dissertation research.  My main question was whether the availability of hospital beds (measured as spatial accessibility) affected hospital utilization while controlling for other factors that could also affect variation in hospital utilization.  You will be walking through a multiple spatial regression analysis in GeoDa to help answer this.
+
+******
+
+#### Import data and Interpolation
+
+@. Open QGIS and add the mi_zip_util layer from the MI_Zip_Util.gpkg in your `assignment5_data` folder.  *NOTE: the next steps might take a bit of time. GeoDa can save your work in a Project file. It might be a good idea to create one and save as you go.*
+
+@. Open the attribute table to view the fields included in the data layer. They are defined as follows:
+
+    * **CL895**: The ID associated with each observation.  Some of the Zip Codes in MI were grouped with neighboring Zip Codes prior to the analysis (this was a data issue in the hospitalization data), so they do not have traditional Zip Code numbers.  However, this is ultimately Zip Code level data.
+    * **AAPDr**:  The Age-adjusted Patient Day rate.  This is our dependent (Y) variable.  This is total days spent in the hospital for residents of each Zip Code divided by the total number of residents in each Zip Code.  The values were then age-adjusted using an indirect standardization approach.
+    * **POP**:  The total Population of each Zip Code.
+    * **E2SFCA**:  The measure of spatial accessibility (or availability) of hospital beds available to residents of each region.  It is called the Enhanced 2 Step Floating Catchment Area metric, and its calculation integrates supply (hospital beds), potential demand (Population), and the distance separating supply and demand locations.  Higher values indicate higher spatial accessibility (availability).  We will cover this metric in more detail later in our course.
+    * **HINS0064**:  The proportion of the Population aged 0-64 that has some form of health insurance.  This age group is often used for health insurance because, theoretically, everyone in the US over the age of 65 has health insurance via Medicare.
+    * **EDBApl**:  The proportion of the Population aged 25 and above that has a bachelor's degree or higher.
+    * **FEMPCT**:  The proportion of the Population that is female.
+    * **WHITEPCT**:  The proportion of the Population that is white.
+    * **POPDENS**:  The Population density in units of people per km^2^.
+<p>
+
+@. Prior to performing any multiple regression, we should check for correlation among our independent variables (unless the model you are using specifically accounts for this).  If there is correlation present, our independent variables aren't truly “independent” and will cause issues in the results (called multicollinearity).  We can evaluate the potential for multicollinearity prior to regression by calculating the Pearson's R of the variables, or we can evaluate it after the regression by calculating the variance inflation factor (VIF) of each variable.
+
+<div class = "highlightblock">
+
+There are a number of "rules of thumb" for what is an allowable level of multicollinearity in a regression model (discussed in Lecture #26).  I tend to use both Pearson's R and VIF.  My own personal rules of thumb are much more strict than others I've seen in the literature.  **Personally, I only feel truly comfortable including X variables in a model that have a pairwise Pearson's R value of less than 0.5 and/or a VIF value of less than 2.** However, I let these stretch somewhat depending on each project... e.g., I may let a variable in with values slightly higher than my thresholds... and I just deal with being somewhat uncomfortable about it.
+
+</div>
+
+<p>
+<br>
+
+@. The Pearson's R values (Correlation_matrix.csv) and the VIF values (VIF_values.csv) for the potential independent variables are included in the `assignment5_data` folder folder.  The R code I used to do these calculations is named Assess_multicollinearity.R and is located in the `code` folder.  Examine the Pearson's R and VIF values for all models and use them to answer the following question.
+
+******
+
+##### **Question #1**: Dr. D decided that you will use the following independent variables in your regression analysis – POP, E2SFCA, HINS0064, EDBApl, FEMPCT, WHITEPCT.  In 3-5 sentences, explain how he came to this decision and point out instances (specifically, tell which variables or which model) in which he disregarded his personal rules of thumb (use NOTE above).
+  
+******
+
+@. You can now close the correlation matrix and VIF tables.  Navigate back to GeoDa (with MI_Zip_Util.gpkg loaded).  When working with spatial data and regression in GeoDa, in order to evaluate whether the residuals of a regression model are spatially autocorrelated, you must first define the neighbors and their weights.  Click on Tools | Weights Manager or click the “W” button on the main menu bar.  Click Create.  Use CL895 as the ID Variable.  Use Queen contiguity for the weights.  Name them MI_ZIP_Util_queen.gal and store in the `assignment5_data` folder.  After you create the weights, you can close the Weights Manager.
+    
+@. You will now perform a regular OLS regression, which will also provide you diagnostic information about whether or not you should use a spatial regression model.  In the top menu, click Regression | Regression or click the REG button on the main menu bar.  In the dialog box, add **AAPDr** as the Dependent Variable.  Add the variables from Question #1 (only) as the Covariates.  Make sure MI_ZIP_Util.gal is selected as the Weights File.  In the Models area, make sure that Classic is selected.  Click Run.
+
+@. Review the Regression output, which should appear in a new window called Regression Report. Some things of note, the model is significant `[Prob(F-statistic)]`; the coefficients are all significant except for POP; uh oh... the Multicollinearity Condition Number (MCN) is extremely high (much higher than the recommendation of 30).  Go back to the Regression window and remove HINS0064 from the covariates, then click Run.  Note the MCN value is still too high.  Now, remove FEMPCT from the covariates, then click Run.
+
+
+<div class = "highlightblock">
+
+There are a number of ways to deal with (X) variables that are causing multicollinearity in a regression model.  Removal of variables from the model is just one of them.  In this case, I determined which variables to remove (to get a decent MCN) via a trial and error process and examination of the bivariate correlation matrix. However, other solutions are Stepwise Regression (automated variable removal), Principal Components Analysis (to extract “components” that capture the variation in a set of X variables), and others.
+
+</div>
+
+<p>
+
+******
+
+##### **Question #2**: What was the Multicollinearity Condition Number for the 2nd and 3rd OLS regressions from Step 7?
+
+******
+
+@. Now, we have a model that meets our requirement of independent X variables.  Now, let's examine whether the residuals have spatial autocorrelation.  Scroll down in the regression output and look for DIAGNOSTICS FOR SPATIAL DEPENDENCE.  Here you will find the Moran's I test of the regression residuals.
+
+******
+
+##### **Question #3**: Do you need to run a spatial regression? [the answer is Yes].  In 2-3 sentences, explain why this is the case (using evidence from the OLS output).
+
+******
+
+##### **Question #4**: Copy/paste the summary results of your 3rd OLS regression from Step 7 into your lab document.  Make sure that the font stays as Courier!
+
+******
+
+##### **Question #5**: Which type of spatial regression model should you run based on a) theory and b) the diagnostics (see lecture slides or GeoDa handbook).  Provide 1-3 sentences for each.  Keep in mind that hospitalizations are not contagious.
+
+******
+
+@. In the regression window, change from a Classic model to a Spatial Error model.  Click Run. Examine the results in the Regression Report window.  The output we will focus on is AIC (Akaike info criterion).  Note that the AIC value -1,249.99 is lower than the AIC value from the OLS model -945.992 indicating a better model fit.  Also, note that Lambda (the spatial error coefficient) is highly significant.
+
+******
+
+##### **Question #6**: Copy/paste the summary results of Spatial Error model into your lab document.  Make sure that the font stays as Courier!
+
+******
+
+##### **Question #7**: Describe how the coefficient values changed in the spatial error model (compared to the 3rd OLS model).  Are the effect sizes bigger/smaller?  Is there anything notable that changed in the significance of the coefficients?
+
+******
+
+@. Write the predicted values, the residuals, and prediction errors from your spatial error model to your attribute table by clicking on the Save to Table button in the Regression window (keep the default names).  After you have saved the values to your table, run a Moran's I on the residuals by navigating to Space | Univariate Moran's I in the top menu.  Choose ERR_RESIDU as the variable.
+
+<div class = "highlightblock">
+
+While writing this assignment, I found out that the authors of GeoDa say that generating a pseudo P-value for the Moran's I results of regression residuals is not an acceptable approach.  I honestly have no idea why this is.  Thus, to evaluate remaining spatial autocorrelation in the residuals, we will use the magnitude of the Moran's I value, rather than the pseudo P-value.
+
+</div>
+
+<p>
+
+******
+
+##### **Question #8**: What is the Moran's I value of the residuals from the Spatial Error model?  Is this a small/medium/large amount of remaining spatial autocorrelation?
+
+******
+
+@. Now, run a Spatial Lag regression model using the same set of variables.  In the Regression window, change to a Spatial Lag model and click Run.  Save the results to your attribute table.  The spatial lag parameter is Rho, which is identified as W_AAPDr in the output.
+
+******
+
+##### **Question #9**: Copy/paste the summary results of Spatial Lag model into your lab document.  Make sure that the font stays as Courier!
+
+******
+
+##### **Question #10**: Based on AIC, which model (Spatial Lag or Spatial Error) fits the observed hospitalization data better?  (See Step #9 on AIC interpretation)
+
+******
+
+##### **Question #11**: What is the Moran's I value of the residuals of the Spatial Lag model?  Is this a small/medium/large amount of remaining spatial autocorrelation?
+
+******
+
+@. Unfortunately, similar to many health-related models that use observed data, the residuals from both the spatial error and lag models both fail the tests of normality and heteroscedasticity.  This is extremely common with ecological (aggregated) spatial data.  In this case, we will assume that these violations **do not** undermine our ability to make inference from the results of the model. 
+
+<div class = "highlightblock">
+
+**Extra Credit Opportunity:** Figure out in GeoDa how to create a histogram of your regression residuals to evaluate normality and and a scatterplot to evaluate heteroscedasticity in the residuals.  Paste the graphics directly into your assignment document.  Make sure that the graphics are large enough that I can evaluate that you have plotted the correct values.
+
+</div>
+
+<p>
+
+******
+
+##### **Question #12**: Going back to the original research question, does the availability of hospital beds affect hospital utilization (while controlling for other factors)?  What is the direction of this relationship?  Use the output of your regression analysis to justify/explain your answer (limit your explanation to the analysis we performed).
+
+******
+
+@. Save your project and close GeoDa.
+
+
+******
+
+## Part #2: Project Preliminary analysis and results
+
+Begin implementing the method(s) you proposed in your project proposal. You must at the very least generate some preliminary results that demonstrate you are making progress on your analysis. Keep in mind that this likely won't be your final analysis, but it is a good idea to at least work through the required steps. Construct your document in an outline fashion.A good way to set this up is to use the following sections/headings:
+
+  * Research Question
+  * Data and Methods
+  * Results
+  * Description/Interpretation of Results
+
+Complete the following for your preliminary analysis:
+
+  * Include your Research Question and make sure that it is clearly presented  
+  * Use a few (roughly 5-8) sentences to explain/describe the input data and method(s) / technique(s) that you used.  
+  * Copy and paste any important output from the analysis into the document (screenshots are fine for this!) - make sure you include enough of the method/technique's output that I will be able to at least somewhat interpret the results.  
+  * Finally, describe/interpret your preliminary findings.  In this section, make sure to explicitly and clearly link your research question and the results of your analysis (the answer to your question).  Prove to me that you have a basic understanding of your method and your results!
+  
+Please try to construct something that is legible and organized... as this will help me evaluate your analysis and results. 
+
+**If you have any questions, do not hesitate to ask!**
+
+******
+
+### Deliverables
+Upload your answer document (Lastname_GEOG541_Assignment5.docx)  
+Upload your document with preliminary analysis and results (Lastname_GEOG541_ProjResults.docx)
+
+******

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Spatial Regression, 110 points ">
+<meta name="author" content="GEOG 541, GIS and Public Health ">
+<meta name="author" content="Paul Delamater">
+<meta name="dcterms.date" content="2025-04-14">
+
+<title>GEOG 510 - GEOG 541: Assignment #5</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">GEOG 510</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-materials" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Materials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-materials">    
+        <li>
+    <a class="dropdown-item" href="../lectures.html" rel="" target="">
+ <span class="dropdown-text">Lectures</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../readings.html" rel="" target="">
+ <span class="dropdown-text">Readings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercises.html" rel="" target="">
+ <span class="dropdown-text">Exercises</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../assignments.html" rel="" target="">
+ <span class="dropdown-text">Assignments</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../final_project/GEOG510_FinalProject.html" rel="" target="">
+ <span class="dropdown-text">Final Project Paper</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../final_project/GEOG510_FinalPresentation.html" rel="" target="">
+ <span class="dropdown-text">Final Project Presentations and Assessment</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../software.html" rel="" target="">
+ <span class="dropdown-text">Software Requirements and Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../data.html" rel="" target="">
+ <span class="dropdown-text">Data Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../tutorials.html" rel="" target="">
+ <span class="dropdown-text">Tutorials and Technical Resources</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../mapping.html" rel="" target="">
+ <span class="dropdown-text">Map Submission Checklist</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#part-1-regression-analysis-of-hospital-utilization-rates" id="toc-part-1-regression-analysis-of-hospital-utilization-rates" class="nav-link active" data-scroll-target="#part-1-regression-analysis-of-hospital-utilization-rates">Part #1: Regression Analysis of Hospital Utilization Rates</a></li>
+  <li><a href="#part-2-project-preliminary-analysis-and-results" id="toc-part-2-project-preliminary-analysis-and-results" class="nav-link" data-scroll-target="#part-2-project-preliminary-analysis-and-results">Part #2: Project Preliminary analysis and results</a>
+  <ul class="collapse">
+  <li><a href="#deliverables" id="toc-deliverables" class="nav-link" data-scroll-target="#deliverables">Deliverables</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">GEOG 541: Assignment #5</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Spatial Regression, 110 points  </p>
+             <p>GEOG 541, GIS and Public Health  </p>
+             <p>Paul Delamater </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 14, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<style type="text/css">
+a {
+  color: royalblue;
+}
+
+a:hover {
+  color: darkorange;
+}
+
+div.highlightblock { 
+ background-color: #e0f0ff; 
+ padding: 10px 10px 3px 10px;
+}
+</style>
+</div>
+<hr>
+<p>This assignment is split into two parts. In the first part of this assignment, you will be working with hospital utilization (Zip Code level polygon data) to conduct a basic spatial regression analysis in GeoDa. In the second part, you will be required to demonstrate some progress on the analysis portion of your final project using your own data. Please at least skim through the entire assignment document before beginning.</p>
+<p>On your computer, create a folder for Assignment #5 and a folder (inside of that one) to store data. Download GEOG541_assignment5_data.zip from the course Canvas page into the data folder and then unzip the contents.</p>
+<p>For the first part of the assignment, create a single document using some form of word processing software (Microsoft Word is preferred). Include your name, GEOG 541, and Assignment #5 at the top of the document. Answer/complete each of the questions/tasks below. Copy/paste graphics directly into the document where applicable.</p>
+<p>Please save the file using the following naming format, <strong>Lastname_GEOG541_Assignment5.docx</strong>. For example, my file would be <strong>Delamater_GEOG541_Assignment5.docx</strong>. Please follow the file naming format for your document, as this really helps us to stay organized and be more efficient graders. Upload your assignment document on Canvas when complete.</p>
+<p>For the second part of the assignment, create a document using some form of word processing software (Microsoft Word is preferred). Put your name, GEOG 541, and Project Preliminary Results at the top of the document. Copy/paste graphics or outputs directly into the document where applicable and requested. Please save the file using the following naming format, <strong>Lastname_GEOG541_ProjResults.docx</strong>. For example, my file would be <strong>Delamater_GEOG541_ProjResults.docx</strong>. Please follow the file naming format for your document, as this really helps us to stay organized and be more efficient graders.</p>
+<hr>
+<section id="part-1-regression-analysis-of-hospital-utilization-rates" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-regression-analysis-of-hospital-utilization-rates">Part #1: Regression Analysis of Hospital Utilization Rates</h2>
+<p>In this analysis, you will be exploring the underlying factors that affect variations in hospital utilization (at a Zip Code level) in Michigan. This question (and data) is a streamlined/simplified version of one of the research questions from my dissertation research. My main question was whether the availability of hospital beds (measured as spatial accessibility) affected hospital utilization while controlling for other factors that could also affect variation in hospital utilization. You will be walking through a multiple spatial regression analysis in GeoDa to help answer this.</p>
+<hr>
+<section id="import-data-and-interpolation" class="level4">
+<h4 class="anchored" data-anchor-id="import-data-and-interpolation">Import data and Interpolation</h4>
+<ol class="example" type="1">
+<li><p>Open QGIS and add the mi_zip_util layer from the MI_Zip_Util.gpkg in your <code>assignment5_data</code> folder. <em>NOTE: the next steps might take a bit of time. GeoDa can save your work in a Project file. It might be a good idea to create one and save as you go.</em></p></li>
+<li><p>Open the attribute table to view the fields included in the data layer. They are defined as follows:</p>
+<ul>
+<li><strong>CL895</strong>: The ID associated with each observation. Some of the Zip Codes in MI were grouped with neighboring Zip Codes prior to the analysis (this was a data issue in the hospitalization data), so they do not have traditional Zip Code numbers. However, this is ultimately Zip Code level data.</li>
+<li><strong>AAPDr</strong>: The Age-adjusted Patient Day rate. This is our dependent (Y) variable. This is total days spent in the hospital for residents of each Zip Code divided by the total number of residents in each Zip Code. The values were then age-adjusted using an indirect standardization approach.</li>
+<li><strong>POP</strong>: The total Population of each Zip Code.</li>
+<li><strong>E2SFCA</strong>: The measure of spatial accessibility (or availability) of hospital beds available to residents of each region. It is called the Enhanced 2 Step Floating Catchment Area metric, and its calculation integrates supply (hospital beds), potential demand (Population), and the distance separating supply and demand locations. Higher values indicate higher spatial accessibility (availability). We will cover this metric in more detail later in our course.</li>
+<li><strong>HINS0064</strong>: The proportion of the Population aged 0-64 that has some form of health insurance. This age group is often used for health insurance because, theoretically, everyone in the US over the age of 65 has health insurance via Medicare.</li>
+<li><strong>EDBApl</strong>: The proportion of the Population aged 25 and above that has a bachelor’s degree or higher.</li>
+<li><strong>FEMPCT</strong>: The proportion of the Population that is female.</li>
+<li><strong>WHITEPCT</strong>: The proportion of the Population that is white.</li>
+<li><strong>POPDENS</strong>: The Population density in units of people per km<sup>2</sup>.
+<p></p></li>
+</ul></li>
+<li><p>Prior to performing any multiple regression, we should check for correlation among our independent variables (unless the model you are using specifically accounts for this). If there is correlation present, our independent variables aren’t truly “independent” and will cause issues in the results (called multicollinearity). We can evaluate the potential for multicollinearity prior to regression by calculating the Pearson’s R of the variables, or we can evaluate it after the regression by calculating the variance inflation factor (VIF) of each variable.</p></li>
+</ol>
+<div class="highlightblock">
+<p>There are a number of “rules of thumb” for what is an allowable level of multicollinearity in a regression model (discussed in Lecture #26). I tend to use both Pearson’s R and VIF. My own personal rules of thumb are much more strict than others I’ve seen in the literature. <strong>Personally, I only feel truly comfortable including X variables in a model that have a pairwise Pearson’s R value of less than 0.5 and/or a VIF value of less than 2.</strong> However, I let these stretch somewhat depending on each project… e.g., I may let a variable in with values slightly higher than my thresholds… and I just deal with being somewhat uncomfortable about it.</p>
+</div>
+<p>
+</p><p><br></p>
+<ol start="4" class="example" type="1">
+<li>The Pearson’s R values (Correlation_matrix.csv) and the VIF values (VIF_values.csv) for the potential independent variables are included in the <code>assignment5_data</code> folder folder. The R code I used to do these calculations is named Assess_multicollinearity.R and is located in the <code>code</code> folder. Examine the Pearson’s R and VIF values for all models and use them to answer the following question.</li>
+</ol>
+<hr>
+<section id="question-1-dr.-d-decided-that-you-will-use-the-following-independent-variables-in-your-regression-analysis-pop-e2sfca-hins0064-edbapl-fempct-whitepct.-in-3-5-sentences-explain-how-he-came-to-this-decision-and-point-out-instances-specifically-tell-which-variables-or-which-model-in-which-he-disregarded-his-personal-rules-of-thumb-use-note-above." class="level5">
+<h5 class="anchored" data-anchor-id="question-1-dr.-d-decided-that-you-will-use-the-following-independent-variables-in-your-regression-analysis-pop-e2sfca-hins0064-edbapl-fempct-whitepct.-in-3-5-sentences-explain-how-he-came-to-this-decision-and-point-out-instances-specifically-tell-which-variables-or-which-model-in-which-he-disregarded-his-personal-rules-of-thumb-use-note-above."><strong>Question #1</strong>: Dr.&nbsp;D decided that you will use the following independent variables in your regression analysis – POP, E2SFCA, HINS0064, EDBApl, FEMPCT, WHITEPCT. In 3-5 sentences, explain how he came to this decision and point out instances (specifically, tell which variables or which model) in which he disregarded his personal rules of thumb (use NOTE above).</h5>
+<hr>
+<ol start="5" class="example" type="1">
+<li><p>You can now close the correlation matrix and VIF tables. Navigate back to GeoDa (with MI_Zip_Util.gpkg loaded). When working with spatial data and regression in GeoDa, in order to evaluate whether the residuals of a regression model are spatially autocorrelated, you must first define the neighbors and their weights. Click on Tools | Weights Manager or click the “W” button on the main menu bar. Click Create. Use CL895 as the ID Variable. Use Queen contiguity for the weights. Name them MI_ZIP_Util_queen.gal and store in the <code>assignment5_data</code> folder. After you create the weights, you can close the Weights Manager.</p></li>
+<li><p>You will now perform a regular OLS regression, which will also provide you diagnostic information about whether or not you should use a spatial regression model. In the top menu, click Regression | Regression or click the REG button on the main menu bar. In the dialog box, add <strong>AAPDr</strong> as the Dependent Variable. Add the variables from Question #1 (only) as the Covariates. Make sure MI_ZIP_Util.gal is selected as the Weights File. In the Models area, make sure that Classic is selected. Click Run.</p></li>
+<li><p>Review the Regression output, which should appear in a new window called Regression Report. Some things of note, the model is significant <code>[Prob(F-statistic)]</code>; the coefficients are all significant except for POP; uh oh… the Multicollinearity Condition Number (MCN) is extremely high (much higher than the recommendation of 30). Go back to the Regression window and remove HINS0064 from the covariates, then click Run. Note the MCN value is still too high. Now, remove FEMPCT from the covariates, then click Run.</p></li>
+</ol>
+<div class="highlightblock">
+<p>There are a number of ways to deal with (X) variables that are causing multicollinearity in a regression model. Removal of variables from the model is just one of them. In this case, I determined which variables to remove (to get a decent MCN) via a trial and error process and examination of the bivariate correlation matrix. However, other solutions are Stepwise Regression (automated variable removal), Principal Components Analysis (to extract “components” that capture the variation in a set of X variables), and others.</p>
+</div>
+<p>
+</p><hr>
+</section>
+<section id="question-2-what-was-the-multicollinearity-condition-number-for-the-2nd-and-3rd-ols-regressions-from-step-7" class="level5">
+<h5 class="anchored" data-anchor-id="question-2-what-was-the-multicollinearity-condition-number-for-the-2nd-and-3rd-ols-regressions-from-step-7"><strong>Question #2</strong>: What was the Multicollinearity Condition Number for the 2nd and 3rd OLS regressions from Step 7?</h5>
+<hr>
+<ol start="8" class="example" type="1">
+<li>Now, we have a model that meets our requirement of independent X variables. Now, let’s examine whether the residuals have spatial autocorrelation. Scroll down in the regression output and look for DIAGNOSTICS FOR SPATIAL DEPENDENCE. Here you will find the Moran’s I test of the regression residuals.</li>
+</ol>
+<hr>
+</section>
+<section id="question-3-do-you-need-to-run-a-spatial-regression-the-answer-is-yes.-in-2-3-sentences-explain-why-this-is-the-case-using-evidence-from-the-ols-output." class="level5">
+<h5 class="anchored" data-anchor-id="question-3-do-you-need-to-run-a-spatial-regression-the-answer-is-yes.-in-2-3-sentences-explain-why-this-is-the-case-using-evidence-from-the-ols-output."><strong>Question #3</strong>: Do you need to run a spatial regression? [the answer is Yes]. In 2-3 sentences, explain why this is the case (using evidence from the OLS output).</h5>
+<hr>
+</section>
+<section id="question-4-copypaste-the-summary-results-of-your-3rd-ols-regression-from-step-7-into-your-lab-document.-make-sure-that-the-font-stays-as-courier" class="level5">
+<h5 class="anchored" data-anchor-id="question-4-copypaste-the-summary-results-of-your-3rd-ols-regression-from-step-7-into-your-lab-document.-make-sure-that-the-font-stays-as-courier"><strong>Question #4</strong>: Copy/paste the summary results of your 3rd OLS regression from Step 7 into your lab document. Make sure that the font stays as Courier!</h5>
+<hr>
+</section>
+<section id="question-5-which-type-of-spatial-regression-model-should-you-run-based-on-a-theory-and-b-the-diagnostics-see-lecture-slides-or-geoda-handbook.-provide-1-3-sentences-for-each.-keep-in-mind-that-hospitalizations-are-not-contagious." class="level5">
+<h5 class="anchored" data-anchor-id="question-5-which-type-of-spatial-regression-model-should-you-run-based-on-a-theory-and-b-the-diagnostics-see-lecture-slides-or-geoda-handbook.-provide-1-3-sentences-for-each.-keep-in-mind-that-hospitalizations-are-not-contagious."><strong>Question #5</strong>: Which type of spatial regression model should you run based on a) theory and b) the diagnostics (see lecture slides or GeoDa handbook). Provide 1-3 sentences for each. Keep in mind that hospitalizations are not contagious.</h5>
+<hr>
+<ol start="9" class="example" type="1">
+<li>In the regression window, change from a Classic model to a Spatial Error model. Click Run. Examine the results in the Regression Report window. The output we will focus on is AIC (Akaike info criterion). Note that the AIC value -1,249.99 is lower than the AIC value from the OLS model -945.992 indicating a better model fit. Also, note that Lambda (the spatial error coefficient) is highly significant.</li>
+</ol>
+<hr>
+</section>
+<section id="question-6-copypaste-the-summary-results-of-spatial-error-model-into-your-lab-document.-make-sure-that-the-font-stays-as-courier" class="level5">
+<h5 class="anchored" data-anchor-id="question-6-copypaste-the-summary-results-of-spatial-error-model-into-your-lab-document.-make-sure-that-the-font-stays-as-courier"><strong>Question #6</strong>: Copy/paste the summary results of Spatial Error model into your lab document. Make sure that the font stays as Courier!</h5>
+<hr>
+</section>
+<section id="question-7-describe-how-the-coefficient-values-changed-in-the-spatial-error-model-compared-to-the-3rd-ols-model.-are-the-effect-sizes-biggersmaller-is-there-anything-notable-that-changed-in-the-significance-of-the-coefficients" class="level5">
+<h5 class="anchored" data-anchor-id="question-7-describe-how-the-coefficient-values-changed-in-the-spatial-error-model-compared-to-the-3rd-ols-model.-are-the-effect-sizes-biggersmaller-is-there-anything-notable-that-changed-in-the-significance-of-the-coefficients"><strong>Question #7</strong>: Describe how the coefficient values changed in the spatial error model (compared to the 3rd OLS model). Are the effect sizes bigger/smaller? Is there anything notable that changed in the significance of the coefficients?</h5>
+<hr>
+<ol start="10" class="example" type="1">
+<li>Write the predicted values, the residuals, and prediction errors from your spatial error model to your attribute table by clicking on the Save to Table button in the Regression window (keep the default names). After you have saved the values to your table, run a Moran’s I on the residuals by navigating to Space | Univariate Moran’s I in the top menu. Choose ERR_RESIDU as the variable.</li>
+</ol>
+<div class="highlightblock">
+<p>While writing this assignment, I found out that the authors of GeoDa say that generating a pseudo P-value for the Moran’s I results of regression residuals is not an acceptable approach. I honestly have no idea why this is. Thus, to evaluate remaining spatial autocorrelation in the residuals, we will use the magnitude of the Moran’s I value, rather than the pseudo P-value.</p>
+</div>
+<p>
+</p><hr>
+</section>
+<section id="question-8-what-is-the-morans-i-value-of-the-residuals-from-the-spatial-error-model-is-this-a-smallmediumlarge-amount-of-remaining-spatial-autocorrelation" class="level5">
+<h5 class="anchored" data-anchor-id="question-8-what-is-the-morans-i-value-of-the-residuals-from-the-spatial-error-model-is-this-a-smallmediumlarge-amount-of-remaining-spatial-autocorrelation"><strong>Question #8</strong>: What is the Moran’s I value of the residuals from the Spatial Error model? Is this a small/medium/large amount of remaining spatial autocorrelation?</h5>
+<hr>
+<ol start="11" class="example" type="1">
+<li>Now, run a Spatial Lag regression model using the same set of variables. In the Regression window, change to a Spatial Lag model and click Run. Save the results to your attribute table. The spatial lag parameter is Rho, which is identified as W_AAPDr in the output.</li>
+</ol>
+<hr>
+</section>
+<section id="question-9-copypaste-the-summary-results-of-spatial-lag-model-into-your-lab-document.-make-sure-that-the-font-stays-as-courier" class="level5">
+<h5 class="anchored" data-anchor-id="question-9-copypaste-the-summary-results-of-spatial-lag-model-into-your-lab-document.-make-sure-that-the-font-stays-as-courier"><strong>Question #9</strong>: Copy/paste the summary results of Spatial Lag model into your lab document. Make sure that the font stays as Courier!</h5>
+<hr>
+</section>
+<section id="question-10-based-on-aic-which-model-spatial-lag-or-spatial-error-fits-the-observed-hospitalization-data-better-see-step-9-on-aic-interpretation" class="level5">
+<h5 class="anchored" data-anchor-id="question-10-based-on-aic-which-model-spatial-lag-or-spatial-error-fits-the-observed-hospitalization-data-better-see-step-9-on-aic-interpretation"><strong>Question #10</strong>: Based on AIC, which model (Spatial Lag or Spatial Error) fits the observed hospitalization data better? (See Step #9 on AIC interpretation)</h5>
+<hr>
+</section>
+<section id="question-11-what-is-the-morans-i-value-of-the-residuals-of-the-spatial-lag-model-is-this-a-smallmediumlarge-amount-of-remaining-spatial-autocorrelation" class="level5">
+<h5 class="anchored" data-anchor-id="question-11-what-is-the-morans-i-value-of-the-residuals-of-the-spatial-lag-model-is-this-a-smallmediumlarge-amount-of-remaining-spatial-autocorrelation"><strong>Question #11</strong>: What is the Moran’s I value of the residuals of the Spatial Lag model? Is this a small/medium/large amount of remaining spatial autocorrelation?</h5>
+<hr>
+<ol start="12" class="example" type="1">
+<li>Unfortunately, similar to many health-related models that use observed data, the residuals from both the spatial error and lag models both fail the tests of normality and heteroscedasticity. This is extremely common with ecological (aggregated) spatial data. In this case, we will assume that these violations <strong>do not</strong> undermine our ability to make inference from the results of the model.</li>
+</ol>
+<div class="highlightblock">
+<p><strong>Extra Credit Opportunity:</strong> Figure out in GeoDa how to create a histogram of your regression residuals to evaluate normality and and a scatterplot to evaluate heteroscedasticity in the residuals. Paste the graphics directly into your assignment document. Make sure that the graphics are large enough that I can evaluate that you have plotted the correct values.</p>
+</div>
+<p>
+</p><hr>
+</section>
+<section id="question-12-going-back-to-the-original-research-question-does-the-availability-of-hospital-beds-affect-hospital-utilization-while-controlling-for-other-factors-what-is-the-direction-of-this-relationship-use-the-output-of-your-regression-analysis-to-justifyexplain-your-answer-limit-your-explanation-to-the-analysis-we-performed." class="level5">
+<h5 class="anchored" data-anchor-id="question-12-going-back-to-the-original-research-question-does-the-availability-of-hospital-beds-affect-hospital-utilization-while-controlling-for-other-factors-what-is-the-direction-of-this-relationship-use-the-output-of-your-regression-analysis-to-justifyexplain-your-answer-limit-your-explanation-to-the-analysis-we-performed."><strong>Question #12</strong>: Going back to the original research question, does the availability of hospital beds affect hospital utilization (while controlling for other factors)? What is the direction of this relationship? Use the output of your regression analysis to justify/explain your answer (limit your explanation to the analysis we performed).</h5>
+<hr>
+<ol start="13" class="example" type="1">
+<li>Save your project and close GeoDa.</li>
+</ol>
+<hr>
+</section>
+</section>
+</section>
+<section id="part-2-project-preliminary-analysis-and-results" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-project-preliminary-analysis-and-results">Part #2: Project Preliminary analysis and results</h2>
+<p>Begin implementing the method(s) you proposed in your project proposal. You must at the very least generate some preliminary results that demonstrate you are making progress on your analysis. Keep in mind that this likely won’t be your final analysis, but it is a good idea to at least work through the required steps. Construct your document in an outline fashion.A good way to set this up is to use the following sections/headings:</p>
+<ul>
+<li>Research Question</li>
+<li>Data and Methods</li>
+<li>Results</li>
+<li>Description/Interpretation of Results</li>
+</ul>
+<p>Complete the following for your preliminary analysis:</p>
+<ul>
+<li>Include your Research Question and make sure that it is clearly presented<br>
+</li>
+<li>Use a few (roughly 5-8) sentences to explain/describe the input data and method(s) / technique(s) that you used.<br>
+</li>
+<li>Copy and paste any important output from the analysis into the document (screenshots are fine for this!) - make sure you include enough of the method/technique’s output that I will be able to at least somewhat interpret the results.<br>
+</li>
+<li>Finally, describe/interpret your preliminary findings. In this section, make sure to explicitly and clearly link your research question and the results of your analysis (the answer to your question). Prove to me that you have a basic understanding of your method and your results!</li>
+</ul>
+<p>Please try to construct something that is legible and organized… as this will help me evaluate your analysis and results.</p>
+<p><strong>If you have any questions, do not hesitate to ask!</strong></p>
+<hr>
+<section id="deliverables" class="level3">
+<h3 class="anchored" data-anchor-id="deliverables">Deliverables</h3>
+<p>Upload your answer document (Lastname_GEOG541_Assignment5.docx)<br>
+Upload your document with preliminary analysis and results (Lastname_GEOG541_ProjResults.docx)</p>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
