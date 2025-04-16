@@ -85,6 +85,9 @@ Note: The password for all password protected content is on Piazza
 
 -   [Sparks, P. J., & Sparks, C. S. (2010). An application of spatially autoregressive models to the study of US county mortality rates. Population, Space and Place, 16(6), 465–481.](./readings/Sparks_etal_2010_PopSpPl.pdf)
 
+-   [Mollalo. A.,et al. (2020). GIS-based spatial modeling of COVID-19 in the US. Science of the Total Environment](./readings/covid_gwr_mollalo.pdf)
+
+
 ------------------------------------------------------------------------
 
 #### Neighborhoods and Health
