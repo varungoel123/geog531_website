@@ -80,3 +80,9 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Spatial Regression](./lectures/GEOG510_Lec23_SpReg.pdf)
 
+#### Week 14: Access to Health Care, Locating Healthcare Services
+
+-   [Access to Health Care, Network Analysis](./lectures/GEOG510_Lec24_AccessHealthCare.pdf)
+
+
+
