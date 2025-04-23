@@ -84,5 +84,9 @@ Note: password for files is provided on class piazza discussion board
 
 -   [Access to Health Care, Network Analysis](./lectures/GEOG510_Lec24_AccessHealthCare.pdf)
 
+-   [Spatial Interaction Models](./lectures/GEOG510_Lec25_SpInteractMod.pdf)
+
+-   [Healthcare Utilization](./lectures/GEOG510_Lec26_HealthCareUtil.pdf)
+
 
 
