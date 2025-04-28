@@ -77,8 +77,9 @@ Barring any exceptions that are communicated with me, your project should have t
 2\) Your paper should be roughly organized into the following sections.
 
 -   **Introduction**
-    -   Background
     -   Main question/objective\
+    -   Background
+    
 -   **Materials and Methods**
     -   Data and Preprocessing
     -   Methods\
@@ -150,7 +151,7 @@ You must cite, at a minimum, 8 papers or reports. Use any format you prefer for 
 
 The body of your paper, which includes everything but the References, should be a minimum of 2,000 words and a maximum of 3,000 words. This roughly translates to 8-12 double spaced pages, given the formatting requirements above. However, please use the word limits I have provided, rather than the page limits, as everyone's writing style is a bit different and the inclusion of figures/tables throws page limits off. A long paper does not necessarily mean a good paper, so do not “stretch or pad” your writing or include extraneous, unnecessary, and/or superfluous content. I am a fan of clear, organized, and coherent writing. So, please do not “pad” your writing with extra words in an effort to make your paper longer.
 
-Create a single word-processed document. Make sure to include your name in the document and provide a title for your paper. Please save the file using the following naming convention, Lastname_GEOG541_Finalpaper.docx, as this will greatly help me with organization and grading. Upload your document to Canvas prior to the due date/time.
+Create a single word-processed document. Make sure to include your name in the document and provide a title for your paper.
 
 ------------------------------------------------------------------------
 
@@ -159,6 +160,8 @@ Create a single word-processed document. Make sure to include your name in the d
 You will be evaluated on the quality/robustness of the research design and analysis, the quality and clarity of writing and organization in your manuscript, and the quality of any non-text material you include (especially your maps).
 
 I will provide a more detailed grading rubric later in April, but as long as your follow the overall structure, you will be in good shape.
+
+[Click here to access Grading Rubric for final project](./GEOG510_finalProjectGrading.docx)
 
 ------------------------------------------------------------------------
 
