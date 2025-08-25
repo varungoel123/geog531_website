@@ -1,0 +1,218 @@
+---
+title: "Quantitative Methods in Geographic Research"
+subtitle: "Statistical Data Types"
+author:
+ - name: "Varun Goel"
+institute: ""
+date: 2025-08-25
+date-format: medium
+title-slide-attributes:
+  data-background-color: "#f3f4f4"
+  data-background-size: 80%
+  data-background-position: 60% 120%
+  subparagraph: yes
+format:
+  revealjs:
+    slide-number: true
+    incremental: false
+    footer: "#2 Statistical Data Types"
+    chalkboard:
+      buttons: false
+      preview-links: auto
+    theme: [default, ../../assets/style.scss]
+---
+
+## Outline
+
+-   Descriptive Vs Inferential Statistics
+-   Statistical Data Types and Spatial Data
+-   Practice with R and Posit Cloud
+
+------------------------------------------------------------------------
+
+## Population Daily Movement (March 2020)
+
+![](GEOG531_Lecture2_spatialDataTypes.pdf#page=3)
+
+Any patterns?\
+What causes the pattern?\
+How to quantify the movement changes?
+
+------------------------------------------------------------------------
+
+## Types of Statistics
+
+-   **Domains**
+    -   Classical statistics\
+    -   Biostatistics\
+    -   Econometrics\
+    -   Spatial statistics\
+-   **Functions**
+    -   Descriptive statistics (summary)\
+    -   Inferential statistics (forecasting, decision making)
+
+------------------------------------------------------------------------
+
+## Descriptive Statistics
+
+-   Concerned with summarization and presentation of data:
+    -   Numerical (mean, median, range)
+    -   Tabular (tables)
+    -   Graphical (scatterplots, histograms)
+    -   Cartographical (maps)
+
+------------------------------------------------------------------------
+
+## Example: Home Sales in Milwaukee
+
+![](.\GEOG531_Lecture2_spatialDataTypes.pdf#page=6)
+
+------------------------------------------------------------------------
+
+## Example: Per Capita State Income Taxes
+
+![](GEOG531_Lecture2_spatialDataTypes.pdf#page=7)
+
+------------------------------------------------------------------------
+
+## Example: Thematic Map of Unemployment
+
+![](GEOG531_Lecture2_spatialDataTypes.pdf#page=8)
+
+------------------------------------------------------------------------
+
+## Population vs Sample
+
+-   **Population**: all data (e.g., body weight of humans)\
+-   **Sample**: subset of population (e.g., 50 trees from a forest)
+
+------------------------------------------------------------------------
+
+## Inferential Statistics
+
+-   Make statements about population from sample\
+-   Key techniques:
+    -   Estimation\
+    -   Hypothesis testing
+
+------------------------------------------------------------------------
+
+## Descriptive vs Inferential
+
+-   Descriptive: Explore, find patterns\
+-   Inferential: Confirm, test hypotheses\
+-   Often used together
+
+------------------------------------------------------------------------
+
+## Quantitative Methods: Example
+
+Study cancer spatial patterns:\
+1. Collect data\
+2. Display data\
+3. Discover patterns\
+4. Form hypothesis\
+5. Test hypothesis (modeling + inference)\
+6. Draw conclusions
+
+------------------------------------------------------------------------
+
+## Data and Dataset
+
+-   **Data**: measurable information\
+-   **Dataset**: collection of observations, variables, values\
+-   Example: Home sales dataset
+
+![](GEOG531_Lecture2_spatialDataTypes.pdf#page=16)
+
+------------------------------------------------------------------------
+
+## Statistical Data Types
+
+-   Nominal, Ordinal, Interval, Ratio\
+-   Discrete vs Continuous\
+-   Quantitative vs Qualitative
+
+------------------------------------------------------------------------
+
+## Nominal Data
+
+-   Categorical (unordered)\
+-   Examples: gender, location, yes/no
+
+------------------------------------------------------------------------
+
+## Ordinal Data
+
+-   Ranked categories\
+-   Examples: medals (gold, silver, bronze), ranks
+
+------------------------------------------------------------------------
+
+## Interval Data
+
+-   Ordered + meaningful differences\
+-   No true zero\
+-   Example: temperature (C, F)
+
+------------------------------------------------------------------------
+
+## Ratio Data
+
+-   Ordered + meaningful differences + true zero\
+-   Example: population, weight, Kelvin temperature
+
+------------------------------------------------------------------------
+
+## Data Types Summary
+
+![](GEOG531_Lecture2_spatialDataTypes.pdf#page=22)
+
+------------------------------------------------------------------------
+
+## Data Type Exercise
+
+-   Zip code → Nominal, discrete, qualitative\
+-   Medals → Ordinal, discrete, qualitative\
+-   Temperature (F) → Interval, continuous, quantitative\
+-   Patients count → Ratio, discrete, quantitative\
+-   Angles (0–360°) → Ratio, continuous, quantitative
+
+------------------------------------------------------------------------
+
+## Spatial Data
+
+-   Data with location
+    -   Absolute (lat/long)\
+    -   Relative (distance to road)\
+-   Types:
+    -   Point (cities, tweets)\
+    -   Areal (states, lakes)\
+    -   Line (rivers, roads)\
+    -   Continuous (DEM, surfaces)
+
+------------------------------------------------------------------------
+
+## Spatial Data Examples
+
+![](GEOG531_Lecture2_spatialDataTypes.pdf#page=25)
+
+------------------------------------------------------------------------
+
+## Spatial Scales
+
+-   Point vs Areal data\
+-   Example: Columbia as point vs polygon
+
+![](GEOG531_Lecture2_spatialDataTypes.pdf#page=26)
+
+------------------------------------------------------------------------
+
+## Data Conversion
+
+-   Point → Area (interpolation)\
+-   Area → Point (centroids)
+
+![](GEOG531_Lecture2_spatialDataTypes.pdf#page=27)
+
+------------------------------------------------------------------------

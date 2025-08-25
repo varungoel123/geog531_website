@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Geog 531: Quantitative Methods in Geographic Research",
     "section": "",
-    "text": "Instructor Information\nInstructor: Dr. Varun Goel\nOffice: Callcott 111\n\nAppointment link: Click Here\nEmail: varungoel@sc.edu\n\n\n\nCourse Essentials\nMeeting times: Monday, Wednesday 3:55 pm - 5:10pm\nMeeting location: Callcott 302\nStudent Support Hours: Mon-Wed 2 pm - 3 pm\nAppointment link: Click Here\n]GEOG 531 Discussion Google Sheet: Click Here soon\n\n\n\nUpdated Syllabus\nThe latest class syllabus can downloaded here\n\n\n\nUpdated Schedule\n\nPlease note that this schedule is subject to change (specifically, lecture topics and due dates). Please check this page periodically in case there are any changes\n\n\n\n\n\n\nWEEK\nTUES\nTHUR\nTOPICS\nDELIVERABLES\nNOTES\n\n\n\n\n1\n01/13/24\n01/15/24\nIntroduction to GEOG 510 and Health Geography; Geographic Concepts and GIS\n\n\n\n\n2\n\n01/22/24\nSpatial data fundamentals; Projections and Coordinate Systems; Data Quality and Metadata\n\nDr. Martin Luther King Jr. Day + snow day (slides to be skimmed before week 3 class)\n\n\n3\n01/27/24\n01/29/24\nIntroduction to Spatial Health Data;\n\n\n\n\n4\n02/03/24\n02/05/24\n\nA#1\nVirtual/Recorded\n\n\n5\n02/10/24\n02/12/24\nGeocoding, Table and Spatial Join; Data Integration\n\n\n\n\n6\n02/17/24\n02/19/24\nMapping Health Information and Design; ; GIS Overlay, Distance, Buffer\n\n\n\n\n7\n02/24/24\n02/26/24\nPattern and Process; Spatial Neighbors and Autocorrelation, Spatial Variation and Clustering\n\n\n\n\n8\n03/03/24\n03/05/24\nDisease Clusters; Grouping and Regionalization\nA#2\n\n\n\n9\n\n\n\n\nSpring Break\n\n\n10\n03/17/24\n03/19/24\nApplied Autocorrelation/Clustering/Grouping\nA#3\n\n\n\n11\n03/24/24\n03/26/24\nNO CLASS: Away for conference\n\nVirtual/Recorded\n\n\n12\n03/31/24\n04/02/24\nDisease Risk and Diffusion; Ecology of Disease\nA#4\n\n\n\n13\n04/07/24\n04/09/24\nCorrelation, Regression, Confounding\n\n\n\n\n14\n04/14/24\n04/16/24\nSpatial Regression Techniques; Temporal Analysis and Change Detection\n\n\n\n\n15\n04/21/24\n04/23/24\nNeighborhoods and Health\nA#5\n\n\n\n16\n04/28/24\n\nAccess to Health Care; Network Analysis; Spatial Interaction Models\n\nLast day of classes\n\n\nFINAL EXAM\n05/05/24\n\n\nFinal Presentation/Peer Assessment; Final paper due\nStarts at 12:30 pm"
+    "text": "Instructor Information\nInstructor: Dr. Varun Goel\nOffice: Callcott 111\n\nAppointment link: Click Here\nEmail: varungoel@sc.edu\n\n\n\nCourse Essentials\nMeeting times: Monday, Wednesday 3:55 pm - 5:10pm\nMeeting location: Callcott 302\nStudent Support Hours: Mon-Wed 2 pm - 3 pm\nAppointment link: Click Here\n]GEOG 531 Discussion Google Sheet: [coming soon]\n\n\n\nUpdated Syllabus\nThe latest class syllabus can downloaded here"
   },
   {
     "objectID": "schedule.html",
@@ -81,7 +81,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Week 1: Introduction\n\nMonday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2/3: Foundational concepts in Geography and GIS, Spatial Data, Coordinate Systems\n\nFoundational concepts in Geography and GIS\nSpatial Data fundamentals\nProjections and Coordinate System fundamentals\n\n\n\nWeek 4: Spatial Health Data\n\nSpatial Health Data\nData Quality and Metadata\n\n\n\nWeek 5: Geocoding and Joins, Data Integration\n\nGeocoding and Joins\nData Integration\n\n\n\nWeek 6: Mapping Health data\n\nMapping Health Data\nMap Composition and Design\n\n\n\nWeek 7: Queries, Field Calculations, Patterns and Processes\n\nQueries and Field Calculations\nIntroduction to Spatial Variation and Clustering\n\n\n\nWeek 8: Spatial Neighbors, Spatial Clustering\n\nSpatial Neighbors\nSpatial Clustering I: Attributes\n\n\n\nWeek 9: Spatial Clustering and Grouping, Patterns and Processes\n\nSpatial Clustering: Scan-based clustering\nPatterns & Processes\nGrouping and Regionalization (supplemental slides)\n\n\n\nWeek 11: Environmental Hazards, Spatial Interpolation, Rasters\n\nEnvironmental Hazards\nSpatial Interpolation\n\n\n\nWeek 12: Disease Diffusion, Disease Ecology, Regrssion\n\nDisease Diffusion\nSupplemental lecture: Vaccines and Agent-based modeling\nIntroduction to Regression\n\n\n\nWeek 13: Spatial Regrssion\n\nRegression: Part 2\nSpatial Regression\n\n\n\nWeek 14: Access to Health Care, Locating Healthcare Services\n\nAccess to Health Care, Network Analysis\nSpatial Interaction Models\nHealthcare Utilization"
+    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types"
   },
   {
     "objectID": "data.html",
@@ -684,5 +684,173 @@
     "title": "Quantitative Methods in Geographic Research",
     "section": "R Studio, Posit Cloud",
     "text": "R Studio, Posit Cloud\n\nR Studio: Integrated Development Environment for R\n\nMakes Dull R more Fun\n\nPosit Cloud: Rstudio in the cloud\n\nReduces steep learning curve\nReduces technical issues\n\nSign up at https://posit.cloud/ with your SCHOOL email"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#outline",
+    "href": "lectures/2_datatypes/2_datatypes.html#outline",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "",
+    "text": "Descriptive Vs Inferential Statistics\nStatistical Data Types and Spatial Data\nPractice with R and Posit Cloud"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#population-daily-movement-march-2020",
+    "href": "lectures/2_datatypes/2_datatypes.html#population-daily-movement-march-2020",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Population Daily Movement (March 2020)",
+    "text": "Population Daily Movement (March 2020)\n\nAny patterns?\nWhat causes the pattern?\nHow to quantify the movement changes?"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#types-of-statistics",
+    "href": "lectures/2_datatypes/2_datatypes.html#types-of-statistics",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Types of Statistics",
+    "text": "Types of Statistics\n\nDomains\n\nClassical statistics\n\nBiostatistics\n\nEconometrics\n\nSpatial statistics\n\n\nFunctions\n\nDescriptive statistics (summary)\n\nInferential statistics (forecasting, decision making)"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#descriptive-statistics",
+    "href": "lectures/2_datatypes/2_datatypes.html#descriptive-statistics",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Statistics",
+    "text": "Descriptive Statistics\n\nConcerned with summarization and presentation of data:\n\nNumerical (mean, median, range)\nTabular (tables)\nGraphical (scatterplots, histograms)\nCartographical (maps)"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#example-home-sales-in-milwaukee",
+    "href": "lectures/2_datatypes/2_datatypes.html#example-home-sales-in-milwaukee",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example: Home Sales in Milwaukee",
+    "text": "Example: Home Sales in Milwaukee"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#example-per-capita-state-income-taxes",
+    "href": "lectures/2_datatypes/2_datatypes.html#example-per-capita-state-income-taxes",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example: Per Capita State Income Taxes",
+    "text": "Example: Per Capita State Income Taxes"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#example-thematic-map-of-unemployment",
+    "href": "lectures/2_datatypes/2_datatypes.html#example-thematic-map-of-unemployment",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example: Thematic Map of Unemployment",
+    "text": "Example: Thematic Map of Unemployment"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#population-vs-sample",
+    "href": "lectures/2_datatypes/2_datatypes.html#population-vs-sample",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Population vs Sample",
+    "text": "Population vs Sample\n\nPopulation: all data (e.g., body weight of humans)\n\nSample: subset of population (e.g., 50 trees from a forest)"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#inferential-statistics",
+    "href": "lectures/2_datatypes/2_datatypes.html#inferential-statistics",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Inferential Statistics",
+    "text": "Inferential Statistics\n\nMake statements about population from sample\n\nKey techniques:\n\nEstimation\n\nHypothesis testing"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#descriptive-vs-inferential",
+    "href": "lectures/2_datatypes/2_datatypes.html#descriptive-vs-inferential",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive vs Inferential",
+    "text": "Descriptive vs Inferential\n\nDescriptive: Explore, find patterns\n\nInferential: Confirm, test hypotheses\n\nOften used together"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#quantitative-methods-example",
+    "href": "lectures/2_datatypes/2_datatypes.html#quantitative-methods-example",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Quantitative Methods: Example",
+    "text": "Quantitative Methods: Example\nStudy cancer spatial patterns:\n1. Collect data\n2. Display data\n3. Discover patterns\n4. Form hypothesis\n5. Test hypothesis (modeling + inference)\n6. Draw conclusions"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#data-and-dataset",
+    "href": "lectures/2_datatypes/2_datatypes.html#data-and-dataset",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Data and Dataset",
+    "text": "Data and Dataset\n\nData: measurable information\n\nDataset: collection of observations, variables, values\n\nExample: Home sales dataset"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#statistical-data-types",
+    "href": "lectures/2_datatypes/2_datatypes.html#statistical-data-types",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Statistical Data Types",
+    "text": "Statistical Data Types\n\nNominal, Ordinal, Interval, Ratio\n\nDiscrete vs Continuous\n\nQuantitative vs Qualitative"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#nominal-data",
+    "href": "lectures/2_datatypes/2_datatypes.html#nominal-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Nominal Data",
+    "text": "Nominal Data\n\nCategorical (unordered)\n\nExamples: gender, location, yes/no"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#ordinal-data",
+    "href": "lectures/2_datatypes/2_datatypes.html#ordinal-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Ordinal Data",
+    "text": "Ordinal Data\n\nRanked categories\n\nExamples: medals (gold, silver, bronze), ranks"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#interval-data",
+    "href": "lectures/2_datatypes/2_datatypes.html#interval-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interval Data",
+    "text": "Interval Data\n\nOrdered + meaningful differences\n\nNo true zero\n\nExample: temperature (C, F)"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#ratio-data",
+    "href": "lectures/2_datatypes/2_datatypes.html#ratio-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Ratio Data",
+    "text": "Ratio Data\n\nOrdered + meaningful differences + true zero\n\nExample: population, weight, Kelvin temperature"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#data-types-summary",
+    "href": "lectures/2_datatypes/2_datatypes.html#data-types-summary",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Data Types Summary",
+    "text": "Data Types Summary"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#data-type-exercise",
+    "href": "lectures/2_datatypes/2_datatypes.html#data-type-exercise",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Data Type Exercise",
+    "text": "Data Type Exercise\n\nZip code → Nominal, discrete, qualitative\n\nMedals → Ordinal, discrete, qualitative\n\nTemperature (F) → Interval, continuous, quantitative\n\nPatients count → Ratio, discrete, quantitative\n\nAngles (0–360°) → Ratio, continuous, quantitative"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#spatial-data",
+    "href": "lectures/2_datatypes/2_datatypes.html#spatial-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Data",
+    "text": "Spatial Data\n\nData with location\n\nAbsolute (lat/long)\n\nRelative (distance to road)\n\n\nTypes:\n\nPoint (cities, tweets)\n\nAreal (states, lakes)\n\nLine (rivers, roads)\n\nContinuous (DEM, surfaces)"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#spatial-data-examples",
+    "href": "lectures/2_datatypes/2_datatypes.html#spatial-data-examples",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Data Examples",
+    "text": "Spatial Data Examples"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#spatial-scales",
+    "href": "lectures/2_datatypes/2_datatypes.html#spatial-scales",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Scales",
+    "text": "Spatial Scales\n\nPoint vs Areal data\n\nExample: Columbia as point vs polygon"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html#data-conversion",
+    "href": "lectures/2_datatypes/2_datatypes.html#data-conversion",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Data Conversion",
+    "text": "Data Conversion\n\nPoint → Area (interpolation)\n\nArea → Point (centroids)"
+  },
+  {
+    "objectID": "lectures/2_datatypes/2_datatypes.html",
+    "href": "lectures/2_datatypes/2_datatypes.html",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "",
+    "text": "Descriptive Vs Inferential Statistics\nStatistical Data Types and Spatial Data\nPractice with R and Posit Cloud"
   }
 ]

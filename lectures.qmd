@@ -8,78 +8,8 @@ date-format: medium
 
 #### Week 1: Introduction
 
--   *Monday, Aug 20: Quantitative Methods in Geographic Research* ( [html](./lectures/1_introduction/1_introduction.html){target="_blank"} , [pdf](./lectures/1_introduction/1_introduction.pdf){target="_blank"} )
+-   *Wednesday, Aug 20: Quantitative Methods in Geographic Research* ( [html](./lectures/1_introduction/1_introduction.html){target="_blank"} , [pdf](./lectures/1_introduction/1_introduction.pdf){target="_blank"} )
 
-#### Week 2/3: Foundational concepts in Geography and GIS, Spatial Data, Coordinate Systems
+#### Week 2: Data types and Nature of Spatial Data
 
--   [Foundational concepts in Geography and GIS](./lectures/GEOG510_Lec3_GeoGISII.pdf)
-
--   [Spatial Data fundamentals](./lectures/GEOG510_Lec4_IntroSpData.pdf)
-
--   [Projections and Coordinate System fundamentals](./lectures/GEOG510_Lec5_ProjCoordSys.pdf)
-
-#### Week 4: Spatial Health Data
-
--   [Spatial Health Data](./lectures/GEOG510_Lec7_SpDataPubHealth.pdf)
-
--   [Data Quality and Metadata](./lectures/GEOG510_Lec6_DataQualMetadata.pdf)
-
-#### Week 5: Geocoding and Joins, Data Integration
-
--   [Geocoding and Joins](./lectures/GEOG510_Lec8_GeocodeTabSpJoin.pdf)
-
--   [Data Integration](./lectures/GEOG510_Lec9_DataIntegration.pdf)
-
-#### Week 6: Mapping Health data
-
--   [Mapping Health Data](./lectures/GEOG510_Lec10_MappingHealData.pdf)
-
--   [Map Composition and Design](./lectures/GEOG510_Lec11_MapDesign.pdf)
-
-#### Week 7: Queries, Field Calculations, Patterns and Processes
-
--   [Queries and Field Calculations](./lectures/GEOG510_Lec12_QueryFieldCalc.pdf)
-
--   [Introduction to Spatial Variation and Clustering](./lectures/GEOG510_Lec14_SpVarClustering.pdf)
-
-#### Week 8: Spatial Neighbors, Spatial Clustering
-
--   [Spatial Neighbors](./lectures/GEOG510_Lec15_SpNeighbors.pdf)
-
--   [Spatial Clustering I: Attributes](./lectures/GEOG510_Lec16_ClusteringI.pdf)
-
-#### Week 9: Spatial Clustering and Grouping, Patterns and Processes
-
--   [Spatial Clustering: Scan-based clustering](./lectures/GEOG510_Lec17_ClusteringII.pdf)
-
--   [Patterns & Processes](./lectures/GEOG510_Lec17_PatternProcessClustering.pdf)
-
--   [Grouping and Regionalization (supplemental slides)](./lectures/GEOG510_supplemental_groupingAdvancedClustering.pdf)
-
-#### Week 11: Environmental Hazards, Spatial Interpolation, Rasters
-
--   [Environmental Hazards](./lectures/GEOG510_Lec18_EnvHaz.pdf)
-
--   [Spatial Interpolation](./lectures/GEOG510_Lec19_SpInterp.pdf)
-
-#### Week 12: Disease Diffusion, Disease Ecology, Regrssion
-
--   [Disease Diffusion](./lectures/GEOG510_Lec20_DisRiskDiff.pdf)
-
--   [Supplemental lecture: Vaccines and Agent-based modeling](./lectures/GEOG510_Lec20a_simulationVaccine.pdf)
-
--   [Introduction to Regression](./lectures/GEOG510_Lec21_Reg.pdf)
-
-#### Week 13: Spatial Regrssion
-
--   [Regression: Part 2](./lectures/GEOG510_Lec22_RegContinued.pdf)
-
--   [Spatial Regression](./lectures/GEOG510_Lec23_SpReg.pdf)
-
-#### Week 14: Access to Health Care, Locating Healthcare Services
-
--   [Access to Health Care, Network Analysis](./lectures/GEOG510_Lec24_AccessHealthCare.pdf)
-
--   [Spatial Interaction Models](./lectures/GEOG510_Lec25_SpInteractMod.pdf)
-
--   [Healthcare Utilization](./lectures/GEOG510_Lec26_HealthCareUtil.pdf)
+-   *Monday, Aug 25: Intro to Data types*

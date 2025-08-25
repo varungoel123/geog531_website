@@ -20,8 +20,7 @@ date-format: medium
 
 -   [Demo 2: Coordinate Reference Systems](./exercises/demo2_CRS.html){target="_blank"}
 
--    [Exercise 2: Tissot Indicatrix and CRS](./exercises/GEOG_510_ex4_tissot.html){target="_blank"}
-
+-   [Exercise 2: Tissot Indicatrix and CRS](./exercises/GEOG_510_ex4_tissot.html){target="_blank"}
 
 ------------------------------------------------------------------------
 
@@ -29,7 +28,7 @@ date-format: medium
 
 -   [Demo 3: Plugins and Geocoding](./exercises/GEOG510_demo3_PluginGeocode.qmd){target="_blank"}
 
--    [Exercise 3: Geocoding and Joins](./exercises/GEOG510_ex3_GeocodeJoins.qmd){target="_blank"}
+-   [Exercise 3: Geocoding and Joins](./exercises/GEOG510_ex3_GeocodeJoins.qmd){target="_blank"}
 
 ------------------------------------------------------------------------
 
@@ -41,16 +40,15 @@ date-format: medium
 
 #### Week 6: GIS operations, spatial patterns and processes
 
-- [Demo 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize](./exercises/GEOG510_demo5_BasicGISOperations1.qmd){target="_blank"}
+-   [Demo 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize](./exercises/GEOG510_demo5_BasicGISOperations1.qmd){target="_blank"}
 
 -   [Exercise 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize](./exercises/GEOG510_ex5_basicVectorOperations.qmd){target="_blank"}
 
-- [Demo 6: Introduction to GEODA](./exercises/GEOG510_demo6_GeoDa.qmd){target="_blank"}
-
+-   [Demo 6: Introduction to GEODA](./exercises/GEOG510_demo6_GeoDa.qmd){target="_blank"}
 
 ------------------------------------------------------------------------
 
-#### Week 7:  Neighbors, point pattern analysis, and spatial clustering
+#### Week 7: Neighbors, point pattern analysis, and spatial clustering
 
 -   [Exercise 6: Introduction to Kernel Density Estimation](./exercises/GEOG510_ex6_kde.qmd){target="_blank"}
 
@@ -58,13 +56,13 @@ date-format: medium
 
 ------------------------------------------------------------------------
 
-#### Week 9:  Scan statistics, patterns vs process
+#### Week 9: Scan statistics, patterns vs process
 
 -   [Demo 8: Introduction to SatScan](./exercises/GEOG510_demo8_SaTScan.qmd){target="_blank"}
 
 ------------------------------------------------------------------------
 
-#### Week 11:  Environmental Hazards, Spatial Interpolation, Rasters
+#### Week 11: Environmental Hazards, Spatial Interpolation, Rasters
 
 -   [Demo 9: Raster Analysis using LandScan](./exercises/GEOG510_demo9_LandscanRaster.qmd){target="_blank"}
 
@@ -72,9 +70,8 @@ date-format: medium
 
 -   [Exercise 9: Spatial Interpolation](./exercises/GEOG510_ex9_Interpolation.qmd){target="_blank"}
 
-#### Week 13:  Correlation, Regression, Spatial Regression
+#### Week 13: Correlation, Regression, Spatial Regression
 
 -   [Demo 10: Regression and Spatial Regression](./exercises/GEOG510_demo10_Regression.qmd){target="_blank"}
 
 -   [Exercise 10: Regression and Spatial Regression](./exercises/GEOG510_ex10_SpatialRegression.qmd){target="_blank"}
-
