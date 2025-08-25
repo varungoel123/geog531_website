@@ -2,12 +2,12 @@
 title: "Geog 531: Quantitative Methods in Geographic Research"
 date: last-modified
 date-format: medium
-output:
-  html_document:
-    link-external-newwindow: true
+format:
+  html:
     theme: flatly
-    toc: yes
-    toc_float: yes
+    link-external-newwindow: true
+    toc: true
+    toc_float: true
     toc_depth: 3
 ---
 
