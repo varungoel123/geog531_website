@@ -558,5 +558,131 @@
     "title": "GEOG 510: Assignment #4",
     "section": "Part #2: Thinking about regression for your project question (30 points)",
     "text": "Part #2: Thinking about regression for your project question (30 points)\nWhile it is not necessary to implement a regression analysis for your final projects, regression can be a powerful tool to test hypotheses related to spatial processes driving the observed spatial patterns of your health outcoome. In this part, you are asked to conceptualize what a regression analysis may look like for you, so that you can more confidently implement it in your final projects if you choose to.\n\nQuestion #13: Frame your main research question in the context of an independent (x) and dependent (Y) variable. For example, my main question is to look at how does daily average temperature (X variable) impact percentage of people with mental health distress in each censusc tract of South Carolina (Y variable). Be as specific as you can so that you will have a better idea of what exact data you need to have.\n\n\nQuestion #14: Name atleast 3 potential confounders/other independent variables (other than Age, Sex, and population) that you would include in your analysis. Age, Sex, and populationare almost always variables in many health analysis, so I want you to think beyond them. Also explain why do you think they may be potential confounders to be added. Be as specific as you can so that you will have a better idea of what exact data you need to have.\n\n\nQuestion #15: Think about the potential motivation of why a spatial regression may be important for your question, in the context of 1st order and 2nd order spatial analysis. In 3-5 sentences, explain the motivation/reasoning behind why you would want to use one spatial regression and if so, which one ( or both, or not? Link your reasoning to the type of 1st order and 2nd order spatial processes that may be driving your research question for your analysis.\n\nExtra Credit Opportunity: upto 40 points I will grant upto 40 points if you actually conduct a regression analysis for your own final project data. This will be based on the sophistication and accuracy of your analysis, but even a non-horrible simple OLS regression will fetch 10 points.\n\nIf you have any questions, do not hesitate to ask!\n\n\n\nDeliverables\nUpload your answer document to OneDrive."
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#outline",
+    "href": "lectures/1_introduction/1_introduction.html#outline",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Outline",
+    "text": "Outline\n\nIntroductions\nCourse Motivation and Overview\nSyllabus and Logistics"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#introductions",
+    "href": "lectures/1_introduction/1_introduction.html#introductions",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Introductions",
+    "text": "Introductions\n\nName/Preferred Name (if different)\nMajor & Year\nI (don’t) know what you did last summer!\n\nA place you visited?\nA dish you ate?\nA hobby you picked up?\n\nYou have $1 million and one-way ticket. Where would you want to settle for the next 5 years?"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#about-me",
+    "href": "lectures/1_introduction/1_introduction.html#about-me",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "About Me",
+    "text": "About Me\n\n‘Sophomore’ Assistant Professor\nHealth and Medical Geographer\n```         \nLots of GIS + (Spatial) Statistics\n```\nFirst name pronounced as ‘Maroon’ with a ‘V’\nLast name pronounced as ‘Go-yell’\nYou can call me Varun, Dr. Goel, Dr. G, Professor V"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#my-research",
+    "href": "lectures/1_introduction/1_introduction.html#my-research",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "My research",
+    "text": "My research\n\n\nGlobal Environmental Health (Asia, Africa)\n\nClimate Change and Health\nHuman-Environment Interactions\n\nInfectious Disease Ecology\n\nMalaria, Diarrhea, HIV, others\n\nEvaluation of Health interventions\nApplied Statistics"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#quantitative-methods-in-geography",
+    "href": "lectures/1_introduction/1_introduction.html#quantitative-methods-in-geography",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Quantitative Methods in Geography",
+    "text": "Quantitative Methods in Geography\n\n\nStatistics\nResearch methods/design\nGIS\nSpatial Analysis\nProgramming\nScience Communication"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#statistics",
+    "href": "lectures/1_introduction/1_introduction.html#statistics",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Statistics",
+    "text": "Statistics\n\n\n\n\n\nSource: The Decision Lab"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#research-design",
+    "href": "lectures/1_introduction/1_introduction.html#research-design",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Research Design",
+    "text": "Research Design\n\nSource: Tyler Vigen"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#better-and-reliable-science-communication",
+    "href": "lectures/1_introduction/1_introduction.html#better-and-reliable-science-communication",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Better and Reliable Science Communication",
+    "text": "Better and Reliable Science Communication"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#example-john-snow-and-cholera",
+    "href": "lectures/1_introduction/1_introduction.html#example-john-snow-and-cholera",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example: Jo(h)n Snow and Cholera",
+    "text": "Example: Jo(h)n Snow and Cholera"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#example-john-snow-and-cholera-1",
+    "href": "lectures/1_introduction/1_introduction.html#example-john-snow-and-cholera-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example: Jo(h)n Snow and Cholera",
+    "text": "Example: Jo(h)n Snow and Cholera"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#example-john-snow-and-cholera-2",
+    "href": "lectures/1_introduction/1_introduction.html#example-john-snow-and-cholera-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example: Jo(h)n Snow and Cholera",
+    "text": "Example: Jo(h)n Snow and Cholera"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#example-john-snow-and-cholera-3",
+    "href": "lectures/1_introduction/1_introduction.html#example-john-snow-and-cholera-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example: Jo(h)n Snow and Cholera",
+    "text": "Example: Jo(h)n Snow and Cholera"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#example-john-snow-and-cholera-4",
+    "href": "lectures/1_introduction/1_introduction.html#example-john-snow-and-cholera-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example: Jo(h)n Snow and Cholera",
+    "text": "Example: Jo(h)n Snow and Cholera"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#a-simple-yet-powerful-descriptive-spatial-statistic",
+    "href": "lectures/1_introduction/1_introduction.html#a-simple-yet-powerful-descriptive-spatial-statistic",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "A simple yet powerful descriptive spatial statistic",
+    "text": "A simple yet powerful descriptive spatial statistic\n\nSource: Wikipedia/US Census"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#logistics",
+    "href": "lectures/1_introduction/1_introduction.html#logistics",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Logistics",
+    "text": "Logistics\n\nSyllabus\nAttendance and Participation. Discussion + Practice &gt; Lecture\nUse of Generative AI.\nHosting materials. Blackboard v/s Course website\nAsking for Help. Be Proactive"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#what-is-your-experience-level-with-r",
+    "href": "lectures/1_introduction/1_introduction.html#what-is-your-experience-level-with-r",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What is your experience level with R?",
+    "text": "What is your experience level with R?"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#r",
+    "href": "lectures/1_introduction/1_introduction.html#r",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "R",
+    "text": "R\n\nProgramming Language written by Statisticians primarily for statistical computing\nBig community and support\nSuitable for Geographic Research\n\nVery strong spatial statistics capabilities\nGreat data visualization + mapping\nSupported by packages (similar to libraries in Python)"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#r-studio-posit-cloud",
+    "href": "lectures/1_introduction/1_introduction.html#r-studio-posit-cloud",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "R Studio, Posit Cloud",
+    "text": "R Studio, Posit Cloud\n\nR Studio: Integrated Development Environment for R\n\nMakes Dull R more Fun\n\nPosit Cloud: Rstudio in the cloud\n\nReduces steep learning curve\nReduces technical issues\n\nSign up at https://posit.cloud/ with your SCHOOL email"
   }
 ]
