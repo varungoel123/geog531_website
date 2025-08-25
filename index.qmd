@@ -4,6 +4,7 @@ date: last-modified
 date-format: medium
 output:
   html_document:
+    link-external-newwindow: true
     theme: flatly
     toc: yes
     toc_float: yes
@@ -30,27 +31,25 @@ output:
 **Meeting times:** Monday, Wednesday *3:55 pm - 5:10pm*\
 **Meeting location:** Callcott 302
 
-**Student Support Hours:** Mon-Wed  2 pm - 3 pm
+**Student Support Hours:** Mon-Wed 2 pm - 3 pm
 
 **Appointment link:** [Click Here](https://outlook.office.com/bookwithme/user/675339bb37584ebaa37d12437cb4f286@sc.edu/meetingtype/aKkUKwRTska6ndT42c8OWg2?anonymous&ep=mlink)
 
-**]GEOG 531 Discussion Google Sheet:** [Click Here soon](https://piazza.com/sc/spring2025/geog510/home)
-
+**\]GEOG 531 Discussion Google Sheet:** [Click Here soon](https://piazza.com/sc/spring2025/geog510/home)
 
 ------------------------------------------------------------------------
 
 ### Updated Syllabus
 
-The latest class syllabus can downloaded [here](./Geog510_GISandHealth_SP25.pdf)
+The latest class syllabus can downloaded [here](Geog531_FA25_QuantitativeMethods.pdf)
 
 ------------------------------------------------------------------------
 
 ### Updated Schedule
 
-------
+------------------------------------------------------------------------
 
-Please note that this schedule is subject to change (specifically, lecture topics and due dates). Please check this page periodically in case there are any changes  
-
+Please note that this schedule is subject to change (specifically, lecture topics and due dates). Please check this page periodically in case there are any changes
 
 ```{r include = FALSE}
 library(knitr)
