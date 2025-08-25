@@ -1,0 +1,204 @@
+---
+title: "Quantitative Methods in Geographic Research"
+subtitle: "Welcome and Introduction"
+author:
+ - name: "Varun Goel"
+institute: ""
+date: 2025-08-20
+date-format: medium
+title-slide-attributes:
+  data-background-color: "#f3f4f4"
+  data-background-size: 80%
+  data-background-position: 60% 120%
+  subparagraph: yes
+format:
+  revealjs:
+    slide-number: true
+    incremental: false
+    footer: "#1 Welcome and Introduction"
+    chalkboard:
+      buttons: false
+      preview-links: auto
+    theme: [default, ../../assets/style.scss]
+---
+
+## Outline
+
+-   Introductions
+-   Course Motivation and Overview
+-   Syllabus and Logistics
+
+## Introductions
+
+-   Name/Preferred Name (if different)
+-   Major & Year
+-   I (don't) know what you did last summer!
+
+    -     A place you visited?
+    -     A dish you ate?
+    -     A hobby you picked up?
+    
+-   You have $1 million and one-way ticket. Where would you want to settle for the next 5 years?
+
+## About Me
+
+-   'Sophomore' Assistant Professor
+-   Health and Medical Geographer
+    -     Lots of GIS + (Spatial) Statistics
+-   First name pronounced as *'Maroon'* with a *'V'*
+-   Last name pronounced as *'Go-yell'*
+-   You can call me Varun, Dr. Goel, Dr. G, Professor V
+
+## My research
+
+::: incremental
+-   Global Environmental Health (Asia, Africa)
+
+    -     Climate Change and Health
+    -     Human-Environment Interactions
+    
+-   Infectious Disease Ecology
+
+    -     Malaria, Diarrhea, HIV, others
+    
+-   Evaluation of Health interventions
+-   Applied Statistics
+:::
+
+# What is this course about?
+
+##  
+
+![](assets/diagram_better.webp){fig-align="center" width="300px"}
+
+## 
+
+![](assets/sds.jpg){fig-align="center" width="300px"}
+
+## Quantitative Methods in Geography
+
+::: incremental
+-   Statistics
+-   Research methods/design
+-   GIS
+-   Spatial Analysis
+-   Programming
+-   Science Communication
+:::
+
+## Statistics
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![Source: [The Decision Lab](https://thedecisionlab.com/reference-guide/philosophy/system-1-and-system-2-thinking)](assets/decisions.webp){fig-align="center" width="600px"}
+:::
+
+::: {.column width="50%"}
+![](assets/Thinking,_Fast_and_Slow.jpg){fig-align="center" width="300px"}
+:::
+
+::::
+
+## Research Design
+
+
+![Source: [Tyler Vigen](https://tylervigen.com/spurious/correlation/2423_ufo-sightings-in-south-carolina_correlates-with_total-number-of-successful-mount-everest-climbs)](assets/spurious_correlation.png){fig-align="center" width="400px"}
+
+
+## Better and Reliable Science Communication
+
+
+![](assets/newyorker.png){fig-align="center" width="600px"}
+
+
+![](assets/ionnidis.png){fig-align="center" width="600px"}
+
+## Example: Jo(h)n Snow and Cholera
+
+
+![](assets/jon_snow.webp){fig-align="center" width="300px" height="400px"}
+
+
+## Example: Jo(h)n Snow and Cholera
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](assets/John_Snow.jpg){fig-align="center" width="200px"}
+:::
+
+::: {.column width="50%"}
+
+![](assets/snow_map.jpg){fig-align="center" width="300px"}
+:::
+
+::::
+
+## Example: Jo(h)n Snow and Cholera
+
+![](assets/snow_did.jpg){fig-align="center" width="300px"}
+
+## Example: Jo(h)n Snow and Cholera
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](assets/Whitehead_henry1884.jpg){fig-align="center" width="200px"}
+:::
+
+::: {.column width="50%"}
+![](assets/bill_farr.jpg){fig-align="center" width="200px"}
+:::
+
+::::
+
+## Example: Jo(h)n Snow and Cholera
+
+![](assets/vital_stats.png){fig-align="center" width="600px"}
+
+## A simple yet powerful descriptive spatial statistic
+
+![Source: Wikipedia/US Census](assets/pop_mean_center.png){fig-align="center" width="400px"}
+
+## Logistics
+
+-   **Syllabus**
+-   **Attendance and Participation**. Discussion + Practice > Lecture
+-   **Use of Generative AI**. 
+-   **Hosting materials**. Blackboard v/s Course website
+-   **Asking for Help**. Be Proactive
+
+
+## What is your experience level with R? {.smaller}
+
+![](assets/r_experience.png){fig-align="center" width="500px"}
+
+## R
+
+-   Programming Language written by Statisticians primarily for statistical computing
+-   Big community and support
+-   Suitable for Geographic Research
+
+    -     Very strong spatial statistics capabilities
+    -     Great data visualization + mapping
+    -     Supported by packages (similar to libraries in Python)
+    
+## R Studio, Posit Cloud
+  
+-   R Studio: Integrated Development Environment for R
+
+    -     Makes Dull R more Fun
+  
+-   Posit Cloud: Rstudio in the cloud
+
+    -     Reduces steep learning curve
+    -     Reduces technical issues
+-   Sign up at <https://posit.cloud/> with your SCHOOL email
+    
+
+
+# Questions?

@@ -6,13 +6,9 @@ date-format: medium
 
 ------------------------------------------------------------------------
 
-Note: password for files is provided on class piazza discussion board
+#### Week 1: Introduction
 
-#### Week 1: Introduction to Health Geography and GIS
-
--   [Monday, Jan 13, 2025](./lectures/GEOG510_Lec1_IntroGEOG510.pdf)
-
--   [Wednesday, Jan 15, 2025](./lectures/GEOG541_Lec2_GeoGISI.pdf)
+-   *Monday, Aug 20: Quantitative Methods in Geographic Research* ( [html](./lectures/1_introduction/1_introduction.html){target="_blank"} , [pdf](./lectures/1_introduction/1_introduction.pdf){target="_blank"} )
 
 #### Week 2/3: Foundational concepts in Geography and GIS, Spatial Data, Coordinate Systems
 
@@ -87,6 +83,3 @@ Note: password for files is provided on class piazza discussion board
 -   [Spatial Interaction Models](./lectures/GEOG510_Lec25_SpInteractMod.pdf)
 
 -   [Healthcare Utilization](./lectures/GEOG510_Lec26_HealthCareUtil.pdf)
-
-
-
