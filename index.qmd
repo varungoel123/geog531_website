@@ -35,7 +35,7 @@ format:
 
 **Appointment link:** [Click Here](https://outlook.office.com/bookwithme/user/675339bb37584ebaa37d12437cb4f286@sc.edu/meetingtype/aKkUKwRTska6ndT42c8OWg2?anonymous&ep=mlink)
 
-**\]GEOG 531 Discussion Google Sheet:** [Click Here soon](https://piazza.com/sc/spring2025/geog510/home)
+**\]GEOG 531 Discussion Google Sheet:** [Click Here soon](https://piazza.com/sc/spring2025/geog510/home){target="_blank"}
 
 ------------------------------------------------------------------------
 
