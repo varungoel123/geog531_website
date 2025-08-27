@@ -12,4 +12,4 @@ date-format: medium
 
 #### Week 2: Data types and Nature of Spatial Data
 
--   *Monday, Aug 25: Intro to Data types*
+-   *Monday, Aug 25: Intro to Data types (* [pdf](./lectures/2_datatypes/Lecture2_spatialDataTypes.pdf){target="_blank"} )
