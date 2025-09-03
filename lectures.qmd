@@ -14,3 +14,7 @@ date-format: medium
 
 -   *Monday, Aug 25: Intro to Data types (* [pdf](./lectures/2_datatypes/Lecture2_spatialDataTypes.pdf){target="_blank"} )
 -   Wednesday, Aug 26: Lab 1 on Posit Cloud
+
+#### Week 3: Geographic Data in R
+
+

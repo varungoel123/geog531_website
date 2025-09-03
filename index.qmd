@@ -35,13 +35,22 @@ format:
 
 **Appointment link:** [Click Here](https://outlook.office.com/bookwithme/user/675339bb37584ebaa37d12437cb4f286@sc.edu/meetingtype/aKkUKwRTska6ndT42c8OWg2?anonymous&ep=mlink)
 
-**\]GEOG 531 Discussion Google Sheet:** [coming soon]
+**\]GEOG 531 Discussion Google Sheet:** [Click Here](https://docs.google.com/document/d/1xJYsN-XvXGxo5kVT6t6YVxS0irrbOyrHJXNy9pHaafc/edit?usp=sharing){target="_blank"}
 
 ------------------------------------------------------------------------
 
 ### Updated Syllabus
 
-The latest class syllabus can downloaded [here](Geog531_FA25_QuantitativeMethods.pdf){target="_blank"}
+The latest class syllabus can downloaded [here](Geog531_FA25_QuantitativeMethods_final.docx){target="_blank"}
+
+### To Dos: 
+
+#### [Due Monday: Sept 8]{.underline}
+
+-   Lab 1
+
+-   Lab 2
+
+-   Week 4: Contributed questions
 
 ------------------------------------------------------------------------
-

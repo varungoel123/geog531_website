@@ -6,6 +6,11 @@ date-format: medium
 
 #### 
 
-#### Week 2: Types of Data and Nature of Spatial Data
+#### Week 4: Descriptive Spatial Statistics and Visualization
 
--   <https://doi.org/10.1073/pnas.0710375105>
+-   [GeoComputation with R - Chapter 2: Geographic Data in R](https://r.geocompx.org/spatial-class){target="_blank"}
+
+
+#### Week 5: Probability and Sampline
+
+-   [Goel et al., 2023](./readings/Goel%20et%20al.%20-%202023%20-%20Deep%20tubewell%20use%20is%20associated%20with%20increased%20hou.pdf){target="_blank"}

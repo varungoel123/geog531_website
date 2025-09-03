@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Geog 531: Quantitative Methods in Geographic Research",
     "section": "",
-    "text": "Instructor Information\nInstructor: Dr. Varun Goel\nOffice: Callcott 111\n\nAppointment link: Click Here\nEmail: varungoel@sc.edu\n\n\n\nCourse Essentials\nMeeting times: Monday, Wednesday 3:55 pm - 5:10pm\nMeeting location: Callcott 302\nStudent Support Hours: Mon-Wed 2 pm - 3 pm\nAppointment link: Click Here\n]GEOG 531 Discussion Google Sheet: [coming soon]\n\n\n\nUpdated Syllabus\nThe latest class syllabus can downloaded here"
+    "text": "Instructor Information\nInstructor: Dr. Varun Goel\nOffice: Callcott 111\n\nAppointment link: Click Here\nEmail: varungoel@sc.edu\n\n\n\nCourse Essentials\nMeeting times: Monday, Wednesday 3:55 pm - 5:10pm\nMeeting location: Callcott 302\nStudent Support Hours: Mon-Wed 2 pm - 3 pm\nAppointment link: Click Here\n]GEOG 531 Discussion Google Sheet: Click Here\n\n\n\nUpdated Syllabus\nThe latest class syllabus can downloaded here\n\n\nTo Dos:\n\nDue Monday: Sept 8\n\nLab 1\nLab 2\nWeek 4: Contributed questions"
   },
   {
     "objectID": "schedule.html",
@@ -74,14 +74,14 @@
     "href": "readings.html",
     "title": "Readings",
     "section": "",
-    "text": "Week 2: Types of Data and Nature of Spatial Data\n\nhttps://doi.org/10.1073/pnas.0710375105"
+    "text": "Week 4: Descriptive Spatial Statistics and Visualization\n\nGeoComputation with R - Chapter 2: Geographic Data in R\n\n\n\nWeek 5: Probability and Sampline\n\nGoel et al., 2023"
   },
   {
     "objectID": "lectures.html",
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud"
+    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud\n\n\n\nWeek 3: Geographic Data in R"
   },
   {
     "objectID": "data.html",
@@ -852,5 +852,82 @@
     "title": "Quantitative Methods in Geographic Research",
     "section": "",
     "text": "Descriptive Vs Inferential Statistics\nStatistical Data Types and Spatial Data\nPractice with R and Posit Cloud"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#outline",
+    "href": "lectures/4_spatialdata/4_spatialData.html#outline",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Outline",
+    "text": "Outline\n\nConceptual Models of Space\nGeospatial Data Models\n\nVector\nRaster\n\nAttribute Data"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#conceptual-models-of-space",
+    "href": "lectures/4_spatialdata/4_spatialData.html#conceptual-models-of-space",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conceptual Models of Space",
+    "text": "Conceptual Models of Space\n\nObjects present a view of the world in which the Earth surface is populated by a number discrete entities (e.g., houses, streets, lakes)\n\nObject types include points, lines, polygons, networks\n\nFields present a view of the world in which Earth is a continuous surface that is characterized by a number of properties\n\ne.g., temperature, land use, soil pH"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#conceptual-models-of-space-1",
+    "href": "lectures/4_spatialdata/4_spatialData.html#conceptual-models-of-space-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conceptual Models of Space",
+    "text": "Conceptual Models of Space\n\nImportant differences between object and field conceptual models\n\nIn the object model, focus is on the “object” (which can have many attributes/variables)\nIn the field model, focus is on the “attribute” (how does the attribute vary over space)\nIn the object model, space between entities is “empty” No empty space in the field model"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#geospatial-data-models",
+    "href": "lectures/4_spatialdata/4_spatialData.html#geospatial-data-models",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Geospatial Data Models",
+    "text": "Geospatial Data Models\n\nWe use spatial data models to describe the conceptual models for digital representation\n\nVector (object)\n\nSpatial “features” (points, lines, polygons)\n\nRaster (field)\n\nGrid cells, where each cell is a single value"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#representing-geospatial-phenomena",
+    "href": "lectures/4_spatialdata/4_spatialData.html#representing-geospatial-phenomena",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Representing Geospatial Phenomena",
+    "text": "Representing Geospatial Phenomena\n\n\nConsider how you would represent the following\n\nCases of robberies in Columbia\nElevation across South Carolina\nAir pollution across Los Angeles\nDistribution of air pollution sensors across Los Angeles\nAverage air pollution across each zip code in Los Angeles"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#vector-data",
+    "href": "lectures/4_spatialdata/4_spatialData.html#vector-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Vector Data",
+    "text": "Vector Data"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#vector-data-1",
+    "href": "lectures/4_spatialdata/4_spatialData.html#vector-data-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Vector Data",
+    "text": "Vector Data"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#vector-data-2",
+    "href": "lectures/4_spatialdata/4_spatialData.html#vector-data-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Vector Data",
+    "text": "Vector Data"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#raster-data",
+    "href": "lectures/4_spatialdata/4_spatialData.html#raster-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Raster Data",
+    "text": "Raster Data"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#raster-data-1",
+    "href": "lectures/4_spatialdata/4_spatialData.html#raster-data-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Raster Data",
+    "text": "Raster Data"
+  },
+  {
+    "objectID": "lectures/4_spatialdata/4_spatialData.html#raster-data-2",
+    "href": "lectures/4_spatialdata/4_spatialData.html#raster-data-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Raster Data",
+    "text": "Raster Data\n\n\n\n#4 Geographic Data Types"
   }
 ]
