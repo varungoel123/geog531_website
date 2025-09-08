@@ -929,5 +929,229 @@
     "title": "Quantitative Methods in Geographic Research",
     "section": "Raster Data",
     "text": "Raster Data\n\n\n\n#4 Geographic Data Types"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#outline",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#outline",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Outline",
+    "text": "Outline\n\nIntroduction\nMeasurement of Distance\n\nGreat Circle, Euclidian, Manhattan\n\nMeasurement of Spatial Central Tendency\n\n(weighted) mean center\n(weighted) median center\n\nMeasurement of spatial variability\n\n(weighted) Standard distance\nStandard deviational ellipse\nRelative distance"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#descriptive-spatial-statistics",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#descriptive-spatial-statistics",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Spatial Statistics",
+    "text": "Descriptive Spatial Statistics"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#conceptual-models-of-space",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#conceptual-models-of-space",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conceptual Models of Space",
+    "text": "Conceptual Models of Space\n\nImportant differences between object and field conceptual models\n\nIn the object model, focus is on the “object” (which can have many attributes/variables)\nIn the field model, focus is on the “attribute” (how does the attribute vary over space)\nIn the object model, space between entities is “empty” No empty space in the field model"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#geospatial-data-models",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#geospatial-data-models",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Geospatial Data Models",
+    "text": "Geospatial Data Models\n\nWe use spatial data models to describe the conceptual models for digital representation\n\nVector (object)\n\nSpatial “features” (points, lines, polygons)\n\nRaster (field)\n\nGrid cells, where each cell is a single value"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#representing-geospatial-phenomena",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#representing-geospatial-phenomena",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Representing Geospatial Phenomena",
+    "text": "Representing Geospatial Phenomena\n\n\nConsider how you would represent the following\n\nCases of robberies in Columbia\nElevation across South Carolina\nAir pollution across Los Angeles\nDistribution of air pollution sensors across Los Angeles\nAverage air pollution across each zip code in Los Angeles"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#central-features",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#central-features",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Central Features",
+    "text": "Central Features"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#vector-data",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#vector-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Vector Data",
+    "text": "Vector Data"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#raster-data",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#raster-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Raster Data",
+    "text": "Raster Data"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#raster-data-1",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#raster-data-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Raster Data",
+    "text": "Raster Data"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#raster-data-2",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#raster-data-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Raster Data",
+    "text": "Raster Data\n\n\n\n#4 Geographic Data Types"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#descriptive-spatial-statistics-1",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#descriptive-spatial-statistics-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Spatial Statistics",
+    "text": "Descriptive Spatial Statistics\n\n\n\n\n\n\n\n\n\nWhere are these points generally located?\nHow are these points spread out from there general location"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#measures-of-distance",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#measures-of-distance",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Measures of Distance",
+    "text": "Measures of Distance\n\nGreat Circle Distance\n\nShortest distance 2 points on a globe\n\nEuclidean Distance\n\nShortest distance on a flat surface\nAs the crow flies"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#measures-of-distance-1",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#measures-of-distance-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Measures of Distance",
+    "text": "Measures of Distance\n\n\n\n\n\n\n\n\n\nManhattan Distance\n\nTravel restricted across horizontal and vertical dimensions\n\nMinkowski Distance\n\nCompromise between euclidean and manhattan\nDistance of a curved arc connecting two points"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#measures-of-distance-2",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#measures-of-distance-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Measures of Distance",
+    "text": "Measures of Distance\n\nNetwork Distance\nOther measures of distance\nSocial Distance\nTravel Time\nAbsolute vs Relative Distance"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#mean-center-spatial-mean",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#mean-center-spatial-mean",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Mean Center (Spatial Mean)",
+    "text": "Mean Center (Spatial Mean)\n\nMost commonly used measure for spatial central tendency\nAverage(mean) location of a set of points\n\neg. (x1,y1), (x2,y2)……..(xN, yN)"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#mean-center-spatial-mean-1",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#mean-center-spatial-mean-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Mean Center (Spatial Mean)",
+    "text": "Mean Center (Spatial Mean)"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#mean-center-application",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#mean-center-application",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Mean Center Application",
+    "text": "Mean Center Application"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#limitations-of-mean-center",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#limitations-of-mean-center",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Limitations of Mean Center",
+    "text": "Limitations of Mean Center\n\nOften used for ‘event’ data\nOnly considers location of points (x,y)\nAll points are equally important\nmain aim is to look at how points are distributed\npoint attributes are ignored\n\nExample - population density, number of deaths in household"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#weighted-mean-center",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#weighted-mean-center",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Weighted Mean Center",
+    "text": "Weighted Mean Center\n\nMean Center Weighted by Attribute\nConsiders both the location and attributes"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#weighted-mean-center-1",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#weighted-mean-center-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Weighted Mean Center",
+    "text": "Weighted Mean Center"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#application-of-weighted-mean-center",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#application-of-weighted-mean-center",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Application of Weighted Mean Center",
+    "text": "Application of Weighted Mean Center"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#limitations-of-mean-centers",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#limitations-of-mean-centers",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Limitations of Mean Centers",
+    "text": "Limitations of Mean Centers\n\nSensitivity to outliers!\n\nSimilar to traditional statistics"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#median-center",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#median-center",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Median Center",
+    "text": "Median Center\n\nRobust to Spatial Outliers\n\nThe sum of distance from median center to all points is minimized\n\nWeighted Median Center\n\nUse attribute as a weight"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#applications-of-median-center",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#applications-of-median-center",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Applications of Median Center",
+    "text": "Applications of Median Center\n\n\nSuppose that we want to build a food warehouse that is used to provide food to all shelters in a city, how to find the location for the warehouse?\nWhat we want: when we deliver food to each shelter, the total distance the delivery vehicle traveled is minimized.\nSome shelters have larger capacity and thus may need more food than others, in this case we may need more trips to these shelters.\n\nUse attribute as a weight\n\nSo we want a location that minimizes total travel distances considering different food demand of each shelter: weighted median center (shelter capacity as weight)"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#descriptive-spatial-statistics-2",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#descriptive-spatial-statistics-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Spatial Statistics",
+    "text": "Descriptive Spatial Statistics\n\n\n\n\n\n\n\n\n\nAnalagous to traditional descriptive statistics\n\nGraphical presentation\nnumerical summary of spatial data\n\nMeasures 2 important geographic concepts\n\nSpatial Central Tendency\nSpatial Variability"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#standard-distance",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#standard-distance",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Standard Distance",
+    "text": "Standard Distance\n\nMeasures spatial dispersion of a set of points\nAnalogous to standard deviation in classical statistics\nSquare root of the average squared distance of points to the mean center"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#standard-distance-1",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#standard-distance-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Standard Distance",
+    "text": "Standard Distance\n\nMeasures spatial dispersion of a set of points\nAnalogous to standard deviation in classical statistics\nSquare root of the average squared distance of points to the mean center"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#standard-distance-calculation",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#standard-distance-calculation",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Standard Distance Calculation",
+    "text": "Standard Distance Calculation"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#weighted-standard-distance",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#weighted-standard-distance",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Weighted Standard Distance",
+    "text": "Weighted Standard Distance\n\nEach point as a weight (Wi)\nUse weighted mean center instead of mean center\n\n ## Standard Distance Application"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#standard-distance-application",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#standard-distance-application",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Standard Distance Application",
+    "text": "Standard Distance Application\n\nKnowing how crimes are distributed may help police develop strategies for addressing the crime\n\nIf crime distribution is compact, stationing a single car patrol the area may be enough\nIf dispersed, having several police cars might be more effective"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#standard-deviational-ellipse",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#standard-deviational-ellipse",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Standard Deviational Ellipse",
+    "text": "Standard Deviational Ellipse\n\nSimilar to Standard Distance but also captures the shape of the distribution\ncentral tendency, dispersion, and directional trends\n\n\nSherman et al., 2005"
+  },
+  {
+    "objectID": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#relative-distance",
+    "href": "lectures/5_descriptiveSpatialStats/descriptiveSpatial.html#relative-distance",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Relative Distance",
+    "text": "Relative Distance\n\nHow to compared distances when study areas (A) are different\n\n\n\n\n#4 Describing Geographic Data"
   }
 ]
