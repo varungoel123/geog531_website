@@ -16,5 +16,9 @@ date-format: medium
 -   Wednesday, Aug 26: Lab 1 on Posit Cloud
 
 #### Week 3: Geographic Data in R
+-   *Monday, Sep 3: Geographic Data in R*   (
+[html](./lectures/4_spatialdata/4_spatialData.qmd){target="_blank"} )
+
+#### Week 4: Describing Geographic Data
 
 
