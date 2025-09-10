@@ -15,7 +15,7 @@ format:
   revealjs:
     slide-number: true
     incremental: false
-    footer: "#4 Describing Geographic Data"
+    footer: "#5 Describing Geographic Data"
     chalkboard:
       buttons: false
       preview-links: auto

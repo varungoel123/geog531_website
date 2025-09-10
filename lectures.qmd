@@ -20,5 +20,6 @@ date-format: medium
 [html](./lectures/4_spatialdata/4_spatialData.qmd){target="_blank"} )
 
 #### Week 4: Describing Geographic Data
-
+-   *Monday, Sep 8: Describing Geographic Data*   (
+[html](./lectures/5_descriptiveSpatialStats/descriptiveSpatial.qmd){target="_blank"} )
 
