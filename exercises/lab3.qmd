@@ -1,0 +1,175 @@
+---
+title: "Describing Geographic Data"
+author: "Varun Goel"
+date: "9/10/2025"
+format: 
+  html:
+    code-fold: true
+---
+
+## 1. Load Packages in R
+
+```{r}
+library(tidyverse)
+library(sf)
+library(DescTools) # 
+library(spatstat.geom)   # for ellipse calculations
+library(aspace)
+library(plotly)
+
+#https://r4ds.had.co.nz/data-visualisation.html
+```
+
+
+```{r}
+deaths_shp <- st_read("snow/snow1/deaths_nd_by_house.shp")
+deaths_loc <- read_csv("snow/snow1/deaths_nd_by_house.csv") |>
+  st_as_sf(coords = c("COORD_X","COORD_Y"),
+           crs = st_crs(deaths_shp)) |>
+  filter(deaths > 0)
+
+
+
+```
+
+
+```{r}
+# ------------------------
+# 2. Mean geographic center (centroid of coords)
+# ------------------------
+mean_center <- data.frame(
+  X = mean(st_coordinates(deaths_loc)[,1]),
+  Y = mean(st_coordinates(deaths_loc)[,2])
+) %>% st_as_sf(coords = c("X", "Y"), crs = st_crs(deaths_loc))
+```
+
+```{r}
+# ------------------------
+# 3. Weighted mean geographic center
+# ------------------------
+weighted_center <- data.frame(
+  X = weighted.mean(st_coordinates(deaths_loc)[,1], deaths_loc$deaths),
+  Y = weighted.mean(st_coordinates(deaths_loc)[,2], deaths_loc$deaths)
+) %>% st_as_sf(coords = c("X", "Y"), crs = st_crs(deaths_loc))
+
+```
+
+
+```{r}
+# ------------------------
+# 4. Median geographic center (component-wise median)
+# ------------------------
+median_center <- data.frame(
+  X = median(st_coordinates(deaths_loc)[,1]),
+  Y = median(st_coordinates(deaths_loc)[,2])
+) %>% st_as_sf(coords = c("X", "Y"), crs = st_crs(deaths_loc))
+```
+
+
+```{r}
+# ------------------------
+# 5. Weighted median geographic center
+# ------------------------
+weighted_median_center <- data.frame(
+  X = Median(st_coordinates(deaths_loc)[,1], w = deaths_loc$deaths),
+  Y = Median(st_coordinates(deaths_loc)[,2], w = deaths_loc$deaths)
+) %>% st_as_sf(coords = c("X", "Y"), crs = st_crs(deaths_loc))
+
+```
+
+
+```{r}
+# sdist <- calc_sdd(
+#                   weighted=F,
+#                   points = st_coordinates(deaths_loc)
+#                   )
+# 
+# sdd_coords <- 
+# 
+# sdist_sf <- sdist$FORPLOTTING$coordsSDD |>
+# data.frame() %>%
+#   st_as_sf(coords = c("X1","X2"), crs=4326) %>%
+#   summarise(geometry = st_combine(geometry)) %>%
+#   st_cast("POLYGON")
+# 
+#  polygon <- st_sfc(st_polygon(list(rbind(sdist$FORPLOTTING$coordsSDD, sdist$FORPLOTTING$coordsSDD[1,]))), crs = 4326)
+  
+```
+
+
+```{r}
+# manual way
+# formula: sqrt( sum(wi*((xi-x̄)^2 + (yi-ȳ)^2)) / sum(wi) )
+  mean_X = weighted.mean(st_coordinates(deaths_loc)[,1], deaths_loc$deaths)
+  mean_Y = weighted.mean(st_coordinates(deaths_loc)[,2], deaths_loc$deaths)
+
+sdist <- sqrt(
+  sum(deaths_loc$deaths * ((st_coordinates(deaths_loc)[,1] - mean_X)^2 + (st_coordinates(deaths_loc)[,2] - mean_Y)^2)) / sum(deaths_loc$deaths)
+)
+
+# Circle around weighted mean center
+circle_coords <- function(center, r, n=100){
+  angles <- seq(0, 2*pi, length.out=n)
+  x <- center[1] + r*cos(angles)
+  y <- center[2] + r*sin(angles)
+  data.frame(X=x, Y=y)
+}
+
+circle_df <- circle_coords(c(mean_X, mean_Y), sdist) %>%
+  st_as_sf(coords = c("X","Y"), crs=st_crs(deaths_loc)) %>%
+  summarise(geometry = st_combine(geometry)) %>%
+  st_cast("POLYGON")
+```
+
+```{r}
+# Convert coords to matrix
+X <- cbind(st_coordinates(deaths_loc)[,1], st_coordinates(deaths_loc)[,2])
+
+# Weighted covariance
+cov_w <- cov.wt(X, wt=deaths_loc$deaths)$cov
+
+# Eigen decomposition (axes of ellipse)
+eig <- eigen(cov_w)
+radii <- sqrt(eig$values) * 2  # scale factor for 1 SD ellipse
+
+theta <- seq(0, 2*pi, length=200)
+ellipse <- t(t(eig$vectors %*% diag(radii)) %*% rbind(cos(theta), sin(theta)))
+ellipse <- sweep(ellipse, 2, c(mean_X, mean_Y), FUN="+")
+
+ellipse_df <- data.frame(X=ellipse[,1], Y=ellipse[,2]) %>%
+  st_as_sf(coords=c("X","Y"), crs=st_crs(deaths_loc)) %>%
+  summarise(geometry = st_combine(geometry)) %>%
+  st_cast("POLYGON")
+```
+
+```{r}
+# 8. Plotting results
+# ------------------------
+p<- ggplot() +
+  geom_sf(data = deaths_loc, aes(size = deaths), color="blue", alpha=0.6) +
+  geom_sf(data = mean_center, color="red", size=3, shape=17) +
+  geom_sf(data = weighted_center, color="darkgreen", size=3, shape=15) +
+  geom_sf(data = median_center, color="purple", size=3, shape=3) +
+  geom_sf(data = weighted_median_center, color="orange", size=3, shape=8) +
+  geom_sf(data = circle_df, fill=NA, color="black", linetype="dashed") +
+  geom_sf(data = ellipse_df, fill=NA, color="brown", linetype="solid") +
+  labs(title="Geographic Descriptive Statistics",
+       subtitle="Centers, Standard Distance, and Standard Deviational Ellipse",
+       x="Longitude", y="Latitude") +
+  theme_minimal() +
+  coord_sf(datum = st_crs(deaths_loc))
+
+ggplotly(p)
+```
+
+
+```{r}
+
+```
+
+
+
+```{r}
+
+```
+
