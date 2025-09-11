@@ -23,5 +23,5 @@ date-format: medium
 -   *Monday, Sep 8: Describing Geographic Data*   (
 [html](./lectures/5_descriptiveSpatialStats/descriptiveSpatial.qmd){target="_blank"} )
 -   *Wednesday, Sep 10: Geographic Data Visualization Lab*   (
-[html](./lectures/5_descriptiveSpatialStats/lab3_visualizingGeographicData.html){target="_blank"} )
+[html](./lectures/5_descriptiveSpatialStats/lab3_visualizingGeographicData.qmd){target="_blank"} )
 

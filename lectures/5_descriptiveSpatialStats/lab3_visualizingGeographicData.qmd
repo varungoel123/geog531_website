@@ -301,10 +301,25 @@ Now that you have all the functions necessary to run your analysis, your task is
 
 1.  Read in the `deaths_modified.csv` file, assign the same crs as `deaths_loc` and only include households with deaths.
 
+```{r}
+# Your code for Q1 here
+```
+
+
 2.  Run the following descriptive statistics: mean center, weighted mean center, median center, weighted median center, standard distance, and standard deviational ellipse.
+
+```{r}
+# Your code for Q2 here
+```
 
 3.  Plot your map (both static and interactive) with the deaths and your statistics (no need to map out pumps)
 
-4.  Discuss and interpret your statistics. Which ones do you think are appropriate/inappropriate and why? Discuss in 3-4 sentences
+```{r}
+# your code for Q3 here
+```
+
+
+4.  Discuss and interpret your statistics. Which ones do you think are appropriate/inappropriate and why? Discuss in 3-4 sentences. (Note you dont need to add a code chunk here. Just type your answer in regular text)
+
 
 5.  Render your file and make sure it successfully renders as an html.
