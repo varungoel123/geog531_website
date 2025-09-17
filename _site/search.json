@@ -1398,5 +1398,201 @@
     "title": "Quantitative Methods in Geographic Research",
     "section": "",
     "text": "Source: https://paldhous.github.io/ucb/2016/dataviz/week2.html"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#outline",
+    "href": "lectures/7_measurement/measurement.html#outline",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Outline",
+    "text": "Outline\n\nMeasurement error and Biases in Data\nGeographic Data Classification\nSelected Issues with description of Spatial Data"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#errors-and-biases-in-quantitative-research",
+    "href": "lectures/7_measurement/measurement.html#errors-and-biases-in-quantitative-research",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Errors and Biases in Quantitative Research",
+    "text": "Errors and Biases in Quantitative Research\n\nIs there an error-free dataset, method, or Analysis?\n\nGarbage in, Garbage out\n\nWhat are sources of error?\n\nHow do we critically think about them?\nHow do we quantify them or account for them"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#error-in-data",
+    "href": "lectures/7_measurement/measurement.html#error-in-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Error in Data",
+    "text": "Error in Data\n\nOriginal (source) data\nCollection or creation\n-   Eg. GPS error\nProcessing\n\neg. miscalculated value(s)\n\nAnalysis\n\neg. Merging attribute data incorrectly etc.\n\nErrors in Data propagate downstream !!"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#measurement-error",
+    "href": "lectures/7_measurement/measurement.html#measurement-error",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Measurement Error",
+    "text": "Measurement Error\n\nPotential error associated with the measurement of any data\n\nPrecision\nAccuracy\nValidity\nReliability"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#lets-take-an-example",
+    "href": "lectures/7_measurement/measurement.html#lets-take-an-example",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Lets take an example",
+    "text": "Lets take an example\n\nSource: Nulab"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#lets-take-an-example-1",
+    "href": "lectures/7_measurement/measurement.html#lets-take-an-example-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Lets take an example",
+    "text": "Lets take an example\n\nSource: Nulab"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#precision",
+    "href": "lectures/7_measurement/measurement.html#precision",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Precision",
+    "text": "Precision\n\n\nConsistency of the measurement method or process\n\noften associated with calibration of a measuring instrument\nEg. ability to detect decimal places\nIs more exactness always good?\n\nBeware of spurious precision\n\nsophisticated software -&gt; more decimal places\nEg. GPS coordinates\n\nMeasure of Consistency and Variability/Efficiency\n\nRange, Standard Deviation, Variance etc."
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#accuracy",
+    "href": "lectures/7_measurement/measurement.html#accuracy",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Accuracy",
+    "text": "Accuracy\n\nTwo separate types with geographic data"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#validity",
+    "href": "lectures/7_measurement/measurement.html#validity",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Validity",
+    "text": "Validity\n\n\nHow well is our data ‘capturing’ the underlying process\n\nAlso called variable operationalization\nAbstraction of real world into constructs/models\n\nDiscuss Examples (Groups 1,2,3)\n\nImpact of Education on income\nImpact of Greenery on Physical Activity\nImpact of Air Quality on your overall health"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#reliability",
+    "href": "lectures/7_measurement/measurement.html#reliability",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Reliability",
+    "text": "Reliability\n\n\nHow well is our data ‘measuring’ the underlying process across space and time\nWill the same data collection instrument capture the same underlying process across other geographical settings?\nDiscuss Examples (Groups 1,2,3)\n\nMeasuring COVID rates across States in the US\nMeasuring how global temperature changes in the past 100 years\nMeasuring trends in autism cases over the past 20 years"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#other-complications-with-geographical-data",
+    "href": "lectures/7_measurement/measurement.html#other-complications-with-geographical-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Other Complications with Geographical Data",
+    "text": "Other Complications with Geographical Data\n\nHow can geographical data affect the value and magnitude of descriptive statistics\n\nImpact of External Boundary Delineation\nModifiable Areal Unit Problem\n\nModification of internal (subarea) boundaries\nChange in spatial scale/resolution/aggregation"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#impact-of-external-boundary-delineation",
+    "href": "lectures/7_measurement/measurement.html#impact-of-external-boundary-delineation",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Impact of External Boundary Delineation",
+    "text": "Impact of External Boundary Delineation\n\nSource: The Conversation"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#impact-of-external-boundary-delineation-1",
+    "href": "lectures/7_measurement/measurement.html#impact-of-external-boundary-delineation-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Impact of External Boundary Delineation",
+    "text": "Impact of External Boundary Delineation\n\nEg. Distribution of Crime in Columbia\nEg. Cholera Outbreak in London\nMean, standard deviation, etc. may also be affected, but hard to predict, how\nEvaluate descriptive statistics in relation to study area!"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#modifiable-areal-unit-problem",
+    "href": "lectures/7_measurement/measurement.html#modifiable-areal-unit-problem",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Modifiable Areal Unit Problem",
+    "text": "Modifiable Areal Unit Problem\n\nModification of Internal Subarea Boundaries\n\nGrouping or Zoning Effect\n\nChange in spatial scale/resolution/aggregation\n\nScale or Aggregation Effect"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#grouping-or-zoning-effect",
+    "href": "lectures/7_measurement/measurement.html#grouping-or-zoning-effect",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Grouping or Zoning Effect",
+    "text": "Grouping or Zoning Effect"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#grouping-or-zoning-effect-1",
+    "href": "lectures/7_measurement/measurement.html#grouping-or-zoning-effect-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Grouping or Zoning Effect",
+    "text": "Grouping or Zoning Effect"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#grouping-or-zoning-effect-2",
+    "href": "lectures/7_measurement/measurement.html#grouping-or-zoning-effect-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Grouping or Zoning Effect",
+    "text": "Grouping or Zoning Effect"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#grouping-or-zoning-effect-3",
+    "href": "lectures/7_measurement/measurement.html#grouping-or-zoning-effect-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Grouping or Zoning Effect",
+    "text": "Grouping or Zoning Effect"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#grouping-or-zoning-effect-4",
+    "href": "lectures/7_measurement/measurement.html#grouping-or-zoning-effect-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Grouping or Zoning Effect",
+    "text": "Grouping or Zoning Effect"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#scale-or-aggregation-effect",
+    "href": "lectures/7_measurement/measurement.html#scale-or-aggregation-effect",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Scale or Aggregation Effect",
+    "text": "Scale or Aggregation Effect"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#scale-or-aggregation-effect-1",
+    "href": "lectures/7_measurement/measurement.html#scale-or-aggregation-effect-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Scale or Aggregation Effect",
+    "text": "Scale or Aggregation Effect"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#scale-or-aggregation-effect-2",
+    "href": "lectures/7_measurement/measurement.html#scale-or-aggregation-effect-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Scale or Aggregation Effect",
+    "text": "Scale or Aggregation Effect"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#conclusion",
+    "href": "lectures/7_measurement/measurement.html#conclusion",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conclusion",
+    "text": "Conclusion\n\nBe critical of your data!\n\nRead Metadata and documentations!\nThink about effects of the choice of your study area\nHow about data in your current form affect your interpretation\nThink about alternative ways to show/present your data\nWhat would have happened if your data was some other way\nPersevere, Rinse, Repeat!"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#recap-descriping-quantitative-and-geographic-data",
+    "href": "lectures/7_measurement/measurement.html#recap-descriping-quantitative-and-geographic-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Recap: Descriping Quantitative and Geographic Data",
+    "text": "Recap: Descriping Quantitative and Geographic Data\n\nSkills learned\n\nDetecting different data types (including Geographic Data)\nDescriptive (Spatial) Statistics\n(Geographic) Data Visualization\nPresenting code and results in a readable\n\nHW 1 on Describing (geographic) data and Interpretation\n\nReleased Friday (Sept 19)\nDue Sunday, 11:59 pm on Oct 5\n\n\n\n\n#7 Measurement Concepts"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#accuracy-1",
+    "href": "lectures/7_measurement/measurement.html#accuracy-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Accuracy",
+    "text": "Accuracy\n\n\nExtent of system-wide bias in measurement process\n\nHow close is the measured value is to the true value\nOften, what we think of as “lack of error”\n\nDart Analogy\n\nAccuracy -&gt; hitting the right target\nPrecision -&gt; hitting same mark over and over again\n\nWhich is more important?"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#accuracy-and-precision",
+    "href": "lectures/7_measurement/measurement.html#accuracy-and-precision",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Accuracy and Precision",
+    "text": "Accuracy and Precision\n\n\nThey are NOT THE SAME THING!\nDon’t be fooled by highly precise attribute values in data\n– Sometimes, unnecessary precision masks inaccurate data\nFor example, a value is reported as 51.23854\n\nTrue value of this attribute is 53\nThe “extra” decimal places in the reported value are not providing anything except…\n– Undue confidence in the “accuracy” of the value\n\nBeware of overprecise, inaccurate data"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#reliability-1",
+    "href": "lectures/7_measurement/measurement.html#reliability-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Reliability",
+    "text": "Reliability\n\nSource: Emch et al. 2010"
+  },
+  {
+    "objectID": "lectures/7_measurement/measurement.html#reliability-2",
+    "href": "lectures/7_measurement/measurement.html#reliability-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Reliability",
+    "text": "Reliability\n\nSource: US Census"
   }
 ]
