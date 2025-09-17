@@ -1202,5 +1202,201 @@
     "title": "Geographic Data Visualization",
     "section": "",
     "text": "You will now use the concepts learned in class to explore and interpret descriptive statistics on a slightly modified Jon Snow dataset. Before you do that I have also written the code for calculating the median and the weighted median center\n\n# ------------------------\n# Median geographic center (component-wise median)\n# ------------------------\ncalc_medc &lt;- function(sf_dat){\nmedian_center &lt;- data.frame(\n  X = median(st_coordinates(sf_dat)[,1]),\n  Y = median(st_coordinates(sf_dat)[,2])\n) %&gt;% st_as_sf(coords = c(\"X\", \"Y\"), crs = st_crs(sf_dat))\nreturn(median_center)\n}\n\n# ------------------------\n# Weighted median geographic center\n# ------------------------\ncalc_weighted_medc &lt;- function(sf_dat, weight_col)\n{\nweighted_median_center &lt;- data.frame(\n  X = Median(st_coordinates(sf_dat)[,1], w = weight_col),\n  Y = Median(st_coordinates(sf_dat)[,2], w = weight_col)\n) %&gt;% st_as_sf(coords = c(\"X\", \"Y\"), crs = st_crs(sf_dat))\nreturn(weighted_median_center)\n}\n\nNow that you have all the functions necessary to run your analysis, your task is to complete the following:\n\nRead in the deaths_modified.csv file, assign the same crs as deaths_loc and only include households with deaths.\n\n\n# Your code for Q1 here\n\n\nRun the following descriptive statistics: mean center, weighted mean center, median center, weighted median center, standard distance, and standard deviational ellipse.\n\n\n# Your code for Q2 here\n\n\nPlot your map (both static and interactive) with the deaths and your statistics (no need to map out pumps)\n\n\n# your code for Q3 here\n\n\nDiscuss and interpret your statistics. Which ones do you think are appropriate/inappropriate and why? Discuss in 3-4 sentences. (Note you dont need to add a code chunk here. Just type your answer in regular text)\nRender your file and make sure it successfully renders as an html."
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#outline",
+    "href": "lectures/6_dataViz/DataViz.html#outline",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Outline",
+    "text": "Outline\n\nWhy visualize our data\n\nAre Descriptive Statistics Enough?\n\nLinking quantitative data types to visualization\nData Visualization in action: (some) Do’s and Dont’s"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#why-visualize-our-data",
+    "href": "lectures/6_dataViz/DataViz.html#why-visualize-our-data",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Why Visualize our data",
+    "text": "Why Visualize our data\n\nLab 4 exercise"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#descriptive-statistics-can-be-misleading",
+    "href": "lectures/6_dataViz/DataViz.html#descriptive-statistics-can-be-misleading",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Statistics can be misleading",
+    "text": "Descriptive Statistics can be misleading\n\nAnscombe’s quartet\n\n ## What exactly do you want to show\n\n\n\nSource: https://paldhous.github.io/ucb/2016/dataviz/week2.html#\n\n\n\n\n#6 Visualizing Quantitative Data"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#section",
+    "href": "lectures/6_dataViz/DataViz.html#section",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "",
+    "text": "## What exactly do you want to show\n\n\n\nSource: https://paldhous.github.io/ucb/2016/dataviz/week2.html#\n\n\n\n\n#6 Visualizing Quantitative Data"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#what-exactly-do-you-want-to-show",
+    "href": "lectures/6_dataViz/DataViz.html#what-exactly-do-you-want-to-show",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What exactly do you want to show",
+    "text": "What exactly do you want to show\n\nSource: https://paldhous.github.io/ucb/2016/dataviz/week2.html#"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#what-kind-of-datavariable-do-you-have",
+    "href": "lectures/6_dataViz/DataViz.html#what-kind-of-datavariable-do-you-have",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What kind of data/variable do you have?",
+    "text": "What kind of data/variable do you have?\n\nSource: https://serialmentor.com/"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#distribution",
+    "href": "lectures/6_dataViz/DataViz.html#distribution",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Distribution",
+    "text": "Distribution\n\nWhat is the composition of my variable?\n\nAre values concentrated/spread out\nAre there any breaks/ outliers\nInfluences the questions you want to ask/ story you want to tell"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#distribution-1",
+    "href": "lectures/6_dataViz/DataViz.html#distribution-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Distribution",
+    "text": "Distribution"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#distribution-2",
+    "href": "lectures/6_dataViz/DataViz.html#distribution-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Distribution",
+    "text": "Distribution\n\nContinuous Variable, multiple categories"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#distribution-3",
+    "href": "lectures/6_dataViz/DataViz.html#distribution-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Distribution",
+    "text": "Distribution\n\nContinuous Variable, multiple categories\nDensity Plot"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#distribution-4",
+    "href": "lectures/6_dataViz/DataViz.html#distribution-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Distribution",
+    "text": "Distribution\n\nCategorical variable"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#distribution-5",
+    "href": "lectures/6_dataViz/DataViz.html#distribution-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Distribution",
+    "text": "Distribution"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#continuous-variable-categorical-variable",
+    "href": "lectures/6_dataViz/DataViz.html#continuous-variable-categorical-variable",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Continuous variable, categorical variable",
+    "text": "Continuous variable, categorical variable\n\n\n\n#6 Visualizing Quantitative Data"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#relationship",
+    "href": "lectures/6_dataViz/DataViz.html#relationship",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Relationship",
+    "text": "Relationship\n\nFocus on co-variation\n\nHow do x and y vary together\nIs there a trend?\nCorrelation is not equal to Causation"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#relationship-1",
+    "href": "lectures/6_dataViz/DataViz.html#relationship-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Relationship",
+    "text": "Relationship\n\nContinuous variable, categorical variable"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#relationship-2",
+    "href": "lectures/6_dataViz/DataViz.html#relationship-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Relationship",
+    "text": "Relationship\n\n2 continuous variables"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#comparison",
+    "href": "lectures/6_dataViz/DataViz.html#comparison",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Comparison",
+    "text": "Comparison\n\nFocus on spotting differences\n\nDifferences across categories\nDifferences across time\nDifferences across units"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#comparison-1",
+    "href": "lectures/6_dataViz/DataViz.html#comparison-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Comparison",
+    "text": "Comparison\n\nDifferences across units"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#composition",
+    "href": "lectures/6_dataViz/DataViz.html#composition",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Composition",
+    "text": "Composition\n\nFocus on parts of a whole\n\nFocus on relative percentages\nGenerally not on counts"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#composition-1",
+    "href": "lectures/6_dataViz/DataViz.html#composition-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Composition",
+    "text": "Composition\n\nSource: Simon Halliday"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#composition-2",
+    "href": "lectures/6_dataViz/DataViz.html#composition-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Composition",
+    "text": "Composition\n\nSource: Nytimes"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#visualization-donts",
+    "href": "lectures/6_dataViz/DataViz.html#visualization-donts",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Visualization Dont’s",
+    "text": "Visualization Dont’s\n\nBad Taste\n\n\nSource: Media Matters for America"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#what-may-be-wrong-with-this-visualization",
+    "href": "lectures/6_dataViz/DataViz.html#what-may-be-wrong-with-this-visualization",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What may be wrong with this visualization",
+    "text": "What may be wrong with this visualization\n\nSource: Yahoo Finance"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#what-about-this",
+    "href": "lectures/6_dataViz/DataViz.html#what-about-this",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What about this?",
+    "text": "What about this?\n\nSource: http://www.pbs.org/now/shows/305/homeless-map.html"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#bad-perception",
+    "href": "lectures/6_dataViz/DataViz.html#bad-perception",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bad Perception",
+    "text": "Bad Perception\n\nSource: http://socviz.co/lookatdata.html#why-look-at-data"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#bad-perception-1",
+    "href": "lectures/6_dataViz/DataViz.html#bad-perception-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bad Perception",
+    "text": "Bad Perception\n\nPick your battles or Risk Sensory Overload\n\n\nSource: https://paldhous.github.io/ucb/2016/dataviz/week2.html"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#guided-class-discussion",
+    "href": "lectures/6_dataViz/DataViz.html#guided-class-discussion",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Guided Class Discussion",
+    "text": "Guided Class Discussion\n\n\n#6 Visualizing Quantitative Data"
+  },
+  {
+    "objectID": "lectures/6_dataViz/DataViz.html#section-1",
+    "href": "lectures/6_dataViz/DataViz.html#section-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "",
+    "text": "Source: https://paldhous.github.io/ucb/2016/dataviz/week2.html"
   }
 ]
