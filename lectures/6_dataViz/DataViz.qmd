@@ -159,8 +159,7 @@ nc_wide %>% mutate(name = name %>% str_replace(" County, North Carolina","")) %>
   geom_point(color = "maroon") + labs(x = "Median Household Income",
                       y = "County Names",
                       title = "Median HH Income by County") +
-  theme_minimal() + theme(axis.text.y = element_text(size = 6)) +
-  ggsave("sample_plot.pdf")
+  theme_minimal() + theme(axis.text.y = element_text(size = 6))
 ```
 
 ## Composition

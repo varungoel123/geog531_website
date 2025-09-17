@@ -25,3 +25,7 @@ date-format: medium
 -   *Wednesday, Sep 10: Geographic Data Visualization Lab*   (
 [html](./lectures/5_descriptiveSpatialStats/lab3_visualizingGeographicData.qmd){target="_blank"} )
 
+#### Week 5: Visualizing Quantitative data, Sampling and Distributions
+-   *Monday, Sep 15: Visualizing Quantitative Data*   (
+[html](./lectures/6_dataViz/DataViz.qmd){target="_blank"} )
+
