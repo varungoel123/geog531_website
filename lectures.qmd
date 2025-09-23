@@ -28,3 +28,6 @@ date-format: medium
 
 -   *Monday, Sep 15: Visualizing Quantitative Data* ( [html](./lectures/6_dataViz/DataViz.qmd){target="_blank"} )
 -   Wednesday Sep 17: Measurement Considerations in Data ( [html](./lectures/7_measurement/measurement.qmd){target="_blank"} )
+
+-   *Monday, Sep 22: Sampling* ( [html](./lectures/8_sampling/sampling.qmd){target="_blank"} )
+
