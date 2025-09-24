@@ -74,7 +74,7 @@
     "href": "readings.html",
     "title": "Readings",
     "section": "",
-    "text": "Week 4: Descriptive Spatial Statistics and Visualization\n\nGeoComputation with R - Chapter 2: Geographic Data in R\n\n\n\nWeek 5: Probability and Sampline\n\nGoel et al., 2023"
+    "text": "Week 4: Descriptive Spatial Statistics and Visualization\n\nGeoComputation with R - Chapter 2: Geographic Data in R\n\n\n\nWeek 5: Probability\n\nGoel et al., 2023\n\nWeek 7-8: Sampling and Sampling Distributions\n\nStudy Design (and Sampling): https://openintro-ims.netlify.app/data-design\nSampling, Confidence Intervals, Bootstrapping, Hypothesis testing: https://moderndive.com/v2/sampling.html\nNormal Distribution: https://moderndive.com/v2/appendixa\n(Recommended) Foundations of Inference (Ch 11,12,13): https://openintro-ims.netlify.app/data-design"
   },
   {
     "objectID": "lectures.html",
@@ -1733,6 +1733,55 @@
     "href": "lectures/8_sampling/sampling.html#case-studies-3",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Case Studies",
-    "text": "Case Studies\nA city council has requested a household survey be conducted in a suburban area of their city. The area is broken into many distinct and unique neighborhoods, some including large homes, some with only apartments, and others a diverse mixture of housing structures. For each part below, identify the sampling methods described, and describe the statistical pros and cons of the method in the city’s context.\n\nRandomly sample 200 households from the city.\nDivide the city into 20 neighborhoods, and then sample 10 households from each neighborhood.\nDivide the city into 20 neighborhoods, randomly sample 3 neighborhoods, and then sample all households from those 3 neighborhoods.\nDivide the city into 20 neighborhoods, randomly sample 8 neighborhoods, and then randomly sample 50 households from those neighborhoods.\nSample the 200 households closest to the city council offices.\n\n\n\n#8 Sampling, Study Designs"
+    "text": "Case Studies\nA city council has requested a household survey be conducted in a suburban area of their city. The area is broken into many distinct and unique neighborhoods, some including large homes, some with only apartments, and others a diverse mixture of housing structures. For each part below, identify the sampling methods described, and describe the statistical pros and cons of the method in the city’s context.\n\nRandomly sample 200 households from the city.\nDivide the city into 20 neighborhoods, and then sample 10 households from each neighborhood.\nDivide the city into 20 neighborhoods, randomly sample 3 neighborhoods, and then sample all households from those 3 neighborhoods.\nDivide the city into 20 neighborhoods, randomly sample 8 neighborhoods, and then randomly sample 50 households from those neighborhoods.\nSample the 200 households closest to the city council offices."
+  },
+  {
+    "objectID": "lectures/8_sampling/sampling.html#sampling-distribution-and-variability",
+    "href": "lectures/8_sampling/sampling.html#sampling-distribution-and-variability",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Sampling Distribution and Variability",
+    "text": "Sampling Distribution and Variability\nBowl of 2400 balls"
+  },
+  {
+    "objectID": "lectures/8_sampling/sampling.html#sampling-distribution-and-variability-1",
+    "href": "lectures/8_sampling/sampling.html#sampling-distribution-and-variability-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Sampling Distribution and Variability",
+    "text": "Sampling Distribution and Variability\n\nYour Task\n\nEstimate the proportion of red balls in the bowl"
+  },
+  {
+    "objectID": "lectures/8_sampling/sampling.html#sampling-distribution-and-variability-2",
+    "href": "lectures/8_sampling/sampling.html#sampling-distribution-and-variability-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Sampling Distribution and Variability",
+    "text": "Sampling Distribution and Variability\n\nLab 5 activity"
+  },
+  {
+    "objectID": "lectures/8_sampling/sampling.html#central-limit-theorem",
+    "href": "lectures/8_sampling/sampling.html#central-limit-theorem",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Central Limit Theorem",
+    "text": "Central Limit Theorem\nhttps://youtu.be/jvoxEYmQHNM"
+  },
+  {
+    "objectID": "lectures/8_sampling/sampling.html#central-limit-theorem-1",
+    "href": "lectures/8_sampling/sampling.html#central-limit-theorem-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Central Limit Theorem",
+    "text": "Central Limit Theorem\n\n\n\n#8 Sampling, Study Designs"
+  },
+  {
+    "objectID": "lectures/8_sampling/sampling.html#center-of-the-distribution-expected-value",
+    "href": "lectures/8_sampling/sampling.html#center-of-the-distribution-expected-value",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Center of the Distribution (Expected Value)",
+    "text": "Center of the Distribution (Expected Value)"
+  },
+  {
+    "objectID": "lectures/8_sampling/sampling.html#sampling-variation",
+    "href": "lectures/8_sampling/sampling.html#sampling-variation",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Sampling variation",
+    "text": "Sampling variation\nStandard Deviation and Standard Error\n\n\n\n#8 Sampling, Study Designs"
   }
 ]

@@ -254,3 +254,39 @@ A city council has requested a household survey be conducted in a suburban area 
 4.  Divide the city into 20 neighborhoods, randomly sample 8 neighborhoods, and then randomly sample 50 households from those neighborhoods.
 
 5.  Sample the 200 households closest to the city council offices.
+
+## Sampling Distribution and Variability {.smaller}
+
+Bowl of 2400 balls
+
+![](assets/sampling_bowl_1.jpg)
+
+## Sampling Distribution and Variability {.smaller}
+
+-   Your Task
+
+    -   Estimate the proportion of red balls in the bowl
+
+    ![](assets/sampling_bowl_3_cropped.jpg)
+
+## Sampling Distribution and Variability {.smaller}
+
+-   Lab 5 activity
+
+## Central Limit Theorem
+
+<https://youtu.be/jvoxEYmQHNM>
+
+
+## Center of the Distribution (Expected Value)
+
+![](assets/comparing-sampling-distributions-3-1.png)
+
+
+## Sampling variation
+
+Standard Deviation and Standard Error
+
+![](assets/comparing-sampling-distributions-3-1.png)
+
+
