@@ -16,10 +16,10 @@ date-format: medium
 
 **Week 7-8: Sampling and Sampling Distributions**
 
--   Study Design (and Sampling): <https://openintro-ims.netlify.app/data-design>
+-   Study Design (and Sampling): <https://openintrostat.github.io/ims/data-design.html>
 
 -   Sampling, Confidence Intervals, Bootstrapping, Hypothesis testing: <https://moderndive.com/v2/sampling.html>
 
 -   Normal Distribution: <https://moderndive.com/v2/appendixa>
 
--   (Recommended) Foundations of Inference (Ch 11,12,13): <https://openintro-ims.netlify.app/data-design>
+-   (Recommended) Foundations of Inference (Ch 11,12,13): <https://openintrostat.github.io/ims/data-design.html>

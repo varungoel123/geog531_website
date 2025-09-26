@@ -74,7 +74,7 @@
     "href": "readings.html",
     "title": "Readings",
     "section": "",
-    "text": "Week 4: Descriptive Spatial Statistics and Visualization\n\nGeoComputation with R - Chapter 2: Geographic Data in R\n\n\n\nWeek 5: Probability\n\nGoel et al., 2023\n\nWeek 7-8: Sampling and Sampling Distributions\n\nStudy Design (and Sampling): https://openintro-ims.netlify.app/data-design\nSampling, Confidence Intervals, Bootstrapping, Hypothesis testing: https://moderndive.com/v2/sampling.html\nNormal Distribution: https://moderndive.com/v2/appendixa\n(Recommended) Foundations of Inference (Ch 11,12,13): https://openintro-ims.netlify.app/data-design"
+    "text": "Week 4: Descriptive Spatial Statistics and Visualization\n\nGeoComputation with R - Chapter 2: Geographic Data in R\n\n\n\nWeek 5: Probability\n\nGoel et al., 2023\n\nWeek 7-8: Sampling and Sampling Distributions\n\nStudy Design (and Sampling): https://openintrostat.github.io/ims/data-design.html\nSampling, Confidence Intervals, Bootstrapping, Hypothesis testing: https://moderndive.com/v2/sampling.html\nNormal Distribution: https://moderndive.com/v2/appendixa\n(Recommended) Foundations of Inference (Ch 11,12,13): https://openintrostat.github.io/ims/data-design.html"
   },
   {
     "objectID": "lectures.html",
