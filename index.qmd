@@ -43,14 +43,6 @@ format:
 
 The latest class syllabus can downloaded [here](Geog531_FA25_QuantitativeMethods_final.docx){target="_blank"}
 
-### To Dos: 
+### To Dos:
 
-#### [Due Monday: Sept 8]{.underline}
-
--   Lab 1
-
--   Lab 2
-
--   Week 4: Contributed questions
-
-------------------------------------------------------------------------
+#### 
