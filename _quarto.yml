@@ -16,7 +16,7 @@ website:
       - text: "Readings"
         href: readings.qmd
       - text: "Final Project"
-        href: /finalproject/FinalProject.qmd
+        href: FinalProject.qmd
      
   
 
