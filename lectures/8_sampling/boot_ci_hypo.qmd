@@ -135,8 +135,12 @@ If we repeated our sampling procedure a large number of times, we expect about 9
 
 ## Interpreting Confidence Intervals
 
--   95% CI ![](assets/reliable-percentile-1.png) \## Interpreting Confidence Intervals
--   80% CI ![](assets/reliable-se-1.png) \## Interpreting Confidence Intervals
+-   95% CI ![](assets/reliable-percentile-1.png) 
+
+## Interpreting Confidence Intervals
+-   80% CI ![](assets/reliable-se-1.png) 
+
+## Interpreting Confidence Intervals
 -   Impact of sample size ![](assets/reliable-percentile-n-25-50-100-1.png)
 
 ## Interpreting Confidence Intervals

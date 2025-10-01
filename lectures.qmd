@@ -32,6 +32,7 @@ date-format: medium
 
 -   *Monday, Sep 22: Sampling* ( [html](./lectures/8_sampling/sampling.qmd){target="_blank"} )
 
+
 #### Week 7: Question formation, Hypothesis Testing
 
 -   *Wednesday Oct 1: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_sampling/boot_ci_hypo.qmd){target="_blank"} )
