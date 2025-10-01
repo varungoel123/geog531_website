@@ -27,7 +27,11 @@ date-format: medium
 #### Week 5: Visualizing Quantitative data, Sampling and Distributions
 
 -   *Monday, Sep 15: Visualizing Quantitative Data* ( [html](./lectures/6_dataViz/DataViz.qmd){target="_blank"} )
+
 -   Wednesday Sep 17: Measurement Considerations in Data ( [html](./lectures/7_measurement/measurement.qmd){target="_blank"} )
 
 -   *Monday, Sep 22: Sampling* ( [html](./lectures/8_sampling/sampling.qmd){target="_blank"} )
 
+#### Week 7: Question formation, Hypothesis Testing
+
+-   *Wednesday Oct 1: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_sampling/boot_ci_hypo.qmd){target="_blank"} )
