@@ -1,6 +1,6 @@
 ---
 title: "Quantitative Methods in Geographic Research"
-subtitle: "Sampling and Study Designs"
+subtitle: "Confidence Intervals and Hypothesis Testing"
 author:
  - name: "Varun Goel"
 institute: ""
@@ -95,7 +95,7 @@ library(readr)
 
 ![](assets/bs5.png)
 
-## Example:  {.smaller}
+## Example: {.smaller}
 
 One consultant tried to attract patients by noting the average complication rate for liver donor surgeries in the US is about 10%, but her clients have had only 3 complications in the 62 liver donor surgeries she has facilitated. She claims this is strong evidence that her work meaningfully contributes to reducing complications (and therefore she should be hired!).
 
@@ -134,18 +134,14 @@ Does the interval estimate of 0% to 11.3% for the true probability of complicati
 If we repeated our sampling procedure a large number of times, we expect about 95% of the resulting 95% confidence intervals to capture the value of the population parameter.
 
 ## Interpreting Confidence Intervals
-- 95% CI
-![](assets/reliable-percentile-1.png)
-## Interpreting Confidence Intervals
-- 80% CI
-![](assets/reliable-se-1.png)
-## Interpreting Confidence Intervals
-- Impact of sample size
-![](assets/reliable-percentile-n-25-50-100-1.png)
+
+-   95% CI ![](assets/reliable-percentile-1.png) \## Interpreting Confidence Intervals
+-   80% CI ![](assets/reliable-se-1.png) \## Interpreting Confidence Intervals
+-   Impact of sample size ![](assets/reliable-percentile-n-25-50-100-1.png)
 
 ## Interpreting Confidence Intervals
-- Impact of Significance level
-![](assets/reliable-percentile-80-95-99-1.png)
+
+-   Impact of Significance level ![](assets/reliable-percentile-80-95-99-1.png)
 
 ## Hypothesis Testing
 
@@ -167,5 +163,5 @@ A p-value is the probability of obtaining a test statistic just as or more extr
 
 ## Your turn
 
-- What is your null hypothesis
-- What is your alternative hypothesis
+-   What is your null hypothesis
+-   What is your alternative hypothesis

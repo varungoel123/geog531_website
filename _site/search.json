@@ -81,7 +81,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud\n\n\n\nWeek 3: Geographic Data in R\n\nMonday, Sep 3: Geographic Data in R ( html )\n\n\n\nWeek 4: Describing Geographic Data\n\nMonday, Sep 8: Describing Geographic Data ( html )\nWednesday, Sep 10: Geographic Data Visualization Lab ( html )\n\n\n\nWeek 5: Visualizing Quantitative data, Sampling and Distributions\n\nMonday, Sep 15: Visualizing Quantitative Data ( html )\nWednesday Sep 17: Measurement Considerations in Data ( html )\nMonday, Sep 22: Sampling ( html )"
+    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud\n\n\n\nWeek 3: Geographic Data in R\n\nMonday, Sep 3: Geographic Data in R ( html )\n\n\n\nWeek 4: Describing Geographic Data\n\nMonday, Sep 8: Describing Geographic Data ( html )\nWednesday, Sep 10: Geographic Data Visualization Lab ( html )\n\n\n\nWeek 5: Visualizing Quantitative data, Sampling and Distributions\n\nMonday, Sep 15: Visualizing Quantitative Data ( html )\nWednesday Sep 17: Measurement Considerations in Data ( html )\nMonday, Sep 22: Sampling ( html )\n\n\n\nWeek 7: Question formation, Hypothesis Testing\n\nWednesday Oct 1: Confidence Intervals and Hypothesis Testing ( html )"
   },
   {
     "objectID": "data.html",
@@ -1867,5 +1867,166 @@
     "title": "GEOG 531: Final Project",
     "section": "Evaluation",
     "text": "Evaluation\n\n** Please start early and get in touch with me if you have any questions regarding anything about the assignment or requirements. **\n\n\nTimeline\nEven if you did not know it, you all have already started thinking about your final paper topics already through data searching for topics of interest to you and map making as part of your assignment components. As we move forward, I will continue to embed parts related to your final project in future assignments. Additionally, I will also have some structured checkpoints till the end of the semester to help ensure that you have all the help needed to execute a final project. If you follow them timely, there is a good likelihood that your final papers will be solid and most importantly stress-free! Here are the suggested checkpoint deadlines:\n\nOct 15: Have a finalized main research question and identify datasets of interest.\nIf you have not already, start thinking about your topic of interest and narrow down on a research question based on the data that you have been finding. If you are struggling with ideas about your final projects please get in touch with me before and I can help you think about a question or help finding data.\n\n\n\n\nDeliverables"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#outline",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#outline",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Outline",
+    "text": "Outline\n\nBootstrapping\nConfidence Intervals\nHypothesis Testing"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#recall",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#recall",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Recall",
+    "text": "Recall\n\n\nPopulation Parameter\n\n“True value of interest”\noften unobservable directly\n\nSample statistic\n\nestimate of the parameter from a sample of data\n\nCentral Limit Theorem\n\nmean of several sample statistics = population parameter"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#central-limit-theorem",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#central-limit-theorem",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Central Limit Theorem",
+    "text": "Central Limit Theorem"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bootstrapping",
+    "text": "Bootstrapping\n\n\nHow do we find variability in our statistic\n\nReal world feasibility\n\nWhat can you do?\n\nSampling again from the same population?\nSampling again from a different population"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping-1",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bootstrapping",
+    "text": "Bootstrapping\n\nEstimating Population based on sample"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping-2",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bootstrapping",
+    "text": "Bootstrapping\n\nCollecting k samples from an estimated population\nmeasure of sample to sample variability\ndifferences are due entirely to sampling variability"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping-3",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bootstrapping",
+    "text": "Bootstrapping\n\nCollecting k samples from an estimated population\nmeasure of sample to sample variability\ndifferences are due entirely to sampling variability"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping-4",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bootstrapping",
+    "text": "Bootstrapping\n\nIn practice, estimating population is very difficult"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping-5",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#bootstrapping-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bootstrapping",
+    "text": "Bootstrapping\n\nIn practice, estimating population is very difficult"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#example",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#example",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example:",
+    "text": "Example:\nOne consultant tried to attract patients by noting the average complication rate for liver donor surgeries in the US is about 10%, but her clients have had only 3 complications in the 62 liver donor surgeries she has facilitated. She claims this is strong evidence that her work meaningfully contributes to reducing complications (and therefore she should be hired!)."
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#bootstrap-percentile-confidence-interval",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#bootstrap-percentile-confidence-interval",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bootstrap Percentile Confidence Interval",
+    "text": "Bootstrap Percentile Confidence Interval\nDoes the interval estimate of 0% to 11.3% for the true probability of complication indicate that the surgical consultant has a lower rate of complications than the national average"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#confidence-intervals",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#confidence-intervals",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Confidence Intervals",
+    "text": "Confidence Intervals\n\nPlausible range of values for the population parameter\nIf we want to be very certain we capture the population parameter, should we use a wider interval (e.g., 99%) or a smaller interval (e.g., 80%)"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#bootstrap-confidence-interval",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#bootstrap-confidence-interval",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bootstrap confidence interval",
+    "text": "Bootstrap confidence interval\n\nSampling WITH replacement\nThe bootstrap distribution will likely not have the same center as the sampling distribution. In other words, bootstrapping cannot improve the quality of an estimate.\nEven if the bootstrap distribution might not have the same center as the sampling distribution, it will likely have very similar shape and spread. In other words, bootstrapping will give you a good estimate of the standard error."
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#other-ways-to-construct-confidence-intervals",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#other-ways-to-construct-confidence-intervals",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Other ways to construct Confidence Intervals",
+    "text": "Other ways to construct Confidence Intervals\n\nStandard Error Method\n\nSample mean distribution needs to normally distributed"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\n\nDid the net capture the fish\nDid the 95% CI capture the true population parameter\nWill every 95% CI capture the true parameter"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-1",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\nIf we repeated our sampling procedure a large number of times, we expect about 95% of the resulting 95% confidence intervals to capture the value of the population parameter."
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#hypothesis-testing",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#hypothesis-testing",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Hypothesis Testing",
+    "text": "Hypothesis Testing\nModerndive Gender discrimination example"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#hypothesis-testing-1",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#hypothesis-testing-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Hypothesis Testing",
+    "text": "Hypothesis Testing"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#p-value",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#p-value",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "P-value",
+    "text": "P-value\nA p-value is the probability of obtaining a test statistic just as or more extreme than the observed test statistic assuming the null hypothesis H0 is true."
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#interpreting-hypothesis-tests",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#interpreting-hypothesis-tests",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Hypothesis Tests",
+    "text": "Interpreting Hypothesis Tests\n\nIf the p-value is less than α, then we reject the null hypothesis H0 in favor of HA.\nIf the p-value is greater than or equal to α, we fail to reject the null hypothesis H0."
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-2",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\n\n95% CI  ## Interpreting Confidence Intervals\n80% CI  ## Interpreting Confidence Intervals\nImpact of sample size"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-3",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\n\nImpact of Significance level"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#your-turn",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#your-turn",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Your turn",
+    "text": "Your turn\n\nWhat is your null hypothesis\nWhat is your alternative hypothesis\n\n\n\n#10 Confidence Intervals"
   }
 ]
