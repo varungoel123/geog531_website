@@ -8,7 +8,7 @@ This document contains a number of resources that will (hopefully) assist you in
 
 ------------------------------------------------------------------------
 
-## Foundation, Demographic, Socioeconomic, Environmental Spatial Data
+## Demographic, Socioeconomic, Environmental Spatial Data
 
 Please note that I have not worked with data from all of these sources, so I might not be able to offer much help with troubleshooting any issues you encounter when searching or downloading from some of the websites listed. Also, I did not recheck the links in the most recent update.
 
