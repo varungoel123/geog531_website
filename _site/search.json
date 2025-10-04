@@ -233,9 +233,9 @@
   {
     "objectID": "assignments.html",
     "href": "assignments.html",
-    "title": "Assignments",
+    "title": "Homeworks",
     "section": "",
-    "text": "List of Assignments\n\nAssignment 1: QGIS fundamentals (due Wednesday, Feb 05 before class)\nAssignment 2: Working with spatial data (due Monday, March 03 before class)\nAssignment 3: Applied Autocorrelation/Clustering (due Monday, March 31 before class)\nAssignment 4: Spatial Regression (due April 28 before class)"
+    "text": "List of Homeworks\n\nHomework 1: Once upon a stormy evening [Due Sunday, Oct 19, 5 pm EDT]"
   },
   {
     "objectID": "exercises/demo1_storageAndManagement.html",
@@ -2013,14 +2013,14 @@
     "href": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-2",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Interpreting Confidence Intervals",
-    "text": "Interpreting Confidence Intervals\n\n95% CI  ## Interpreting Confidence Intervals\n80% CI  ## Interpreting Confidence Intervals\nImpact of sample size"
+    "text": "Interpreting Confidence Intervals\n\n95% CI"
   },
   {
     "objectID": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-3",
     "href": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-3",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Interpreting Confidence Intervals",
-    "text": "Interpreting Confidence Intervals\n\nImpact of Significance level"
+    "text": "Interpreting Confidence Intervals\n\n80% CI"
   },
   {
     "objectID": "lectures/8_sampling/boot_ci_hypo.html#your-turn",
@@ -2028,5 +2028,19 @@
     "title": "Quantitative Methods in Geographic Research",
     "section": "Your turn",
     "text": "Your turn\n\nWhat is your null hypothesis\nWhat is your alternative hypothesis\n\n\n\n#10 Confidence Intervals"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-4",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\n\nImpact of sample size"
+  },
+  {
+    "objectID": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-5",
+    "href": "lectures/8_sampling/boot_ci_hypo.html#interpreting-confidence-intervals-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\n\nImpact of Significance level"
   }
 ]

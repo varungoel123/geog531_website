@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Varun Goel">
+<meta name="dcterms.date" content="2025-10-04">
+<meta name="description" content="Due Date: Sunday, October 19, 5 pm  (250 points + 20 bonus points)">
+
+<title>Homework 1: Once Upon a Stormy Evening</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="hw1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="hw1_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="hw1_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="hw1_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="hw1_files/libs/quarto-html/popper.min.js"></script>
+<script src="hw1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="hw1_files/libs/quarto-html/anchor.min.js"></script>
+<link href="hw1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="hw1_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="hw1_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="hw1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="hw1_files/libs/bootstrap/bootstrap-6a8e6d95bfcd174082ff54166b04dcf7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link" data-scroll-target="#instructions">Instructions</a>
+  <ul class="collapse">
+  <li><a href="#load-packages-and-data" id="toc-load-packages-and-data" class="nav-link" data-scroll-target="#load-packages-and-data">1 Load packages and data</a></li>
+  <li><a href="#examining-your-data" id="toc-examining-your-data" class="nav-link" data-scroll-target="#examining-your-data">2 Examining your Data</a>
+  <ul class="collapse">
+  <li><a href="#cleaning-data" id="toc-cleaning-data" class="nav-link" data-scroll-target="#cleaning-data">2.1 Cleaning Data</a></li>
+  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics">2.2 Descriptive Statistics</a></li>
+  <li><a href="#examining-spatial-data" id="toc-examining-spatial-data" class="nav-link" data-scroll-target="#examining-spatial-data">2.3 Examining Spatial Data</a></li>
+  <li><a href="#retrieving-spatial-data" id="toc-retrieving-spatial-data" class="nav-link" data-scroll-target="#retrieving-spatial-data">2.4 Retrieving Spatial Data</a></li>
+  <li><a href="#mapping-spatial-distribution-of-extreme-events" id="toc-mapping-spatial-distribution-of-extreme-events" class="nav-link" data-scroll-target="#mapping-spatial-distribution-of-extreme-events">2.5 Mapping Spatial Distribution of extreme events</a></li>
+  </ul></li>
+  <li><a href="#descriptive-spatial-statistics-and-visualizations" id="toc-descriptive-spatial-statistics-and-visualizations" class="nav-link" data-scroll-target="#descriptive-spatial-statistics-and-visualizations">3 Descriptive Spatial Statistics and Visualizations</a></li>
+  <li><a href="#final-project---question-and-data-formulation" id="toc-final-project---question-and-data-formulation" class="nav-link" data-scroll-target="#final-project---question-and-data-formulation">4 Final Project - Question and Data Formulation</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Homework 1: Once Upon a Stormy Evening</h1>
+</div>
+
+<div>
+  <div class="description">
+    <p>Due Date: <strong>Sunday, October 19, 5 pm</strong> <strong>(250 points + 20 bonus points)</strong></p>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Varun Goel </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 4, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>The purpose of this HW is for you to utilize your descriptive statistics skills to a real world dataset and problem. Here we will investigate how the spatial distribution and frequency of different severe weather events in South Carolina has changed over time.You will also spend time on your final project question formulation and dataset finding.</p>
+</section>
+<section id="instructions" class="level1">
+<h1>Instructions</h1>
+<ul>
+<li><p>Go to <code>File –&gt; Save as</code>, and save this as <code>hw1_answers.qmd</code>. Then you can use that file for filling in all your answers.</p></li>
+<li><p><strong>Very important:</strong></p>
+<ul>
+<li><p>In the header of the <code>.qmd</code> file, change name under <code>author:</code> to your name.</p></li>
+<li><p>change <code>eval: false</code> to <code>eval: true</code></p></li>
+</ul></li>
+<li><p>Please make sure that your code is entered in your code block but your written answers are OUTSIDE your codeblock. Only put comments (using #) in your code to describe your code.</p></li>
+<li><p><u><strong>Read carefully:</strong></u> You are welcome to use ChatGPT or other generative AI for your assignment. I encourage to use it mainly for coding help as needed. However, I also encourage you to first try code yourself based on what we have learned so that you can get some practice. If you do use generative AI <u><strong>for any part of the assignment,</strong></u>create a word doc titled <code>ai_prompts.docx</code>. For <u><strong>each prompt</strong></u> that you provide to generative AI software, report the following in the document:</p>
+<ul>
+<li><p>The Question number from your homework</p></li>
+<li><p>Your exact prompt as inputted to the AI</p></li>
+<li><p>The <u>RAW (</u>unchanged) answer generated by the software)</p></li>
+</ul></li>
+<li><p>If you do use AI, but do not disclose <u><strong>ALL</strong></u> your prompts , <u><strong>I will consider it as plagiarism and take strict action including giving you a zero on your assignment</strong></u>. There is a specific manner in which softwares like ChatGPT write code. If I detect those patterns or suspect you used AI but did not report it, I may ask you to solve the problem in front of me to ensure that you did the problem and not generative AI. Hence, to be safe, please report all your prompts even if you made little or extensive use of generative AI.</p></li>
+<li><p><u>You are welcome to work with a classmate or discuss answers and code, but your homework should be your own work</u>. If you do work with a classmate, please report in the document whom you worked with so that I give you the benefit of doubt in case there are similar answers with an another person’s work.</p></li>
+<li><p>DONT WAIT till the Last Minute. Ask me for help, proactively. I am here for you.</p></li>
+</ul>
+<section id="load-packages-and-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages-and-data">1 Load packages and data</h2>
+<p>Luckily for us, the National Center for Environmental Information at NOAA maintains a comprehensive database of severe weather events. You can read more about it here: <a href="https://www.ncei.noaa.gov/stormevents/" class="uri">https://www.ncei.noaa.gov/stormevents/</a></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidycensus) <span class="co"># for reading census data in R</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tigris)<span class="co"># For reading geographic admin boundaries in R</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tigris_use_cache =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">### DONT TOUCH THIS NEXT LINE OF CODE </span><span class="al">###</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">census_api_key</span>(<span class="at">key =</span> <span class="st">"a0b70fd4d6380a164f8b90cef1e114f9a7ed6706"</span>, <span class="at">install =</span> <span class="cn">TRUE</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># load SC severe weather events 2015 and 2024</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dat15 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/sc_nhaz_15.csv"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>dat24 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/sc_nhaz_24.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This is a cleaned up and truncated version of the actual dataset which is very messy. However, even though this data is ‘clean’, there can be several hidden issues. To know what these variables are, refer to the <u><strong>codebook (Page 1-6) in the docs folder</strong></u>.</p>
+<p><span style="color: darkred;">Q.1 Your main research question that you are trying to answer is about <u>how the spatial distribution and frequency of different severe weather events in South Carolina has changed over time</u>.</span></p>
+<p><span style="color: darkred;"><u><strong>Based on the data and variables provided to you,</strong></u> what could be 3 descriptive questions about these severe weather events that you could ask related to your main research question. Atleast one of these questions should be spatial in nature.</span><strong>[5 points]</strong></p>
+<p>For example, one potential non-spatial descriptive question is: What is the difference in average cost of property damage caused by floods between 2015 and 2024? A potential spatial descriptive question could be: What is the spatial distribution of flooding events compared to extreme heat events in 2024?</p>
+</section>
+<section id="examining-your-data" class="level2">
+<h2 class="anchored" data-anchor-id="examining-your-data">2 Examining your Data</h2>
+<section id="cleaning-data" class="level3">
+<h3 class="anchored" data-anchor-id="cleaning-data">2.1 Cleaning Data</h3>
+<p><span style="color: darkred;">Q.2 Examine the following variables more closely. Explain what kind of variable (nominal, ordinal, interval, ratio) they <u>should be,</u> and how <u>they are actually stored a</u>s in the dataset.</span><strong>[5 points]</strong></p>
+<ol type="1">
+<li><p><span style="color: darkred;">EVENT_TYPE</span></p></li>
+<li><p><span style="color: darkred;">DEATHS_DIRECT</span></p></li>
+<li><p><span style="color: darkred;">DAMAGE_PROPERTY</span></p></li>
+</ol>
+<p><span style="color: darkred;">Q.3 Now we will make some modifications to the dataset. Answer the following coding question for the 2024 data set:</span> <strong>[5 points]</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will first create new variables or fix old variables</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new column that stores property damage values in USD</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># also create a column that combines injuries, and deaths</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert event types to factor class</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>dat15 <span class="ot">&lt;-</span> dat15 <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">PROP_DAMAGE_USD =</span> <span class="fu">parse_number</span>(DAMAGE_PROPERTY)<span class="sc">*</span><span class="dv">1000</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">ALL_INJ =</span> INJURIES_DIRECT <span class="sc">+</span> INJURIES_INDIRECT,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">ALL_DEATH =</span> DEATHS_DIRECT <span class="sc">+</span> DEATHS_INDIRECT,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">EVENT_TYPE_F =</span> <span class="fu">as.factor</span>(EVENT_TYPE))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="do">## RUN YOUR CODE HERE to do the same for dat24</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>dat24 <span class="ot">&lt;-</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now, for this exercise we will only keep events which do not have missing property damage data.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dat15 <span class="ot">&lt;-</span> dat15 <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PROP_DAMAGE_USD))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dat24 <span class="ot">&lt;-</span> dat24 <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(PROP_DAMAGE_USD))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="descriptive-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="descriptive-statistics">2.2 Descriptive Statistics</h3>
+<p><span style="color: darkred;">Q.4 Lets answer a few descriptive questions:</span></p>
+<ol type="1">
+<li><p><span style="color: darkred;">What were the top 3 types of severe weather events overall?</span> <span style="color: darkred;">What were the top 3 types of severe weather events in 2015? What were the top 3 types of severe weather events in 2024? Were there any differences?</span> <strong>[15 points]</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></li>
+<li><p><span style="color: darkred;">Which event had the highest property damage in 2015 and 2024 in SC? Which event had the highest injuries and deaths in 2015 and 2024?</span> <strong>[10 points]</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></li>
+<li><p><span style="color: darkred;">What was the mean/average property damage categorized by event type in 2015 and 2024? What was the median property damage categorized by event type in 2015 and 2024? What was the standard deviation for the variation in property damage?</span> <strong>[15 points]</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for standard deviation, you can use the sd() function.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></li>
+<li><p><span style="color: darkred;">Based on the previous answer, describe one event type for which the average property damage increases, and one for which it decreased.</span> <strong>[10 points]</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></li>
+</ol>
+</section>
+<section id="examining-spatial-data" class="level3">
+<h3 class="anchored" data-anchor-id="examining-spatial-data">2.3 Examining Spatial Data</h3>
+<p>Since we have locational information in our dataframe, we will convert the dataframe into a spatial object.</p>
+<p>Q.5 <span style="color: darkred;">Now convert the csv files to spatial data</span> <strong>[5 points]</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dat15 <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(dat15, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"BEGIN_LON"</span>,<span class="st">"BEGIN_LAT"</span>), <span class="at">crs =</span> <span class="dv">4269</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">32133</span>) <span class="co"># Here we convert Geographic projection to a Lambert Conformal Conic Projection. This helps use deal with area level data better</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## YOUR CODE HERE for dat24</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>dat24 <span class="ot">&lt;-</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="retrieving-spatial-data" class="level3">
+<h3 class="anchored" data-anchor-id="retrieving-spatial-data">2.4 Retrieving Spatial Data</h3>
+<p>One great part about coding and the R ecosystem is that you can directly retrieve some spatial data without going through the hassle of downloading and storing it. It is beyond the scope of this class, but the census bureau has APIs (Application Programming Interface) that let you ‘connect’ to their data ecosystem and get all sorts of tabular and spatial data. The <code>tigris</code> and the <code>tidycensus</code> packages help read that data in R. Here we will retrieve SC county level geospatial data using that functionality. We can then use this data on our map to provide more context.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Import SC county file from the census api</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>county_geo <span class="ot">&lt;-</span> <span class="fu">counties</span>(<span class="at">state =</span> <span class="st">"SC"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="dv">32133</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="mapping-spatial-distribution-of-extreme-events" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-spatial-distribution-of-extreme-events">2.5 Mapping Spatial Distribution of extreme events</h3>
+<p>Our first step towards spatially exploring our data is to map the distribution of extreme events. Using <code>ggplot()</code> we can make various kinds of maps. Here is a simple map</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>map15_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="co"># tell R that you are creating a graphic</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> county_geo) <span class="sc">+</span> <span class="co"># create a base layer of counties</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dat15,<span class="co"># add the extreme event points</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"red"</span>, <span class="co"># assign red color to each point</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span> <span class="co"># for transparency</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_label</span>(<span class="at">data =</span> county_geo,<span class="fu">aes</span>(<span class="at">label =</span> NAME), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="co"># add labels to counties</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="fu">st_crs</span>(county_geo)) <span class="co"># ensure map is in right coordinate system</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(map15_1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In the first map, we assume that each extreme event is exactly the same. Is that a realistic assumption. In the next map, lets create a proportional symbol map where we the size of dots based on how much property damage an event did. We can also use colors to highlight events with more property damage vs less. There are lots of colors one can use, but nowadays cartographers are using color schemes called ‘viridis’ that are universally accepted.</p>
+<p><a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html" class="uri">https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html</a></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>map15_2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> county_geo) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dat15,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">size =</span> PROP_DAMAGE_USD, <span class="at">color =</span> PROP_DAMAGE_USD),<span class="co"># size and color are based on property damage</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">"magma"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span> <span class="co"># there are several other color palettes, direction reverses the palette </span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_label</span>(<span class="at">data =</span> county_geo,<span class="fu">aes</span>(<span class="at">label =</span> NAME), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="fu">st_crs</span>(county_geo))</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(map15_2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><span style="color: darkred;">Q.5 Describe in 1-2 sentences - What do you notice about the spatial distribution of severe weather events based on this map?</span> <strong>[5 points]</strong></p>
+<p>Notice how R automatically classified the sizes and colors. These are not always correct. We can also use algorithms to decide how to classify our size or colors. We can do this using the <code>classInt</code> library. For example, in the method used in the upcoming example, we use the ‘natural breaks’ (called ‘jenks’) classification method which divides the data based on natural classes. While we are not in a cartography class, below are a few good resources to under stand classification schemes, and mapping tips in general.</p>
+<p><a href="https://www.axismaps.com/guide/data-classification" class="uri">https://www.axismaps.com/guide/data-classification</a></p>
+<p><a href="https://www.axismaps.com/guide" class="uri">https://www.axismaps.com/guide</a></p>
+<p><a href="https://workshop.palaeoverse.org/NAPC2024/materials/4_visualization/practical-spatial.html" class="uri">https://workshop.palaeoverse.org/NAPC2024/materials/4_visualization/practical-spatial.html</a></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(classInt) <span class="co"># load library</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we tell R how to 'cut up' or classify our data</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># We provide the data column, how many bins/classes we want, and the style of classification</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>breaks_qt <span class="ot">&lt;-</span> <span class="fu">classIntervals</span>(dat15<span class="sc">$</span>PROP_DAMAGE_USD, <span class="at">n =</span> <span class="dv">5</span>, <span class="at">style =</span> <span class="st">"jenks"</span>, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">intervalClosure =</span> <span class="fu">c</span>(<span class="st">"right"</span>))</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># add the new cut values to dat15</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>dat15 <span class="ot">&lt;-</span> dat15 <span class="sc">|&gt;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">damage_jenks5 =</span> <span class="fu">cut</span>(PROP_DAMAGE_USD,breaks_qt<span class="sc">$</span>brks))</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>map15_3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> county_geo) <span class="sc">+</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dat15,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">size =</span> damage_jenks5, <span class="at">color =</span> damage_jenks5),</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_d</span>(<span class="at">option =</span> <span class="st">"rocket"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>                        <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span> ) <span class="sc">+</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_label</span>(<span class="at">data =</span> county_geo,<span class="fu">aes</span>(<span class="at">label =</span> NAME), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">datum =</span> <span class="fu">st_crs</span>(county_geo)) <span class="sc">+</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"SC Extreme Events in 2015"</span>) <span class="co"># add title</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(map15_3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice how the map looks now with the classification schemes. The <code>help()</code> function in R is very useful to get an idea for how you need to write your code and what inputs you may need. So for example if you want to know want to know more about the function <code>geom_sf()</code>, you could type <code>help(geom_sf)</code> or <code>?geom_sf</code></p>
+<p><span style="color: darkred;">Q.6 Now modifying the above code:</span></p>
+<p>1) <span style="color: darkred;">create your own map to look at the distribution of severe weather events in SC in 2024</span>. <strong>[5 points]</strong></p>
+<p>2) <span style="color: darkred;">in 1-2 sentences, describe how the spatial distribution of severe events is different 2024 compared 2015</span> .<strong>[5 points]</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code for Q6 1) here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>One issue with plotting all events is that it might be misleading since different events have different geographies and magnitudes.</p>
+<p><span style="color: darkred;">Q.7 Create 2 maps, 1 for 2015, and 1 for 2024 showing the spatial distribution of extreme events categorized by the TYPE of EVENT, and by Property Damage.</span> <strong>[10 points]</strong></p>
+<p>If you are curious about using different color schemes in R - here is a good resource.</p>
+<p><a href="https://datavizf24.classes.andrewheiss.com/resource/colors.html" class="uri">https://datavizf24.classes.andrewheiss.com/resource/colors.html</a></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code here</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Hint: the code will be very similar to your previous map code. The main difference will be that you will need to assign a different variable (capturing event types) to the 'color =' argument.</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#additionally change alpha to 0.5 and change the viridis option "magma"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="descriptive-spatial-statistics-and-visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="descriptive-spatial-statistics-and-visualizations">3 Descriptive Spatial Statistics and Visualizations</h2>
+<p>While the maps are a good start, we can see that the story becomes complicated due to the large number of points on our map. Your task is to use descriptive spatial statistics and visualizations to answer the questions in this section.</p>
+<p>To help you, I have already created all the descriptive spatial statistic functions for you. To load those functions in R, run the following code</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"code/descriptive_geo_functions.R"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You will notice your Environment window (top right window) now has 6 functions that are loaded:</p>
+<p>a. <code>calc_mc()</code> - calculate mean center</p>
+<p>b. <code>calc_wmc()</code> - weighted mean center</p>
+<p>c. <code>calc_medc()</code> - median center</p>
+<p>d. <code>calc_weighted_medc()</code> - weighted median center</p>
+<p>e. <code>calc_weighted_sd()</code> - weighted standard distance</p>
+<p>f. <code>calc_sde_sf()</code> - weighted standard deviational ellipse</p>
+<p>Below are 2 examples of calculating mean center and weighted mean center.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span> <span class="fu">calc_mc</span>(dat15)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>wmc <span class="ot">&lt;-</span> <span class="fu">calc_wmc</span>(dat15,dat15<span class="sc">$</span>DEATHS_DIRECT)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Using appropriate statistics to answer the following questions. Use code and maps as needed to demonstrate your answer. <u><strong>Then in 1-2 sentences interpret your results</strong></u>. Note that I do not care how you organize your code, maps, answers as long as you demonstrate evidence of how you reached the answers. I also encourage you to use <code>ggplotly()</code> for interactive plotting tool</p>
+<p><span style="color: darkred;">Q 8) How has the average geographic center for all severe weather events shifted in 2024, compared to 2025.</span> <strong>[10 points]</strong></p>
+<p><span style="color: darkred;">Q 9) How has the average geographic center, accounting for the magnitude of property damage for all severe weather events shifted in 2024, compared to 2025.</span><strong>[10 points]</strong></p>
+<p><span style="color: darkred;">Q 10) Accounting for the magnitude of property damage, how are the average geographic centers different for the top 3 most frequently occuring event types in 2024.</span><strong>[10 points]</strong></p>
+<p><span style="color: darkred;">Q 11) How did the spatial distribution and mean centers of flash floods change between 2015 and 2024?</span> <strong>[10 points]</strong></p>
+<p><span style="color: darkred;">Q 12) What is the difference between the mean center, distribution, and shape of thunderstorm winds between 2015 and 2024?</span> <strong>[10 points]</strong></p>
+<p><span style="color: darkred;">Q 13) What is the difference between the mean center, distribution, and shape of flash floods and regular floods in 2015? Do you notice any differences in 2024?</span> <strong>[10 points]</strong></p>
+<p><span style="color: darkred;">Q 14) Using data from 2024: Suppose you want to create a centralized disaster hub to respond to flash floods effectively. To do so you, you are looking to create a hub that minimizes the distance to all flash flooding events. Where would that hub be located?</span> <strong>[10 points]</strong></p>
+<p><span style="color: darkred;">Q 15) Using the same data from 2024, you also want to ensure that you are able to make more trips efficiently to locations that may cause higher property damage. Where would that hub be located?</span> <strong>[10 points]</strong></p>
+<p><span style="color: darkred;">Q 16) Would that hub been located differently in 2024, as compared 2015?</span> <strong>[10 points]</strong></p>
+<p><span style="color: darkred;">Bonus Q <strong>[Worth upto 20 points]</strong>: In real life, a single centralized hub to respond to different types of disasters (flood vs hail vs tornado) may not be very efficient as each disaster has its own response specifics.</span></p>
+<p><span style="color: darkred;">A better way would be to have a centralized hub for each disaster, and then one single master hub that helps assist each hub! How can you use the descriptive spatial statistics that you have learned to decide to where located these disaster specific hubs and a master hub!</span></p>
+</section>
+<section id="final-project---question-and-data-formulation" class="level2">
+<h2 class="anchored" data-anchor-id="final-project---question-and-data-formulation">4 Final Project - Question and Data Formulation</h2>
+<p>For your final project, you should have a main research question that is related to an outcome, AND also focuses on investigating the role of the underlying process(es) that may have generated the geographic distribution of the outcome that you are interested in.</p>
+<p>For example, related to this exercise, my final project question could be:</p>
+<p><em>1) Does higher social vulnerability in an area (cause/process) increase the risk of extreme weather events will higher property damage (outcome) in South Carolina?</em></p>
+<p>Or another very simple but answerable question could be:</p>
+<p><em>2) Does the type of extreme weather event such as flash flood vs tornado (outcome) influence how much property damage (outcome) counties in South Carolina may suffer.</em></p>
+<p>If you dont already have a question or data sets in mind, I suggest you do the following.</p>
+<p>Choose a study area that you would like to focus on for your project. Search for both spatial and non-spatial data (that can be made spatial) for your study area that you can download. These data could be potentially related to the topic you chose for your ‘Asking Spatial Questions’ paper exercise - but if you do not want to pursue your idea further or if you cannot find data, you may choose a different topic). I have added a data resource page for you but let your imagination flow.</p>
+<p>You can also use ChatGPT to help but please be mindful of the accuracy of what it helps you with. I would rather that you think of a questions first and have some potential data ideas in mind and then ask ChatGPT to help refine. Please DO NOT USER IT TO GENERATE IDEAS FOR YOU. If I have reason to believe you did use it for that purpose, I will ask you to explain your project and question verbally in detail to me. Instead if you are stuck, COME AND TALK TO ME and I will help you with your idea.</p>
+<p><span style="color: darkred;">Q 17) Describe your potential research question. If you are not sure you can also describe upto 2 potential research questions.</span> <strong>[10 points]</strong></p>
+<p><span style="color: darkred;">Q.18) Find and download at least 3-4 datasets that you think you might use in your project. Use the following guidance:</span></p>
+<ul>
+<li><p><span style="color: darkred;">The data must be downloadable (or retrieval from API such as census API)</span></p></li>
+<li><p><span style="color: darkred;">At least one of these datasets should be ‘spatial’ in nature. It could already be in a spatial format or should contain information that can be converted to a spatial object. (For example: a spreadsheet with latitude and longitude values)</span></p></li>
+<li><p><span style="color: darkred;">At the least, your data should contain some information about your potential outcome variable and some variable representing the process that you are interested in.</span></p></li>
+<li><p><span style="color: darkred;">At the least, one data should contain information about your study area boundary. (for example, SC county boundaries for 2024)</span></p></li>
+<li><p><span style="color: darkred;">Create a table that has basic information about the layers you locate, including filename, data description, and the data source (e.g., link to webpage or downloadable data). Below is an example with my hypothetical question. You can replace the table with your own data</span> <strong>[15 points]</strong></p></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Filename</th>
+<th>Data Type</th>
+<th>Data Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Storm_database_locations.csv</td>
+<td>storm property damage and spatial locations of storms</td>
+<td><a href="https://www.ncei.noaa.gov/stormevents/ftp.jsp" class="uri">https://www.ncei.noaa.gov/stormevents/ftp.jsp</a></td>
+</tr>
+<tr class="even">
+<td>county_geo</td>
+<td>SC county boundaries</td>
+<td>Through TIGRIS package</td>
+</tr>
+<tr class="odd">
+<td>SouthCarolina_county.csv</td>
+<td>South carolina county level Social Vulnerability Index</td>
+<td><a href="https://www.atsdr.cdc.gov/place-health/php/svi/svi-data-documentation-download.html" class="uri">https://www.atsdr.cdc.gov/place-health/php/svi/svi-data-documentation-download.html</a></td>
+</tr>
+</tbody>
+</table>
+<p><span style="color: darkred;">Q 19) Finally, Write down 4 descriptive questions that you can ask about your research question and your data. For example, take a look at the questions in Q4). Atleast 2 questions should be spatial in nature.</span> <strong>[20 points]</strong></p>
+<p><span style="color: darkred;">Q 20) In 1-2 sentences each answer the following:</span></p>
+<ul>
+<li><p><span style="color: darkred;">What did you like about this assignment?</span></p></li>
+<li><p><span style="color: darkred;">What did you most struggle with while working on the assignment ?</span></p></li>
+<li><p><span style="color: darkred;">Do you have any questions/concerns about your final project? I will go through them and help you wherever I can</span> <strong>[10 points]</strong></p></li>
+</ul>
+<p><span style="color: darkred;">Q 21) Make sure that your file renders into an html successfully. (You dont need to type an answer here).</span> <strong>[ 10 points]</strong></p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

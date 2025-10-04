@@ -1,19 +1,13 @@
 ---
-title: "Assignments"
+title: "Homeworks"
 date: last-modified
 date-format: medium
 ---
 
 ------------------------------------------------------------------------
 
-#### List of Assignments
+#### List of Homeworks
 
--   [Assignment 1: QGIS fundamentals (due Wednesday, Feb 05 before class)](./assignments/assignment1.html)
-
--   [Assignment 2: Working with spatial data (due Monday, March 03 before class)](./assignments/assignment2.qmd)
-
--   [Assignment 3: Applied Autocorrelation/Clustering (due Monday, March 31 before class)](./assignments/assignment3.qmd)
-
--   [Assignment 4: Spatial Regression (due April 28 before class)](./assignments/assignment4.qmd)
+-   [Homework 1: Once upon a stormy evening \[Due Sunday, Oct 19, 5 pm EDT\]](./hw/hw1/hw1.html)
 
 ------------------------------------------------------------------------
