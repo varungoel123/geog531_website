@@ -81,7 +81,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud\n\n\n\nWeek 3: Geographic Data in R\n\nMonday, Sep 3: Geographic Data in R ( html )\n\n\n\nWeek 4: Describing Geographic Data\n\nMonday, Sep 8: Describing Geographic Data ( html )\nWednesday, Sep 10: Geographic Data Visualization Lab ( html )\n\n\n\nWeek 5: Visualizing Quantitative data, Sampling and Distributions\n\nMonday, Sep 15: Visualizing Quantitative Data ( html )\nWednesday Sep 17: Measurement Considerations in Data ( html )\nMonday, Sep 22: Sampling ( html )\n\n\n\nWeek 7: Question formation, Hypothesis Testing\n\nWednesday Oct 1: Confidence Intervals and Hypothesis Testing ( html )"
+    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud\n\n\n\nWeek 3: Geographic Data in R\n\nMonday, Sep 3: Geographic Data in R ( html )\n\n\n\nWeek 4: Describing Geographic Data\n\nMonday, Sep 8: Describing Geographic Data ( html )\nWednesday, Sep 10: Geographic Data Visualization Lab ( html )\n\n\n\nWeek 5: Visualizing Quantitative data, Sampling and Distributions\n\nMonday, Sep 15: Visualizing Quantitative Data ( html )\nWednesday Sep 17: Measurement Considerations in Data ( html )\nMonday, Sep 22: Sampling ( html )\n\n\n\nWeek 7: Question formation, Hypothesis Testing\n\nWednesday Oct 1: Confidence Intervals and Hypothesis Testing ( html )\n\n\n\nWeek 8: Hypothesis Testing, Spatial Autocorrelation\n\nMonday Oct 6: Confidence Intervals and Hypothesis Testing ( html )"
   },
   {
     "objectID": "data.html",
@@ -2084,5 +2084,761 @@
     "title": "Data Resources",
     "section": "Demographic, Socioeconomic, Environmental Spatial Data",
     "text": "Demographic, Socioeconomic, Environmental Spatial Data\nPlease note that I have not worked with data from all of these sources, so I might not be able to offer much help with troubleshooting any issues you encounter when searching or downloading from some of the websites listed. Also, I did not recheck the links in the most recent update.\n\nResources\n\nUS Census (Census and American Community Survey data joined to spatial data [TIGER]\n\nNational Historical Geographic Information System (NHGIS) (great resource for current and historical census-based data for the US, includes both tabular and spatial data)\n\nUSGS National Map (Environmental data, infrastructure data, and aerial imagery)\n\nUSGS National Map FTP site (enter as guest if prompted)\n\nUSGS Earth Explorer (Digital orthorectified aerial photos, Landsat satellite data, Digital Elevation Models [DEM], this site is a bit clunky to use, but a great resource)\n\nAdding data from ArcGIS Online (data are not always “downloadable”)\n\nUS National Land Cover Database\nUS Data from Data.gov (A lot of data, but spatial data can be a bit difficult locate)\nUS SSURGO (soils) and Hydrography\nPRISM climate data\nClimate Data Online from NOAA\nData from USDA (includes climate, natural resources inventory, watersheds, easements, and more)\nWiki Page for downloading data from OpenStreetMap\nGlobal Administrative Boundaries (multiple levels of administrative bounds for most countries)\nDIVA GIS (administrative, infrastructure, natural, and population data for most countries)\nLandScan Gridded Population data (work with UNC library to download)\nGridded Population of the World\nAir Quality System (AQS) Ambient Air Pollution data\n\n\n\n\nGoogle Search Tips For Spatial Data\nIf you’re trying to find spatial data, try a search string that is extremely detailed such as, study area gis data download. One semi-important observation that I have made is the importance of including the word download in your search string. For example, you could search for, botswana gis data download."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#outline",
+    "href": "lectures/8_sampling/hypothesis_testing.html#outline",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Outline",
+    "text": "Outline\n\nHW1 overview\nInference using Hypothesis testing\n\nGeneral workflow for different kinds of data\n\nReal-world data exercise"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#conceptual-model",
+    "href": "lectures/8_sampling/hypothesis_testing.html#conceptual-model",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conceptual Model",
+    "text": "Conceptual Model\n\n\nWhat are we trying to do\n\nobserved/sampled data -&gt; population inference\n\nGenerate a hypothesis\n\nThrough descriptive/exploratory statistics\n\nTest the Hypothesis\n\nCreate a suitable ‘null’ hypothesis\nCheck if we have enough evidence to reject the null hypothesis"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#lets-take-an-example",
+    "href": "lectures/8_sampling/hypothesis_testing.html#lets-take-an-example",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Lets take an example",
+    "text": "Lets take an example\n\n\nWhat are we trying to do\n\nobserved/sampled data -&gt; population inference\n\nGenerate a hypothesis\n\nThrough descriptive/exploratory statistics\n\nTest the Hypothesis\n\nCreate a suitable ‘null’ hypothesis\nCheck if we have enough evidence to reject the null hypothesis"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#section",
+    "href": "lectures/8_sampling/hypothesis_testing.html#section",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "",
+    "text": "According to national report, 50% of rural respondents believe that climate change is caused by humans. You want to assess whether the proportion of rural respondents in your sample differs from the national average."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis",
+    "href": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What is our testable hypothesis",
+    "text": "What is our testable hypothesis\n\n\nNull Hypothesis\n\nThe proportion of rural respondents who believe in human-induced climate change is 0.5\nHypothesis testing for one proportion\n\nAlternate Hypothesis\n\nThe proportion of rural respondents who believe in human-induced climate change is not equal to 0.5\n2-sided hypothesis test"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis",
+    "href": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Desriptive Analysis",
+    "text": "Desriptive Analysis\n\nggplot(data = dat_1prop, aes(x = climhuman)) +\n  geom_bar()"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#example",
+    "href": "lectures/8_sampling/hypothesis_testing.html#example",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example:",
+    "text": "Example:\nOne consultant tried to attract patients by noting the average complication rate for liver donor surgeries in the US is about 10%, but her clients have had only 3 complications in the 62 liver donor surgeries she has facilitated. She claims this is strong evidence that her work meaningfully contributes to reducing complications (and therefore she should be hired!)."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#bootstrap-percentile-confidence-interval",
+    "href": "lectures/8_sampling/hypothesis_testing.html#bootstrap-percentile-confidence-interval",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bootstrap Percentile Confidence Interval",
+    "text": "Bootstrap Percentile Confidence Interval\nDoes the interval estimate of 0% to 11.3% for the true probability of complication indicate that the surgical consultant has a lower rate of complications than the national average"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#confidence-intervals",
+    "href": "lectures/8_sampling/hypothesis_testing.html#confidence-intervals",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Confidence Intervals",
+    "text": "Confidence Intervals\n\nPlausible range of values for the population parameter\nIf we want to be very certain we capture the population parameter, should we use a wider interval (e.g., 99%) or a smaller interval (e.g., 80%)"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#bootstrap-confidence-interval",
+    "href": "lectures/8_sampling/hypothesis_testing.html#bootstrap-confidence-interval",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Bootstrap confidence interval",
+    "text": "Bootstrap confidence interval\n\nSampling WITH replacement\nThe bootstrap distribution will likely not have the same center as the sampling distribution. In other words, bootstrapping cannot improve the quality of an estimate.\nEven if the bootstrap distribution might not have the same center as the sampling distribution, it will likely have very similar shape and spread. In other words, bootstrapping will give you a good estimate of the standard error."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#other-ways-to-construct-confidence-intervals",
+    "href": "lectures/8_sampling/hypothesis_testing.html#other-ways-to-construct-confidence-intervals",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Other ways to construct Confidence Intervals",
+    "text": "Other ways to construct Confidence Intervals\n\nStandard Error Method\n\nSample mean distribution needs to normally distributed"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals",
+    "href": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\n\nDid the net capture the fish\nDid the 95% CI capture the true population parameter\nWill every 95% CI capture the true parameter"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\nIf we repeated our sampling procedure a large number of times, we expect about 95% of the resulting 95% confidence intervals to capture the value of the population parameter."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\n\n95% CI"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\n\n80% CI"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\n\nImpact of sample size"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals-5",
+    "href": "lectures/8_sampling/hypothesis_testing.html#interpreting-confidence-intervals-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Confidence Intervals",
+    "text": "Interpreting Confidence Intervals\n\nImpact of Significance level"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#hypothesis-testing",
+    "href": "lectures/8_sampling/hypothesis_testing.html#hypothesis-testing",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Hypothesis Testing",
+    "text": "Hypothesis Testing\nModerndive Gender discrimination example"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#hypothesis-testing-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#hypothesis-testing-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Hypothesis Testing",
+    "text": "Hypothesis Testing"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#p-value",
+    "href": "lectures/8_sampling/hypothesis_testing.html#p-value",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "P-value",
+    "text": "P-value\nA p-value is the probability of obtaining a test statistic just as or more extreme than the observed test statistic assuming the null hypothesis H0 is true."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#interpreting-hypothesis-tests",
+    "href": "lectures/8_sampling/hypothesis_testing.html#interpreting-hypothesis-tests",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Interpreting Hypothesis Tests",
+    "text": "Interpreting Hypothesis Tests\n\nIf the p-value is less than α, then we reject the null hypothesis H0 in favor of HA.\nIf the p-value is greater than or equal to α, we fail to reject the null hypothesis H0."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#your-turn",
+    "href": "lectures/8_sampling/hypothesis_testing.html#your-turn",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Your turn",
+    "text": "Your turn\n\nWhat is your null hypothesis\nWhat is your alternative hypothesis\n\n\n\n#10 Confidence Intervals"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-proportion",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-proportion",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Proportion",
+    "text": "Calculate Proportion\n\nOne nominal variable\n\n\ndat_1prop |&gt; \n  summarize(prop_clim = sum(climhuman==\"yes\")/40)\n\n# A tibble: 1 × 1\n  prop_clim\n      &lt;dbl&gt;\n1       0.6\n\np_hat &lt;- dat_1prop|&gt;\n  specify(response = climhuman, success = \"yes\")  |&gt;\n  calculate(stat = \"prop\")\np_hat\n\nResponse: climhuman (factor)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1   0.6"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Null Distribution",
+    "text": "Calculate Null Distribution\n\nnull_distn_one_prop &lt;- dat_1prop |&gt;\n  specify(response = climhuman, success = \"yes\") |&gt;\n  hypothesize(null = \"point\", p = 0.5) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"prop\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate P value",
+    "text": "Calculate P value\n\nnull_distn_one_prop |&gt;\n visualize() +\n  shade_p_value(obs_stat = p_hat, direction = \"both\")\n\npvalue &lt;- null_distn_one_prop |&gt;\n  get_pvalue(obs_stat = p_hat, direction = \"both\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1   0.275"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Confidence Interval",
+    "text": "Calculate Confidence Interval\n\nboot_distn_one_prop &lt;- dat_1prop |&gt;\n  specify(response = climhuman, success = \"yes\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"prop\")\n\nci &lt;- boot_distn_one_prop |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1     0.45     0.75"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval",
+    "href": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Draw Confidence Interval",
+    "text": "Draw Confidence Interval\n\nboot_distn_one_prop |&gt;\n  visualize() +\n  shade_ci(endpoints = ci) +\n  geom_vline(xintercept = 0.5,\n             color = \"black\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#example-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#example-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example 1",
+    "text": "Example 1\nAccording to national report, 50% of rural respondents believe that climate change is caused by humans. You want to assess whether the proportion of rural respondents in your sample differs from the national average."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#conclusion",
+    "href": "lectures/8_sampling/hypothesis_testing.html#conclusion",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conclusion",
+    "text": "Conclusion\n\n\nDo we reject the null hypothesis?\n\nNo.\nWe are not very confident that our results are NOT due to sampling variability"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#example-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#example-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example 2",
+    "text": "Example 2\n\nDoes place matter?\n\nAre urban residents more likely to believe that climate change is caused by humans, as compared to rural residents?"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What is our testable hypothesis",
+    "text": "What is our testable hypothesis\n\n\nNull Hypothesis\n\nThe proportion of urban respondents who believe in human-induced climate change is the same as the proportion of rural residents\nHypothesis testing for 2 proportions\n\nAlternate Hypothesis\n\nThe proportion of urban respondents who believe in human-induced climate change is the greater than the proportion of rural residents\none-sided hypothesis test"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Desriptive Analysis",
+    "text": "Desriptive Analysis\n\nggplot(dat_2prop, aes(x = area_type, fill = climhuman)) +\n  geom_bar(position = \"fill\") +\n  labs(x = \"Area Type\", y = \"Proportion (Climate change caused by humans)\") +\n  coord_flip()"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-proportion",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-proportion",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Difference in Proportion",
+    "text": "Calculate Difference in Proportion\n\n2 nominal variables\n\n\ndat_2prop |&gt;\n  group_by(area_type) |&gt;\n  summarize(prop_clim = sum(climhuman==\"yes\")/length(climhuman))\n\n# A tibble: 2 × 2\n  area_type prop_clim\n  &lt;fct&gt;         &lt;dbl&gt;\n1 urban          0.75\n2 rural          0.6 \n\nd_hat &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\nd_hat\n\nResponse: climhuman (factor)\nExplanatory: area_type (factor)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  0.15"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Null Distribution",
+    "text": "Calculate Null Distribution\n\nset.seed(2018)\nnull_distn_two_props &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  hypothesize(null = \"independence\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate P value",
+    "text": "Calculate P value\n\nnull_distn_two_props |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"greater\")\n\npvalue &lt;- null_distn_two_props  |&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"greater\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1  0.0869"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Confidence Interval",
+    "text": "Calculate Confidence Interval\n\nboot_distn_two_props &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\n\nci &lt;- boot_distn_two_props |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1  -0.0429    0.341"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Draw Confidence Interval",
+    "text": "Draw Confidence Interval\n\nboot_distn_two_props |&gt;\n  visualize() +\n  shade_ci(endpoints = ci) +\n  geom_vline(xintercept = 0,\n             color = \"black\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#conclusion-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#conclusion-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "lectures/8_sampling/lab6.html",
+    "href": "lectures/8_sampling/lab6.html",
+    "title": "Geographic Data Visualization",
+    "section": "",
+    "text": "library(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   4.0.0     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(readr)\nlibrary(infer)\n\ndat_2prop &lt;- read_rds(\"./data/dat_2prop.rds\")\n\n\n\nAre urban residents more likely to believe that climate change is caused by humans, as compared to rural residents?\n\nWhat is our testable hypothesis? Type your Null and Alternate Hypothesis\n\n\n\n\n\nggplot(dat_2prop, aes(x = area_type, fill = climhuman)) +\n  geom_bar(position = \"fill\") +\n  labs(x = \"Area Type\", y = \"Proportion (Climate change caused by humans)\") +\n  coord_flip()\n\n\n\n\nBased on the graph, what is your guess? Write in 1 sentence\n\n\n\nThis analysis is akin to running hypothesis testing for 2 nominal variables.\n\ndat_2prop |&gt;\n  group_by(area_type) |&gt;\n  summarize(prop_clim = sum(climhuman==\"yes\")/length(climhuman))\n\n# A tibble: 2 × 2\n  area_type prop_clim\n  &lt;fct&gt;         &lt;dbl&gt;\n1 urban          0.75\n2 rural          0.6 \n\nd_hat &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\nd_hat\n\nResponse: climhuman (factor)\nExplanatory: area_type (factor)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  0.15\n\n\n\n\n\n\nset.seed(2018) \n\nnull_distn_two_props &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  hypothesize(null = \"independence\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\n\nSetting `type = \"permute\"` in `generate()`.\n\n\n\n\n\n\nnull_distn_two_props |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"greater\")\n\n\n\npvalue &lt;- null_distn_two_props  |&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"greater\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1  0.0869\n\n\n\n\n\n\nboot_distn_two_props &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\n\nSetting `type = \"bootstrap\"` in `generate()`.\n\nci &lt;- boot_distn_two_props |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1  -0.0429    0.341\n\n\n\n\n\n\nboot_distn_two_props |&gt;\n  visualize() +\n  shade_ci(endpoints = ci) +\n  geom_vline(xintercept = 0,\n             color = \"black\")\n\n\n\n\n\n\n\n\nprop.test(x = c(45, 24), n = c(60, 40),\n              alternative = \"greater\")\n\n\n    2-sample test for equality of proportions with continuity correction\n\ndata:  c(45, 24) out of c(60, 40)\nX-squared = 1.872, df = 1, p-value = 0.08562\nalternative hypothesis: greater\n95 percent confidence interval:\n -0.02795776  1.00000000\nsample estimates:\nprop 1 prop 2 \n  0.75   0.60 \n\n\n\n\n\n\n\n\nDo we reject the null hypothesis? Why or why not?\nAre our results similar to the statistical test?"
+  },
+  {
+    "objectID": "lectures/8_sampling/lab6.html#example-2-does-place-matter",
+    "href": "lectures/8_sampling/lab6.html#example-2-does-place-matter",
+    "title": "Geographic Data Visualization",
+    "section": "",
+    "text": "Are urban residents more likely to believe that climate change is caused by humans, as compared to rural residents?\n\nWhat is our testable hypothesis? Type your Null and Alternate Hypothesis"
+  },
+  {
+    "objectID": "lectures/8_sampling/lab6.html#run-the-following-desriptive-analysis",
+    "href": "lectures/8_sampling/lab6.html#run-the-following-desriptive-analysis",
+    "title": "Geographic Data Visualization",
+    "section": "",
+    "text": "ggplot(dat_2prop, aes(x = area_type, fill = climhuman)) +\n  geom_bar(position = \"fill\") +\n  labs(x = \"Area Type\", y = \"Proportion (Climate change caused by humans)\") +\n  coord_flip()\n\n\n\n\nBased on the graph, what is your guess? Write in 1 sentence"
+  },
+  {
+    "objectID": "lectures/8_sampling/lab6.html#calculate-difference-in-proportion",
+    "href": "lectures/8_sampling/lab6.html#calculate-difference-in-proportion",
+    "title": "Geographic Data Visualization",
+    "section": "",
+    "text": "This analysis is akin to running hypothesis testing for 2 nominal variables.\n\ndat_2prop |&gt;\n  group_by(area_type) |&gt;\n  summarize(prop_clim = sum(climhuman==\"yes\")/length(climhuman))\n\n# A tibble: 2 × 2\n  area_type prop_clim\n  &lt;fct&gt;         &lt;dbl&gt;\n1 urban          0.75\n2 rural          0.6 \n\nd_hat &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\nd_hat\n\nResponse: climhuman (factor)\nExplanatory: area_type (factor)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  0.15"
+  },
+  {
+    "objectID": "lectures/8_sampling/lab6.html#calculate-null-distribution",
+    "href": "lectures/8_sampling/lab6.html#calculate-null-distribution",
+    "title": "Geographic Data Visualization",
+    "section": "",
+    "text": "set.seed(2018) \n\nnull_distn_two_props &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  hypothesize(null = \"independence\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\n\nSetting `type = \"permute\"` in `generate()`."
+  },
+  {
+    "objectID": "lectures/8_sampling/lab6.html#calculate-p-value",
+    "href": "lectures/8_sampling/lab6.html#calculate-p-value",
+    "title": "Geographic Data Visualization",
+    "section": "",
+    "text": "null_distn_two_props |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"greater\")\n\n\n\npvalue &lt;- null_distn_two_props  |&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"greater\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1  0.0869"
+  },
+  {
+    "objectID": "lectures/8_sampling/lab6.html#calculate-confidence-interval",
+    "href": "lectures/8_sampling/lab6.html#calculate-confidence-interval",
+    "title": "Geographic Data Visualization",
+    "section": "",
+    "text": "boot_distn_two_props &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\n\nSetting `type = \"bootstrap\"` in `generate()`.\n\nci &lt;- boot_distn_two_props |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1  -0.0429    0.341"
+  },
+  {
+    "objectID": "lectures/8_sampling/lab6.html#draw-confidence-interval",
+    "href": "lectures/8_sampling/lab6.html#draw-confidence-interval",
+    "title": "Geographic Data Visualization",
+    "section": "",
+    "text": "boot_distn_two_props |&gt;\n  visualize() +\n  shade_ci(endpoints = ci) +\n  geom_vline(xintercept = 0,\n             color = \"black\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/lab6.html#if-you-were-to-use-a-statistical-formula",
+    "href": "lectures/8_sampling/lab6.html#if-you-were-to-use-a-statistical-formula",
+    "title": "Geographic Data Visualization",
+    "section": "",
+    "text": "prop.test(x = c(45, 24), n = c(60, 40),\n              alternative = \"greater\")\n\n\n    2-sample test for equality of proportions with continuity correction\n\ndata:  c(45, 24) out of c(60, 40)\nX-squared = 1.872, df = 1, p-value = 0.08562\nalternative hypothesis: greater\n95 percent confidence interval:\n -0.02795776  1.00000000\nsample estimates:\nprop 1 prop 2 \n  0.75   0.60"
+  },
+  {
+    "objectID": "lectures/8_sampling/lab6.html#conclusion",
+    "href": "lectures/8_sampling/lab6.html#conclusion",
+    "title": "Geographic Data Visualization",
+    "section": "",
+    "text": "Do we reject the null hypothesis? Why or why not?\nAre our results similar to the statistical test?"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html",
+    "href": "lectures/8_sampling/hypothesis_testing.html",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "",
+    "text": "library(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   4.0.0     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(readr)\nlibrary(infer)\n\ndat_1prop &lt;- read_rds(\"./data/dat_1prop.rds\")\ndat_2prop &lt;- read_rds(\"./data/dat_2prop.rds\")\ndat_1mean &lt;- read_rds(\"./data/dat_1mean.rds\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#lets-take-an-example-example-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#lets-take-an-example-example-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Lets take an example: Example 1",
+    "text": "Lets take an example: Example 1\nAccording to a national report, 50% of rural respondents believe that climate change is caused by humans. You want to assess whether the proportion of rural respondents in your sample differs from the national average."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#your-turn-lab-6",
+    "href": "lectures/8_sampling/hypothesis_testing.html#your-turn-lab-6",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Your turn: Lab 6",
+    "text": "Your turn: Lab 6\n\nDoes place matter?\n\nAre urban residents more likely to believe that climate change is caused by humans, as compared to rural residents?"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#through-formulae",
+    "href": "lectures/8_sampling/hypothesis_testing.html#through-formulae",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Through Formulae",
+    "text": "Through Formulae\n\nprop.test(\n  x = table(dat_1prop$climhuman),\n  n = length(dat_1prop$climhuman),\n  alternative = \"two.sided\",\n  p = 0.5,\n  correct = FALSE\n)\n\n\n    1-sample proportions test without continuity correction\n\ndata:  table(dat_1prop$climhuman), null probability 0.5\nX-squared = 1.6, df = 1, p-value = 0.2059\nalternative hypothesis: true p is not equal to 0.5\n95 percent confidence interval:\n 0.4459589 0.7365167\nsample estimates:\n  p \n0.6"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What is our testable hypothesis",
+    "text": "What is our testable hypothesis\n\n\nNull Hypothesis\n\nThe mean age of those who believe in human-induced climate change is the same as national average (23)\nHypothesis testing for one mean\n\nAlternate Hypothesis\n\nThe mean age of those who believe in human-induced climate change is &gt; 23\none-sided hypothesis test"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Desriptive Analysis",
+    "text": "Desriptive Analysis\n\nggplot(dat_2prop, aes(x = area_type, fill = climhuman)) +\n  geom_bar(position = \"fill\") +\n  labs(x = \"Area Type\", y = \"Proportion (Climate change caused by humans)\") +\n  coord_flip()"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-proportion-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-proportion-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Difference in Proportion",
+    "text": "Calculate Difference in Proportion\n\nOne nominal variable\n\n\ndat_2prop |&gt;\n  group_by(area_type) |&gt;\n  summarize(prop_clim = sum(climhuman==\"yes\")/length(climhuman))\n\n# A tibble: 2 × 2\n  area_type prop_clim\n  &lt;fct&gt;         &lt;dbl&gt;\n1 urban          0.75\n2 rural          0.6 \n\nd_hat &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\nd_hat\n\nResponse: climhuman (factor)\nExplanatory: area_type (factor)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  0.15"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Null Distribution",
+    "text": "Calculate Null Distribution\n\nset.seed(2018)\n\nnull_distn_one_mean &lt;- dat_1mean |&gt;\n  specify(response = age) |&gt;\n  hypothesize(null = \"point\", mu = 23) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate P value",
+    "text": "Calculate P value\n\nnull_distn_one_mean |&gt;\n  visualize() +\n  shade_p_value(obs_stat = x_bar, direction = \"greater\")\n\npvalue &lt;- null_distn_one_mean |&gt;\n  get_pvalue(obs_stat = x_bar, direction = \"greater\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Confidence Interval",
+    "text": "Calculate Confidence Interval\n\nboot_distn_one_mean &lt;- dat_1mean |&gt;\n  specify(response = age) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")\n\nci &lt;- boot_distn_one_mean |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1     26.6     29.1"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Draw Confidence Interval",
+    "text": "Draw Confidence Interval\n\nboot_distn_one_mean |&gt;\n  visualize() +\n  shade_ci(endpoints = ci) +\n  geom_vline(xintercept = 23,\n             color = \"black\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#through-formulae-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#through-formulae-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Through Formulae",
+    "text": "Through Formulae\n\nprop.test(x = c(45, 24), n = c(60, 40),\n              alternative = \"greater\")\n\n\n    2-sample test for equality of proportions with continuity correction\n\ndata:  c(45, 24) out of c(60, 40)\nX-squared = 1.872, df = 1, p-value = 0.08562\nalternative hypothesis: greater\n95 percent confidence interval:\n -0.02795776  1.00000000\nsample estimates:\nprop 1 prop 2 \n  0.75   0.60"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#conclusion-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#conclusion-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#example-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#example-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example 3",
+    "text": "Example 3\nAccording to the same national report, the average age of respondents who believe that climate change is caused by humans is 24 years. You feel that older people in your study area are more aware too and hence think that your area may have a comparatively older population that believes in human-induced climate change."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What is our testable hypothesis",
+    "text": "What is our testable hypothesis\n\n\nNull Hypothesis\n\nThere is no association between age and beliefs in human-induced climate change\nMean age is same for those who believe in human-induced climate change compared to those who do not\nHypothesis testing for 2 means (independent samples)\n\nAlternate Hypothesis\n\nThe mean age is lower for those who believe in human-induced climate change compared to those who do not\none-sided hypothesis test"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Desriptive Analysis",
+    "text": "Desriptive Analysis\n\n# Lets look at distribution of those say yes\ndat_1mean &lt;- dat_1mean |&gt;\n  filter(climhuman == \"yes\")\n\nggplot(data = dat_1mean, mapping = aes(x = age)) +\n  geom_histogram(binwidth = 3, color = \"white\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-the-sample-mean",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-the-sample-mean",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate the Sample mean",
+    "text": "Calculate the Sample mean\n\nOne continuous variable\n\n\nsummary(dat_1mean$age)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  19.00   24.00   27.00   27.84   31.00   40.00 \n\nx_bar &lt;- dat_1mean |&gt;\n  specify(response = age) |&gt;\n  calculate(stat = \"mean\")\nx_bar\n\nResponse: age (numeric)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  27.8"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Null Distribution",
+    "text": "Calculate Null Distribution\n\nset.seed(2018)\nnull_distn_two_means &lt;- dat_2means |&gt;\n  specify(age ~ climhuman) |&gt;\n  hypothesize(null = \"independence\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(\n    stat = \"diff in means\",\n    order = c(\"yes\", \"no\")\n  )"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate P value",
+    "text": "Calculate P value\n\nnull_distn_two_means |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"less\")\n\npvalue &lt;- null_distn_two_means |&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"less\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Confidence Interval",
+    "text": "Calculate Confidence Interval\n\nboot_distn_two_means &lt;- dat_2means |&gt;\n  specify(age ~ climhuman) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in means\", order = c(\"yes\", \"no\"))\n\nci &lt;- boot_distn_two_means |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1    -14.1    -8.30"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Draw Confidence Interval",
+    "text": "Draw Confidence Interval\n\nboot_distn_two_means |&gt;\n  visualize() +\n  shade_ci(endpoints = ci) +\n  geom_vline(xintercept = 0,\n             color = \"black\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#through-formulae-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#through-formulae-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Through formulae",
+    "text": "Through formulae\n\nt_test_results &lt;- dat_1mean |&gt;\n  t_test(\n    formula = age ~ NULL,\n    alternative = \"greater\",\n    mu = 23\n  )\nt_test_results\n\n# A tibble: 1 × 7\n  statistic  t_df  p_value alternative estimate lower_ci upper_ci\n      &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;\n1      7.62    68 5.36e-11 greater         27.8     26.8      Inf"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#conclusion-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#conclusion-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#example-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#example-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example 4",
+    "text": "Example 4\n\nDoes Age matter?\n\nAre younger residents more likely to believe that climate change is caused by humans, as compared to older residents?"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What is our testable hypothesis",
+    "text": "What is our testable hypothesis\n\n\nNull Hypothesis\n\nThe campaign had no impact\nMean score is same before and after the compaign\nHypothesis testing for 2 means (paired samples)\n\nAlternate Hypothesis\n\nThe campaign had a positive impact\nMean score is higher after the campaign as compared to before\none-sided hypothesis test"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Desriptive Analysis",
+    "text": "Desriptive Analysis\n\ndat_2means &lt;- read_rds(\"./data/dat_1mean.rds\")\nggplot(dat_2means, aes(x = climhuman, y = age)) +\n  geom_boxplot() +\n  stat_summary(fun = \"mean\", geom = \"point\", color = \"red\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-means",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-means",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Difference in means",
+    "text": "Calculate Difference in means\n\n1 continuous variable, One nominal variable\n\n\ndat_2means |&gt;\n  group_by(climhuman) |&gt;\n  summarize(mean_age= mean(age))\n\n# A tibble: 2 × 2\n  climhuman mean_age\n  &lt;fct&gt;        &lt;dbl&gt;\n1 yes           27.8\n2 no            39.1\n\nd_hat &lt;- dat_2means |&gt;\n  specify(age ~ climhuman) |&gt;\n  calculate(\n    stat = \"diff in means\",\n    order = c(\"yes\", \"no\")\n  )\nd_hat\n\nResponse: age (numeric)\nExplanatory: climhuman (factor)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1 -11.2"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Null Distribution",
+    "text": "Calculate Null Distribution\n\nVery similar to the One mean example (Example 3)\n\n\nset.seed(2018)\nnull_distn_paired_means &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  hypothesize(null = \"point\", mu = 0) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate P value",
+    "text": "Calculate P value\n\nnull_distn_paired_means |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"greater\")\n\npvalue &lt;- null_distn_paired_means|&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"greater\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Confidence Interval",
+    "text": "Calculate Confidence Interval\n\nboot_distn_paired_means &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")\n\nci &lt;- boot_distn_paired_means |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1     0.66     1.02"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Draw Confidence Interval",
+    "text": "Draw Confidence Interval\n\nboot_distn_paired_means |&gt;\n  visualize() +\n  shade_ci(endpoints = ci) +\n  geom_vline(xintercept = 0,\n             color = \"black\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#through-formulae-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#through-formulae-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Through formulae",
+    "text": "Through formulae\n\nt.test(age ~ climhuman, data = dat_2means, var.equal = FALSE,\n        alternative = \"less\")\n\n\n    Welch Two Sample t-test\n\ndata:  age by climhuman\nt = -7.6401, df = 44.349, p-value = 6.342e-10\nalternative hypothesis: true difference in means between group yes and group no is less than 0\n95 percent confidence interval:\n      -Inf -8.755957\nsample estimates:\nmean in group yes  mean in group no \n         27.84058          39.06452"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#conclusion-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#conclusion-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#example-4-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#example-4-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example 4",
+    "text": "Example 4\n\nDoes Age matter?\n\nAre younger residents more likely to believe that climate change is caused by humans, as compared to older residents?"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-5",
+    "href": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What is our testable hypothesis",
+    "text": "What is our testable hypothesis\n\n\nNull Hypothesis\n\nThere is no association between age and beliefs in human-induced climate change\nMean age is same for those who believe in human-induced climate change compared to those who do not\nHypothesis testing for 2 means (independent samples)\n\nAlternate Hypothesis\n\nThe mean age is lower for those who believe in human-induced climate change compared to those who do not\none-sided hypothesis test"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-5",
+    "href": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Desriptive Analysis",
+    "text": "Desriptive Analysis\n\ndat_2means &lt;- read_rds(\"./data/dat_1mean.rds\")\nggplot(dat_2means, aes(x = climhuman, y = age)) +\n  geom_boxplot() +\n  stat_summary(fun = \"mean\", geom = \"point\", color = \"red\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-means-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-means-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Difference in means",
+    "text": "Calculate Difference in means\n\n2 paired continuous variables (?)\n\n\nd_hat &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  calculate(stat = \"mean\")\nd_hat\n\nResponse: pair_diff (numeric)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  0.84\n\nggplot(dat_diff, aes(x = pair_diff)) +\n  geom_histogram(binwidth = 0.04, color = \"white\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-5",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Null Distribution",
+    "text": "Calculate Null Distribution\n\nset.seed(2018)\nnull_distn_two_means &lt;- dat_2means |&gt;\n  specify(age ~ climhuman) |&gt;\n  hypothesize(null = \"independence\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(\n    stat = \"diff in means\",\n    order = c(\"yes\", \"no\")\n  )\n\nSetting `type = \"permute\"` in `generate()`."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-5",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate P value",
+    "text": "Calculate P value\n\nnull_distn_two_means |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"less\")\n\n\n\npvalue &lt;- null_distn_two_means |&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"less\")\n\nWarning: Please be cautious in reporting a p-value of 0. This result is an approximation\nbased on the number of `reps` chosen in the `generate()` step.\nℹ See `get_p_value()` (`?infer::get_p_value()`) for more information.\n\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-5",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Confidence Interval",
+    "text": "Calculate Confidence Interval\n\nboot_distn_two_means &lt;- dat_2means |&gt;\n  specify(age ~ climhuman) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in means\", order = c(\"yes\", \"no\"))\n\nSetting `type = \"bootstrap\"` in `generate()`.\n\nci &lt;- boot_distn_two_means |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1    -14.1    -8.30"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-5",
+    "href": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Draw Confidence Interval",
+    "text": "Draw Confidence Interval\n\nboot_distn_two_means |&gt;\n  visualize() +\n  shade_ci(endpoints = ci) +\n  geom_vline(xintercept = 0,\n             color = \"black\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#through-formulae-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#through-formulae-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Through formulae",
+    "text": "Through formulae\n\nt_test_results &lt;- dat_diff |&gt;\n  t_test(\n    formula = pair_diff ~ NULL,\n    alternative = \"less\",\n    mu = 0\n  )\nt_test_results\n\n# A tibble: 1 × 7\n  statistic  t_df p_value alternative estimate lower_ci upper_ci\n      &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;\n1      8.94    99    1.00 less            0.84     -Inf    0.996"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#conclusion-5",
+    "href": "lectures/8_sampling/hypothesis_testing.html#conclusion-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#example-5",
+    "href": "lectures/8_sampling/hypothesis_testing.html#example-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example 5",
+    "text": "Example 5\n\nDoes Climate change education matter?\n\nSuppose the same people in your study were surveyed before and after an educational campaign about climate change.\nThey were assigned “climate concern score” (from 1–10) before and after the campaign\nAre residents more concerned about human-induced climate change after a climate change educational campaign?"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-6",
+    "href": "lectures/8_sampling/hypothesis_testing.html#what-is-our-testable-hypothesis-6",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "What is our testable hypothesis",
+    "text": "What is our testable hypothesis\n\n\nNull Hypothesis\n\nThe campaign had no impact\nMean score is same before and after the compaign\nHypothesis testing for 2 means (paired samples)\n\nAlternate Hypothesis\n\nThe campaign had a positive impact\nMean score is higher after the campaign as compared to before\none-sided hypothesis test"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-6",
+    "href": "lectures/8_sampling/hypothesis_testing.html#desriptive-analysis-6",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Desriptive Analysis",
+    "text": "Desriptive Analysis\n\ndat_2means_paired &lt;- read_rds(\"./data/dat_2means_paired.rds\")\ndat_2means_paired &lt;- dat_2means_paired |&gt;\n  mutate(id = 1:100)\n\nd2mp_long &lt;- dat_2means_paired |&gt;\n  select(id,concern_before,concern_after) |&gt;\n  pivot_longer(cols = concern_before:concern_after)\n\nggplot(d2mp_long, aes(\n  x = name, y = value,\n  color = name, shape = name\n)) +\n  geom_boxplot(\n    show.legend = FALSE,\n    outlier.shape = \"triangle\"\n  ) +\n  geom_text(aes(label = id),\n    color = \"black\",\n    hjust = rep(c(-0.15, 1.3), each = 100),\n    show.legend = FALSE, size = 3\n  ) +\n  geom_line(aes(group = id), color = \"grey\", linewidth = 0.25) +\n  geom_point(show.legend = FALSE) + \n  labs(\n    x = \"Tire brand\",\n    y = NULL,\n    title = \"Original data\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-means-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-means-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Difference in means",
+    "text": "Calculate Difference in means\n\n2 paired continuous variables (?)\n\n\ndat_diff &lt;- d2mp_long |&gt;\n  group_by(id) |&gt;\n  summarize(pair_diff = diff(value)) |&gt;\n  ungroup()\n\n\nd_hat &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  calculate(stat = \"mean\")\nd_hat\n\nResponse: pair_diff (numeric)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  0.84\n\nggplot(dat_diff, aes(x = pair_diff)) +\n  geom_histogram(binwidth = 0.04, color = \"white\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-6",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-6",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Null Distribution",
+    "text": "Calculate Null Distribution\n\nVery similar to the One mean example (Example 2)\n\n\nset.seed(2018)\nnull_distn_paired_means &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  hypothesize(null = \"point\", mu = 0) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")\n\nSetting `type = \"bootstrap\"` in `generate()`."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-6",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-6",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate P value",
+    "text": "Calculate P value\n\nnull_distn_paired_means |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"greater\")\n\n\n\npvalue &lt;- null_distn_paired_means|&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"greater\")\n\nWarning: Please be cautious in reporting a p-value of 0. This result is an approximation\nbased on the number of `reps` chosen in the `generate()` step.\nℹ See `get_p_value()` (`?infer::get_p_value()`) for more information.\n\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-6",
+    "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-6",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Calculate Confidence Interval",
+    "text": "Calculate Confidence Interval\n\nboot_distn_paired_means &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")\n\nSetting `type = \"bootstrap\"` in `generate()`.\n\nci &lt;- boot_distn_paired_means |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1     0.66     1.02"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-6",
+    "href": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-6",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Draw Confidence Interval",
+    "text": "Draw Confidence Interval\n\nboot_distn_paired_means |&gt;\n  visualize() +\n  shade_ci(endpoints = ci) +\n  geom_vline(xintercept = 0,\n             color = \"black\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#through-formulae-5",
+    "href": "lectures/8_sampling/hypothesis_testing.html#through-formulae-5",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Through formulae",
+    "text": "Through formulae\n\nt_test_results &lt;- dat_diff |&gt;\n  t_test(\n    formula = pair_diff ~ NULL,\n    alternative = \"less\",\n    mu = 0\n  )\nt_test_results\n\n# A tibble: 1 × 7\n  statistic  t_df p_value alternative estimate lower_ci upper_ci\n      &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;\n1      8.94    99    1.00 less            0.84     -Inf    0.996"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#conclusion-6",
+    "href": "lectures/8_sampling/hypothesis_testing.html#conclusion-6",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis",
+    "href": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Analysis",
+    "text": "Descriptive Analysis\n\nggplot(data = dat_1prop, aes(x = climhuman)) +\n  geom_bar()"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Analysis",
+    "text": "Descriptive Analysis\n\nggplot(dat_2prop, aes(x = area_type, fill = climhuman)) +\n  geom_bar(position = \"fill\") +\n  labs(x = \"Area Type\", y = \"Proportion (Climate change caused by humans)\") +\n  coord_flip()"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis-2",
+    "href": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Analysis",
+    "text": "Descriptive Analysis\n\n# Lets look at distribution of those say yes\ndat_1mean &lt;- dat_1mean |&gt;\n  filter(climhuman == \"yes\")\n\nggplot(data = dat_1mean, mapping = aes(x = age)) +\n  geom_histogram(binwidth = 3, color = \"white\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis-3",
+    "href": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Analysis",
+    "text": "Descriptive Analysis\n\ndat_2means &lt;- read_rds(\"./data/dat_1mean.rds\")\nggplot(dat_2means, aes(x = climhuman, y = age)) +\n  geom_boxplot() +\n  stat_summary(fun = \"mean\", geom = \"point\", color = \"red\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis-4",
+    "href": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Analysis",
+    "text": "Descriptive Analysis"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#a-general-workflow",
+    "href": "lectures/8_sampling/hypothesis_testing.html#a-general-workflow",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "A General Workflow",
+    "text": "A General Workflow"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#next-class",
+    "href": "lectures/8_sampling/hypothesis_testing.html#next-class",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Next Class",
+    "text": "Next Class\n\nErrors in Hypothesis Testing\nExploratory Spatial Analysis\n\n\n\n#11 Hypothesis Testing"
   }
 ]
