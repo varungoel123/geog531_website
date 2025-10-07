@@ -1,0 +1,117 @@
+---
+title: "Geographic Data Visualization"
+author: "Varun Goel"
+date: "`r Sys.Date()`"
+format: html
+editor: visual
+---
+
+# load data and packages
+```{r}
+library(tidyverse)
+library(readr)
+library(infer)
+
+dat_2prop <- read_rds("./data/dat_2prop.rds")
+```
+
+
+## Example 2: Does place matter? 
+
+Are urban residents more likely to believe that climate change is caused by humans, as compared to rural residents?
+    
+Q) **What is our testable hypothesis? Type your Null and Alternate Hypothesis**
+
+
+## Run the following Desriptive Analysis
+
+```{r}
+ggplot(dat_2prop, aes(x = area_type, fill = climhuman)) +
+  geom_bar(position = "fill") +
+  labs(x = "Area Type", y = "Proportion (Climate change caused by humans)") +
+  coord_flip()
+```
+
+Based on the graph, what is your guess? Write in 1 sentence
+
+## Calculate Difference in Proportion
+
+This analysis is akin to running hypothesis testing for 2 nominal variables.
+
+```{r}
+
+dat_2prop |>
+  group_by(area_type) |>
+  summarize(prop_clim = sum(climhuman=="yes")/length(climhuman))
+
+d_hat <- dat_2prop |>
+  specify(climhuman ~ area_type, success = "yes") |>
+  calculate(stat = "diff in props", order = c("urban", "rural"))
+d_hat
+```
+
+
+## Calculate Null Distribution
+
+```{r}
+set.seed(2018) 
+
+null_distn_two_props <- dat_2prop |>
+  specify(climhuman ~ area_type, success = "yes") |>
+  hypothesize(null = "independence") |>
+  generate(reps = 10000) |>
+  calculate(stat = "diff in props", order = c("urban", "rural"))
+```
+
+## Calculate P value
+
+```{r}
+null_distn_two_props |>
+  visualize() +
+  shade_p_value(obs_stat = d_hat, direction = "greater")
+
+pvalue <- null_distn_two_props  |>
+  get_pvalue(obs_stat = d_hat, direction = "greater")
+pvalue
+```
+
+## Calculate Confidence Interval
+
+```{r}
+boot_distn_two_props <- dat_2prop |>
+  specify(climhuman ~ area_type, success = "yes") |>
+  generate(reps = 10000) |>
+  calculate(stat = "diff in props", order = c("urban", "rural"))
+
+ci <- boot_distn_two_props |>
+  get_ci()
+ci
+```
+
+## Draw Confidence Interval
+
+```{r}
+boot_distn_two_props |>
+  visualize() +
+  shade_ci(endpoints = ci) +
+  geom_vline(xintercept = 0,
+             color = "black")
+  
+```
+
+## If you were to use a statistical formula
+
+
+```{r echo=TRUE}
+prop.test(x = c(45, 24), n = c(60, 40),
+              alternative = "greater")
+```
+
+
+## Conclusion
+
+#### Answer the following questions:
+
+1) Do we reject the null hypothesis? Why or why not?
+2) Are our results similar to the statistical test?
+

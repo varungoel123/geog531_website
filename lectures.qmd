@@ -36,3 +36,8 @@ date-format: medium
 #### Week 7: Question formation, Hypothesis Testing
 
 -   *Wednesday Oct 1: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_sampling/boot_ci_hypo.qmd){target="_blank"} )
+
+#### Week 8: Hypothesis Testing, Spatial Autocorrelation
+
+-   *Monday Oct 6: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_samplhypothesis_testing.qmd){target="_blank"} )
+
