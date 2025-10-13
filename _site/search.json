@@ -74,14 +74,14 @@
     "href": "readings.html",
     "title": "Readings",
     "section": "",
-    "text": "Week 4: Descriptive Spatial Statistics and Visualization\n\nGeoComputation with R - Chapter 2: Geographic Data in R\n\n\n\nWeek 5: Probability\n\nGoel et al., 2023\n\nWeek 7-8: Sampling and Sampling Distributions\n\nStudy Design (and Sampling): https://openintrostat.github.io/ims/data-design.html\nSampling, Confidence Intervals, Bootstrapping, Hypothesis testing: https://moderndive.com/v2/sampling.html\nNormal Distribution: https://moderndive.com/v2/appendixa\n(Recommended) Foundations of Inference (Ch 11,12,13): https://openintrostat.github.io/ims/data-design.html"
+    "text": "Week 4: Descriptive Spatial Statistics and Visualization\n\nGeoComputation with R - Chapter 2: Geographic Data in R\n\n\n\nWeek 5: Probability\n\nGoel et al., 2023\n\nWeek 7-8: Sampling and Sampling Distributions\n\nStudy Design (and Sampling): https://openintrostat.github.io/ims/data-design.html\nSampling, Confidence Intervals, Bootstrapping, Hypothesis testing: https://moderndive.com/v2/sampling.html\nNormal Distribution: https://moderndive.com/v2/appendixa\n(Recommended) Foundations of Inference (Ch 11,12,13): https://openintrostat.github.io/ims/data-design.html\n\nWeek 9: Hypothesis Testing - P-values and statistical significance https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf https://www.nature.com/articles/d41586-019-00874-8 https://www.cos.io/blog/we-should-redefine-statistical-significance\nWeek 10: Spatial Autocorrelation, Spatial Analysis\n\nPart 2: Spatial Analysis https://mgimond.github.io/Spatial/chp11_0.html\nAnother more extensive book https://paezha.github.io/spatial-analysis-r/"
   },
   {
     "objectID": "lectures.html",
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud\n\n\n\nWeek 3: Geographic Data in R\n\nMonday, Sep 3: Geographic Data in R ( html )\n\n\n\nWeek 4: Describing Geographic Data\n\nMonday, Sep 8: Describing Geographic Data ( html )\nWednesday, Sep 10: Geographic Data Visualization Lab ( html )\n\n\n\nWeek 5: Visualizing Quantitative data, Sampling and Distributions\n\nMonday, Sep 15: Visualizing Quantitative Data ( html )\nWednesday Sep 17: Measurement Considerations in Data ( html )\nMonday, Sep 22: Sampling ( html )\n\n\n\nWeek 7: Question formation, Hypothesis Testing\n\nWednesday Oct 1: Confidence Intervals and Hypothesis Testing ( html )\n\n\n\nWeek 8: Hypothesis Testing, Spatial Autocorrelation\n\nMonday Oct 6: Confidence Intervals and Hypothesis Testing ( html )"
+    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud\n\n\n\nWeek 3: Geographic Data in R\n\nMonday, Sep 3: Geographic Data in R ( html )\n\n\n\nWeek 4: Describing Geographic Data\n\nMonday, Sep 8: Describing Geographic Data ( html )\nWednesday, Sep 10: Geographic Data Visualization Lab ( html )\n\n\n\nWeek 5: Visualizing Quantitative data, Sampling and Distributions\n\nMonday, Sep 15: Visualizing Quantitative Data ( html )\nWednesday Sep 17: Measurement Considerations in Data ( html )\nMonday, Sep 22: Sampling ( html )\n\n\n\nWeek 7: Question formation, Hypothesis Testing\n\nWednesday Oct 1: Confidence Intervals and Hypothesis Testing ( html )\n\n\n\nWeek 8: Hypothesis Testing\n\nMonday Oct 6-8: Confidence Intervals and Hypothesis Testing ( html )\n\n\n\nWeek 8: Hypothesis Testing Errors, Spatial Autocorrelation\n\nMonday Oct 6-8: Confidence Intervals and Hypothesis Testing ( html )"
   },
   {
     "objectID": "data.html",
@@ -2258,7 +2258,7 @@
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate P value",
-    "text": "Calculate P value\n\nnull_distn_one_prop |&gt;\n visualize() +\n  shade_p_value(obs_stat = p_hat, direction = \"both\")\n\npvalue &lt;- null_distn_one_prop |&gt;\n  get_pvalue(obs_stat = p_hat, direction = \"both\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1   0.275"
+    "text": "Calculate P value\n\nnull_distn_one_prop |&gt;\n visualize() +\n  shade_p_value(obs_stat = p_hat, direction = \"both\")\n\npvalue &lt;- null_distn_one_prop |&gt;\n  get_pvalue(obs_stat = p_hat, direction = \"both\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1   0.262"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval",
@@ -2650,7 +2650,7 @@
     "href": "lectures/8_sampling/hypothesis_testing.html#conclusion-4",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Conclusion",
-    "text": "Conclusion"
+    "text": "Conclusion\nDid the campaign work or not?"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#example-4-1",
@@ -2840,5 +2840,229 @@
     "title": "Quantitative Methods in Geographic Research",
     "section": "Next Class",
     "text": "Next Class\n\nErrors in Hypothesis Testing\nExploratory Spatial Analysis\n\n\n\n#11 Hypothesis Testing"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#class-exercise",
+    "href": "lectures/8_sampling/hypothesis_testing.html#class-exercise",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Class Exercise",
+    "text": "Class Exercise\n\nThink about a potential question that you are interested in\nWhat could be one hypothesis related to your question that you could test?\n\nConceptually\nMathematically in terms of sample statistics (eg. mean or proportion)\n\nWhat would be the null hypothesis that you would want to reject?\n\nConceptually\nMathematically in terms of sample statistics (eg. mean or proportion)"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#errors-in-hypothesis-testing",
+    "href": "lectures/8_sampling/hypothesis_testing.html#errors-in-hypothesis-testing",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Errors in Hypothesis Testing",
+    "text": "Errors in Hypothesis Testing\n\nHypothesis tests are not flawless\nThink about wrongful convictions\nWe can quantify and control the rate of error"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#hypothesis-test-scenarios",
+    "href": "lectures/8_sampling/hypothesis_testing.html#hypothesis-test-scenarios",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Hypothesis Test Scenarios",
+    "text": "Hypothesis Test Scenarios"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#hypothesis-test-scenarios-1",
+    "href": "lectures/8_sampling/hypothesis_testing.html#hypothesis-test-scenarios-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Hypothesis Test Scenarios",
+    "text": "Hypothesis Test Scenarios\n\n\nNull Hypothesis (H0): Defendant is innocent\nAlternate Hypothesis (HA): Defendant is guilty\n\nWhat would type 1 error represent\nWhat would type 2 error represent\nConnections between type 1 and type 2"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#adjusting-for-errors",
+    "href": "lectures/8_sampling/hypothesis_testing.html#adjusting-for-errors",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Adjusting for errors",
+    "text": "Adjusting for errors\n\nAdjusting level of discernibility (instead of significance)\n\nReflects the real-world consequences for your error\n\nAdjusting Sample Size\n\nLarge sample sizes &lt;- smaller p value\nlarge sample sizes"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#example-food-safety-tests",
+    "href": "lectures/8_sampling/hypothesis_testing.html#example-food-safety-tests",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example: Food Safety Tests",
+    "text": "Example: Food Safety Tests\nA food safety inspector is called upon to investigate a restaurant with a few customer reports of poor sanitation practices. The food safety inspector uses a hypothesis testing framework to evaluate whether regulations are not being met. If he decides the restaurant is in gross violation, its license to serve food will be revoked."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#answer-the-following-question",
+    "href": "lectures/8_sampling/hypothesis_testing.html#answer-the-following-question",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Answer the following question",
+    "text": "Answer the following question\nAs a diner, would you prefer that the food safety inspector requires strong evidence or very strong evidence of health concerns before revoking a restaurant’s license?"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#example---flu-vaccine-study",
+    "href": "lectures/8_sampling/hypothesis_testing.html#example---flu-vaccine-study",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example - Flu vaccine study",
+    "text": "Example - Flu vaccine study\n\nH0: Old Flu Vaccine and New Flu Vaccine are the same\nHA: New Vaccine is superior to Old Flu Vaccine\nWhat would type 1 error be?\nWhat would type 2 error be?\nWhich would be more of an issue?"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_testing.html#other-assumptions-about-hypothesis-testing",
+    "href": "lectures/8_sampling/hypothesis_testing.html#other-assumptions-about-hypothesis-testing",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Other assumptions about hypothesis testing",
+    "text": "Other assumptions about hypothesis testing\n\n\nRandomness\n\nOften not the case in the real world\nneed to control for other factors\n\nIndependence\n\nEach sample is independent of the other\nKnowing something about one observation does not tell us anything about the other\nSpatial Statistics!!\n\nDoes not mean that alternate hypothesis is true\nMisusing hypothesis testing\n\n\n\n\n#11 Hypothesis Testing"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#outline",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#outline",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Outline",
+    "text": "Outline\n\nErrors in Hypothesis Testing\nSpatial Autocorrelation\nSpatial Patterns"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#errors-in-hypothesis-testing",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#errors-in-hypothesis-testing",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Errors in Hypothesis Testing",
+    "text": "Errors in Hypothesis Testing\n\nHypothesis tests are not flawless\nThink about wrongful convictions\nWe can quantify and control the rate of error"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#hypothesis-test-scenarios",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#hypothesis-test-scenarios",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Hypothesis Test Scenarios",
+    "text": "Hypothesis Test Scenarios"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#hypothesis-test-scenarios-1",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#hypothesis-test-scenarios-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Hypothesis Test Scenarios",
+    "text": "Hypothesis Test Scenarios\n\n\nNull Hypothesis (H0): Defendant is innocent\nAlternate Hypothesis (HA): Defendant is guilty\n\nWhat would type 1 error represent\nWhat would type 2 error represent\nConnections between type 1 and type 2"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#adjusting-for-errors",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#adjusting-for-errors",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Adjusting for errors",
+    "text": "Adjusting for errors\n\nAdjusting level of discernibility (instead of significance)\n\nReflects the real-world consequences for your error\n\nAdjusting Sample Size\n\nLarge sample sizes &lt;- smaller p value\n\nAdjusting Power\n\nAbility to detect your hypothesized statistic"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#example-food-safety-tests",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#example-food-safety-tests",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example: Food Safety Tests",
+    "text": "Example: Food Safety Tests\nA food safety inspector is called upon to investigate a restaurant with a few customer reports of poor sanitation practices. The food safety inspector uses a hypothesis testing framework to evaluate whether regulations are not being met. If he decides the restaurant is in gross violation, its license to serve food will be revoked.\n\nJoin menti.com 5134 0845"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#answer-the-following-question",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#answer-the-following-question",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Answer the following question",
+    "text": "Answer the following question\nAs a diner, would you prefer that the food safety inspector requires strong evidence or very strong evidence of health concerns before revoking a restaurant’s license?"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#example---flu-vaccine-study",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#example---flu-vaccine-study",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Example - Flu vaccine study",
+    "text": "Example - Flu vaccine study\n\nH0: Old Flu Vaccine and New Flu Vaccine are the same\nHA: New Vaccine is superior to Old Flu Vaccine\nWhat would type 1 error be?\nWhat would type 2 error be?\nWhich would be more of an issue?"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#other-assumptions-about-hypothesis-testing",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#other-assumptions-about-hypothesis-testing",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Other assumptions about hypothesis testing",
+    "text": "Other assumptions about hypothesis testing\n\n\nRandomness\n\nOften not the case in the real world\nneed to control for other factors\n\nIndependence\n\nEach sample is independent of the other\nKnowing something about one observation does not tell us anything about the other\nSpatial Statistics!!\n\nDoes not mean that alternate hypothesis is true\nMisusing hypothesis testing (multiple testing)"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#consider-the-following-scenario",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#consider-the-following-scenario",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Consider the following Scenario",
+    "text": "Consider the following Scenario\nSuppose your city deploys lots of low-cost PM2.5 sensors on a 24×24 grid (n = 576). There’s a warehouse district on the west side that sometimes creates a pollution plume. You ask a simple question:\n\n“Is the average PM2.5 higher on the west half of the city than on the east half?”"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#descriptive-map",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#descriptive-map",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Map",
+    "text": "Descriptive Map"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#hypothesis-testing-as-usual",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#hypothesis-testing-as-usual",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Hypothesis Testing as Usual",
+    "text": "Hypothesis Testing as Usual\n\n\nMean (PM2.5West) = 53.02\nMean (PM2.5East) = 49.3\n\np-value = very close to zero\nAssumes each sensor is independent\nN = 576"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#consider-this-scenario",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#consider-this-scenario",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Consider this Scenario",
+    "text": "Consider this Scenario\n\n\nNaive test (treat every sensor as independent):\n\nCounts all 576 sensors as separate pieces of evidence. It reports a tiny p-value (~1e-13), i.e., “super significant.”\n\nBlock-averaged test (treat neighborhoods as the units):\n\nFirst average each 4×4 neighborhood (36 neighborhoods total).\nThen compare west vs east neighborhood means."
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#descriptive-map-1",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#descriptive-map-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Descriptive Map",
+    "text": "Descriptive Map"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#block-means-hypothesis-testing",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#block-means-hypothesis-testing",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Block-means Hypothesis Testing",
+    "text": "Block-means Hypothesis Testing\n\nMean (PM2.5West) = 53.02\nMean (PM2.5East) = 49.3\n\np-value = 0.03\nAssumes each neighborhood is independent\nN = 36"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#intuition",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#intuition",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Intuition",
+    "text": "Intuition\n\n\nIf you sample the same sensor multiple times, you have still sampled only one sensor\n\nNearby sensors may detect the same values that other sensors are detecting\nYou overstate the information available to you\nSame values = less variation = lower standard errors\nNarrower CI = overconfidence\nLower Effective Sample Size"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#spatial-autocorrelation",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#spatial-autocorrelation",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Autocorrelation",
+    "text": "Spatial Autocorrelation\n\n“Everything is related to everything else, but near things are more related than distant things.” — Tobler’s First Law (Tobler, 1970)"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "",
+    "text": "library(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   4.0.0     ✔ tibble    3.2.1\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(readr)\nlibrary(infer)\n\ndat_1prop &lt;- read_rds(\"./data/dat_1prop.rds\")\ndat_2prop &lt;- read_rds(\"./data/dat_2prop.rds\")\ndat_1mean &lt;- read_rds(\"./data/dat_1mean.rds\")"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#no-spatial-autocorrelation",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#no-spatial-autocorrelation",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "No Spatial Autocorrelation",
+    "text": "No Spatial Autocorrelation"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#spatial-patterns",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#spatial-patterns",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Patterns",
+    "text": "Spatial Patterns\n\nPoint Patterns\n\nFocus on location of points (features)"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#spatial-patterns-1",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#spatial-patterns-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Patterns",
+    "text": "Spatial Patterns\n\nArea Patterns\n\nFocus on location of values (attributes)"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#first-order-vs-second-order",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#first-order-vs-second-order",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "First-order vs Second-order",
+    "text": "First-order vs Second-order\n\n\n\n#13 Errors in Hypothesis Testing, Spatial Autocorrelation"
+  },
+  {
+    "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#exploratory-spatial-data-analysis",
+    "href": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#exploratory-spatial-data-analysis",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Exploratory Spatial Data Analysis",
+    "text": "Exploratory Spatial Data Analysis\n\n\nExamine the Spatial nature/structure of data/patterns\n\nIs there spatial autocorrelation in my data\nIs crime concentrated (clustered) in a particular location\nWhy is average Pm2.5 higher in west vs east\nWhere are hotspots of salmonella outbreak in the city?\nWhat is the “process” driving the pattern?"
   }
 ]

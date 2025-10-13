@@ -516,7 +516,7 @@ Varun Goel
 <pre><code># A tibble: 1 × 1
   p_value
     &lt;dbl&gt;
-1   0.275</code></pre>
+1   0.262</code></pre>
 </div>
 </div>
 <img data-src="hypothesis_testing_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
@@ -1171,13 +1171,102 @@ mean in group yes  mean in group no
 </section>
 <section id="conclusion-4" class="slide level2">
 <h2>Conclusion</h2>
+<p>Did the campaign work or not?</p>
 </section>
-<section id="next-class" class="slide level2">
-<h2>Next Class</h2>
+<section id="class-exercise" class="slide level2 smaller">
+<h2>Class Exercise</h2>
 <ul>
-<li>Errors in Hypothesis Testing</li>
-<li>Exploratory Spatial Analysis</li>
+<li><p>Think about a potential question that you are interested in</p></li>
+<li><p>What could be one hypothesis related to your question that you could test?</p>
+<ul>
+<li>Conceptually</li>
+<li>Mathematically in terms of sample statistics (eg. mean or proportion)</li>
+</ul></li>
+<li><p>What would be the null hypothesis that you would want to reject?</p>
+<ul>
+<li>Conceptually</li>
+<li>Mathematically in terms of sample statistics (eg. mean or proportion)</li>
+</ul></li>
 </ul>
+</section>
+<section id="errors-in-hypothesis-testing" class="slide level2">
+<h2>Errors in Hypothesis Testing</h2>
+<ul>
+<li>Hypothesis tests are not flawless</li>
+<li>Think about wrongful convictions</li>
+<li>We can quantify and control the rate of error</li>
+</ul>
+</section>
+<section id="hypothesis-test-scenarios" class="slide level2">
+<h2>Hypothesis Test Scenarios</h2>
+
+<img data-src="assets/scenarios.png" class="r-stretch"></section>
+<section id="hypothesis-test-scenarios-1" class="slide level2">
+<h2>Hypothesis Test Scenarios</h2>
+<div>
+<ul>
+<li class="fragment">Null Hypothesis (H<sub>0</sub>): Defendant is innocent</li>
+<li class="fragment">Alternate Hypothesis (H<sub>A</sub>): Defendant is guilty
+<ul>
+<li class="fragment">What would type 1 error represent</li>
+<li class="fragment">What would type 2 error represent</li>
+<li class="fragment">Connections between type 1 and type 2</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="adjusting-for-errors" class="slide level2">
+<h2>Adjusting for errors</h2>
+<ul>
+<li>Adjusting level of discernibility (instead of significance)
+<ul>
+<li>Reflects the real-world consequences for your error</li>
+</ul></li>
+<li>Adjusting Sample Size
+<ul>
+<li>Large sample sizes &lt;- smaller p value</li>
+<li>large sample sizes</li>
+</ul></li>
+</ul>
+</section>
+<section id="example-food-safety-tests" class="slide level2">
+<h2>Example: Food Safety Tests</h2>
+<p>A food safety inspector is called upon to investigate a restaurant with a few customer reports of poor sanitation practices. The food safety inspector uses a hypothesis testing framework to evaluate whether regulations are not being met. If he decides the restaurant is in gross violation, its license to serve food will be revoked.</p>
+
+<img data-src="assets/menti.png" class="r-stretch"></section>
+<section id="answer-the-following-question" class="slide level2">
+<h2>Answer the following question</h2>
+<p>As a diner, would you prefer that the food safety inspector requires strong evidence or very strong evidence of health concerns before revoking a restaurant’s license?</p>
+</section>
+<section id="example---flu-vaccine-study" class="slide level2">
+<h2>Example - Flu vaccine study</h2>
+<ul>
+<li><p>H0: Old Flu Vaccine and New Flu Vaccine are the same</p></li>
+<li><p>HA: New Vaccine is superior to Old Flu Vaccine</p></li>
+<li><p>What would type 1 error be?</p></li>
+<li><p>What would type 2 error be?</p></li>
+<li><p>Which would be more of an issue?</p></li>
+</ul>
+</section>
+<section id="other-assumptions-about-hypothesis-testing" class="slide level2 smaller">
+<h2>Other assumptions about hypothesis testing</h2>
+<div>
+<ul>
+<li class="fragment"><p>Randomness</p>
+<ul>
+<li class="fragment">Often not the case in the real world</li>
+<li class="fragment">need to control for other factors</li>
+</ul></li>
+<li class="fragment"><p>Independence</p>
+<ul>
+<li class="fragment">Each sample is independent of the other</li>
+<li class="fragment">Knowing something about one observation does not tell us anything about the other</li>
+<li class="fragment">Spatial Statistics!!</li>
+</ul></li>
+<li class="fragment"><p>Does not mean that alternate hypothesis is true</p></li>
+<li class="fragment"><p>Misusing hypothesis testing</p></li>
+</ul>
+</div>
 
 <div class="footer footer-default">
 <p>#11 Hypothesis Testing</p>

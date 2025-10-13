@@ -631,7 +631,93 @@ t_test_results
 
 ## Conclusion
 
-## Next Class
+Did the campaign work or not? 
 
--   Errors in Hypothesis Testing
--   Exploratory Spatial Analysis
+## Class Exercise {.smaller}
+
+
+-   Think about a potential question that you are interested in
+
+-   What could be one hypothesis related to your question that you could test?
+    
+    -   Conceptually
+    -   Mathematically in terms of sample statistics (eg. mean or proportion)
+
+-   What would be the null hypothesis that you would want to reject?
+
+    -   Conceptually
+    -   Mathematically in terms of sample statistics (eg. mean or proportion)
+
+
+## Errors in Hypothesis Testing
+
+-   Hypothesis tests are not flawless
+-   Think about wrongful convictions
+-   We can quantify and control the rate of error
+
+## Hypothesis Test Scenarios
+
+
+ ![](assets/scenarios.png)  
+
+## Hypothesis Test Scenarios
+
+:::incremental
+
+-   Null Hypothesis (H~0~): Defendant is innocent
+-   Alternate Hypothesis (H~A~): Defendant is guilty
+    -   What would type 1 error represent
+    -   What would type 2 error represent
+    -   Connections between type 1 and type 2
+    
+:::
+
+##  Adjusting for errors
+
+-   Adjusting level of discernibility (instead of significance)
+    -   Reflects the real-world consequences for your error
+-   Adjusting Sample Size
+    -   Large sample sizes <- smaller p value
+    -   large sample sizes
+    
+## Example: Food Safety Tests
+
+A food safety inspector is called upon to investigate a restaurant with a few customer reports of poor sanitation practices. The food safety inspector uses a hypothesis testing framework to evaluate whether regulations are not being met. If he decides the restaurant is in gross violation, its license to serve food will be revoked.
+
+ ![](assets/menti.png)  
+
+## Answer the following question
+
+As a diner, would you prefer that the food safety inspector requires strong evidence or very strong evidence of health concerns before revoking a restaurant’s license?
+
+## Example - Flu vaccine study
+
+-   H0: Old Flu Vaccine and New Flu Vaccine are the same
+
+-   HA: New Vaccine is superior to Old Flu Vaccine
+
+-   What would type 1 error be?
+
+-   What would type 2 error be?
+
+-   Which would be more of an issue?
+
+
+## Other assumptions about hypothesis testing {.smaller}
+
+:::incremental
+-   Randomness
+
+    -   Often not the case in the real world
+    -   need to control for other factors
+  
+-   Independence
+  
+    -   Each sample is independent of the other
+    -   Knowing something about one observation does not tell us anything about the other
+    - Spatial Statistics!!
+    
+-   Does not mean that alternate hypothesis is true
+-   Misusing hypothesis testing
+
+:::

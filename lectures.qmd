@@ -37,7 +37,10 @@ date-format: medium
 
 -   *Wednesday Oct 1: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_sampling/boot_ci_hypo.qmd){target="_blank"} )
 
-#### Week 8: Hypothesis Testing, Spatial Autocorrelation
+#### Week 8: Hypothesis Testing
 
--   *Monday Oct 6: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_sampling/hypothesis_testing.qmd){target="_blank"} )
+-   *Monday Oct 6-8: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_sampling/hypothesis_testing.qmd){target="_blank"} )
 
+#### Week 8: Hypothesis Testing Errors, Spatial Autocorrelation
+
+-   *Monday Oct 6-8: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_sampling/hypothesis_errors_spatialAuto.qmd){target="_blank"} )

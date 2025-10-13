@@ -23,3 +23,17 @@ date-format: medium
 -   Normal Distribution: <https://moderndive.com/v2/appendixa>
 
 -   (Recommended) Foundations of Inference (Ch 11,12,13): <https://openintrostat.github.io/ims/data-design.html>
+
+
+**Week 9: Hypothesis Testing**
+- P-values and statistical significance
+<https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf>
+<https://www.nature.com/articles/d41586-019-00874-8>
+<https://www.cos.io/blog/we-should-redefine-statistical-significance>
+
+**Week 10: Spatial Autocorrelation, Spatial Analysis**
+
+- Part 2: Spatial Analysis
+<https://mgimond.github.io/Spatial/chp11_0.html>
+- Another more extensive book
+<https://paezha.github.io/spatial-analysis-r/>
