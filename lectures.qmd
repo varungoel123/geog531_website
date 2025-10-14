@@ -43,4 +43,4 @@ date-format: medium
 
 #### Week 8: Hypothesis Testing Errors, Spatial Autocorrelation
 
--   *Monday Oct 13: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_sampling/hypothesis_errors_spatialAuto.qmd){target="_blank"} )
+-   *Monday Oct 13: Errors in Hypothesis Testing, Spatial Autocorrelation* ( [html](./lectures/8_sampling/hypothesis_errors_spatialAuto.qmd){target="_blank"} )
