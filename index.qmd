@@ -45,4 +45,10 @@ The latest class syllabus can downloaded [here](Geog531_FA25_QuantitativeMethods
 
 ### To Dos:
 
+**Important HW1 Fix:**
+
+run `install.packages("DescTools")` in your console
+
+add the line `library(DescTools)` in your code chunk at the top (where you load other libraries)
+
 #### 
