@@ -1,0 +1,10 @@
+sf
+spData
+spdep
+tmap
+spatstat.data
+spatstat.univar
+spatstat.geom
+spatstat.random
+nlme
+spatstat.explore

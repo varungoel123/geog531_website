@@ -44,3 +44,9 @@ date-format: medium
 #### Week 8: Hypothesis Testing Errors, Spatial Autocorrelation
 
 -   *Monday Oct 13: Errors in Hypothesis Testing, Spatial Autocorrelation* ( [html](./lectures/8_sampling/hypothesis_errors_spatialAuto.qmd){target="_blank"} )
+
+-   *Wednesday Oct 15: Spatial Patterns and Processes* ( [html](./lectures/8_sampling/patterns_processes.qmd){target="_blank"} )
+
+#### Week 9: Area and Point-Pattern Analysis
+
+-   *Monday Oct 20: Point Pattern Analysis* ( [html](./lectures/9_spatialAnalysis/pointpattern.qmd){target="_blank"} )

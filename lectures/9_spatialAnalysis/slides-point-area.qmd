@@ -1,0 +1,304 @@
+
+---
+title: "Point & Area Pattern Analysis"
+subtitle: "GEOG 531 — Part I (Point patterns) & Part II (Area patterns)"
+author: "Instructor: <your name>"
+format:
+  revealjs:
+    slide-number: true
+    progress: true
+    hash: true
+    toc: true
+    toc-depth: 2
+    transition: fade
+    incremental: true
+    code-overflow: wrap
+    self-contained: true
+    center: false
+execute:
+  echo: true
+  warning: false
+  message: false
+  cache: true
+date: "Updated: 2025-10-19"
+---
+
+```{r}
+#| label: setup
+#| include: false
+# Core packages used across both parts
+pkgs <- c(
+  "sf","spdep","spData","tmap",
+  "spatstat.data","spatstat.geom","spatstat.explore"
+)
+need <- pkgs[!pkgs %in% installed.packages()[,"Package"]]
+if (length(need) > 0) install.packages(need, repos = "https://cloud.r-project.org")
+invisible(lapply(pkgs, library, character.only = TRUE))
+set.seed(531) # reproducibility for examples
+```
+
+## How to use this deck
+
+- Designed for **two 75‑minute class meetings**.
+- **Part I (Point patterns)**: first‑ & second‑order properties; CSR; summary functions (*G, F, J, K, L, g*); kernel density; inhomogeneity; bivariate interaction; simulation & envelopes.
+- **Part II (Area patterns)**: choropleths & variance instability; spatial weights; global & local autocorrelation (Moran's I, Geary's C, Join Count); **LISA & Gi\***; Empirical Bayes smoothing; **MAUP**; brief on spatial regression.
+- All examples run on **built‑in datasets** (no external downloads).
+
+::: callout-note
+**Tip for teaching**: Use the vertical navigation in Reveal.js to keep Part I and Part II separate in class.
+:::
+
+---
+
+# Part I · Point pattern analysis (≈ 75 min)
+
+## Recap & framing
+
+- A **point pattern** is a set of event locations in a defined **window**.
+- **First‑order**: variation in **intensity** (trend) across space.
+- **Second‑order**: **interaction** among events (clustering, inhibition) beyond intensity.
+- **CSR (Complete Spatial Randomness)** = homogeneous Poisson process.
+  - *First‑order*: constant intensity.
+  - *Second‑order*: no interaction.
+- Key practicalities: **window definition**, units/CRS, duplicates, edge effects.
+
+::: callout-tip
+If the process is **inhomogeneous**, test interaction with inhomogeneous functions rather than K under CSR.
+:::
+
+## Getting a feel for the data
+
+We'll use the classic **Lansing woods** tree dataset (*spatstat*).
+
+```{r}
+# Load a marked point pattern of tree species
+data(lansing, package = "spatstat.data")
+lansing
+plot(lansing, main = "Lansing woods: tree locations (by species)")
+```
+
+## First‑order: intensity & kernel density
+
+```{r}
+# Bandwidth selection (one option among several)
+bw_dig <- spatstat.explore::bw.diggle(lansing)
+bw_dig
+# Kernel density estimate image
+kd <- spatstat.geom::density.ppp(lansing, sigma = bw_dig)
+plot(kd, main = "Kernel density (bw = bw.diggle)"); points(lansing, pch = 20, cex = .3)
+```
+
+::: callout-note
+Bandwidth matters: show a **too‑small** vs **too‑large** σ to illustrate under/over‑smoothing.
+:::
+
+## Quadrat counts test (first‑order)
+
+```{r}
+Q <- spatstat.geom::quadratcount(lansing, nx = 4, ny = 4)
+plot(lansing, main = "Quadrat counts (4 × 4)"); plot(Q, add = TRUE, col = "red", cex = .9)
+spatstat.explore::quadrat.test(lansing, nx = 4, ny = 4)
+```
+
+## Second‑order summaries: G, F, J
+
+```{r}
+G <- spatstat.explore::Gest(lansing)
+F <- spatstat.explore::Fest(lansing)
+J <- spatstat.explore::Jest(lansing)
+par(mfrow = c(1,3))
+plot(G, main = "Nearest-neighbor G(r)")
+plot(F, main = "Empty space F(r)")
+plot(J, main = "J(r) = (1-F)/(1-G)")
+par(mfrow = c(1,1))
+```
+
+## Ripley's K & L; pair correlation g(r)
+
+```{r}
+K <- spatstat.explore::Kest(lansing, correction = c("border","Ripley"))
+L <- spatstat.explore::Lest(lansing, correction = "Ripley")
+g <- spatstat.explore::pcf(lansing)
+par(mfrow = c(1,3))
+plot(K, main = "K(r) with edge correction")
+plot(L, main = "L(r) = sqrt(K/π)")
+plot(g, main = "Pair correlation g(r)")
+par(mfrow = c(1,1))
+```
+
+## Testing against CSR with simulation envelopes
+
+```{r}
+envK <- spatstat.explore::envelope(
+  lansing, spatstat.explore::Kest,
+  nsim = 99, global = TRUE, correction = "Ripley",
+  simulate = expression(spatstat.random::rpoispp(intensity(lansing)))
+)
+plot(envK, main = "Global simulation envelope for K(r) under CSR")
+```
+
+::: callout-important
+**Global vs pointwise envelopes**: emphasize family‑wise error and interpretation.
+:::
+
+## Inhomogeneity: trend & inhomogeneous K
+
+```{r}
+# Use the kernel intensity surface as proxy for λ(s)
+K_inhom <- spatstat.explore::Kinhom(lansing, lambda = kd)
+plot(K_inhom, main = "Inhomogeneous K(r)")
+```
+
+## Marked & multitype patterns (cross‑K)
+
+```{r}
+levels(spatstat.geom::marks(lansing))
+K_boak_hick <- spatstat.explore::Kcross(lansing, i = "blackoak", j = "hickory")
+plot(K_boak_hick, main = "Cross-K: blackoak vs hickory")
+```
+
+## Nearest‑neighbor based test (Clark–Evans)
+
+```{r}
+spatstat.explore::clarkevans.test(lansing)  # R < 1 → clustering; R > 1 → regularity
+```
+
+## Key pitfalls & remedies
+
+- Edge effects → use **edge corrections** (border, isotropic, Ripley).
+- Window misspecification → **sensitivity analysis**.
+- Inhomogeneity → use **inhomogeneous summaries**.
+- Multiple testing (many *r* values) → **global envelopes** or **Monte Carlo rank** tests.
+- **Interpretation**: summary functions suggest patterns; they do not identify mechanisms.
+
+---
+
+# Part II · Area (lattice) pattern analysis (≈ 75 min)
+
+## Areal data vs point processes
+
+- Variables measured over **zones** (counties, tracts, grids).
+- Beware **MAUP** (scale/zonation) and **ecological fallacy**.
+- **Rates** are often unstable when denominators vary; use **Empirical Bayes** smoothing.
+
+## Example dataset: North Carolina SIDS (spData::nc)
+
+```{r}
+data(nc, package = "spData")
+nc$SIDR79 <- (nc$SID79 / nc$BIR79) * 1000  # infant deaths per 1,000 births
+nc <- sf::st_transform(nc, 32119)          # projected CRS (units in meters/feet depending on EPSG)
+tmap::tmap_mode("plot")
+tmap::tm_shape(nc) + tmap::tm_polygons("SIDR79", title = "SIDS rate (1979)")
+```
+
+## Spatial weights: contiguity & kNN
+
+```{r}
+# Queen contiguity
+nb_q <- spdep::poly2nb(nc, queen = TRUE)
+lw_q <- spdep::nb2listw(nb_q, style = "W")
+# Visualize neighbors
+plot(sf::st_geometry(nc), border = "grey")
+plot(nb_q, sf::st_coordinates(sf::st_centroid(nc)), add = TRUE)
+```
+
+::: callout-note
+**Weight styles**: “W” (row‑standardized), “B” (binary), “S” (variance‑stabilizing). Try each and compare.
+:::
+
+## Global autocorrelation: Moran's I (permutation test)
+
+```{r}
+mi <- spdep::moran.test(nc$SIDR79, lw_q)
+mi
+mi_mc <- spdep::moran.mc(nc$SIDR79, lw_q, nsim = 999)
+mi_mc
+```
+
+## Local Moran (LISA) & cluster map
+
+```{r}
+lm <- spdep::localmoran(nc$SIDR79, lw_q)
+nc$Ii   <- lm[, "Ii"]
+nc$Z_Ii <- lm[, "Z.Ii"]               # z-scores
+nc$p_Ii <- 2*pnorm(-abs(nc$Z_Ii))     # two-sided p
+lag_rate <- spdep::lag.listw(lw_q, nc$SIDR79)
+m <- mean(nc$SIDR79, na.rm = TRUE); ml <- mean(lag_rate, na.rm = TRUE)
+nc$quad <- ifelse(nc$SIDR79 >= m & lag_rate >= ml, "High-High",
+           ifelse(nc$SIDR79 <  m & lag_rate <  ml, "Low-Low",
+           ifelse(nc$SIDR79 >= m & lag_rate <  ml, "High-Low", "Low-High")))
+nc$quad_sig <- ifelse(nc$p_Ii < 0.05, nc$quad, "Not sig")
+
+tmap::tm_shape(nc) +
+  tmap::tm_polygons("quad_sig", title = "LISA clusters (p < .05)")
+```
+
+::: callout-caution
+Local tests involve **many comparisons**. Adjust *p*‑values (e.g., `p.adjust(..., method="BH")`) or use **FDR** control.
+:::
+
+## Hot/cold spots: Getis–Ord Gi\*
+
+```{r}
+gi <- spdep::localG(nc$SIDR79, lw_q)
+nc$GiZ <- as.numeric(gi)
+tmap::tm_shape(nc) + tmap::tm_polygons("GiZ", title = "Gi* z-score")
+```
+
+## Binary pattern: Join count
+
+```{r}
+nc$HighSID <- nc$SIDR79 > median(nc$SIDR79, na.rm = TRUE)
+spdep::joincount.test(nc$HighSID, lw_q, nsim = 999)
+```
+
+## Empirical Bayes smoothing of unstable rates
+
+```{r}
+eb <- spdep::EBlocal(nc$SID79, nc$BIR79)  # returns matrix with $raw, $est, etc.
+nc$SIDR79_EB <- eb$est * 1000  # EB 'est' is usually per 1; scale per 1,000 births
+# Compare raw vs EB smoothed
+tmap::tm_shape(nc) + tmap::tm_polygons("SIDR79", title = "Raw rate (per 1,000)") +
+tmap::tm_shape(nc) + tmap::tm_borders(col = NA) +
+tmap::tm_shape(nc) + tmap::tm_polygons("SIDR79_EB", title = "EB smoothed (per 1,000)")
+```
+
+## MAUP demo: change the zoning & recompute Moran's I
+
+```{r}
+# Cluster county centroids into 20 regions and aggregate
+coords <- sf::st_coordinates(sf::st_centroid(nc))
+km <- kmeans(coords, centers = 20, nstart = 20)
+nc$zone <- factor(km$cluster)
+
+nc_agg <- nc |>
+  dplyr::group_by(zone) |>
+  dplyr::summarise(
+    SID79 = sum(SID79, na.rm = TRUE),
+    BIR79 = sum(BIR79, na.rm = TRUE)
+  ) |>
+  dplyr::mutate(rate = (SID79 / BIR79) * 1000)
+
+nb_a <- spdep::poly2nb(nc_agg, queen = TRUE)
+lw_a <- spdep::nb2listw(nb_a, style = "W")
+mi_orig <- spdep::moran.test(nc$SIDR79, lw_q)$estimate["Moran I statistic"]
+mi_agg  <- spdep::moran.test(nc_agg$rate, lw_a)$estimate["Moran I statistic"]
+cat("Moran's I (original counties):", round(mi_orig, 3), "\n")
+cat("Moran's I (aggregated 20 zones):", round(mi_agg, 3), "\n")
+```
+
+::: callout-important
+**Takeaway**: Spatial statistics can **change with scale and zoning**. Always report how weights and units were defined.
+:::
+
+## Where to next? (very brief)
+
+- Spatial regression (SLX, SAR, SEM, CAR), spatial filtering, multiscale models.
+- Space–time extensions: Knox/SaTScan for points; ST‑LISA for areal series.
+- Reproducibility: `quarto`, `targets`/`drake`, pinned datasets.
+
+## Summary
+
+- **Point patterns**: use CSR and second‑order summaries wisely; check inhomogeneity.
+- **Area patterns**: choose weights carefully; use LISA/Gi\* for local structure; smooth unstable rates; be explicit about MAUP.
+- **Interpretation** matters more than the statistic: tie results back to a process story.

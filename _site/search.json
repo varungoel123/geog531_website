@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Geog 531: Quantitative Methods in Geographic Research",
     "section": "",
-    "text": "Instructor Information\nInstructor: Dr. Varun Goel\nOffice: Callcott 111\n\nAppointment link: Click Here\nEmail: varungoel@sc.edu\n\n\n\nCourse Essentials\nMeeting times: Monday, Wednesday 3:55 pm - 5:10pm\nMeeting location: Callcott 302\nStudent Support Hours: Mon-Wed 2 pm - 3 pm\nAppointment link: Click Here\n]GEOG 531 Discussion Google Sheet: Click Here\n\n\n\nUpdated Syllabus\nThe latest class syllabus can downloaded here\n\n\nTo Dos:"
+    "text": "Instructor Information\nInstructor: Dr. Varun Goel\nOffice: Callcott 111\n\nAppointment link: Click Here\nEmail: varungoel@sc.edu\n\n\n\nCourse Essentials\nMeeting times: Monday, Wednesday 3:55 pm - 5:10pm\nMeeting location: Callcott 302\nStudent Support Hours: Mon-Wed 2 pm - 3 pm\nAppointment link: Click Here\n]GEOG 531 Discussion Google Sheet: Click Here\n\n\n\nUpdated Syllabus\nThe latest class syllabus can downloaded here\n\n\nTo Dos:\nImportant HW1 Fix:\nrun install.packages(\"DescTools\") in your console\nadd the line library(DescTools) in your code chunk at the top (where you load other libraries)"
   },
   {
     "objectID": "schedule.html",
@@ -81,7 +81,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud\n\n\n\nWeek 3: Geographic Data in R\n\nMonday, Sep 3: Geographic Data in R ( html )\n\n\n\nWeek 4: Describing Geographic Data\n\nMonday, Sep 8: Describing Geographic Data ( html )\nWednesday, Sep 10: Geographic Data Visualization Lab ( html )\n\n\n\nWeek 5: Visualizing Quantitative data, Sampling and Distributions\n\nMonday, Sep 15: Visualizing Quantitative Data ( html )\nWednesday Sep 17: Measurement Considerations in Data ( html )\nMonday, Sep 22: Sampling ( html )\n\n\n\nWeek 7: Question formation, Hypothesis Testing\n\nWednesday Oct 1: Confidence Intervals and Hypothesis Testing ( html )\n\n\n\nWeek 8: Hypothesis Testing\n\nMonday Oct 6-8: Confidence Intervals and Hypothesis Testing ( html )\n\n\n\nWeek 8: Hypothesis Testing Errors, Spatial Autocorrelation\n\nMonday Oct 6-8: Confidence Intervals and Hypothesis Testing ( html )"
+    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud\n\n\n\nWeek 3: Geographic Data in R\n\nMonday, Sep 3: Geographic Data in R ( html )\n\n\n\nWeek 4: Describing Geographic Data\n\nMonday, Sep 8: Describing Geographic Data ( html )\nWednesday, Sep 10: Geographic Data Visualization Lab ( html )\n\n\n\nWeek 5: Visualizing Quantitative data, Sampling and Distributions\n\nMonday, Sep 15: Visualizing Quantitative Data ( html )\nWednesday Sep 17: Measurement Considerations in Data ( html )\nMonday, Sep 22: Sampling ( html )\n\n\n\nWeek 7: Question formation, Hypothesis Testing\n\nWednesday Oct 1: Confidence Intervals and Hypothesis Testing ( html )\n\n\n\nWeek 8: Hypothesis Testing\n\nMonday/Wednesday Oct 6-8: Confidence Intervals and Hypothesis Testing ( html )\n\n\n\nWeek 8: Hypothesis Testing Errors, Spatial Autocorrelation\n\nMonday Oct 13: Errors in Hypothesis Testing, Spatial Autocorrelation ( html )\nWednesday Oct 15: Spatial Patterns and Processes ( html )\n\n\n\nWeek 9: Area and Point-Pattern Analysis\n\nMonday Oct 20: Point Pattern Analysis ( html )"
   },
   {
     "objectID": "data.html",
@@ -2251,21 +2251,21 @@
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Null Distribution",
-    "text": "Calculate Null Distribution\n\nnull_distn_one_prop &lt;- dat_1prop |&gt;\n  specify(response = climhuman, success = \"yes\") |&gt;\n  hypothesize(null = \"point\", p = 0.5) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"prop\")"
+    "text": "Calculate Null Distribution\n\nnull_distn_one_prop &lt;- dat_1prop |&gt;\n  specify(response = climhuman, success = \"yes\") |&gt;\n  hypothesize(null = \"point\", p = 0.5) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"prop\")\n\nSetting `type = \"draw\"` in `generate()`."
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value",
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate P value",
-    "text": "Calculate P value\n\nnull_distn_one_prop |&gt;\n visualize() +\n  shade_p_value(obs_stat = p_hat, direction = \"both\")\n\npvalue &lt;- null_distn_one_prop |&gt;\n  get_pvalue(obs_stat = p_hat, direction = \"both\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1   0.262"
+    "text": "Calculate P value\n\nnull_distn_one_prop |&gt;\n visualize() +\n  shade_p_value(obs_stat = p_hat, direction = \"both\")\n\n\n\npvalue &lt;- null_distn_one_prop |&gt;\n  get_pvalue(obs_stat = p_hat, direction = \"both\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1   0.279"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval",
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Confidence Interval",
-    "text": "Calculate Confidence Interval\n\nboot_distn_one_prop &lt;- dat_1prop |&gt;\n  specify(response = climhuman, success = \"yes\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"prop\")\n\nci &lt;- boot_distn_one_prop |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1     0.45     0.75"
+    "text": "Calculate Confidence Interval\n\nboot_distn_one_prop &lt;- dat_1prop |&gt;\n  specify(response = climhuman, success = \"yes\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"prop\")\n\nSetting `type = \"bootstrap\"` in `generate()`.\n\nci &lt;- boot_distn_one_prop |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1     0.45     0.75"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval",
@@ -2321,21 +2321,21 @@
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-1",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Null Distribution",
-    "text": "Calculate Null Distribution\n\nset.seed(2018)\nnull_distn_two_props &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  hypothesize(null = \"independence\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))"
+    "text": "Calculate Null Distribution\n\nset.seed(2018)\nnull_distn_two_props &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  hypothesize(null = \"independence\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\n\nSetting `type = \"permute\"` in `generate()`."
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-1",
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-1",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate P value",
-    "text": "Calculate P value\n\nnull_distn_two_props |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"greater\")\n\npvalue &lt;- null_distn_two_props  |&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"greater\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1  0.0869"
+    "text": "Calculate P value\n\nnull_distn_two_props |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"greater\")\n\n\n\npvalue &lt;- null_distn_two_props  |&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"greater\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1  0.0869"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-1",
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-1",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Confidence Interval",
-    "text": "Calculate Confidence Interval\n\nboot_distn_two_props &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\n\nci &lt;- boot_distn_two_props |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1  -0.0429    0.341"
+    "text": "Calculate Confidence Interval\n\nboot_distn_two_props &lt;- dat_2prop |&gt;\n  specify(climhuman ~ area_type, success = \"yes\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in props\", order = c(\"urban\", \"rural\"))\n\nSetting `type = \"bootstrap\"` in `generate()`.\n\nci &lt;- boot_distn_two_props |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1  -0.0429    0.341"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-1",
@@ -2475,21 +2475,21 @@
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-2",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Null Distribution",
-    "text": "Calculate Null Distribution\n\nset.seed(2018)\n\nnull_distn_one_mean &lt;- dat_1mean |&gt;\n  specify(response = age) |&gt;\n  hypothesize(null = \"point\", mu = 23) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")"
+    "text": "Calculate Null Distribution\n\nset.seed(2018)\n\nnull_distn_one_mean &lt;- dat_1mean |&gt;\n  specify(response = age) |&gt;\n  hypothesize(null = \"point\", mu = 23) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")\n\nSetting `type = \"bootstrap\"` in `generate()`."
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-2",
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-2",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate P value",
-    "text": "Calculate P value\n\nnull_distn_one_mean |&gt;\n  visualize() +\n  shade_p_value(obs_stat = x_bar, direction = \"greater\")\n\npvalue &lt;- null_distn_one_mean |&gt;\n  get_pvalue(obs_stat = x_bar, direction = \"greater\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
+    "text": "Calculate P value\n\nnull_distn_one_mean |&gt;\n  visualize() +\n  shade_p_value(obs_stat = x_bar, direction = \"greater\")\n\n\n\npvalue &lt;- null_distn_one_mean |&gt;\n  get_pvalue(obs_stat = x_bar, direction = \"greater\")\n\nWarning: Please be cautious in reporting a p-value of 0. This result is an approximation\nbased on the number of `reps` chosen in the `generate()` step.\nℹ See `get_p_value()` (`?infer::get_p_value()`) for more information.\n\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-2",
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-2",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Confidence Interval",
-    "text": "Calculate Confidence Interval\n\nboot_distn_one_mean &lt;- dat_1mean |&gt;\n  specify(response = age) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")\n\nci &lt;- boot_distn_one_mean |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1     26.6     29.1"
+    "text": "Calculate Confidence Interval\n\nboot_distn_one_mean &lt;- dat_1mean |&gt;\n  specify(response = age) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")\n\nSetting `type = \"bootstrap\"` in `generate()`.\n\nci &lt;- boot_distn_one_mean |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1     26.6     29.1"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-2",
@@ -2545,21 +2545,21 @@
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-3",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Null Distribution",
-    "text": "Calculate Null Distribution\n\nset.seed(2018)\nnull_distn_two_means &lt;- dat_2means |&gt;\n  specify(age ~ climhuman) |&gt;\n  hypothesize(null = \"independence\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(\n    stat = \"diff in means\",\n    order = c(\"yes\", \"no\")\n  )"
+    "text": "Calculate Null Distribution\n\nset.seed(2018)\nnull_distn_two_means &lt;- dat_2means |&gt;\n  specify(age ~ climhuman) |&gt;\n  hypothesize(null = \"independence\") |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(\n    stat = \"diff in means\",\n    order = c(\"yes\", \"no\")\n  )\n\nSetting `type = \"permute\"` in `generate()`."
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-3",
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-3",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate P value",
-    "text": "Calculate P value\n\nnull_distn_two_means |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"less\")\n\npvalue &lt;- null_distn_two_means |&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"less\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
+    "text": "Calculate P value\n\nnull_distn_two_means |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"less\")\n\n\n\npvalue &lt;- null_distn_two_means |&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"less\")\n\nWarning: Please be cautious in reporting a p-value of 0. This result is an approximation\nbased on the number of `reps` chosen in the `generate()` step.\nℹ See `get_p_value()` (`?infer::get_p_value()`) for more information.\n\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-3",
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-3",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Confidence Interval",
-    "text": "Calculate Confidence Interval\n\nboot_distn_two_means &lt;- dat_2means |&gt;\n  specify(age ~ climhuman) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in means\", order = c(\"yes\", \"no\"))\n\nci &lt;- boot_distn_two_means |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1    -14.1    -8.30"
+    "text": "Calculate Confidence Interval\n\nboot_distn_two_means &lt;- dat_2means |&gt;\n  specify(age ~ climhuman) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"diff in means\", order = c(\"yes\", \"no\"))\n\nSetting `type = \"bootstrap\"` in `generate()`.\n\nci &lt;- boot_distn_two_means |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1    -14.1    -8.30"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-3",
@@ -2615,21 +2615,21 @@
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-4",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Null Distribution",
-    "text": "Calculate Null Distribution\n\nVery similar to the One mean example (Example 3)\n\n\nset.seed(2018)\nnull_distn_paired_means &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  hypothesize(null = \"point\", mu = 0) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")"
+    "text": "Calculate Null Distribution\n\nVery similar to the One mean example (Example 3)\n\n\nset.seed(2018)\nnull_distn_paired_means &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  hypothesize(null = \"point\", mu = 0) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")\n\nSetting `type = \"bootstrap\"` in `generate()`."
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-4",
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-p-value-4",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate P value",
-    "text": "Calculate P value\n\nnull_distn_paired_means |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"greater\")\n\npvalue &lt;- null_distn_paired_means|&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"greater\")\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
+    "text": "Calculate P value\n\nnull_distn_paired_means |&gt;\n  visualize() +\n  shade_p_value(obs_stat = d_hat, direction = \"greater\")\n\n\n\npvalue &lt;- null_distn_paired_means|&gt;\n  get_pvalue(obs_stat = d_hat, direction = \"greater\")\n\nWarning: Please be cautious in reporting a p-value of 0. This result is an approximation\nbased on the number of `reps` chosen in the `generate()` step.\nℹ See `get_p_value()` (`?infer::get_p_value()`) for more information.\n\npvalue\n\n# A tibble: 1 × 1\n  p_value\n    &lt;dbl&gt;\n1       0"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-4",
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-confidence-interval-4",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Confidence Interval",
-    "text": "Calculate Confidence Interval\n\nboot_distn_paired_means &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")\n\nci &lt;- boot_distn_paired_means |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1     0.66     1.02"
+    "text": "Calculate Confidence Interval\n\nboot_distn_paired_means &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  generate(reps = 10000) |&gt;\n  calculate(stat = \"mean\")\n\nSetting `type = \"bootstrap\"` in `generate()`.\n\nci &lt;- boot_distn_paired_means |&gt;\n  get_ci()\nci\n\n# A tibble: 1 × 2\n  lower_ci upper_ci\n     &lt;dbl&gt;    &lt;dbl&gt;\n1     0.66     1.02"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#draw-confidence-interval-4",
@@ -2678,7 +2678,7 @@
     "href": "lectures/8_sampling/hypothesis_testing.html#calculate-difference-in-means-1",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Calculate Difference in means",
-    "text": "Calculate Difference in means\n\n2 paired continuous variables (?)\n\n\nd_hat &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  calculate(stat = \"mean\")\nd_hat\n\nResponse: pair_diff (numeric)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  0.84\n\nggplot(dat_diff, aes(x = pair_diff)) +\n  geom_histogram(binwidth = 0.04, color = \"white\")"
+    "text": "Calculate Difference in means\n\n2 paired continuous variables (?)\n\n\ndat_diff &lt;- d2mp_long |&gt;\n  group_by(id) |&gt;\n  summarize(pair_diff = diff(value)) |&gt;\n  ungroup()\n\n\nd_hat &lt;- dat_diff |&gt;\n  specify(response = pair_diff) |&gt;\n  calculate(stat = \"mean\")\nd_hat\n\nResponse: pair_diff (numeric)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  0.84\n\nggplot(dat_diff, aes(x = pair_diff)) +\n  geom_histogram(binwidth = 0.04, color = \"white\")"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#calculate-null-distribution-5",
@@ -2825,7 +2825,7 @@
     "href": "lectures/8_sampling/hypothesis_testing.html#descriptive-analysis-4",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Descriptive Analysis",
-    "text": "Descriptive Analysis"
+    "text": "Descriptive Analysis\n\ndat_2means_paired &lt;- read_rds(\"./data/dat_2means_paired.rds\")\ndat_2means_paired &lt;- dat_2means_paired |&gt;\n  mutate(id = 1:100)\n\nd2mp_long &lt;- dat_2means_paired |&gt;\n  select(id,concern_before,concern_after) |&gt;\n  pivot_longer(cols = concern_before:concern_after)\n\nggplot(d2mp_long, aes(\n  x = name, y = value,\n  color = name, shape = name\n)) +\n  geom_boxplot(\n    show.legend = FALSE,\n    outlier.shape = \"triangle\"\n  ) +\n  geom_text(aes(label = id),\n    color = \"black\",\n    hjust = rep(c(-0.15, 1.3), each = 100),\n    show.legend = FALSE, size = 3\n  ) +\n  geom_line(aes(group = id), color = \"grey\", linewidth = 0.25) +\n  geom_point(show.legend = FALSE) + \n  labs(\n    x = \"Tire brand\",\n    y = NULL,\n    title = \"Original data\"\n  ) +\n  theme_minimal()"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_testing.html#a-general-workflow",
@@ -2902,7 +2902,7 @@
     "href": "lectures/8_sampling/hypothesis_testing.html#other-assumptions-about-hypothesis-testing",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Other assumptions about hypothesis testing",
-    "text": "Other assumptions about hypothesis testing\n\n\nRandomness\n\nOften not the case in the real world\nneed to control for other factors\n\nIndependence\n\nEach sample is independent of the other\nKnowing something about one observation does not tell us anything about the other\nSpatial Statistics!!\n\nDoes not mean that alternate hypothesis is true\nMisusing hypothesis testing\n\n\n\n\n#11 Hypothesis Testing"
+    "text": "Other assumptions about hypothesis testing\n\n\nRandomness\n\nOften not the case in the real world\nneed to control for other factors\n\nIndependence\n\nEach sample is independent of the other\nKnowing something about one observation does not tell us anything about the other\nSpatial Statistics!!\n\nDoes not mean that alternate hypothesis is true\nMisusing hypothesis testing"
   },
   {
     "objectID": "lectures/8_sampling/hypothesis_errors_spatialAuto.html#outline",
@@ -3064,5 +3064,313 @@
     "title": "Quantitative Methods in Geographic Research",
     "section": "Exploratory Spatial Data Analysis",
     "text": "Exploratory Spatial Data Analysis\n\n\nExamine the Spatial nature/structure of data/patterns\n\nIs there spatial autocorrelation in my data\nIs crime concentrated (clustered) in a particular location\nWhy is average Pm2.5 higher in west vs east\nWhere are hotspots of salmonella outbreak in the city?\nWhat is the “process” driving the pattern?"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html",
+    "href": "lectures/8_sampling/patterns_processes.html",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "",
+    "text": "Errors in Hypothesis Testing\nSpatial Autocorrelation\nSpatial Patterns"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#outline",
+    "href": "lectures/8_sampling/patterns_processes.html#outline",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Outline",
+    "text": "Outline\n\nErrors in Hypothesis Testing\nSpatial Autocorrelation\nSpatial Patterns"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#spatial-autocorrelation",
+    "href": "lectures/8_sampling/patterns_processes.html#spatial-autocorrelation",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Autocorrelation",
+    "text": "Spatial Autocorrelation\n\n“Everything is related to everything else, but near things are more related than distant things.” — Tobler’s First Law (Tobler, 1970)"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#no-spatial-autocorrelation",
+    "href": "lectures/8_sampling/patterns_processes.html#no-spatial-autocorrelation",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "No Spatial Autocorrelation",
+    "text": "No Spatial Autocorrelation"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#exploratory-spatial-data-analysis",
+    "href": "lectures/8_sampling/patterns_processes.html#exploratory-spatial-data-analysis",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Exploratory Spatial Data Analysis",
+    "text": "Exploratory Spatial Data Analysis\n\n\nExamine the Spatial nature/structure of data/patterns\n\nIs there spatial autocorrelation in my data\nIs crime concentrated (clustered) in a particular location\nWhy is average Pm2.5 higher in west vs east\nWhere are hotspots of salmonella outbreak in the city?\nWhat is the “process” driving the pattern?"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#spatial-patterns",
+    "href": "lectures/8_sampling/patterns_processes.html#spatial-patterns",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Patterns",
+    "text": "Spatial Patterns\n\nPoint Patterns\n\nFocus on location of points (features)"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#spatial-patterns-1",
+    "href": "lectures/8_sampling/patterns_processes.html#spatial-patterns-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Patterns",
+    "text": "Spatial Patterns\n\nArea Patterns\n\nFocus on location of values (attributes)"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#why-are-we-interested-in-exploring-spatial-patterns",
+    "href": "lectures/8_sampling/patterns_processes.html#why-are-we-interested-in-exploring-spatial-patterns",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Why are we interested in exploring Spatial Patterns",
+    "text": "Why are we interested in exploring Spatial Patterns"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#patterns-and-processes",
+    "href": "lectures/8_sampling/patterns_processes.html#patterns-and-processes",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Patterns and Processes",
+    "text": "Patterns and Processes\n\nMain Difference\n\nA Spatial “pattern” is the result of some spatial “process”\nWe map patterns (observe, describe)\nWe model processes (understand, explain)"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#fundamental-spatial-hypothesis",
+    "href": "lectures/8_sampling/patterns_processes.html#fundamental-spatial-hypothesis",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Fundamental “Spatial” Hypothesis",
+    "text": "Fundamental “Spatial” Hypothesis\n\n\nH(A): The observed patterns are being driven by some spatial process\nWhat will be the NULL Hypothesis?\n\nComplete Spatial Randomness (CSR)"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#complete-spatial-randomness",
+    "href": "lectures/8_sampling/patterns_processes.html#complete-spatial-randomness",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Complete Spatial Randomness",
+    "text": "Complete Spatial Randomness\n::: incremental\n\nIs the observed Spatial Pattern occuring randomly?\nComparison tests for whether there is a spatial pattern\n\nIs the observed pattern different than a random pattern?"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#spatial-process",
+    "href": "lectures/8_sampling/patterns_processes.html#spatial-process",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Process",
+    "text": "Spatial Process\n\n\nWhy might there not be CSR?\nFirst Order Effects\n\nSpatial Trend or Intensity\nObserved spatial variation due to extrinsic (external) factor(s)\n\nSecond Order Effects\n\nInteraction and Autocorrelation\nSpatial Variation due to interaction or intrinsic factors\n\nSimilar to classical Statistics\n\nMean (first order moment)\nVariance/Variation (second order moment)"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#spatial-process-1",
+    "href": "lectures/8_sampling/patterns_processes.html#spatial-process-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Process",
+    "text": "Spatial Process\n\n\n\n#14 Maps to Models: Patterns and Processes"
+  },
+  {
+    "objectID": "lectures/8_sampling/patterns_processes.html#spatial-process-2",
+    "href": "lectures/8_sampling/patterns_processes.html#spatial-process-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Spatial Process",
+    "text": "Spatial Process"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#point-pattern-analysis",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#point-pattern-analysis",
+    "title": "Point Pattern Analysis",
+    "section": "Point Pattern Analysis",
+    "text": "Point Pattern Analysis"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#recap-framing",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#recap-framing",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Recap & framing",
+    "text": "Recap & framing\n\nA point pattern is a set of event locations in a defined window.\nFirst‑order: variation in intensity (trend) across space.\nSecond‑order: interaction among events (clustering, inhibition) beyond intensity."
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#first-order-effects",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#first-order-effects",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "First order effects",
+    "text": "First order effects\n\nIntensity\n\nHow does the likelihood of observing a point change from one location to another\nIndependent of presence/absence of other points\nEg.\n\nRetail stores and population density\nAsthma and air pollution"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#recap-framing-1",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#recap-framing-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Recap & framing",
+    "text": "Recap & framing\n\nCSR (Complete Spatial Randomness) = homogeneous Poisson process.\n\nFirst‑order: constant intensity.\nSecond‑order: no interaction.\n\nKey practicalities: window definition, units/CRS, duplicates, edge effects."
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#some-terms",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#some-terms",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Some terms",
+    "text": "Some terms\n\nDensity\n\nObserved number of points per area\nDirectly Observable\n\nIntensity\n\nUnderlying rate/likehood/probability\nWhat we infer\nProperty of the process that generated the pattern\nhomogenous - constant intensity across study area\ninhomogenous - intensity varies across study area"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#global-density-method",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#global-density-method",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Global Density Method",
+    "text": "Global Density Method\n\nAverage number of points per unit area\n\nnumber of points / area"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#local-density-methods",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#local-density-methods",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Local density methods",
+    "text": "Local density methods\n\nQuadrat density\nKernel density estimation\nseveral others\nAssumption\n\nInhomogeneity\nnon stationarity"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#quadrat-density",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#quadrat-density",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Quadrat Density",
+    "text": "Quadrat Density\n\nDivide study area into quadrats\nCalculate density in each quadrat\n\nHomogeneity within quadrats"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#quadrat-density-1",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#quadrat-density-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Quadrat Density",
+    "text": "Quadrat Density\n\nSensitive to choice of quadrats\n\nquadrats dont have to same size\n\nCan be based on an external variable\n\nsoil type, administrative region"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#quadrat-density-2",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#quadrat-density-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Quadrat Density",
+    "text": "Quadrat Density\n\nOften done using tesselation\n\n)"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#quadrat-density-3",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#quadrat-density-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Quadrat Density",
+    "text": "Quadrat Density\n\nSensitive to choice\n\nMAUP!!!"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#kernel-density-estimation",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#kernel-density-estimation",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Kernel Density Estimation",
+    "text": "Kernel Density Estimation\n\nEstimation using a moving window\n\ndefined by a kernel\n\nDegree of influence of neighbors\nSimple kernel\nDistance-weighted kernel"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#kernel-density-estimation-1",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#kernel-density-estimation-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Kernel Density Estimation",
+    "text": "Kernel Density Estimation\n\nSimple Kernel\n3x3 moving window\n\n {width=“50%”}"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#kernel-density-estimation-2",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#kernel-density-estimation-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Kernel Density Estimation",
+    "text": "Kernel Density Estimation\n\nDistance-weighted Kernel"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#kernel-density-estimation-3",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#kernel-density-estimation-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Kernel Density Estimation",
+    "text": "Kernel Density Estimation\n\nDistance-weighted Kernel"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#highly-recommended-reading",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#highly-recommended-reading",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Highly recommended reading",
+    "text": "Highly recommended reading\n\nhttps://mgimond.github.io/Spatial/chp14_0.html\n\nChapter 13 for Wednesday"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#quadrat-density-4",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#quadrat-density-4",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Quadrat Density",
+    "text": "Quadrat Density\n\nSensitive to choice\n\nMAUP!!!"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#common-application",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#common-application",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Common Application",
+    "text": "Common Application"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#second-order-effects",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#second-order-effects",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Second-order effects",
+    "text": "Second-order effects\n\nDistance-based methods\n\nCompared to Density-based (first-order effects)\nHow are points distributed relative to one another\nIs there potential for Spatial Interaction?"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#second-order-effects-1",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#second-order-effects-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Second-order effects",
+    "text": "Second-order effects\n\nAverage Nearest Neighbor (ANN)\nRipley’s K and L functions\nPair Correlation Function"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#average-nearest-neighbor",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#average-nearest-neighbor",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Average Nearest Neighbor",
+    "text": "Average Nearest Neighbor\n\nAverage distance between all nearest neighboring point pairs\nEg - ANN = 13.3 km"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#average-nearest-neighbor-1",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#average-nearest-neighbor-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Average Nearest Neighbor",
+    "text": "Average Nearest Neighbor\n\nCan be extended to higher orders\nCan capture ‘scale’ of clustering"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#average-nearest-neighbor-2",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#average-nearest-neighbor-2",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Average Nearest Neighbor",
+    "text": "Average Nearest Neighbor"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#examples",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#examples",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Examples",
+    "text": "Examples"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#average-nearest-neighbor-3",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#average-nearest-neighbor-3",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Average Nearest Neighbor",
+    "text": "Average Nearest Neighbor"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#k-and-l-function",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#k-and-l-function",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "K and L function",
+    "text": "K and L function\n\nHow does clustering and dispersion change and different spatial scales?\nConsiders all point pair distances"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#k-and-l-function-1",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#k-and-l-function-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "K and L function",
+    "text": "K and L function"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#pair-correlation-function",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#pair-correlation-function",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Pair Correlation Function",
+    "text": "Pair Correlation Function\n\nAlso referred to as the G function"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#pair-correlation-function-1",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#pair-correlation-function-1",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Pair Correlation Function",
+    "text": "Pair Correlation Function"
+  },
+  {
+    "objectID": "lectures/9_spatialAnalysis/pointpattern.html#first-and-second-order-effects",
+    "href": "lectures/9_spatialAnalysis/pointpattern.html#first-and-second-order-effects",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "first and second order effects",
+    "text": "first and second order effects\n\nStationarity/Inhomogeniety assumption\nIsotropy assumption\nEdge Effects\nControlling for first order effects\nControlling for second order effects\n\n\n\n#15 Point Pattern Analysis"
   }
 ]
