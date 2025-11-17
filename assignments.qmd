@@ -9,5 +9,6 @@ date-format: medium
 #### List of Homeworks
 
 -   [Homework 1: Once upon a stormy evening \[Due Sunday, Oct 19, 5 pm EDT\]](./hw/hw1/hw1.qmd)
+-   [Homework 2: Final Project Analysis Plan \[Due Monday, Nov 24, 11:59 pm EDT\]](./finalProjectOutline.qmd)
 
 ------------------------------------------------------------------------
