@@ -1,9 +1,9 @@
 ---
 title: 'GEOG 531: Final Project Analysis Plan'
-author:
-- 250 points \newline
-- GEOG 531, Intro to quantitative methods in Geographic Research \newline
-- Due date: Monday Nov 24 11:59 pm.
+author: "Varun Goel"
+description: |
+  Due Date: **Monday, November 24, 11: 59 pm** \newline \newline
+  **(250 points + 20 bonus points)**
 date: 'Updated: `r format(Sys.Date(), "%B %d, %Y")`'
 output:
   html_document:
