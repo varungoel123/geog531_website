@@ -128,13 +128,9 @@ List your cited literature.
 
 ------------------------------------------------------------------------
 
-## Formatting, length, and other requirements
-
-------------------------------------------------------------------------
-
 ## Evaluation
 
-------------------------------------------------------------------------
+The grading rubric for your project is defined [here](./finalproject/GEOG531_finalProjectGrading.docx)
 
 \*\* *Please start early and get in touch with me if you have any questions regarding anything about the assignment or requirements.* \*\*
 
