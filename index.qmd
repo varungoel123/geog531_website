@@ -43,6 +43,10 @@ format:
 
 The latest class syllabus can downloaded [here](Geog531_FA25_QuantitativeMethods_final.docx){target="_blank"}
 
+### Final project rubric
+
+The final project rubric can be downloaded [here](GEOG531_finalProjectGrading.docx){target="_blank"}
+
 ### To Dos:
 
 **Important HW1 Fix:**
