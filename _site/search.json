@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Geog 531: Quantitative Methods in Geographic Research",
     "section": "",
-    "text": "Instructor Information\nInstructor: Dr. Varun Goel\nOffice: Callcott 111\n\nAppointment link: Click Here\nEmail: varungoel@sc.edu\n\n\n\nCourse Essentials\nMeeting times: Monday, Wednesday 3:55 pm - 5:10pm\nMeeting location: Callcott 302\nStudent Support Hours: Mon-Wed 2 pm - 3 pm\nAppointment link: Click Here\n]GEOG 531 Discussion Google Sheet: Click Here\n\n\n\nUpdated Syllabus\nThe latest class syllabus can downloaded here\n\n\nTo Dos:\nImportant HW1 Fix:\nrun install.packages(\"DescTools\") in your console\nadd the line library(DescTools) in your code chunk at the top (where you load other libraries)"
+    "text": "Instructor Information\nInstructor: Dr. Varun Goel\nOffice: Callcott 111\n\nAppointment link: Click Here\nEmail: varungoel@sc.edu\n\n\n\nCourse Essentials\nMeeting times: Monday, Wednesday 3:55 pm - 5:10pm\nMeeting location: Callcott 302\nStudent Support Hours: Mon-Wed 2 pm - 3 pm\nAppointment link: Click Here\n]GEOG 531 Discussion Google Sheet: Click Here\n\n\n\nUpdated Syllabus\nThe latest class syllabus can downloaded here\n\n\nFinal project rubric\nThe final project rubric can be downloaded here\n\n\nTo Dos:\nImportant HW1 Fix:\nrun install.packages(\"DescTools\") in your console\nadd the line library(DescTools) in your code chunk at the top (where you load other libraries)"
   },
   {
     "objectID": "schedule.html",
