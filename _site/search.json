@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Geog 531: Quantitative Methods in Geographic Research",
     "section": "",
-    "text": "Instructor Information\nInstructor: Dr. Varun Goel\nOffice: Callcott 111\n\nAppointment link: Click Here\nEmail: varungoel@sc.edu\n\n\n\nCourse Essentials\nMeeting times: Monday, Wednesday 3:55 pm - 5:10pm\nMeeting location: Callcott 302\nStudent Support Hours: Mon-Wed 2 pm - 3 pm\nAppointment link: Click Here\n]GEOG 531 Discussion Google Sheet: Click Here\n\n\n\nUpdated Syllabus\nThe latest class syllabus can downloaded here\n\n\nFinal project rubric\nThe final project rubric can be downloaded here\n\n\nTo Dos:\nImportant HW1 Fix:\nrun install.packages(\"DescTools\") in your console\nadd the line library(DescTools) in your code chunk at the top (where you load other libraries)"
+    "text": "Instructor Information\nInstructor: Dr. Varun Goel\nOffice: Callcott 111\n\nAppointment link: Click Here\nEmail: varungoel@sc.edu\n\n\n\nCourse Essentials\nMeeting times: Tuesday, Thursday 2:50 pm - 4:05pm\nMeeting location: Callcott 302\nStudent Support Hours: Tu-Th 1:30 pm - 2:30 pm\nAppointment link: Click Here\n]GEOG 531 Discussion Google Sheet: Click Here\n\n\n\nUpdated Syllabus\nThe latest class syllabus can downloaded here\n\n\nTo Dos:\nWeek 1: Aug 18\n\nAccess Posit cloud and create project\nFill Course Pre Survey"
   },
   {
     "objectID": "schedule.html",
@@ -74,14 +74,14 @@
     "href": "readings.html",
     "title": "Readings",
     "section": "",
-    "text": "Week 4: Descriptive Spatial Statistics and Visualization\n\nGeoComputation with R - Chapter 2: Geographic Data in R\n\n\n\nWeek 5: Probability\n\nGoel et al., 2023\n\nWeek 7-8: Sampling and Sampling Distributions\n\nStudy Design (and Sampling): https://openintrostat.github.io/ims/data-design.html\nSampling, Confidence Intervals, Bootstrapping, Hypothesis testing: https://moderndive.com/v2/sampling.html\nNormal Distribution: https://moderndive.com/v2/appendixa\n(Recommended) Foundations of Inference (Ch 11,12,13): https://openintrostat.github.io/ims/data-design.html\n\nWeek 9: Hypothesis Testing - P-values and statistical significance https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf https://www.nature.com/articles/d41586-019-00874-8 https://www.cos.io/blog/we-should-redefine-statistical-significance\nWeek 10: Spatial Autocorrelation, Spatial Analysis\n\nPart 2: Spatial Analysis https://mgimond.github.io/Spatial/chp11_0.html\nAnother more extensive book https://paezha.github.io/spatial-analysis-r/"
+    "text": "Week 1: Introduction\n\nShort Introduction to Quantitative Geography?"
   },
   {
     "objectID": "lectures.html",
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )\n\n\n\nWeek 2: Data types and Nature of Spatial Data\n\nMonday, Aug 25: Intro to Data types ( pdf )\nWednesday, Aug 26: Lab 1 on Posit Cloud\n\n\n\nWeek 3: Geographic Data in R\n\nMonday, Sep 3: Geographic Data in R ( html )\n\n\n\nWeek 4: Describing Geographic Data\n\nMonday, Sep 8: Describing Geographic Data ( html )\nWednesday, Sep 10: Geographic Data Visualization Lab ( html )\n\n\n\nWeek 5: Visualizing Quantitative data, Sampling and Distributions\n\nMonday, Sep 15: Visualizing Quantitative Data ( html )\nWednesday Sep 17: Measurement Considerations in Data ( html )\nMonday, Sep 22: Sampling ( html )\n\n\n\nWeek 7: Question formation, Hypothesis Testing\n\nWednesday Oct 1: Confidence Intervals and Hypothesis Testing ( html )\n\n\n\nWeek 8: Hypothesis Testing\n\nMonday/Wednesday Oct 6-8: Confidence Intervals and Hypothesis Testing ( html )\n\n\n\nWeek 8: Hypothesis Testing Errors, Spatial Autocorrelation\n\nMonday Oct 13: Errors in Hypothesis Testing, Spatial Autocorrelation ( html )\nWednesday Oct 15: Spatial Patterns and Processes ( html )\n\n\n\nWeek 9: Area and Point-Pattern Analysis\n\nMonday Oct 20: Point Pattern Analysis ( html )"
+    "text": "Week 1: Introduction\n\nWednesday, Aug 20: Quantitative Methods in Geographic Research ( html , pdf )"
   },
   {
     "objectID": "data.html",
@@ -193,7 +193,7 @@
     "href": "exercises.html",
     "title": "In Class Demos and Exercises",
     "section": "",
-    "text": "Week 1: Introduction to Health Geography and GIS\n\nExercise 1: Piazza and Logistics (Wednesday, Jan 15, 2025)\n\n\n\n\nWeek 3/4: Spatial Data fundamentals, Coordinate systems\n\nDemo 1: Data Storage and Management\nUseful tip: File Folder management\nDemo 2: Coordinate Reference Systems\nExercise 2: Tissot Indicatrix and CRS\n\n\n\n\nWeek 5: Geocoding\n\nDemo 3: Plugins and Geocoding\nExercise 3: Geocoding and Joins\n\n\n\n\nWeek 6: Mapping Health data\n\nDemo 4 and Exercise Map: Composing Maps\n\n\n\n\nWeek 6: GIS operations, spatial patterns and processes\n\nDemo 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize\nExercise 5: Basic GIS Operations: Field Calculator, Buffer, Select, and Summarize\nDemo 6: Introduction to GEODA\n\n\n\n\nWeek 7: Neighbors, point pattern analysis, and spatial clustering\n\nExercise 6: Introduction to Kernel Density Estimation\nExercise 7: Spatial Autocorrelation in GeoDa\n\n\n\n\nWeek 9: Scan statistics, patterns vs process\n\nDemo 8: Introduction to SatScan\n\n\n\n\nWeek 11: Environmental Hazards, Spatial Interpolation, Rasters\n\nDemo 9: Raster Analysis using LandScan\nExercise 8: Exposure Assessment using Raster Data\nExercise 9: Spatial Interpolation\n\n\n\nWeek 13: Correlation, Regression, Spatial Regression\n\nDemo 10: Regression and Spatial Regression\nExercise 10: Regression and Spatial Regression"
+    "text": "Week 1:"
   },
   {
     "objectID": "assignments/assignment1.html",
@@ -235,7 +235,7 @@
     "href": "assignments.html",
     "title": "Homeworks",
     "section": "",
-    "text": "List of Homeworks\n\nHomework 1: Once upon a stormy evening [Due Sunday, Oct 19, 5 pm EDT]"
+    "text": "List of Homeworks"
   },
   {
     "objectID": "exercises/demo1_storageAndManagement.html",
@@ -563,8 +563,8 @@
     "objectID": "lectures/1_introduction/1_introduction.html#outline",
     "href": "lectures/1_introduction/1_introduction.html#outline",
     "title": "Quantitative Methods in Geographic Research",
-    "section": "Outline",
-    "text": "Outline\n\nIntroductions\nCourse Motivation and Overview\nSyllabus and Logistics"
+    "section": "",
+    "text": "Introductions\nCourse Motivation and Overview\nSyllabus and Logistics"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#introductions",
@@ -606,7 +606,7 @@
     "href": "lectures/1_introduction/1_introduction.html#research-design",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Research Design",
-    "text": "Research Design\n\nSource: Tyler Vigen"
+    "text": "Research Design\n\n\n\nSource: Tyler Vigen"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#better-and-reliable-science-communication",
@@ -655,7 +655,7 @@
     "href": "lectures/1_introduction/1_introduction.html#a-simple-yet-powerful-descriptive-spatial-statistic",
     "title": "Quantitative Methods in Geographic Research",
     "section": "A simple yet powerful descriptive spatial statistic",
-    "text": "A simple yet powerful descriptive spatial statistic\n\nSource: Wikipedia/US Census"
+    "text": "A simple yet powerful descriptive spatial statistic\n\n\n\nSource: Wikipedia/US Census"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#logistics",
@@ -3372,5 +3372,12 @@
     "title": "Quantitative Methods in Geographic Research",
     "section": "first and second order effects",
     "text": "first and second order effects\n\nStationarity/Inhomogeniety assumption\nIsotropy assumption\nEdge Effects\nControlling for first order effects\nControlling for second order effects\n\n\n\n#15 Point Pattern Analysis"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html",
+    "href": "lectures/1_introduction/1_introduction.html",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "",
+    "text": "Introductions\nCourse Motivation and Overview\nSyllabus and Logistics"
   }
 ]

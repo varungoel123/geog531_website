@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Varun Goel">
-<meta name="dcterms.date" content="2025-11-21">
+<meta name="dcterms.date" content="2026-08-18">
 <meta name="description" content="Due Date: Monday, November 24, 11: 59 pm  (250 points + 20 bonus points)">
 
 <title>GEOG 531: Final Project Analysis Plan – GEOG 531</title>
@@ -149,7 +149,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-analysis-plan" id="toc-project-analysis-plan" class="nav-link active" data-scroll-target="#project-analysis-plan">Project Analysis Plan</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
   </ul>
 </nav>
     </div>
@@ -180,7 +180,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 21, 2025</p>
+      <p class="date">August 18, 2026</p>
     </div>
   </div>
   
@@ -209,102 +209,8 @@ div.highlightblock {
 </style>
 </div>
 <hr>
-<section id="project-analysis-plan" class="level2">
-<h2 class="anchored" data-anchor-id="project-analysis-plan">Project Analysis Plan</h2>
-<p>The purpose of this Analysis plan is to serve as your analysis workhorse for your final project. In general, before conducting a quantitative analysis, it is good practice to have such a pre-specified plan even before you ‘actually’ conduct the analysis. This not only helps you think deeply about your analysis and give you direction, but it helps you not ‘cherry pick’ your results, where researchers only tend to show positive results, and not the null results.</p>
-<p>You can follow the same headings for your analysis plan, but can also add your own for your specific project if it makes sense.</p>
-<p>Submit your analysis plan as markdown file that is also knitted into an html file.</p>
-<p><u>1) <strong>Main Research Question (20 points)</strong></u></p>
-<p>We have done a lot of practice on this. Your question should be about how a ‘process’ may influence the ‘pattern’ that you see. It should also have some context about the spatial or temporal aspect of your question or the population that you may be interested. This will be similar to the question for your project that you generate in HW 1. You can also have <u>optional</u> 1 or 2 sub-questions, that should be linked to the main questions.</p>
-<p>For example, my main research question is <em>“Does greater social vulnerability cause greater property damage to floods in South Carolina between 2020 and 2024”?</em></p>
-<p>Follow-up sub questions could be:</p>
-<ul>
-<li><p>Is the relationship between social vulnerability and flooding damage different in 2020 compared to 2024?</p></li>
-<li><p>Is the relationship between social vulnerability and flooding different than the relationship between social vulnerability and flash flooding?</p></li>
-</ul>
-<p><u>2) <strong>Causal Diagram (60 points)</strong></u></p>
-<p>This is the most important part of your analysis plan and I propose that you spend some time on it. If you follow the instructions below, you should be in good shape. I want to see that you thought sensibly and deeply about the causal system of your research question at hand, and that you made your assumptions clear to me!</p>
-<ul>
-<li><p>Use the software <a href="https://www.google.com/search?client=safari&amp;rls=en&amp;q=daggitty&amp;ie=UTF-8&amp;oe=UTF-8">DAGitty</a> to draw your DAGs. Make sure to have sensible labels for your nodes. We have already practiced it a lot but Daggity also has very good examples and a ‘how to’ section.</p></li>
-<li><p>DAG should have your Exposure (Independent/Predictor) Variable.</p></li>
-<li><p>DAG should have your Outcome (Dependent/Response) Variable.</p></li>
-<li><p>DAG should have all other variables along with arrows that are part of your causal system. These variables should be theoretically motivated. Additionally, these variables should <u>NOT BE LIMITED</u> to the data that you already have. For example, income plays a role in social vulnerability and property damage to floods. However, even if I do not have the data, I should still mention it. DAGs should contain both <u>OBSERVED</u> and <u>UNOBSERVED</u> variables. There is no maximum number of variables that your DAG should have but at a minimum you should have <u>atleast 5 more variables</u> in addition to exposure and outcome. <u>Atleast 2 of these variables should be confounders</u> (more on that in next point)</p></li>
-<li><p>Report all minimum sufficient adjustment sets for the effect of the exposure variable on the outcome variable. Note that there may be more than one minimum sufficient adjustment sets.</p></li>
-<li><p>Take a good quality screenshot of your causal diagram and paste it into the document.</p></li>
-<li><p>In 5-8 lines, describe the justification for your DAG. Use this paragraph to make a strong case for why I should believe that your DAG is good enough. You can also use this space to talk about potential variables that you did not include but were thinking of, or any other information so that I can get a better sense of how you were thinking about your causal diagram.</p></li>
-</ul>
-<p>2) <u><strong>Descriptive Statistics</strong></u> <strong>(90 points)</strong></p>
-<p>This will be an important part of your final project. Here you will describe your data to ‘provide context’ to the reader. This could be in the form of simple summary statistics, and maps. These descriptions of your data should motivate your data analysis and your hypothesis. Follow atleast the following instructions for outlining the plan for your descriptive statistics. Be creative and feel free to suggest any other ways in which you may choose to describe your descriptive statistics.</p>
-<ul>
-<li>Describe what data types your descriptive variables will be. In case there is a descriptive variable that you do not have data for, that is ok. You can write about what kind of data type you would expect to see if you had the data. Note that you dont have to describe every single variable from your DAG, but you should do this atleast for your exposure, outcome, confounders, and any other important variables that you may test later. For this analysis plan you can have a table similar to the one below.</li>
-</ul>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 38%">
-<col style="width: 34%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th>Data Type</th>
-<th>Observed in dataset</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Property Damage</td>
-<td>Ratio</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td>Social Vulnerability</td>
-<td>Ratio</td>
-<td>Yes</td>
-</tr>
-<tr class="odd">
-<td>flood location</td>
-<td>Point level spatial data</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td>Median household income</td>
-<td>Ratio</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<td>Rural or Urban census tract</td>
-<td>Nominal</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><p>In one line describe the ‘scale’ of your analysis. For example, in my example, the scale of my analysis is at ‘census tract’ level since I am exploring whether socially vulnerable census tracts have higher average property damage or not?</p></li>
-<li><p>Describe <u>atleast 3 descriptive outputs</u> in your final project, with <u>atleast 1 being a descriptive table</u>. A descriptive table is common place in almost every quantitative analysis. You can look at the table 1 from my own papers such as <a href="https://geog531.netlify.app/readings/Goel%20et%20al.%20-%202023%20-%20Deep%20tubewell%20use%20is%20associated%20with%20increased%20hou.pdf">Goel et al.&nbsp;2023</a> but there are several options! The other outputs could be maps or figures!</p>
-<p>You should have 3 short paragraphs, one for each descriptive output. For the table, talk about how you would summarize your important variables. For the maps, describe what those maps would entail and what their purpose will be. Same for figures.</p>
-<p>For example, I would have a descriptive table that shows the mean and standard deviation of property damage and social vulnerability. For rural/urban census tracts, I may just show the count in each, and so on. For maps, I might show a choropleth map of average property damage in each census tract, and a choropleth map of social vulnerability side by side to show the spatial distribution to the readers. For the figures, I might show 2 scatter plots of social vulnerability and property damage for 2 different years, side by side.</p></li>
-</ul>
-<p>4) <u><strong>Data Analysis (60 points)</strong></u></p>
-<p>This is the part where you will specify your regression model and any other hypothesis that you will do. Good news is that your DAG has already given you an idea of what a potential regression model(s) may look like. Here is are the steps to create an analysis plan for your regression model.</p>
-<ul>
-<li><p>First you will write the formula for your main regression model based on your DAG. In a general form, your regression model formula would be:</p>
-<p><code>Outcome ~ Exposure + confounder1 + confounder2 + confounderN</code></p>
-<p>So, in my case for example, it could be:</p>
-<p><code>Property Damage ~ Social Vulnerability + Income + Rural-urban tract</code></p>
-<p>For those of you who have multiple minimum sufficient sets in your DAG, write the formula for the one with most confounders.</p></li>
-<li><p>Now, think and write down a 3-5 line paragraph about the following question:</p>
-<p>Is there any potential for interaction among your exposure variable and another variable, and why or why not? Or in other words, would the relationship between your exposure variable and outcome be different for different levels of another variable?</p>
-<p>For example, I believe that the social vulnerability and rural-urban census tract might interact since I believe that social vulnerability relationships in rural tracts may be very different than how they are measure in urban tracts.</p></li>
-<li><p>Lastly, write one 3-5 line paragraph about what first-order or second-order effects may be explaining the distribution of your outcome variable and its relationship with your independent variable. While we are not going to be running spatial analysis as such in this class (unless you want to [ come see me in that case]), I want you to think about 1st and 2nd order processes.</p>
-<p>For example, in my example, the relationship between social vulnerability and property damage could be influenced both my 1st and 2nd order processes. Social vulnerability is itself an external factor that makes more damage likely. However, more damage may result in more social vulnerability, and that is a 2nd order process. Additionally, if neighboring census tracts have more property damage or more social vulnerability, that may also influence the values of property damage and social vulnerability in our census tract. That is a 2nd order effect too. <u>In most cases, you will have BOTH 1st and 2nd order effects for your research question.</u></p></li>
-</ul>
-<p>5) <u><strong>Project Paper title (10 points)</strong></u></p>
-<p>Finally, come up with a draft project title for your paper. We discussed this in class too and refine until final project submission.</p>
-<p>5) <u><strong>Submission (10 points)</strong></u></p>
-<p>Make sure that your file knits as an html file succesfully.</p>
-<p>6) <u><strong>Extra Credit (Upto 20 points)</strong></u></p>
-<p>For anything creative that you might come up with for your final project whether we covered it in class or not.</p>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 
 
 </section>

@@ -6,34 +6,8 @@ date-format: medium
 
 #### 
 
-#### Week 4: Descriptive Spatial Statistics and Visualization
+#### Week 1: Introduction
 
--   [GeoComputation with R - Chapter 2: Geographic Data in R](https://r.geocompx.org/spatial-class){target="_blank"}
+- [Short Introduction to Quantitative Geography?](readings/ashortintroductiontoquantitativegeography.pdf){target="_blank"}
 
-#### Week 5: Probability
-
--   [Goel et al., 2023](./readings/Goel%20et%20al.%20-%202023%20-%20Deep%20tubewell%20use%20is%20associated%20with%20increased%20hou.pdf){target="_blank"}
-
-**Week 7-8: Sampling and Sampling Distributions**
-
--   Study Design (and Sampling): <https://openintrostat.github.io/ims/data-design.html>
-
--   Sampling, Confidence Intervals, Bootstrapping, Hypothesis testing: <https://moderndive.com/v2/sampling.html>
-
--   Normal Distribution: <https://moderndive.com/v2/appendixa>
-
--   (Recommended) Foundations of Inference (Ch 11,12,13): <https://openintrostat.github.io/ims/data-design.html>
-
-
-**Week 9: Hypothesis Testing**
-- P-values and statistical significance
-<https://www.amstat.org/asa/files/pdfs/P-ValueStatement.pdf>
-<https://www.nature.com/articles/d41586-019-00874-8>
-<https://www.cos.io/blog/we-should-redefine-statistical-significance>
-
-**Week 10: Spatial Autocorrelation, Spatial Analysis**
-
-- Part 2: Spatial Analysis
-<https://mgimond.github.io/Spatial/chp11_0.html>
-- Another more extensive book
-<https://paezha.github.io/spatial-analysis-r/>
+#### 

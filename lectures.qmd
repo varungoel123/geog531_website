@@ -8,48 +8,6 @@ date-format: medium
 
 #### Week 1: Introduction
 
--   *Wednesday, Aug 20: Quantitative Methods in Geographic Research* ( [html](./lectures/1_introduction/1_introduction.html){target="_blank"} , [pdf](./lectures/1_introduction/1_introduction.pdf){target="_blank"} )
+- *Wednesday, Aug 20: Quantitative Methods in Geographic Research* ( [html](./lectures/1_introduction/1_introduction.html){target="_blank"} , [pdf](./lectures/1_introduction/1_introduction.pdf){target="_blank"} )
 
-#### Week 2: Data types and Nature of Spatial Data
-
--   *Monday, Aug 25: Intro to Data types (* [pdf](./lectures/2_datatypes/Lecture2_spatialDataTypes.pdf){target="_blank"} )
--   Wednesday, Aug 26: Lab 1 on Posit Cloud
-
-#### Week 3: Geographic Data in R
-
--   *Monday, Sep 3: Geographic Data in R* ( [html](./lectures/4_spatialdata/4_spatialData.qmd){target="_blank"} )
-
-#### Week 4: Describing Geographic Data
-
--   *Monday, Sep 8: Describing Geographic Data* ( [html](./lectures/5_descriptiveSpatialStats/descriptiveSpatial.qmd){target="_blank"} )
--   *Wednesday, Sep 10: Geographic Data Visualization Lab* ( [html](./lectures/5_descriptiveSpatialStats/lab3_visualizingGeographicData.qmd){target="_blank"} )
-
-#### Week 5: Visualizing Quantitative data, Sampling and Distributions
-
--   *Monday, Sep 15: Visualizing Quantitative Data* ( [html](./lectures/6_dataViz/DataViz.qmd){target="_blank"} )
-
--   Wednesday Sep 17: Measurement Considerations in Data ( [html](./lectures/7_measurement/measurement.qmd){target="_blank"} )
-
--   *Monday, Sep 22: Sampling* ( [html](./lectures/8_sampling/sampling.qmd){target="_blank"} )
-
-#### Week 7: Question formation, Hypothesis Testing
-
--   *Wednesday Oct 1: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_sampling/boot_ci_hypo.qmd){target="_blank"} )
-
-#### Week 8: Hypothesis Testing
-
--   *Monday/Wednesday Oct 6-8: Confidence Intervals and Hypothesis Testing* ( [html](./lectures/8_sampling/hypothesis_testing.qmd){target="_blank"} )
-
-#### Week 8: Hypothesis Testing Errors, Spatial Autocorrelation
-
--   *Monday Oct 13: Errors in Hypothesis Testing, Spatial Autocorrelation* ( [html](./lectures/8_sampling/hypothesis_errors_spatialAuto.qmd){target="_blank"} )
-
--   *Wednesday Oct 15: Spatial Patterns and Processes* ( [html](./lectures/8_sampling/patterns_processes.qmd){target="_blank"} )
-
-#### Week 9: Area and Point-Pattern Analysis
-
--   *Monday Oct 20: Point Pattern Analysis* ( [html](./lectures/9_spatialAnalysis/pointpattern.qmd){target="_blank"} )
-
-#### Week 10/13: Regression
-
--   *Monday Oct 29: Linear Regression* ( [html](./lectures/10_regression/linear_regression.qmd){target="_blank"} )
+#### 

@@ -28,10 +28,10 @@ format:
 
 ### Course Essentials
 
-**Meeting times:** Monday, Wednesday *3:55 pm - 5:10pm*\
+**Meeting times:** Tuesday, Thursday *2:50 pm - 4:05pm*\
 **Meeting location:** Callcott 302
 
-**Student Support Hours:** Mon-Wed 2 pm - 3 pm
+**Student Support Hours:** Tu-Th 1:30 pm - 2:30 pm
 
 **Appointment link:** [Click Here](https://outlook.office.com/bookwithme/user/675339bb37584ebaa37d12437cb4f286@sc.edu/meetingtype/aKkUKwRTska6ndT42c8OWg2?anonymous&ep=mlink)
 
@@ -43,16 +43,12 @@ format:
 
 The latest class syllabus can downloaded [here](Geog531_FA26_Syllabus.pdf){target="_blank"}
 
-### Final project rubric
-
-The final project rubric can be downloaded [here](GEOG531_finalProjectGrading.docx){target="_blank"}
-
 ### To Dos:
 
-**Important HW1 Fix:**
+**Week 1: Aug 18**
 
-run `install.packages("DescTools")` in your console
+- Access Posit cloud and create project
 
-add the line `library(DescTools)` in your code chunk at the top (where you load other libraries)
+- Fill [Course Pre Survey](https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fforms.gle%2FaP17Vr9dVCujCVX69&data=05%7C02%7Cvarungoel%40sc.edu%7C0d8cbc6c8aa049e6b14b08defc72f050%7C4b2a4b19d135420e8bb2b1cd238998cc%7C0%7C0%7C639225768183495275%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=iuzpbuKGezkxwJ8WXLv4XGo%2FS0%2BYuou8wzw1Cj3HpUk%3D&reserved=0)
 
 #### 
