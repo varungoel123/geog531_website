@@ -563,36 +563,36 @@
     "objectID": "lectures/1_introduction/1_introduction.html#outline",
     "href": "lectures/1_introduction/1_introduction.html#outline",
     "title": "Quantitative Methods in Geographic Research",
-    "section": "",
-    "text": "Introductions\nCourse Motivation and Overview\nSyllabus and Logistics"
+    "section": "Outline",
+    "text": "Outline\n\nIntroductions\nCourse Motivation and Overview\nSyllabus and Logistics"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#introductions",
     "href": "lectures/1_introduction/1_introduction.html#introductions",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Introductions",
-    "text": "Introductions\n\nName/Preferred Name (if different)\nMajor & Year\nI (don’t) know what you did last summer!\n\nA place you visited?\nA dish you ate?\nA hobby you picked up?\n\nYou have $1 million and one-way ticket. Where would you want to settle for the next 5 years?"
+    "text": "Introductions\n\nName/Preferred Name (if different)\nMajor & Year\nI (don’t) know what you did last summer!\n\nA place you visited?\nA dish you ate?\nA hobby you picked up?\n\nYou have $1 million and one-way ticket. Where would you want to settle in the next 5 years?"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#about-me",
     "href": "lectures/1_introduction/1_introduction.html#about-me",
     "title": "Quantitative Methods in Geographic Research",
     "section": "About Me",
-    "text": "About Me\n\n‘Sophomore’ Assistant Professor\nHealth and Medical Geographer\n```         \nLots of GIS + (Spatial) Statistics\n```\nFirst name pronounced as ‘Maroon’ with a ‘V’\nLast name pronounced as ‘Go-yell’\nYou can call me Varun, Dr. Goel, Dr. G, Professor V"
+    "text": "About Me\n\n‘Junior’ Assistant Professor\nHealth and Medical Geographer\n\nLots of GIS + Statistics\nDesigning studies for geographic and health research\nApplied Policy work –&gt; research translation\n\nFirst name pronounced as ‘Maroon’ with a ‘V’\nLast name pronounced as ‘Go-yell’\nYou can call me Varun, Dr. Goel, Dr. G, Professor V"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#my-research",
     "href": "lectures/1_introduction/1_introduction.html#my-research",
     "title": "Quantitative Methods in Geographic Research",
     "section": "My research",
-    "text": "My research\n\n\nGlobal Environmental Health (Asia, Africa)\n\nClimate Change and Health\nHuman-Environment Interactions\n\nInfectious Disease Ecology\n\nMalaria, Diarrhea, HIV, others\n\nEvaluation of Health interventions\nApplied Statistics"
+    "text": "My research\n\nGlobal Environmental Health (Asia, Africa)\n\nClimate Change and Health\nHuman-Environment (and animal) Interactions\n\nInfectious Disease Ecology\n\nMalaria, Diarrhea, HIV, others\n\nEvaluation of Health interventions\nApplied Spatial Statistics"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#quantitative-methods-in-geography",
     "href": "lectures/1_introduction/1_introduction.html#quantitative-methods-in-geography",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Quantitative Methods in Geography",
-    "text": "Quantitative Methods in Geography\n\n\nStatistics\nResearch methods/design\nGIS\nSpatial Analysis\nProgramming\nScience Communication"
+    "text": "Quantitative Methods in Geography\n\nStatistics\nResearch methods/design\nGIS\nSpatial Analysis\nProgramming\nScience Communication"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#statistics",
@@ -606,7 +606,7 @@
     "href": "lectures/1_introduction/1_introduction.html#research-design",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Research Design",
-    "text": "Research Design\n\n\n\nSource: Tyler Vigen"
+    "text": "Research Design\n\nSource: Tyler Vigen"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#better-and-reliable-science-communication",
@@ -655,14 +655,14 @@
     "href": "lectures/1_introduction/1_introduction.html#a-simple-yet-powerful-descriptive-spatial-statistic",
     "title": "Quantitative Methods in Geographic Research",
     "section": "A simple yet powerful descriptive spatial statistic",
-    "text": "A simple yet powerful descriptive spatial statistic\n\n\n\nSource: Wikipedia/US Census"
+    "text": "A simple yet powerful descriptive spatial statistic\n\nSource: Wikipedia/US Census"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#logistics",
     "href": "lectures/1_introduction/1_introduction.html#logistics",
     "title": "Quantitative Methods in Geographic Research",
     "section": "Logistics",
-    "text": "Logistics\n\nSyllabus\nAttendance and Participation. Discussion + Practice &gt; Lecture\nUse of Generative AI.\nHosting materials. Blackboard v/s Course website\nAsking for Help. Be Proactive"
+    "text": "Logistics\n\nSyllabus\nAttendance and Participation\nUse of Generative AI.\nHosting materials. Blackboard v/s Course website\nAsking for Help. Be Proactive"
   },
   {
     "objectID": "lectures/1_introduction/1_introduction.html#what-is-your-experience-level-with-r",
@@ -3379,5 +3379,12 @@
     "title": "Quantitative Methods in Geographic Research",
     "section": "",
     "text": "Introductions\nCourse Motivation and Overview\nSyllabus and Logistics"
+  },
+  {
+    "objectID": "lectures/1_introduction/1_introduction.html#quantitative-methods-thinking-in-geography",
+    "href": "lectures/1_introduction/1_introduction.html#quantitative-methods-thinking-in-geography",
+    "title": "Quantitative Methods in Geographic Research",
+    "section": "Quantitative Methods (thinking) in Geography",
+    "text": "Quantitative Methods (thinking) in Geography\n\nStatistics\nResearch methods/design\nGIS\nSpatial Analysis\nProgramming\nScience Communication"
   }
 ]

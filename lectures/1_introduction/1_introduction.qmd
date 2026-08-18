@@ -4,7 +4,7 @@ subtitle: "Welcome and Introduction"
 author:
  - name: "Varun Goel"
 institute: ""
-date: 2025-08-20
+date: 2026-08-18
 date-format: medium
 title-slide-attributes:
   data-background-color: "#f3f4f4"
@@ -24,82 +24,65 @@ format:
 
 ## Outline
 
--   Introductions
--   Course Motivation and Overview
--   Syllabus and Logistics
+- Introductions
+- Course Motivation and Overview
+- Syllabus and Logistics
 
 ## Introductions
 
--   Name/Preferred Name (if different)
+- Name/Preferred Name (if different)
 
--   Major & Year
+- Major & Year
 
--   I (don't) know what you did last summer!
+- I (don't) know what you did last summer!
 
-    -   
+  - A place you visited?
 
-        ```         
-        A place you visited?
-        ```
+  - A dish you ate?
 
-    -   
+  - A hobby you picked up?
 
-        ```         
-        A dish you ate?
-        ```
-
-    -   
-
-        ```         
-        A hobby you picked up?
-        ```
-
--   You have \$1 million and one-way ticket. Where would you want to settle for the next 5 years?
+- You have \$1 million and one-way ticket. Where would you want to settle in the next 5 years?
 
 ## About Me
 
--   'Sophomore' Assistant Professor
--   Health and Medical Geographer
-    -   
+- 'Junior' Assistant Professor
 
-        ```         
-        Lots of GIS + (Spatial) Statistics
-        ```
--   First name pronounced as *'Maroon'* with a *'V'*
--   Last name pronounced as *'Go-yell'*
--   You can call me Varun, Dr. Goel, Dr. G, Professor V
+- Health and Medical Geographer
+
+  - Lots of GIS + Statistics
+  - Designing studies for geographic and health research
+  - Applied Policy work --\> research translation
+
+- First name pronounced as *'Maroon'* with a *'V'*
+
+- Last name pronounced as *'Go-yell'*
+
+- You can call me Varun, Dr. Goel, Dr. G, Professor V
 
 ## My research
 
 ::: incremental
--   Global Environmental Health (Asia, Africa)
+- Global Environmental Health (Asia, Africa)
 
-    -   
+  - Climate Change and Health
 
-        ```         
-        Climate Change and Health
-        ```
+  - Human-Environment (and animal) Interactions
 
-    -   
+- Infectious Disease Ecology
 
-        ```         
-        Human-Environment Interactions
-        ```
+  - Malaria, Diarrhea, HIV, others
 
--   Infectious Disease Ecology
+- Evaluation of Health interventions
 
-    -   
-
-        ```         
-        Malaria, Diarrhea, HIV, others
-        ```
-
--   Evaluation of Health interventions
-
--   Applied Statistics
+- Applied Spatial Statistics
 :::
 
 # What is this course about?
+
+## 
+
+![](assets/menti_link.png){fig-align="center"}
 
 ## 
 
@@ -109,20 +92,24 @@ format:
 
 ![](assets/sds.jpg){fig-align="center" width="300px"}
 
-## Quantitative Methods in Geography
+## 
+
+![](assets/quantitativeGeog.png){fig-align="center" width="300px"}
+
+## Quantitative Methods (thinking) in Geography
 
 ::: incremental
--   Statistics
--   Research methods/design
--   GIS
--   Spatial Analysis
--   Programming
--   Science Communication
+- Statistics
+- Research methods/design
+- GIS
+- Spatial Analysis
+- Programming
+- Science Communication
 :::
 
 ## Statistics
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ![Source: [The Decision Lab](https://thedecisionlab.com/reference-guide/philosophy/system-1-and-system-2-thinking)](assets/decisions.webp){fig-align="center" width="600px"}
 :::
@@ -130,7 +117,7 @@ format:
 ::: {.column width="50%"}
 ![](assets/Thinking,_Fast_and_Slow.jpg){fig-align="center" width="300px"}
 :::
-:::
+:::::
 
 ## Research Design
 
@@ -148,7 +135,7 @@ format:
 
 ## Example: Jo(h)n Snow and Cholera
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ![](assets/John_Snow.jpg){fig-align="center" width="200px"}
 :::
@@ -156,7 +143,7 @@ format:
 ::: {.column width="50%"}
 ![](assets/snow_map.jpg){fig-align="center" width="300px"}
 :::
-:::
+:::::
 
 ## Example: Jo(h)n Snow and Cholera
 
@@ -164,7 +151,7 @@ format:
 
 ## Example: Jo(h)n Snow and Cholera
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ![](assets/Whitehead_henry1884.jpg){fig-align="center" width="200px"}
 :::
@@ -172,7 +159,7 @@ format:
 ::: {.column width="50%"}
 ![](assets/bill_farr.jpg){fig-align="center" width="200px"}
 :::
-:::
+:::::
 
 ## Example: Jo(h)n Snow and Cholera
 
@@ -184,66 +171,39 @@ format:
 
 ## Logistics
 
--   **Syllabus**
--   **Attendance and Participation**. Discussion + Practice \> Lecture
--   **Use of Generative AI**.
--   **Hosting materials**. Blackboard v/s Course website
--   **Asking for Help**. Be Proactive
+- **Syllabus**
+- **Attendance and Participation**
+- **Use of Generative AI**.
+- **Hosting materials**. Blackboard v/s Course website
+- **Asking for Help**. Be Proactive
 
-## What is your experience level with R? {.smaller}
-
-![](assets/r_experience.png){fig-align="center" width="500px"}
 
 ## R
 
--   Programming Language written by Statisticians primarily for statistical computing
+- Programming Language written by Statisticians primarily for statistical computing
 
--   Big community and support
+- Big community and support
 
--   Suitable for Geographic Research
+- Suitable for Geographic Research
 
-    -   
+  - Very strong spatial statistics capabilities
 
-        ```         
-        Very strong spatial statistics capabilities
-        ```
+  - Great data visualization + mapping
 
-    -   
-
-        ```         
-        Great data visualization + mapping
-        ```
-
-    -   
-
-        ```         
-        Supported by packages (similar to libraries in Python)
-        ```
+  - Supported by packages (similar to libraries in Python)
 
 ## R Studio, Posit Cloud
 
--   R Studio: Integrated Development Environment for R
+- R Studio: Integrated Development Environment for R
 
-    -   
+  - Makes Dull R more Fun
 
-        ```         
-        Makes Dull R more Fun
-        ```
+- Posit Cloud: Rstudio in the cloud
 
--   Posit Cloud: Rstudio in the cloud
+  - Reduces steep learning curve
 
-    -   
+  -  Reduces technical issues
 
-        ```         
-        Reduces steep learning curve
-        ```
+- Sign up at <https://posit.cloud/> with your SCHOOL email
 
-    -   
-
-        ```         
-        Reduces technical issues
-        ```
-
--   Sign up at <https://posit.cloud/> with your SCHOOL email
-
-# Questions?
+# Questions/Concerns?
