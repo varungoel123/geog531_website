@@ -8,6 +8,6 @@ date-format: medium
 
 #### Week 1: Introduction
 
-- *Wednesday, Aug 20: Quantitative Methods in Geographic Research* ( [html](./lectures/1_introduction/1_introduction.html){target="_blank"} , [pdf](./lectures/1_introduction/1_introduction.pdf){target="_blank"} )
+- *Tuesday, Aug 18: Quantitative Methods in Geographic Research* ( [html](./lectures/1_introduction/1_introduction.qmd){target="_blank"} , [pdf](./lectures/1_introduction/1_introduction.pdf){target="_blank"} )
 
 #### 
