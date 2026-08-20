@@ -10,6 +10,11 @@ date-format: medium
 
 - [Short Introduction to Quantitative Geography](readings/ashortintroductiontoquantitativegeography.pdf){target="_blank"}
 
+Practice resources: Highly recommended for beginners
+
+- [Hands-on R programming](https://rstudio-education.github.io/hopr/starting.html){target="_blank"}
+- [Intro to R](https://cengel.github.io/R-intro/){target="_blank"}
+
 #### 
 
 
@@ -20,5 +25,12 @@ date-format: medium
 
 - [Chapter 1: Hello Data](https://openintro-ims.netlify.app/data-hello
 ){target="_blank"} Note: Also practice the odd number exercises
+
+- [Chapter 1: Intro To Geographic Data](readings/OSullivan_2010_GIA_Chp1.pdf){target="_blank"} Note: Read through page 5 - 28
+
+- [Simplified intro (refresher) to Geographic Data](https://giscommons.org/introduction-concepts/){target="_blank"}
+
+Advanced Practice resources 
+- [Geographic Data in R](https://r.geocompx.org/spatial-class){target="_blank"}
 
 #### 
