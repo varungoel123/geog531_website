@@ -10,27 +10,31 @@ date-format: medium
 
 - [Short Introduction to Quantitative Geography](readings/ashortintroductiontoquantitativegeography.pdf){target="_blank"}
 
-Practice resources: Highly recommended for beginners
+[*Practice resources: Highly recommended for beginners*]{.underline}
 
 - [Hands-on R programming](https://rstudio-education.github.io/hopr/starting.html){target="_blank"}
 - [Intro to R](https://cengel.github.io/R-intro/){target="_blank"}
+- [Intro to R using tidyverse commands](https://openintrostat.github.io/oilabs-tidy/01_intro_to_r/intro_to_r.html){target="_blank"}
 
 #### 
 
-
 #### Week 2: Observations, Variables, Geographic Data
 
-- [Getting Started with Data in R](https://moderndive.com/v2/01-getting-started.html
-){target="_blank"} Note: read/practice until 1.4.6
+[***Required:***]{.underline}
 
-- [Chapter 1: Hello Data](https://openintro-ims.netlify.app/data-hello
-){target="_blank"} Note: Also practice the odd number exercises
+- Finish [Lesson 1: Language of Data](https://openintrostat.github.io/ims-tutorials/01-data/){target="_blank"}
+
+- [Chapter 1: Hello Data](https://openintro-ims.netlify.app/data-hello){target="_blank"} Note: Also practice the odd number exercises
 
 - [Chapter 1: Intro To Geographic Data](readings/OSullivan_2010_GIA_Chp1.pdf){target="_blank"} Note: Read through page 5 - 28
 
 - [Simplified intro (refresher) to Geographic Data](https://giscommons.org/introduction-concepts/){target="_blank"}
 
-Advanced Practice resources:
+[*Recommended (If you need more R practice)*]{.underline}
+
+- [Getting Started with Data in R](https://moderndive.com/v2/01-getting-started.html){target="_blank"} Note: read/practice until 1.4.6
+
+[*Advanced Practice resources:*]{.underline}
 
 - [Geographic Data in R](https://r.geocompx.org/spatial-class){target="_blank"}
 
