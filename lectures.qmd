@@ -10,4 +10,7 @@ date-format: medium
 
 - *Tuesday, Aug 18: Quantitative Methods in Geographic Research* ( [html](./lectures/1_introduction/1_introduction.qmd){target="_blank"} , [pdf](./lectures/1_introduction/1_introduction.pdf){target="_blank"} )
 
+- *Thursday, Aug 20: Introduction to R, R studio, and R Posit* (in-person lab) 
+
+
 #### 
