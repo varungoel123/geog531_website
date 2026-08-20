@@ -21,7 +21,7 @@ Practice resources: Highly recommended for beginners
 #### Week 2: Observations, Variables, Geographic Data
 
 - [Getting Started with Data in R](https://moderndive.com/v2/01-getting-started.html
-){target="_blank"}
+){target="_blank"} Note: read/practice until 1.4.6
 
 - [Chapter 1: Hello Data](https://openintro-ims.netlify.app/data-hello
 ){target="_blank"} Note: Also practice the odd number exercises
@@ -30,7 +30,8 @@ Practice resources: Highly recommended for beginners
 
 - [Simplified intro (refresher) to Geographic Data](https://giscommons.org/introduction-concepts/){target="_blank"}
 
-Advanced Practice resources 
+Advanced Practice resources:
+
 - [Geographic Data in R](https://r.geocompx.org/spatial-class){target="_blank"}
 
 #### 
