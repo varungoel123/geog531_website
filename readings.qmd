@@ -8,6 +8,17 @@ date-format: medium
 
 #### Week 1: Introduction
 
-- [Short Introduction to Quantitative Geography?](readings/ashortintroductiontoquantitativegeography.pdf){target="_blank"}
+- [Short Introduction to Quantitative Geography](readings/ashortintroductiontoquantitativegeography.pdf){target="_blank"}
+
+#### 
+
+
+#### Week 2: Observations, Variables, Geographic Data
+
+- [Getting Started with Data in R](https://moderndive.com/v2/01-getting-started.html
+){target="_blank"}
+
+- [Chapter 1: Hello Data](https://openintro-ims.netlify.app/data-hello
+){target="_blank"} Note: Also practice the odd number exercises
 
 #### 
