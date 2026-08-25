@@ -13,4 +13,7 @@ date-format: medium
 - *Thursday, Aug 20: Introduction to R, R studio, and R Posit* (in-person lab) 
 
 
-#### 
+#### Week 2: Non-spatial and Spatial Data Types
+
+- *Tuesday, Aug 25: Data Types* ([pdf](./lectures/2_datatypes/lecture2_dataTypes.pdf){target="_blank"} ), posit lab 1
+
