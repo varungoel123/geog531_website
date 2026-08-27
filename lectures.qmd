@@ -15,5 +15,7 @@ date-format: medium
 
 #### Week 2: Non-spatial and Spatial Data Types
 
-- *Tuesday, Aug 25: Data Types* ([pdf](./lectures/2_datatypes/lecture2_dataTypes.pdf){target="_blank"} ), posit lab 1
-
+- *Tuesday, Aug 25: Data Types* ([pdf](./lectures/2_datatypes/lecture2_dataTypes.pdf){target="_blank"} ), posit lab 1 
+- *Thursday, Aug 27: Data Types* (
+[class lecture](./lectures/2_datatypes/2_spatialData.qmd){target="_blank"},
+[Spatial Data Fundamentals](./lectures/2_datatypes/patialDataFundamentals.pdf){target="_blank"}), posit lab 2
