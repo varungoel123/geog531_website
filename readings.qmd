@@ -39,3 +39,20 @@ date-format: medium
 - [Geographic Data in R](https://r.geocompx.org/spatial-class){target="_blank"}
 
 #### 
+
+#### Week 3: Study Design, Sampling, Geographic Considerations
+
+[***Required:***]{.underline}
+
+- Finish [Lesson 2 and Lesson 3](https://openintrostat.github.io/ims-tutorials/01-data/){target="_blank"}
+
+- [Chapter 2: Study Design](https://openintro-ims.netlify.app/data-hello){target="_blank"} Note: Practice the odd number exercises until you feel comfortable
+
+- [Flint, Lead, and Zipcodes](https://theconversation.com/how-zip-codes-nearly-masked-the-lead-problem-in-flint-65626){target="_blank"}
+
+- [Lyme Disease and Fried Chicken](readings/lymedisease_ecoFallacy.pdf){target="_blank"}
+
+[*Recommended*]{.underline}
+
+- [Chapter 3: Applications](https://openintro-ims.netlify.app/data-hello){target="_blank"} Note: for practice
+
