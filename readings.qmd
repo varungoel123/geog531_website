@@ -4,9 +4,9 @@ date: last-modified
 date-format: medium
 ---
 
-#### 
+------------------------------------------------------------------------
 
-#### Week 1: Introduction
+#### **Week 1: Introduction**
 
 - [Short Introduction to Quantitative Geography](readings/ashortintroductiontoquantitativegeography.pdf){target="_blank"}
 
@@ -16,9 +16,9 @@ date-format: medium
 - [Intro to R](https://cengel.github.io/R-intro/){target="_blank"}
 - [Intro to R using tidyverse commands](https://openintrostat.github.io/oilabs-tidy/01_intro_to_r/intro_to_r.html){target="_blank"}
 
-#### 
+------------------------------------------------------------------------
 
-#### Week 2: Observations, Variables, Geographic Data
+#### **Week 2: Observations, Variables, Geographic Data**
 
 [***Required:***]{.underline}
 
@@ -38,9 +38,9 @@ date-format: medium
 
 - [Geographic Data in R](https://r.geocompx.org/spatial-class){target="_blank"}
 
-#### 
+------------------------------------------------------------------------
 
-#### Week 3: Study Design, Sampling, Geographic Considerations
+#### **Week 3: Study Design, Sampling, Geographic Considerations**
 
 [***Required:***]{.underline}
 
@@ -56,3 +56,17 @@ date-format: medium
 
 - [Chapter 3: Applications](https://openintro-ims.netlify.app/data-hello){target="_blank"} Note: for practice
 
+------------------------------------------------------------------------
+
+#### **Week 4: Descriptive Statistics, Data Visualization**
+
+[***Required:***]{.underline}
+
+- Finish [Exploratory Data Analysis: Lessons 1, 2 and 3](https://openintrostat.github.io/ims-tutorials/02-explore/){target="_blank"}
+
+- [Exploratory Data Analysis Chapter 4 and 5](https://openintro-ims.netlify.app/exploratory-data-analysis){target="_blank"} (Chapter 6 is optional if you need more practice)
+
+[*Recommended*]{.underline}
+
+- [Catalogue](https://datavizcatalogue.com) of several visualization styles and how to implement them
+- [Fantastic resource](https://www.storytellingwithdata.com/) for Do's, and Don'ts and data storytelling

@@ -19,3 +19,8 @@ date-format: medium
 - *Thursday, Aug 27: Data Types* (
 [class lecture](./lectures/2_datatypes/2_spatialData.qmd){target="_blank"},
 [Spatial Data Fundamentals](./lectures/2_datatypes/patialDataFundamentals.pdf){target="_blank"}), posit lab 2
+
+#### Week 3: Sampling and Study Design
+
+- *Tuesday, Thursday, Sep 1,3: Sampling and Study Design* (
+[class lecture](./lectures/3_samplingAndDesign/3a_sampling_study_design.qmd){target="_blank"})
