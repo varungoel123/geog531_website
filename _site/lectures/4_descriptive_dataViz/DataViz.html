@@ -133,7 +133,7 @@
 
 <section id="title-slide" data-background-color="#f3f4f4" data-background-position="60% 120%" data-background-size="80%" subparagraph="yes" class="quarto-title-block center">
   <h1 class="title">Quantitative Methods in Geographic Research</h1>
-  <p class="subtitle">Sampling and Study Design: Part 1 and 2</p>
+  <p class="subtitle">Visualizing Quantitative Data</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -143,178 +143,174 @@ Varun Goel
 </div>
 </div>
 
-  <p class="date">Sep 1, 2026</p>
+  <p class="date">Sep 8, 2026</p>
 </section>
-<section id="reading-check" class="slide level2">
-<h2>Reading Check</h2>
-<ol type="1">
-<li class="fragment"><p>Why might a researcher choose <strong>stratified sampling</strong> instead of <strong>simple random sampling</strong>?</p></li>
-<li class="fragment"><p>What does random assignment accomplish in a <strong>Randomized Control Trial</strong> <strong>(RCT)</strong>?</p></li>
-<li class="fragment"><p>What is a <strong>confounding variable</strong>?</p></li>
-<li class="fragment"><p>What is one important difference between an <strong>experiment</strong> and an <strong>observational study</strong>?</p></li>
-<li class="fragment"><p>What is one difference between <strong>stratified sampling</strong> and <strong>cluster sampling</strong></p></li>
-</ol>
-</section>
-<section id="simple-random-sampling" class="slide level2">
-<h2>Simple Random Sampling</h2>
-
-<img data-src="assets/srs.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="stratified-random-sampling" class="slide level2">
-<h2>Stratified Random Sampling</h2>
-
-<img data-src="assets/strs.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
-<li><u>High variability across</u> Strata, <u>low variability within</u> stratum</li>
-</ul>
-</section>
-<section id="cluster-sampling---single-stage" class="slide level2">
-<h2>Cluster Sampling - single stage</h2>
-
-<img data-src="assets/cs.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
-<li><u>High variability within</u> Cluster <u>low variability within</u> stratum</li>
-</ul>
-</section>
-<section id="multistage-cluster-sampling" class="slide level2">
-<h2>Multistage cluster sampling</h2>
-
-<img data-src="assets/mcs.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="generalization-and-inference" class="slide level2">
-<h2>Generalization and Inference</h2>
-
-<img data-src="assets/randsampValloc.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="rcts-geographic-considerations" class="slide level2">
-<h2>RCTs: Geographic Considerations</h2>
-<h3 id="what-an-rct-assumes"><strong>What an RCT Assumes</strong></h3>
+<section id="outline" class="slide level2">
+<h2>Outline</h2>
 <ul>
-<li><p>Units are&nbsp;<strong>independent</strong>: what happens to one unit doesn’t affect another</p></li>
-<li><p><strong>Random assignment</strong>&nbsp;removes confounding</p></li>
-<li><p>Treatment and control groups are <strong>comparable</strong></p></li>
-</ul>
-</section>
-<section id="rcts-geographic-considerations-1" class="slide level2">
-<h2>RCTs: Geographic Considerations</h2>
+<li><p>Why visualize our data</p>
 <ul>
-<li>Observations nearby may <strong>not be independent</strong></li>
-</ul>
-<p>Tobler’s First Law in action:</p>
-<blockquote>
-<p><strong><em>“Everything is related to everything else, but near things are more related than distant things.”</em></strong></p>
-</blockquote>
-<ul>
-<li><p>If you randomize&nbsp;<strong>individuals</strong>&nbsp;within a neighborhood, those individuals share air quality, noise, access to parks, social norms, food environments</p></li>
-<li><p>This means your&nbsp;<strong>effective sample size is smaller than it appears</strong></p></li>
-<li><p>Standard statistical tests will be&nbsp;<strong>overconfident</strong>&nbsp;in your results</p></li>
-</ul>
-</section>
-<section id="rcts-geographic-considerations-2" class="slide level2">
-<h2>RCTs: Geographic Considerations</h2>
-<p><strong>Problem 2: Spillover / Contamination Effects</strong></p>
-<ul>
-<li><p>A job training program in one neighborhood may attract businesses that benefit the neighboring&nbsp;<em>control</em>&nbsp;neighborhood</p></li>
-<li><p>A vaccination campaign reduces disease in the <em>unvaccinated</em>&nbsp;control group through <strong>herd immunity</strong></p></li>
-<li><p>This is called&nbsp;<strong>interference</strong>&nbsp;or&nbsp;<strong>SUTVA violation</strong>&nbsp;(Stable Unit Treatment Value Assumption)</p></li>
-</ul>
-</section>
-<section id="rcts-geographic-considerations-3" class="slide level2">
-<h2>RCTs: Geographic Considerations</h2>
-<p><strong>Problem 3: Places can be randomized, but they are randomized as clusters</strong></p>
-<ul>
-<li><p>Examples: schools, clinics, neighborhoods, counties</p></li>
-<li><p>Clusters may differ in history, infrastructure, demographics, and baseline outcomes</p></li>
-<li><p>Randomization helps create a comparison, but it does not make places identical</p></li>
-<li><p><strong>Cluster Randomized Control Trials</strong> usually require <em>more clusters, larger samples, and attention to spillover and contamination</em></p></li>
-</ul>
-</section>
-<section id="rcts-geographic-considerations-4" class="slide level2">
-<h2>RCTs: Geographic Considerations</h2>
-<p><strong>Problem 4: What is the appropriate unit of randomization?</strong></p>
-<ul>
-<li>Individual, Household, Block, Neighborhood, County?</li>
-<li>The choice affects <em>spillover, statistical power, treatment implementation, unit of inference, generalizability</em></li>
-<li>Geographic results may also change when researchers change <em>the scale of analysis</em>, or <em>the boundaries used</em></li>
-<li>This is related to the <strong>modifiable areal unit problem (MAUP)</strong></li>
-</ul>
-</section>
-<section id="cohort-studies" class="slide level2">
-<h2>Cohort Studies</h2>
-<h3 id="what-a-cohort-study-assumes"><strong>What a Cohort Study Assumes</strong></h3>
-<ul>
-<li><p>You follow a group of people over time</p></li>
-<li><p>You measure&nbsp;<strong>exposure</strong>&nbsp;and then&nbsp;<strong>outcome</strong></p></li>
-<li><p>Differences in outcome are due to differences in exposure</p></li>
-</ul>
-</section>
-<section id="cohort-studies-1" class="slide level2">
-<h2>Cohort Studies</h2>
-<p><strong>Problem 1: Geographic Confounding</strong></p>
-<ul>
-<li><p>Where people&nbsp;<strong>live</strong>&nbsp;shapes almost everything about them:</p>
-<ul>
-<li>Air and water quality, access to healthcare, food environment etc.</li>
+<li>Are Descriptive Statistics Enough?</li>
 </ul></li>
-<li><p>These are called&nbsp;<strong>place-based confounders</strong>&nbsp;— they travel together and are very hard to separate</p></li>
+<li><p>Linking quantitative data types to visualization</p></li>
+<li><p>Data Visualization in action: (some) Do’s and Dont’s</p></li>
 </ul>
 </section>
-<section id="cohort-studies-2" class="slide level2">
-<h2>Cohort Studies</h2>
-<p><strong>Problem 2: Residential Sorting (Selection Into Place)</strong></p>
+<section id="why-visualize-our-data" class="slide level2">
+<h2>Why Visualize our data</h2>
 <ul>
-<li><p>People do not live randomly — they&nbsp;<strong>sort themselves geographically</strong>&nbsp;by:</p>
+<li>Lab 4 exercise</li>
+</ul>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+
+<img data-src="assets/Anscombe's_quartet_1.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="what-exactly-do-you-want-to-show" class="slide level2">
+<h2>What exactly do you want to show</h2>
+
+<img data-src="assets/whatyouwanttoshow.png" class="r-stretch quarto-figure-center"><p class="caption">Source: https://paldhous.github.io/ucb/2016/dataviz/week2.html#</p></section>
+<section id="what-kind-of-datavariable-do-you-have" class="slide level2">
+<h2>What kind of data/variable do you have?</h2>
+
+<img data-src="assets/graph_type.png" class="r-stretch quarto-figure-center"><p class="caption">Source: https://serialmentor.com/</p></section>
+<section id="distribution" class="slide level2">
+<h2>Distribution</h2>
 <ul>
-<li>Income, race and ethnicity, health, age etc.</li>
+<li><p>What is the composition of my variable?</p>
+<ul>
+<li>Are values concentrated/spread out</li>
+<li>Are there any breaks/ outliers</li>
+<li>Influences the questions you want to ask/ story you want to tell</li>
 </ul></li>
-<li><p>This means geographic exposure is&nbsp;<strong>not randomly assigned</strong></p>
+</ul>
+</section>
+<section id="distribution-1" class="slide level2">
+<h2>Distribution</h2>
+
+<img data-src="DataViz_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<section id="distribution-2" class="slide level2">
+<h2>Distribution</h2>
 <ul>
-<li>Sicker people may live in poorer areas&nbsp;<em>because</em>&nbsp;they are sicker — or they may become sicker&nbsp;<em>because</em>&nbsp;they live there</li>
+<li>Continuous Variable, multiple categories</li>
+</ul>
+
+<img data-src="DataViz_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<section id="distribution-3" class="slide level2">
+<h2>Distribution</h2>
+<ul>
+<li>Continuous Variable, multiple categories</li>
+<li>Density Plot</li>
+</ul>
+
+<img data-src="DataViz_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<section id="distribution-4" class="slide level2">
+<h2>Distribution</h2>
+<ul>
+<li>Categorical variable</li>
+</ul>
+
+<img data-src="DataViz_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
+<section id="relationship" class="slide level2">
+<h2>Relationship</h2>
+<ul>
+<li><p>Focus on co-variation</p>
+<ul>
+<li>How do x and y vary together</li>
+<li>Is there a trend?</li>
+<li><em>Correlation is not equal to Causation</em></li>
 </ul></li>
-<li><p>Cause and effect are deeply entangled</p></li>
 </ul>
 </section>
-<section id="cohort-studies-3" class="slide level2">
-<h2>Cohort Studies</h2>
-<p><strong>Problem 3: Mobility and Changing Exposure</strong></p>
+<section id="relationship-1" class="slide level2">
+<h2>Relationship</h2>
 <ul>
-<li><p>Cohort studies follow people over time</p></li>
-<li><p>But people&nbsp;<strong>move</strong> and their geographic exposure changes</p></li>
-<li><p>A person exposed to industrial pollution for 5 years, then moving to clean air, has a complex exposure history</p></li>
-<li><p>This is a major source of&nbsp;<strong>exposure misclassification</strong></p></li>
+<li>Continuous variable, categorical variable</li>
+</ul>
+
+<img data-src="DataViz_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<section id="relationship-2" class="slide level2">
+<h2>Relationship</h2>
+<ul>
+<li>2 continuous variables</li>
+</ul>
+
+<img data-src="DataViz_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="comparison" class="slide level2">
+<h2>Comparison</h2>
+<ul>
+<li><p>Focus on spotting differences</p>
+<ul>
+<li>Differences across categories</li>
+<li>Differences across time</li>
+<li>Differences across units</li>
+</ul></li>
 </ul>
 </section>
-<section id="cohort-studies-4" class="slide level2">
-<h2>Cohort Studies</h2>
-<p><strong>Problem 4: The Ecological Fallacy</strong></p>
+<section id="comparison-1" class="slide level2">
+<h2>Comparison</h2>
 <ul>
-<li><p><strong>Drawing conclusions about <em>individuals</em> from <em>group-level</em> geographic data</strong></p></li>
-<li><p>We often measure exposure at the&nbsp;<strong>area level</strong>&nbsp;(neighborhood poverty rate, county pollution average) but care about&nbsp;<strong>individual outcomes</strong></p></li>
-<li><p>The relationship at one geographic scale does not transfer to another</p></li>
-<li><p>Related to <strong><em>Simpson’s paradox</em></strong></p></li>
+<li>Differences across units</li>
+</ul>
+
+<img data-src="DataViz_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section id="composition" class="slide level2">
+<h2>Composition</h2>
+<ul>
+<li><p>Focus on parts of a whole</p>
+<ul>
+<li>Focus on relative percentages</li>
+<li>Generally not on counts</li>
+</ul></li>
 </ul>
 </section>
-<section id="summary" class="slide level2">
-<h2>Summary</h2>
+<section id="composition-1" class="slide level2">
+<h2>Composition</h2>
 
-<img data-src="assets/geog2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="example-of-natural-experiment" class="slide level2">
-<h2>Example of Natural Experiment</h2>
+<img data-src="assets/stacked_bar.png" class="r-stretch quarto-figure-center"><p class="caption">Source: Simon Halliday</p></section>
+<section id="composition-2" class="slide level2">
+<h2>Composition</h2>
+
+<img data-src="assets/composition.png" class="r-stretch quarto-figure-center"><p class="caption">Source: Nytimes</p></section>
+<section id="visualization-donts" class="slide level2">
+<h2>Visualization Dont’s</h2>
 <ul>
-<li><strong>Difference-in-Differences Design</strong></li>
-<li>Source: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8006863/">Caniglia et al.</a></li>
+<li>Bad Taste</li>
 </ul>
 
-<img data-src="assets/diff_in_diff_table.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="example-of-natural-experiment-1" class="slide level2">
-<h2>Example of Natural Experiment</h2>
+<img data-src="assets/wrongViz.png" class="r-stretch quarto-figure-center"><p class="caption">Source: Media Matters for America</p></section>
+<section id="what-may-be-wrong-with-this-visualization" class="slide level2">
+<h2>What may be wrong with this visualization</h2>
+
+<img data-src="assets/coronavirus1.png" class="r-stretch quarto-figure-center"><p class="caption">Source: Yahoo Finance</p></section>
+<section id="what-about-this" class="slide level2">
+<h2>What about this?</h2>
+
+<img data-src="assets/homeless1.png" class="r-stretch quarto-figure-center"><p class="caption">Source: http://www.pbs.org/now/shows/305/homeless-map.html</p></section>
+<section id="bad-perception" class="slide level2">
+<h2>Bad Perception</h2>
+
+<img data-src="assets/lifeExp.png" class="r-stretch quarto-figure-center"><p class="caption">Source: http://socviz.co/lookatdata.html#why-look-at-data</p></section>
+<section id="bad-perception-1" class="slide level2">
+<h2>Bad Perception</h2>
 <ul>
-<li><strong>Difference-in-Differences Design</strong></li>
-<li>Source: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8006863/">Caniglia et al.</a></li>
+<li>Pick your battles or Risk Sensory Overload</li>
 </ul>
 
+<img data-src="assets/immune_ugly.png" class="r-stretch quarto-figure-center"><p class="caption">Source: https://paldhous.github.io/ucb/2016/dataviz/week2.html</p></section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+
+<img data-src="assets/immune_good.png" class="r-stretch quarto-figure-center"><p class="caption">Source: https://paldhous.github.io/ucb/2016/dataviz/week2.html</p></section>
+<section id="guided-class-discussion" class="slide level2">
+<h2>Guided Class Discussion</h2>
 
 
-<img data-src="assets/diff_in_diff.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-<p>#3 Sampling and Study Designs</p>
+<p>#4 Visualizing Quantitative Data</p>
 </div>
 </div></div>
 
@@ -528,6 +524,44 @@ Varun Goel
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

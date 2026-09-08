@@ -176,3 +176,17 @@ Tobler's First Law in action:
 ## Summary
 
 ![](assets/geog2.png){fig-align="center"}
+
+## Example of Natural Experiment
+
+- **Difference-in-Differences Design**
+- Source: [Caniglia et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC8006863/)
+
+![](assets/diff_in_diff_table.png){fig-align="center"}
+
+## Example of Natural Experiment
+
+- **Difference-in-Differences Design**
+- Source: [Caniglia et al.](https://pmc.ncbi.nlm.nih.gov/articles/PMC8006863/)
+
+![](assets/diff_in_diff.png){fig-align="center"}
