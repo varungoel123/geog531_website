@@ -4,7 +4,7 @@ subtitle: "Visualizing Quantitative Data"
 author:
  - name: "Varun Goel"
 institute: ""
-date: 2026-09-08
+date: 2026-09-10
 date-format: medium
 title-slide-attributes:
   data-background-color: "#f3f4f4"
@@ -39,11 +39,8 @@ library(readr)
 
 ## Why Visualize our data
 
-- Lab 4 exercise
+- Lab 3 exercise
 
-## 
-
-![](assets/Anscombe's_quartet_1.svg){fig-align="center"}
 
 ## What exactly do you want to show
 

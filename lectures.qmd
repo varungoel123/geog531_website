@@ -24,3 +24,8 @@ date-format: medium
 
 - *Tuesday, Thursday, Sep 1,3: Sampling and Study Design* (
 [class lecture](./lectures/3_samplingAndDesign/3a_sampling_study_design.qmd){target="_blank"})
+
+#### Week 4: Descriptive Statistics and Data Visualization
+
+- *Tuesday, Thursday, Sep 8,10: Data Visualization* (
+[class lecture](./lectures/4_descriptive_dataViz/DataViz.qmd){target="_blank"}), posit lab 3
