@@ -145,32 +145,20 @@ Varun Goel
 
   <p class="date">Sep 15, 2026</p>
 </section>
-<section id="outline" class="slide level2 smaller">
-<h2>Outline</h2>
-<ul>
-<li>Introduction</li>
-<li>Measurement of Distance
-<ul>
-<li>Great Circle, Euclidian, Manhattan</li>
-</ul></li>
-<li>Measurement of Spatial Central Tendency
-<ul>
-<li>(weighted) mean center</li>
-<li>(weighted) median center</li>
-</ul></li>
-<li>Measurement of spatial variability
-<ul>
-<li>(weighted) Standard distance</li>
-<li>Standard deviational ellipse</li>
-<li>Relative distance</li>
-</ul></li>
-</ul>
+<section id="todays-roadmap" class="slide level2">
+<h2>Today’s roadmap</h2>
+<p>We will use descriptive spatial statistics to answer three questions:</p>
+<ol type="1">
+<li>How far apart are locations?</li>
+<li>Where is the geographic “center” of a pattern?</li>
+<li>How dispersed—and in which direction—is the pattern?</li>
+</ol>
 </section>
-<section id="descriptive-spatial-statistics" class="slide level2">
-<h2>Descriptive Spatial Statistics</h2>
+<section id="start-with-a-spatial-question" class="slide level2">
+<h2>Start with a spatial question</h2>
 
 <img data-src="assets/Spatial data analysis.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="descriptive-spatial-statistics-1" class="slide level2">
+<section id="descriptive-spatial-statistics" class="slide level2">
 <h2>Descriptive Spatial Statistics</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -180,14 +168,12 @@ Varun Goel
 </figure>
 </div>
 </div><div class="column" style="width:40%;">
-<ul>
-<li>Where are these points generally located?</li>
-<li>How are these points spread out from there general location</li>
-</ul>
+<p>Where is the typical location of these points, and how far do they spread from it?</p>
+<p>Descriptive spatial statistics turn that visual judgment into a reproducible summary.</p>
 </div></div>
 </section>
-<section id="descriptive-spatial-statistics-2" class="slide level2 smaller">
-<h2>Descriptive Spatial Statistics</h2>
+<section id="what-do-descriptive-spatial-statistics-summarize" class="slide level2 smaller">
+<h2>What do descriptive spatial statistics summarize?</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-left">
@@ -196,77 +182,53 @@ Varun Goel
 </figure>
 </div>
 </div><div class="column" style="width:40%;">
+<p>Like descriptive statistics for a single variable, these methods combine maps with numerical summaries.</p>
+<p>They focus on two geographic ideas:</p>
 <ul>
-<li>Analagous to traditional descriptive statistics
-<ul>
-<li>Graphical presentation</li>
-<li>numerical summary of spatial data</li>
-</ul></li>
-<li>Measures 2 important geographic concepts
-<ul>
-<li>Spatial Central Tendency</li>
-<li>Spatial Variability</li>
-</ul></li>
+<li><strong>Spatial central tendency:</strong> the typical location of a distribution</li>
+<li><strong>Spatial variability:</strong> the amount, shape, and direction of spread</li>
 </ul>
 </div></div>
 </section>
 <section id="measures-of-distance" class="slide level2">
 <h2>Measures of Distance</h2>
-<ul>
-<li><p>Great Circle Distance</p>
-<ul>
-<li>Shortest distance 2 points on a globe</li>
-</ul></li>
-<li><p>Euclidean Distance</p>
-<ul>
-<li>Shortest distance on a flat surface</li>
-<li>As the crow flies</li>
-</ul></li>
-</ul>
+<p><strong>Great-circle distance</strong> is the shortest route between two points on a globe.</p>
+<p><strong>Euclidean distance</strong> is the straight-line distance on a flat surface—“as the crow flies.”</p>
 
 <img data-src="assets/great_circle.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="measures-of-distance-1" class="slide level2">
-<h2>Measures of Distance</h2>
+<section id="measures-of-distance-paths-matter" class="slide level2">
+<h2>Measures of Distance: paths matter</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
+<div class="column" height="50%" style="width:40%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="assets/distance_compare.jpeg" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 </div><div class="column" style="width:40%;">
-<ul>
-<li><p>Manhattan Distance</p>
-<ul>
-<li>Travel restricted across horizontal and vertical dimensions</li>
-</ul></li>
-<li><p>Minkowski Distance</p>
-<ul>
-<li>Compromise between euclidean and manhattan</li>
-<li>Distance of a curved arc connecting two points</li>
-</ul></li>
-</ul>
+<p><strong>Manhattan distance</strong> follows perpendicular street-grid movements.</p>
+<p><strong>Minkowski distance</strong> is a family of measures that includes Euclidean and Manhattan distance as special cases. It lets us model travel that falls between those two extremes.</p>
 </div></div>
 </section>
-<section id="measures-of-distance-2" class="slide level2">
-<h2>Measures of Distance</h2>
+<section id="choosing-a-distance-measure" class="slide level2">
+<h2>Choosing a distance measure</h2>
+<p>Choose the measure that matches the process, not merely the map.</p>
+<p>For every spatial analysis, ask: <em>What kind of separation could actually affect the phenomenon?</em></p>
 <ul>
-<li><p>Network Distance</p></li>
-<li><p>Other measures of distance</p></li>
-<li><p>Social Distance</p></li>
-<li><p>Travel Time</p></li>
-<li><p>Absolute vs Relative Distance</p></li>
+<li><strong>Network distance or travel time:</strong> movement along roads, transit, or paths</li>
+<li><strong>Absolute distance:</strong> physical units such as kilometers</li>
+<li><strong>Relative distance:</strong> distance scaled to make patterns comparable across study areas</li>
+<li><strong>Social distance:</strong> separation in social characteristics</li>
 </ul>
 </section>
 <section id="mean-center-spatial-mean" class="slide level2">
 <h2>Mean Center (Spatial Mean)</h2>
+<p>The mean center is the average location of a set of points</p>
 <ul>
-<li>Most commonly used measure for spatial central tendency</li>
-<li>Average(mean) location of a set of points
-<ul>
-<li>eg. (x1,y1), (x2,y2)……..(xN, yN)</li>
-</ul></li>
+<li><p>the mean of all x-coordinates and</p></li>
+<li><p>the mean of all y-coordinates</p></li>
 </ul>
+<p>It is the most common measure of spatial central tendency.</p>
 
 <img data-src="assets/mean_center.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="mean-center-spatial-mean-1" class="slide level2">
@@ -277,25 +239,21 @@ Varun Goel
 <h2>Mean Center Application</h2>
 
 <img data-src="assets/crime_meanCenter.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="limitations-of-mean-center" class="slide level2">
-<h2>Limitations of Mean Center</h2>
+<section id="when-is-an-ordinary-mean-center-insufficient" class="slide level2">
+<h2>When is an ordinary mean center insufficient?</h2>
+</section>
+<section id="when-is-an-ordinary-mean-center-insufficient-1" class="slide level2">
+<h2>When is an ordinary mean center insufficient?</h2>
 <ul>
-<li>Often used for ‘event’ data</li>
-<li>Only considers location of points (x,y)</li>
-<li>All points are equally important</li>
-<li>main aim is to look at how points are distributed</li>
-<li>point attributes are ignored
-<ul>
-<li>Example - population density, number of deaths in household</li>
-</ul></li>
+<li><p>The ordinary mean center treats every point equally and uses only its coordinates.</p></li>
+<li><p>Appropriate for equally important events, such as reported incidents.</p></li>
+<li><p>Less appropriate when locations differ in magnitude—for example, population, sales, or households affected.</p></li>
 </ul>
 </section>
 <section id="weighted-mean-center" class="slide level2">
 <h2>Weighted Mean Center</h2>
-<ul>
-<li>Mean Center Weighted by Attribute</li>
-<li>Considers both the location and attributes</li>
-</ul>
+<p>A weighted mean center gives more influence to locations with larger attribute values.</p>
+<p>Use it when both <strong>where</strong> something occurs and <strong>how much</strong> occurs there matter.</p>
 
 <img data-src="assets/wmc_formula.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="weighted-mean-center-1" class="slide level2">
@@ -306,58 +264,34 @@ Varun Goel
 <h2>Application of Weighted Mean Center</h2>
 
 <img data-src="assets/wmc_application.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="limitations-of-mean-centers" class="slide level2">
-<h2>Limitations of Mean Centers</h2>
-<ul>
-<li>Sensitivity to outliers!
-<ul>
-<li>Similar to traditional statistics</li>
-</ul></li>
-</ul>
+<section id="limitation-of-mean-centers" class="slide level2">
+<h2>Limitation of Mean Centers</h2>
+</section>
+<section id="limitation-of-mean-centers-1" class="slide level2">
+<h2>Limitation of Mean Centers</h2>
+<p>Mean centers are sensitive to outliers: one distant location can pull the center away from the main cluster.</p>
+<p>This is the same problem as the arithmetic mean in traditional statistics.</p>
 
 <img data-src="assets/mc_sensitive.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="median-center" class="slide level2">
 <h2>Median Center</h2>
-<ul>
-<li>Robust to Spatial Outliers
-<ul>
-<li>The sum of distance from median center to all points is minimized</li>
-</ul></li>
-<li>Weighted Median Center
-<ul>
-<li>Use attribute as a weight</li>
-</ul></li>
-</ul>
+<p>The median center is more robust to spatial outliers than the mean center.</p>
+<p>It is the location that <strong>minimizes the total distance to all points</strong>.</p>
+<p>A <strong>weighted median center</strong> incorporates an attribute such as demand or population.</p>
 
 <img data-src="assets/med_c.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="applications-of-median-center" class="slide level2 smaller">
-<h2>Applications of Median Center</h2>
+<section id="example-locating-a-food-warehouse" class="slide level2">
+<h2>Example: Locating a food warehouse</h2>
+<p>Suppose a city supplies food to several shelters. What statistic is appropriate for the following:</p>
 <ul>
-<li class="fragment"><p>Suppose that we want to build a food warehouse that is used to provide food to all shelters in a city, how to find the location for the warehouse?</p></li>
-<li class="fragment"><p>What we want: when we deliver food to each shelter, the total distance the delivery vehicle traveled is minimized.</p></li>
-<li class="fragment"><p>Some shelters have larger capacity and thus may need more food than others, in this case we may need more trips to these shelters.</p>
-<ul>
-<li class="fragment">Use attribute as a weight</li>
-</ul></li>
-<li class="fragment"><p>So we want a location that minimizes total travel distances considering different food demand of each shelter: weighted median center (shelter capacity as weight)</p></li>
+<li><p>We want a warehouse location that minimizes total delivery distance</p></li>
+<li><p>We want a warehouse location that minimizes total number of deliveries, based on the capacity of different shelters</p></li>
 </ul>
 </section>
 <section id="standard-distance" class="slide level2">
 <h2>Standard Distance</h2>
-<ul>
-<li>Measures spatial dispersion of a set of points</li>
-<li>Analogous to standard deviation in classical statistics</li>
-<li>Square root of the average squared distance of points to the mean center</li>
-</ul>
-
-<img data-src="assets/med_c.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="standard-distance-1" class="slide level2">
-<h2>Standard Distance</h2>
-<ul>
-<li>Measures spatial dispersion of a set of points</li>
-<li>Analogous to standard deviation in classical statistics</li>
-<li>Square root of the average squared distance of points to the mean center</li>
-</ul>
+<p>Standard distance measures the dispersion of a set of points around its mean center.</p>
+<p>It is analogous to standard deviation in classical statistics: the square root of the average squared distance from each point to the mean center.</p>
 
 <img data-src="assets/sd_form.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="standard-distance-calculation" class="slide level2">
@@ -366,44 +300,64 @@ Varun Goel
 <img data-src="assets/sd_calc.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="weighted-standard-distance" class="slide level2">
 <h2>Weighted Standard Distance</h2>
-<ul>
-<li>Each point as a weight (Wi)</li>
-<li>Use weighted mean center instead of mean center</li>
-</ul>
-<p><img data-src="assets/wsd_calc.png" class="quarto-figure quarto-figure-center"> ## Standard Distance Application</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/sd_application.png" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
-</section>
+<p>When points vary in importance, weight each point by its attribute value and calculate spread around the weighted mean center.</p>
+
+<img data-src="assets/wsd_calc.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="standard-distance-application" class="slide level2">
 <h2>Standard Distance Application</h2>
+
+<img data-src="assets/sd_application.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="standard-distance-application-1" class="slide level2">
+<h2>Standard Distance Application</h2>
+<p>Knowing whether crime locations are compact or dispersed can inform patrol allocation.</p>
 <ul>
-<li><p>Knowing how crimes are distributed may help police develop strategies for addressing the crime</p>
-<ul>
-<li>If crime distribution is compact, stationing a single car patrol the area may be enough</li>
-<li>If dispersed, having several police cars might be more effective</li>
-</ul></li>
+<li>For a compact pattern, one patrol area may cover much of the activity. For a dispersed pattern, several patrol areas may be more appropriate.</li>
 </ul>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<p>This is a descriptive summary, not evidence of causes or proof that a specific intervention will work.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="standard-deviational-ellipse" class="slide level2">
 <h2>Standard Deviational Ellipse</h2>
-<ul>
-<li>Similar to Standard Distance but also captures the <em>shape</em> of the distribution</li>
-<li>central tendency, dispersion, and <em>directional trends</em></li>
-</ul>
 
 <img data-src="assets/sde_example.webp" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://ij-healthgeographics.biomedcentral.com/articles/10.1186/1476-072X-4-24">Sherman et al., 2005</a></p></section>
+<section id="standard-deviational-ellipse-1" class="slide level2">
+<h2>Standard Deviational Ellipse</h2>
+<ul>
+<li><p>Standard distance describes overall spread.</p></li>
+<li><p>A standard deviational ellipse also describes the <strong>shape</strong> and <strong>direction</strong> of that spread.</p>
+<ul>
+<li>Summarizes central tendency, dispersion, and directional trend—for example, whether events are stretched along a river, road corridor, or coast.</li>
+</ul></li>
+</ul>
+</section>
 <section id="relative-distance" class="slide level2">
 <h2>Relative Distance</h2>
+<p>How can we compare distances across study areas of different sizes?</p>
+<p>Relative distance scales a distance measure by a reference distance or study-area size. It helps distinguish a large distance in a large region from a large distance in a compact region.</p>
+
+<img data-src="assets/rd.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="takeaway" class="slide level2">
+<h2>Takeaway</h2>
+<p>Descriptive spatial statistics summarize a pattern before we attempt to explain it.</p>
 <ul>
-<li>How to compared distances when study areas (A) are different</li>
+<li>Choose a distance measure that reflects the process.</li>
+<li>Use mean or median centers to describe location.</li>
+<li>Use standard distance and ellipses to describe spread, shape, and direction.</li>
 </ul>
 
 
-
-<img data-src="assets/rd.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
