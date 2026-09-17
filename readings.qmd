@@ -70,3 +70,11 @@ date-format: medium
 
 - [Catalogue](https://datavizcatalogue.com) of several visualization styles and how to implement them
 - [Fantastic resource](https://www.storytellingwithdata.com/) for Do's, and Don'ts and data storytelling
+
+#### **Week 5: Descriptive Spatial Statistics**
+
+- No Assigned Readings
+
+#### **Week 6: Exploratory Spatial Analysis**
+
+- [Point and Area Pattern Analysis](readings/point_area_patternAnalysis_Lembo.pdf){target="_blank"}
