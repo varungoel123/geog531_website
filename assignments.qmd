@@ -13,3 +13,4 @@ date-format: medium
 #### Homework 1: Once Upon a Stormy Evening (Due September 25, 11:59 pm)
 
 - [*Part A: Descriptive statistics and Visualization*](./hw/hw1/hw1_partA.qmd){target="_blank"}
+- [*Part B: Descriptive mapping and spatial Statistics*](./hw/hw1/hw1_partB_revised.qmd){target="_blank"}
