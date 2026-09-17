@@ -200,10 +200,8 @@ Property damage is highly right-skewed, as you observed in Part A. If raw dollar
 The first map below uses the raw property-damage values.
 
 ::: {.callout-note title="Optional resource" collapse="true"}
-There are lots of colors one can use, but nowadays cartographers are using color schemes called 'viridis' that are universally accepted.
-<https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html>
+There are lots of colors one can use, but nowadays cartographers are using color schemes called 'viridis' that are universally accepted. <https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html>
 :::
-
 
 ```{r}
 storms_damage_sf <- all_storms_sf |>
