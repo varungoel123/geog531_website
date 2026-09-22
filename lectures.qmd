@@ -28,3 +28,7 @@ date-format: medium
 #### Week 5: Descriptive Spatial Statistics
 
 - *Tuesday, Thursday, Sep 15,17: Descriptive Spatial Statistics* ( [class lecture](./lectures/5_descriptiveSpatialStats/descriptiveSpatial_corrected.qmd){target="_blank"}), posit lab 4
+
+#### Week 6: Exploratory Spatial Data Analysis
+
+- *Tuesday, Sept 22: Patterns Process, Nearest Neighbor Analysis* ([class lecture](./lectures/6_esda/esda.qmd){target="_blank"})

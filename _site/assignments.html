@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -141,8 +176,17 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#list-of-homeworks" id="toc-list-of-homeworks" class="nav-link active" data-scroll-target="#list-of-homeworks">List of Homeworks</a>
+  <ul class="collapse">
+  <li><a href="#homework-1-once-upon-a-stormy-evening-due-september-25-1159-pm" id="toc-homework-1-once-upon-a-stormy-evening-due-september-25-1159-pm" class="nav-link" data-scroll-target="#homework-1-once-upon-a-stormy-evening-due-september-25-1159-pm">Homework 1: Once Upon a Stormy Evening (Due September 25, 11:59 pm)</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -160,7 +204,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">Sep 17, 2026</p>
+      <p class="date">Sep 22, 2026</p>
     </div>
   </div>
   
@@ -173,18 +217,34 @@ ul.task-list li input[type="checkbox"] {
 
 
 <hr>
-<section id="list-of-homeworks" class="level4">
-<h4 class="anchored" data-anchor-id="list-of-homeworks">List of Homeworks</h4>
+<section id="list-of-homeworks" class="level1">
+<h1>List of Homeworks</h1>
 <hr>
-</section>
-<section id="homework-1-once-upon-a-stormy-evening-due-september-25-1159-pm" class="level4">
-<h4 class="anchored" data-anchor-id="homework-1-once-upon-a-stormy-evening-due-september-25-1159-pm">Homework 1: Once Upon a Stormy Evening (Due September 25, 11:59 pm)</h4>
+<section id="homework-1-once-upon-a-stormy-evening-due-september-25-1159-pm" class="level3">
+<h3 class="anchored" data-anchor-id="homework-1-once-upon-a-stormy-evening-due-september-25-1159-pm">Homework 1: Once Upon a Stormy Evening (Due September 25, 11:59 pm)</h3>
 <ul>
-<li><a href="./hw/hw1/hw1_partA.html" target="_blank"><em>Part A: Descriptive statistics and Visualization</em></a></li>
-<li><a href="./hw/hw1/hw1_partB_revised.html" target="_blank"><em>Part B: Descriptive mapping and spatial Statistics</em></a></li>
+<li><a href="./hw/hw1/hw1_partA.html" target="_blank"><em>Part A: Descriptive statistics and Visualization</em></a>
+<ul>
+<li><p><a href="./hw/hw1/hw1_partB_revised.html" target="_blank"><em>Part B: Descriptive mapping and spatial Statistics</em></a></p>
+<ul>
+<li><strong>Important Errata</strong>: In your posit cloud Homework 1B, go to the folder Code and check the descriptive_geo_functions.R script. Then check for the following comments at the beginning.</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ------------------------</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span><span class="al">NOTE</span><span class="co">: IF YOU SEE THIS LINE THEN THIS IS THE CORRECT FILE WITH THE CORRECT</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># WEIGHTED STANDARD DEVIATIONAL ELLIPSE FUNCTION</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>If the script DOES NOT show the above comments at the start:</li>
+<li>Download the <a href="./hw/hw1/code/descriptive_geo_functions.R" target="_blank"><em>correct file here</em></a>, delete the old script, and upload the downloaded file in the Code folder.</li>
+<li>If your original script already shows the comments, you dont need to do anything else.</li>
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

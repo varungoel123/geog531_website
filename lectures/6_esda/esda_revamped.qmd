@@ -1,0 +1,2373 @@
+---
+title: "Exploratory Spatial Data Analysis"
+subtitle: "Point Pattern and Area Pattern Analysis"
+author: "Varun Goel"
+institute: ""
+date: 2026-09-22
+date-format: medium
+format:
+  revealjs:
+    theme: [default, ../../assets/style.scss]
+    slide-number: true
+    chalkboard: true
+    logo: logo.png
+    footer: "Quantitative Methods in Geographic Research"
+    incremental: true
+    smaller: true
+    scrollable: false
+---
+
+# Lecture 1: Introduction to ESDA & Point Pattern Analysis {background-color="#003366"}
+
+## Module Overview {.smaller}
+
+### Course Structure (3 Lectures × 75 min)
+
+**Lecture 1**: Foundations & Point Patterns\
+- Introduction to Exploratory Spatial Data Analysis (ESDA) - Patterns vs. Processes - First-order vs. Second-order Effects - Nearest Neighbor Analysis
+
+**Lecture 2**: Point Pattern Analysis (continued)\
+- Quadrat Analysis - Comparing Methods - Applications & Case Studies
+
+**Lecture 3**: Area Pattern Analysis\
+- Join Count Analysis - Moran's I (Global & Local) - Applications to Areal Data
+
+------------------------------------------------------------------------
+
+## What is Exploratory Spatial Data Analysis?
+
+::::: columns
+::: {.column width="50%"}
+### Core Concepts
+
+- **Exploratory**: Initial investigation of spatial data
+- **Visual**: Maps, plots, graphs
+- **Statistical**: Quantitative measures
+- **Hypothesis-generating**: Not confirmatory
+:::
+
+::: {.column width="50%"}
+### Key Questions
+
+1.  Is there spatial pattern?
+2.  Where are the patterns?
+3.  Are patterns clustered or dispersed?
+4.  Are patterns random or systematic?
+:::
+:::::
+
+::: callout-important
+ESDA reveals structure before formal modeling
+:::
+
+------------------------------------------------------------------------
+
+## Types of Spatial Data
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 5
+library(ggplot2)
+library(gridExtra)
+
+# Point pattern
+set.seed(123)
+p1 <- ggplot(data.frame(x = runif(50, 0, 10), y = runif(50, 0, 10)), 
+             aes(x, y)) +
+  geom_point(size = 3, color = "blue") +
+  theme_minimal() +
+  ggtitle("Point Pattern Data") +
+  labs(subtitle = "Disease cases, tree locations, crime incidents")
+
+# Areal data
+p2 <- ggplot(data.frame(x = c(0,1,1,0,0, 1,2,2,1,1, 0,1,1,0,0),
+                        y = c(0,0,1,1,0, 0,0,1,1,0, 1,1,2,2,1),
+                        group = rep(1:3, each=5),
+                        value = c(20, 45, 30)), 
+             aes(x, y, fill = factor(value), group = group)) +
+  geom_polygon(color = "black", linewidth = 1) +
+  scale_fill_brewer(palette = "Blues") +
+  theme_minimal() +
+  theme(legend.position = "bottom") +
+  ggtitle("Areal Data") +
+  labs(subtitle = "Census tracts, counties, regions", fill = "Value")
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+------------------------------------------------------------------------
+
+## Patterns vs. Processes {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+### Pattern
+
+- **What we observe**
+- The spatial arrangement
+- Descriptive
+- Examples:
+  - Clustered disease cases
+  - Dispersed fire stations
+  - Random plant distribution
+:::
+
+::: {.column width="50%"}
+### Process
+
+- **Why it exists**
+- The generating mechanism
+- Explanatory
+- Examples:
+  - Disease transmission
+  - Planning optimization
+  - Seed dispersal mechanisms
+:::
+:::::
+
+::: callout-warning
+## Critical Distinction
+
+**Multiple processes can produce similar patterns!**\
+**Same process can produce different patterns!**
+:::
+
+::: notes
+Emphasize: We analyze patterns to infer processes, but this inference is not straightforward. Different underlying mechanisms can create similar-looking spatial arrangements.
+:::
+
+------------------------------------------------------------------------
+
+## Pattern-Process Examples
+
+### Urban Crime Distribution
+
+**Observed Pattern**: Crime clustered in certain neighborhoods
+
+**Possible Processes**:
+
+1.  **Social disorganization** (community characteristics)
+2.  **Routine activity theory** (opportunity structures)
+3.  **Broken windows** (environmental cues)
+4.  **Repeat victimization** (contagion effects)
+
+::: callout-note
+Same pattern, different theoretical explanations!\
+Need theory + statistical analysis + domain knowledge
+:::
+
+------------------------------------------------------------------------
+
+## First-Order vs. Second-Order Effects {.smaller}
+
+### First-Order Effects (Intensity/Density)
+
+- **Definition**: Variation in the *average* number of events across space
+- **What it captures**: Spatial trend, large-scale variation
+- **Example**: More disease cases in densely populated areas
+
+### Second-Order Effects (Dependence/Interaction)
+
+- **Definition**: Correlation between events at *different locations*
+- **What it captures**: Local clustering, spatial dependence
+- **Example**: Disease cases clustered due to contagion (beyond population density)
+
+::: callout-tip
+## Why This Matters
+
+Different analysis methods target different effects!\
+Understanding this helps you choose the right tool.
+:::
+
+------------------------------------------------------------------------
+
+## Visual Comparison: First vs. Second Order
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4
+set.seed(456)
+
+# First order - gradient
+x_grad <- runif(200, 0, 10)
+y_grad <- runif(200, 0, 10)
+# More points in upper right
+prob_grad <- x_grad * y_grad
+keep_grad <- runif(200) < (prob_grad / max(prob_grad))
+df_first <- data.frame(x = x_grad[keep_grad], y = y_grad[keep_grad])
+
+# Second order - clusters
+n_clusters <- 4
+centers <- data.frame(x = c(2, 8, 3, 7), y = c(2, 8, 7, 3))
+points_per_cluster <- 30
+df_second <- data.frame()
+for(i in 1:n_clusters) {
+  cluster_points <- data.frame(
+    x = rnorm(points_per_cluster, centers$x[i], 0.5),
+    y = rnorm(points_per_cluster, centers$y[i], 0.5)
+  )
+  df_second <- rbind(df_second, cluster_points)
+}
+
+# Random for comparison
+df_random <- data.frame(x = runif(120, 0, 10), y = runif(120, 0, 10))
+
+p1 <- ggplot(df_random, aes(x, y)) +
+  geom_point(size = 2, alpha = 0.6, color = "darkgreen") +
+  theme_minimal() +
+  ggtitle("Random (No Effects)") +
+  xlim(0, 10) + ylim(0, 10)
+
+p2 <- ggplot(df_first, aes(x, y)) +
+  geom_point(size = 2, alpha = 0.6, color = "blue") +
+  theme_minimal() +
+  ggtitle("First-Order (Density Gradient)") +
+  xlim(0, 10) + ylim(0, 10)
+
+p3 <- ggplot(df_second, aes(x, y)) +
+  geom_point(size = 2, alpha = 0.6, color = "red") +
+  theme_minimal() +
+  ggtitle("Second-Order (Clustering)") +
+  xlim(0, 10) + ylim(0, 10)
+
+grid.arrange(p1, p2, p3, ncol = 3)
+```
+
+------------------------------------------------------------------------
+
+## First-Order Effects in Detail
+
+### Characteristics
+
+- Large-scale spatial trends
+- "Density surface" varies across study area
+- Related to environmental/contextual factors
+
+### Examples
+
+- Population density → disease incidence
+- Elevation → vegetation types\
+- Distance from CBD → housing prices
+
+### Analysis Methods
+
+- Kernel density estimation
+- Trend surface analysis
+- **Quadrat analysis** (density variation)
+
+------------------------------------------------------------------------
+
+## Second-Order Effects in Detail
+
+### Characteristics
+
+- **Spatial dependence**: "Everything is related, but nearby things more so" (Tobler's Law)
+- Local clustering beyond overall density
+- Point-to-point interactions
+
+### Examples
+
+- Contagious disease spread (beyond density)
+- Tree competition effects
+- Social influence on voting patterns
+
+### Analysis Methods
+
+- **Nearest Neighbor Analysis** (spacing patterns)
+- K-functions, L-functions
+- Spatial autocorrelation (for areal data)
+
+------------------------------------------------------------------------
+
+## Why the Distinction Matters {.smaller}
+
+::: callout-important
+## Interpretation Challenge
+
+A clustered pattern could result from:
+
+1.  **First-order effects only**: Varying density due to environmental factors
+2.  **Second-order effects only**: Uniform density but local interactions
+3.  **Both**: Density variation AND clustering within high-density areas
+:::
+
+**Implication for Analysis:** - Need appropriate null models - Consider study area boundaries - Think about scale of analysis - Use complementary methods
+
+------------------------------------------------------------------------
+
+# Point Pattern Analysis {background-color="#004d00"}
+
+## Introduction to Point Patterns
+
+### What Are Point Patterns?
+
+**Definition**: Spatial arrangement of discrete events/objects represented as points
+
+**Characteristics**: - **Location**: $(x, y)$ coordinates - **Marked**: May have attributes (size, type, time) - **Study area**: Defined region of interest
+
+### Examples
+
+- Disease cases (lat/lon of residences)
+- Tree locations in a forest
+- Crime incidents
+- Fire/emergency service facilities
+
+------------------------------------------------------------------------
+
+## Goals of Point Pattern Analysis
+
+### Primary Objectives
+
+1.  **Describe** the spatial arrangement
+    - Is it clustered, dispersed, or random?
+2.  **Quantify** the degree of clustering/dispersion
+    - How clustered/dispersed?
+3.  **Test** against theoretical distributions
+    - Is the pattern significantly different from random?
+4.  **Infer** underlying processes
+    - What mechanism generated this pattern?
+
+------------------------------------------------------------------------
+
+## Complete Spatial Randomness (CSR) {.smaller}
+
+### The Null Hypothesis
+
+**CSR Assumptions**:
+
+1.  **Homogeneous Poisson process**
+2.  **Constant intensity** $\lambda$ (events per unit area)
+3.  **Independence**: Location of one event doesn't affect others
+4.  **Random**: Each location equally likely
+
+### Implications Under CSR
+
+- Number of events in any region follows Poisson distribution
+- Event locations uniformly distributed
+- No clustering, no dispersion
+- **This is our baseline for comparison**
+
+::: callout-note
+Most real-world patterns deviate from CSR!\
+That's what makes spatial analysis interesting.
+:::
+
+------------------------------------------------------------------------
+
+## Departures from CSR
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 3.5
+set.seed(789)
+
+# Clustered
+df_clust <- data.frame()
+for(i in 1:5) {
+  center <- c(runif(1, 1, 9), runif(1, 1, 9))
+  pts <- data.frame(
+    x = rnorm(20, center[1], 0.6),
+    y = rnorm(20, center[2], 0.6)
+  )
+  df_clust <- rbind(df_clust, pts)
+}
+
+# Random
+df_rand <- data.frame(x = runif(100, 0, 10), y = runif(100, 0, 10))
+
+# Dispersed (use regular grid with small jitter)
+grid_pts <- expand.grid(x = seq(1, 9, length.out = 10), 
+                        y = seq(1, 9, length.out = 10))
+df_disp <- data.frame(
+  x = grid_pts$x + rnorm(100, 0, 0.2),
+  y = grid_pts$y + rnorm(100, 0, 0.2)
+)
+
+p1 <- ggplot(df_clust, aes(x, y)) +
+  geom_point(size = 2.5, color = "red", alpha = 0.6) +
+  theme_minimal() + ggtitle("CLUSTERED") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5)) +
+  xlim(0, 10) + ylim(0, 10)
+
+p2 <- ggplot(df_rand, aes(x, y)) +
+  geom_point(size = 2.5, color = "blue", alpha = 0.6) +
+  theme_minimal() + ggtitle("RANDOM (CSR)") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5)) +
+  xlim(0, 10) + ylim(0, 10)
+
+p3 <- ggplot(df_disp, aes(x, y)) +
+  geom_point(size = 2.5, color = "darkgreen", alpha = 0.6) +
+  theme_minimal() + ggtitle("DISPERSED") +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5)) +
+  xlim(0, 10) + ylim(0, 10)
+
+grid.arrange(p1, p2, p3, ncol = 3)
+```
+
+**Clustered**: $R < 1$ (points closer than expected)\
+**Random**: $R \approx 1$ (CSR)\
+**Dispersed**: $R > 1$ (points farther apart than expected)
+
+------------------------------------------------------------------------
+
+## Nearest Neighbor Analysis (NNA) {.smaller}
+
+### Concept
+
+**Measures the spacing between points**
+
+- For each point, find distance to its nearest neighbor
+- Calculate mean nearest neighbor distance ($\overline{NND}$)
+- Compare to expected distance under CSR
+
+### Key Advantage
+
+- Simple to calculate and interpret
+- Sensitive to second-order clustering/dispersion
+
+### Limitation
+
+- Reduces all spatial information to a single number
+- Sensitive to boundary effects
+- Only uses nearest neighbor (ignores other distances)
+
+------------------------------------------------------------------------
+
+## NNA: The Mathematics
+
+### Observed Mean Nearest Neighbor Distance
+
+$$\overline{NND} = \frac{\sum NND}{n}$$
+
+where $n$ = number of points
+
+### Expected Distance Under CSR
+
+$$\overline{NND}_E = \frac{1}{2\sqrt{Density}} = \frac{1}{2\sqrt{n/A}}$$
+
+where:\
+- $n$ = number of points\
+- $A$ = area of study region\
+- Density = $n/A$ (points per unit area)
+
+------------------------------------------------------------------------
+
+## NNA: R-Statistic {.smaller}
+
+### Standardized Nearest Neighbor Index
+
+$$R = \frac{\overline{NND}}{\overline{NND}_E}$$
+
+### Interpretation
+
+| R Value     | Pattern Type           | Interpretation                   |
+|-------------|------------------------|----------------------------------|
+| $R = 0$     | **Maximum clustering** | All points at same location      |
+| $0 < R < 1$ | **Clustered**          | Points closer than random        |
+| $R = 1$     | **Random (CSR)**       | Points follow CSR                |
+| $R > 1$     | **Dispersed**          | Points farther apart than random |
+| $R = 2.149$ | **Maximum dispersion** | Perfect hexagonal spacing        |
+
+------------------------------------------------------------------------
+
+## NNA: Statistical Significance
+
+### Standard Error
+
+$$\sigma_{NND} = \frac{0.26136}{\sqrt{n(Density)}}$$
+
+### Test Statistic (Z-score)
+
+$$Z_R = \frac{\overline{NND} - \overline{NND}_E}{\sigma_{NND}}$$
+
+### Decision Rule
+
+- If $|Z_R| > 1.96$ → Reject CSR at $\alpha = 0.05$
+- Positive $Z$: significantly dispersed
+- Negative $Z$: significantly clustered
+
+------------------------------------------------------------------------
+
+## NNA: Worked Example from Reading {.smaller}
+
+**Toronto Community Services** (Police, Fire, Elementary Schools, Voting)
+
+| Facility | n   | Density | $\overline{NND}$ | $\overline{NND}_E$ | R    | Z      | p-value |
+|---------|---------|---------|---------|---------|---------|---------|---------|
+| Police   | 20  | 0.0312  | 2.08             | 2.83               | 1.28 | 2.42   | 0.0153  |
+| Fire     | 20  | 0.0312  | 2.08             | 2.83               | 1.28 | 2.42   | 0.0153  |
+| Schools  | 20  | 0.7308  | 0.59             | \-                 | 0.84 | -12.23 | 0.0000  |
+| Voting   | 20  | 24.4351 | 0.27             | \-                 | 0.84 | \-     | 0.0153  |
+
+### Interpretations
+
+- **Police & Fire**: Dispersed (planned spacing)
+- **Schools**: Clustered (population density)
+- **Voting**: Highly clustered
+
+------------------------------------------------------------------------
+
+## NNA in R: Basic Implementation
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Using spatstat package
+library(spatstat)
+
+# Create point pattern object
+pp <- ppp(x = coords$x, y = coords$y, 
+          window = owin(c(0, 100), c(0, 100)))
+
+# Calculate nearest neighbor distances
+nnd <- nndist(pp)
+mean_nnd <- mean(nnd)
+
+# Expected under CSR
+n <- npoints(pp)
+area <- area(Window(pp))
+density <- n / area
+expected_nnd <- 1 / (2 * sqrt(density))
+
+# R-statistic
+R <- mean_nnd / expected_nnd
+
+# Z-test
+se_nnd <- 0.26136 / sqrt(n * density)
+z_score <- (mean_nnd - expected_nnd) / se_nnd
+p_value <- 2 * pnorm(-abs(z_score))
+```
+
+------------------------------------------------------------------------
+
+## Boundary Effects in NNA
+
+::: callout-warning
+## The Problem
+
+Points near study area boundary have truncated neighborhoods!
+:::
+
+### Types of Bias
+
+- **Edge effects**: Nearest neighbors may lie outside study area
+- **Guard area**: Use buffer zone (exclude boundary points)
+- **Toroidal correction**: "Wrap around" boundaries
+- **Border correction methods**: Weight by probability of inclusion
+
+### Practical Recommendation
+
+- Report study area definition
+- Use correction methods when available
+- Interpret carefully for irregular boundaries
+- Consider sensitivity analysis
+
+------------------------------------------------------------------------
+
+## When to Use NNA
+
+### Appropriate Situations ✓
+
+- Relatively homogeneous study area
+- Interest in overall spacing pattern
+- Quick exploratory analysis
+- Second-order effects (clustering)
+
+### Less Appropriate ✗
+
+- Strong first-order effects (use quadrat)
+- Multiple scales of clustering
+- Need to identify cluster locations
+- Very irregular boundaries
+
+::: callout-tip
+**Best Practice**: Use NNA in combination with other methods (e.g., quadrat analysis, visual inspection)
+:::
+
+------------------------------------------------------------------------
+
+# Summary: Lecture 1 {background-color="#660000"}
+
+## Key Concepts Covered
+
+1.  **ESDA Framework**
+    - Exploratory approach to spatial data
+2.  **Patterns vs. Processes**
+    - Observable vs. generative mechanisms
+3.  **First vs. Second-Order Effects**
+    - Density variation vs. spatial dependence
+4.  **Point Pattern Analysis Introduction**
+    - Complete Spatial Randomness (CSR)
+5.  **Nearest Neighbor Analysis**
+    - Measurement, interpretation, significance testing
+
+------------------------------------------------------------------------
+
+## Before Next Class
+
+### Required Reading
+
+- Review Lembo Chapter 14 (sections 14.1-14.2)
+- Focus on examples and interpretation
+
+### Think About
+
+- What spatial patterns exist in your research area?
+- Are they first-order or second-order effects?
+- What processes might generate these patterns?
+
+### Next Lecture
+
+- Quadrat Analysis
+- Variance-Mean Ratio (VMR)
+- Comparing NNA and Quadrat approaches
+- More case studies
+
+------------------------------------------------------------------------
+
+# Lecture 2: Point Pattern Analysis (Continued) {background-color="#003366"}
+
+## Lecture 1 Recap {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+### Conceptual Foundations
+
+- **ESDA**: Exploratory spatial data analysis
+- **Pattern vs. Process**: Observable vs. mechanism
+- **First-order**: Density/intensity variation
+- **Second-order**: Spatial dependence
+- **CSR**: Complete Spatial Randomness baseline
+:::
+
+::: {.column width="50%"}
+### Nearest Neighbor Analysis
+
+- Measures point **spacing**
+- Mean nearest neighbor distance
+- R-statistic: $\overline{NND} / \overline{NND}_E$
+- Sensitive to **second-order effects**
+- Good for overall pattern assessment
+:::
+:::::
+
+### Today's Focus
+
+**Quadrat Analysis** - A complementary approach focusing on **density variation**
+
+------------------------------------------------------------------------
+
+## Quadrat Analysis: Introduction {.smaller}
+
+### Core Concept
+
+**Divide study area into cells (quadrats) and count points in each cell**
+
+### What It Measures
+
+- **Variability in cell frequencies** (not spacing)
+- Primarily **first-order effects** (density variation)
+- Pattern of points across the study area
+
+### Key Difference from NNA
+
+- NNA: Point-to-point distances (spacing)
+- Quadrat: Point counts per area unit (density)
+
+::: callout-note
+Quadrat analysis is analogous to a **frequency distribution** for spatial data
+:::
+
+------------------------------------------------------------------------
+
+## Quadrat Analysis: Visual Concept
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 5
+set.seed(101)
+
+# Create three patterns
+# Clustered
+centers_c <- data.frame(x = c(2, 8, 2, 8), y = c(2, 2, 8, 8))
+df_c <- data.frame()
+for(i in 1:4) {
+  pts <- data.frame(
+    x = rnorm(15, centers_c$x[i], 0.8),
+    y = rnorm(15, centers_c$y[i], 0.8)
+  )
+  df_c <- rbind(df_c, pts)
+}
+
+# Random
+df_r <- data.frame(x = runif(60, 0, 10), y = runif(60, 0, 10))
+
+# Dispersed
+grid_base <- expand.grid(x = seq(0.5, 9.5, length.out = 8),
+                         y = seq(0.5, 9.5, length.out = 8))
+df_d <- data.frame(
+  x = grid_base$x + rnorm(64, 0, 0.15),
+  y = grid_base$y + rnorm(64, 0, 0.15)
+)
+
+# Quadrat grid overlay
+quadrat_lines <- data.frame(
+  x = rep(seq(0, 10, 2.5), each = 2),
+  y = rep(c(0, 10), 5),
+  group = rep(1:5, each = 2)
+)
+quadrat_lines_v <- data.frame(
+  x = rep(c(0, 10), 5),
+  y = rep(seq(0, 10, 2.5), each = 2),
+  group = rep(6:10, each = 2)
+)
+
+p1 <- ggplot(df_c, aes(x, y)) +
+  geom_point(size = 2, color = "red", alpha = 0.6) +
+  geom_line(data = quadrat_lines, aes(x, y, group = group), 
+            linewidth = 0.8, alpha = 0.5) +
+  geom_line(data = quadrat_lines_v, aes(x, y, group = group), 
+            linewidth = 0.8, alpha = 0.5) +
+  annotate("text", x = 1.25, y = 8.75, label = "15", size = 5, color = "blue") +
+  annotate("text", x = 3.75, y = 8.75, label = "2", size = 5, color = "blue") +
+  annotate("text", x = 1.25, y = 1.25, label = "14", size = 5, color = "blue") +
+  theme_minimal() + ggtitle("Clustered: High Variance") +
+  xlim(0, 10) + ylim(0, 10)
+
+p2 <- ggplot(df_r, aes(x, y)) +
+  geom_point(size = 2, color = "blue", alpha = 0.6) +
+  geom_line(data = quadrat_lines, aes(x, y, group = group), 
+            linewidth = 0.8, alpha = 0.5) +
+  geom_line(data = quadrat_lines_v, aes(x, y, group = group), 
+            linewidth = 0.8, alpha = 0.5) +
+  annotate("text", x = 1.25, y = 8.75, label = "4", size = 5, color = "blue") +
+  annotate("text", x = 3.75, y = 8.75, label = "5", size = 5, color = "blue") +
+  annotate("text", x = 1.25, y = 1.25, label = "3", size = 5, color = "blue") +
+  theme_minimal() + ggtitle("Random: Moderate Variance") +
+  xlim(0, 10) + ylim(0, 10)
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+**Insight**: Clustered patterns → high variance in cell counts\
+Random patterns → moderate variance (Poisson)
+
+------------------------------------------------------------------------
+
+## Variance-Mean Ratio (VMR) {.smaller}
+
+### The Key Statistic
+
+$$VMR = \frac{VAR}{MEAN} = \frac{s^2}{\bar{X}}$$
+
+where: - $s^2$ = variance of cell frequencies - $\bar{X}$ = mean cell frequency
+
+### Theoretical Expectations
+
+| Pattern          | VMR       | Interpretation                            |
+|------------------|-----------|-------------------------------------------|
+| **Clustered**    | $VMR > 1$ | Variance exceeds mean (overdispersion)    |
+| **Random (CSR)** | $VMR = 1$ | Poisson distribution                      |
+| **Dispersed**    | $VMR < 1$ | Variance less than mean (underdispersion) |
+
+------------------------------------------------------------------------
+
+## Why VMR = 1 for Random Patterns?
+
+### Poisson Distribution Property
+
+For a **Poisson process**: - Mean = $\lambda$ (events per unit area) - Variance = $\lambda$ - Therefore: $VMR = \lambda / \lambda = 1$
+
+::: callout-important
+## Deviation from VMR = 1 indicates departure from CSR
+
+- **VMR \>\> 1**: Strong clustering
+- **VMR ≈ 1**: Consistent with random
+- **VMR \<\< 1**: Regular/dispersed
+:::
+
+------------------------------------------------------------------------
+
+## VMR: Mathematical Details {.smaller}
+
+### Calculating VMR
+
+1.  **Count points in each quadrat**: $f_1, f_2, \ldots, f_m$
+
+2.  **Calculate mean frequency**: $$\bar{X} = \frac{\sum f_i}{m}$$
+
+3.  **Calculate variance**: $$s^2 = \frac{\sum (f_i - \bar{X})^2}{m-1}$$
+
+4.  **Compute VMR**: $$VMR = \frac{s^2}{\bar{X}}$$
+
+------------------------------------------------------------------------
+
+## VMR: Chi-Square Test {.smaller}
+
+### Test Statistic
+
+$$\chi^2 = VMR \times (m - 1)$$
+
+where $m$ = number of quadrats
+
+### Hypothesis Test
+
+- $H_0$: Pattern is random (CSR), $VMR = 1$
+- $H_A$: Pattern is not random
+  - $H_A: VMR \neq 1$ (two-tailed)
+  - $H_A: VMR > 1$ (clustering, one-tailed)
+  - $H_A: VMR < 1$ (dispersion, one-tailed)
+
+### Decision Rule
+
+- df = $m - 1$
+- Compare $\chi^2$ to critical value from $\chi^2$ distribution
+- Common: two-tailed test at $\alpha = 0.05$
+
+------------------------------------------------------------------------
+
+## Quadrat Analysis: Worked Example {.smaller}
+
+**New Mexico Wildfires** (1980-1989)
+
+### Data
+
+- 2,500 random points from 16,000 recorded wildfire starting points
+- Study area divided into 120 quadrats (cells)
+- Cell frequency mean = 20.9 points/cell
+- Variance = 10.5
+
+### Calculations
+
+$$VMR = \frac{10.5}{20.9} = 0.504$$
+
+$$\chi^2 = 0.504 \times (120 - 1) = 0.504 \times 119 = 60.0$$
+
+### Result
+
+- Critical value: $\chi^2_{0.05, 119}$ ≈ 146 (two-tailed)
+- Observed: 60.0 \<\< 146
+- **Conclusion**: Pattern does NOT differ significantly from random
+
+------------------------------------------------------------------------
+
+## Comparison: Three Decades of Wildfires
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4
+
+# Simulating wildfire example data from reading
+library(knitr)
+
+wildfire_data <- data.frame(
+  Decade = c("1980-1989", "1990-1999", "2000-2009"),
+  VMR = c(0.504, 20.381, 30.818),
+  ChiSquare = c(60.0, 2425, 3667),
+  Interpretation = c("Random", "Highly Clustered", "Highly Clustered")
+)
+
+kable(wildfire_data, caption = "Wildfire Distribution in New Mexico by Decade")
+```
+
+### Insights from Reading
+
+- **1980s**: Random/dispersed pattern
+- **1990s & 2000s**: Highly clustered
+- **Interpretation**: Human footprint expansion into natural areas
+  - Increased clustering over time
+  - Evidence of changing fire ignition processes
+
+------------------------------------------------------------------------
+
+## Quadrat Size Selection {.smaller}
+
+::: callout-warning
+## Critical Decision
+
+Quadrat size strongly influences results!
+:::
+
+### General Guidelines
+
+1.  **Too large**:
+    - Many points per cell
+    - Low variance → may miss clustering
+    - Tends toward VMR = 1
+2.  **Too small**:
+    - Many empty or single-point cells
+    - High variance from sampling variation
+    - Unstable estimates
+3.  **Rule of thumb**:
+    - Mean count per cell: 1-2 points
+    - At least $m \geq 50$ quadrats for stable estimates
+    - Consider multiple quadrat sizes
+
+------------------------------------------------------------------------
+
+## Quadrat Analysis in R
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Using spatstat package
+library(spatstat)
+
+# Create point pattern
+pp <- ppp(x, y, window = owin(c(0, 100), c(0, 100)))
+
+# Quadrat test with specified grid
+Q <- quadratcount(pp, nx = 5, ny = 5)  # 5x5 grid = 25 quadrats
+
+# Visual display
+plot(Q)
+plot(pp, add = TRUE, pch = 16, cex = 0.5)
+
+# Formal test
+qt <- quadrat.test(pp, nx = 5, ny = 5)
+print(qt)
+
+# Manual VMR calculation
+counts <- as.vector(Q)
+mean_count <- mean(counts)
+var_count <- var(counts)
+vmr <- var_count / mean_count
+chi_sq <- vmr * (length(counts) - 1)
+
+cat("VMR =", vmr, "\n")
+cat("Chi-square =", chi_sq, "\n")
+```
+
+------------------------------------------------------------------------
+
+## Comparing NNA and Quadrat Analysis {.smaller}
+
+| Feature             | Nearest Neighbor       | Quadrat                    |
+|---------------------|------------------------|----------------------------|
+| **Measures**        | Spacing between points | Density variation          |
+| **Sensitive to**    | Second-order effects   | First-order effects        |
+| **Index**           | R-statistic            | VMR                        |
+| **Random baseline** | $R = 1$                | $VMR = 1$                  |
+| **Clustered**       | $R < 1$                | $VMR > 1$                  |
+| **Dispersed**       | $R > 1$                | $VMR < 1$                  |
+| **Advantages**      | Simple, intuitive      | Shows spatial distribution |
+| **Limitations**     | Single summary value   | Sensitive to quadrat size  |
+| **Best for**        | Overall spacing        | Density variation          |
+
+------------------------------------------------------------------------
+
+## When Results Disagree {.smaller}
+
+### Scenario: NNA says "clustered", Quadrat says "random"
+
+**Possible Explanation**: - Local clustering (detected by NNA) - But overall density relatively uniform across study area - Second-order effects without strong first-order effects
+
+### Scenario: NNA says "random", Quadrat says "clustered"
+
+**Possible Explanation**: - Large-scale density variation (first-order) - But within high-density regions, spacing is random - No local point-to-point interaction
+
+::: callout-tip
+**This is why we use multiple methods!** They provide complementary information.
+:::
+
+------------------------------------------------------------------------
+
+## Case Study: Toronto Public Services {.smaller}
+
+**From your reading** (Lembo Chapter 14)
+
+### Facilities Analyzed
+
+- Police stations
+- Fire stations
+- Elementary schools
+- Voting locations
+
+### Key Findings
+
+| Facility | NNA Result | Interpretation |
+|-------------------|-----------------------|------------------------------|
+| **Police** | $R = 1.28$ (dispersed) | Planned spacing for coverage |
+| **Fire** | $R = 1.28$ (dispersed) | Optimal response time locations |
+| **Elementary Schools** | $R = 0.84$ (clustered) | Follow population density |
+| **Voting** | $R = 0.84$ (clustered) | Dense in populated areas |
+
+------------------------------------------------------------------------
+
+## Case Study: Patterns and Processes
+
+### Emergency Services (Police, Fire)
+
+**Pattern**: Dispersed\
+**Process**: - Optimization algorithms - Coverage requirements - Response time goals - Planning decisions
+
+### Community Services (Schools, Voting)
+
+**Pattern**: Clustered\
+**Process**: - Population distribution - Demand-based location - Accessibility requirements - Historical development
+
+------------------------------------------------------------------------
+
+## Boundary and Study Area Issues {.smaller}
+
+### Critical Considerations
+
+1.  **Study area definition**
+    - Arbitrary vs. natural boundaries
+    - Affects density calculations
+    - Influences null hypothesis
+2.  **Edge effects**
+    - Points near boundaries have truncated neighborhoods
+    - Bias in nearest neighbor distances
+    - Solutions: guard areas, corrections
+3.  **Scale dependence**
+    - Patterns may appear at multiple scales
+    - Analysis scale affects results
+    - Consider hierarchical approaches
+
+::: callout-important
+**Always report**: Study area definition, size, and boundary rationale
+:::
+
+------------------------------------------------------------------------
+
+## Practical Workflow for Point Pattern Analysis
+
+### Step-by-Step Approach
+
+1.  **Visualize** the data
+    - Create map
+    - Visual inspection for obvious patterns
+2.  **Calculate density**
+    - Points per unit area
+    - Kernel density surface
+3.  **Run multiple tests**
+    - NNA for spacing
+    - Quadrat for density variation
+    - Consider different quadrat sizes
+4.  **Interpret jointly**
+    - Do methods agree?
+    - First-order vs. second-order?
+5.  **Connect to theory**
+    - What process could generate this pattern?
+
+------------------------------------------------------------------------
+
+## Advanced Topics (Brief Overview)
+
+### K-function and L-function
+
+- Multi-distance analysis
+- Detects clustering at different scales
+- More powerful than single-distance NNA
+
+### Marked Point Patterns
+
+- Points have attributes (marks)
+- Test for relationships between marks and location
+- Example: Tree species and spatial pattern
+
+### Space-Time Point Patterns
+
+- Events have time stamps
+- Test for space-time clustering
+- Example: Disease outbreak detection
+
+::: notes
+These are beyond our scope, but good to know they exist for future work
+:::
+
+------------------------------------------------------------------------
+
+## Common Pitfalls and Misconceptions {.smaller}
+
+### ❌ Avoid These Mistakes
+
+1.  **"Random means evenly spread"**
+    - No! Random (CSR) shows local clustering by chance
+2.  **"Clustering always means interaction"**
+    - Could be first-order (density) not process
+3.  **"One test is enough"**
+    - Use multiple complementary methods
+4.  **"P-value tells you the cause"**
+    - Significance ≠ explanation
+5.  **"Ignore study area"**
+    - Boundary definition matters!
+6.  **"Assume stationarity"**
+    - Check for large-scale trends first
+
+------------------------------------------------------------------------
+
+## R Packages for Point Pattern Analysis
+
+### Primary Package: `spatstat`
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(spatstat)
+
+# Core functions
+ppp()              # Create point pattern
+nndist()          # Nearest neighbor distances
+quadratcount()    # Quadrat counts
+quadrat.test()    # Quadrat test
+Kest()            # K-function
+density.ppp()     # Kernel density
+envelope()        # Simulation envelopes
+```
+
+### Other Useful Packages
+
+- `sf`: Spatial data handling
+- `mapview`: Interactive mapping
+- `splancs`: Spatial and space-time analysis
+
+------------------------------------------------------------------------
+
+# Summary: Lecture 2 {background-color="#660000"}
+
+## Key Concepts Covered
+
+1.  **Quadrat Analysis**
+    - Measures density variation
+    - Variance-Mean Ratio (VMR)
+    - Chi-square test
+2.  **Comparing Methods**
+    - NNA vs. Quadrat
+    - First-order vs. second-order
+    - Complementary insights
+3.  **Practical Considerations**
+    - Boundary effects
+    - Scale selection
+    - Study area definition
+4.  **Case Studies**
+    - Toronto public services
+    - New Mexico wildfires
+    - Interpreting real patterns
+
+------------------------------------------------------------------------
+
+## Before Next Class
+
+### Required Reading
+
+- Review Lembo Chapter 15 (Area Pattern Analysis)
+- Focus on Join Count and Moran's I
+
+### Prepare
+
+- Think about areal data in your field
+- Examples: Census data, election results, disease rates by county
+
+### Next Lecture
+
+- **Area Pattern Analysis**
+- Join Count Analysis (categorical data)
+- Moran's I (continuous data)
+- Local vs. global spatial autocorrelation
+
+------------------------------------------------------------------------
+
+# Lecture 3: Area Pattern Analysis {background-color="#003366"}
+
+## Transition: Points to Areas {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+### Point Pattern Data
+
+- Discrete events/objects
+- $(x, y)$ coordinates
+- Questions:
+  - Clustered or dispersed?
+  - Random spacing?
+
+### Methods
+
+- Nearest Neighbor
+- Quadrat Analysis
+:::
+
+::: {.column width="50%"}
+### Areal Pattern Data
+
+- **Continuous** spatial units
+- Polygons (counties, tracts, regions)
+- Questions:
+  - Do adjacent areas have similar values?
+  - Spatial clustering of attributes?
+
+### Methods (Today)
+
+- **Join Count Analysis**
+- **Moran's I** (global & local)
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## What is Areal Data? {.smaller}
+
+### Definition
+
+**Attributes measured or aggregated over spatial units**
+
+### Characteristics
+
+- **Complete coverage** of study area
+- **Mutually exclusive** units
+- Values represent entire area (not points)
+- **Neighborhood structure** defined by adjacency/proximity
+
+### Examples
+
+| Domain        | Spatial Unit  | Variable        |
+|---------------|---------------|-----------------|
+| Public Health | Counties      | Disease rate    |
+| Economics     | States        | Unemployment    |
+| Politics      | Precincts     | Vote share      |
+| Environment   | Watersheds    | Pollution level |
+| Demography    | Census tracts | Median income   |
+
+------------------------------------------------------------------------
+
+## Key Difference from Point Patterns
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4
+
+library(ggplot2)
+library(gridExtra)
+
+# Point pattern
+set.seed(123)
+pts <- data.frame(x = runif(40, 0, 10), y = runif(40, 0, 10))
+
+p1 <- ggplot(pts, aes(x, y)) +
+  geom_point(size = 3, color = "blue") +
+  theme_minimal() +
+  ggtitle("Point Pattern") +
+  labs(subtitle = "WHERE are the events?")
+
+# Areal data - create simple polygons
+poly_data <- data.frame(
+  x = c(0,2,2,0,0, 2,4,4,2,2, 4,6,6,4,4, 6,8,8,6,6,
+        0,2,2,0,0, 2,4,4,2,2, 4,6,6,4,4, 6,8,8,6,6),
+  y = c(0,0,2,2,0, 0,0,2,2,0, 0,0,2,2,0, 0,0,2,2,0,
+        2,2,4,4,2, 2,2,4,4,2, 2,2,4,4,2, 2,2,4,4,2),
+  group = rep(1:8, each = 5),
+  value = rep(c(45, 67, 23, 78, 12, 89, 34, 56), each = 5)
+)
+
+p2 <- ggplot(poly_data, aes(x, y, fill = value, group = group)) +
+  geom_polygon(color = "black", linewidth = 1) +
+  scale_fill_gradient(low = "lightblue", high = "darkblue") +
+  theme_minimal() +
+  ggtitle("Areal Data") +
+  labs(subtitle = "WHAT are the attribute values?", fill = "Value") +
+  coord_fixed()
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+**Point patterns**: Location of events is the variable\
+**Areal data**: Attribute values across locations
+
+------------------------------------------------------------------------
+
+## Spatial Autocorrelation {.smaller}
+
+### Core Concept
+
+::: callout-important
+## Tobler's First Law of Geography
+
+"Everything is related to everything else, but near things are more related than distant things."
+:::
+
+### Spatial Autocorrelation Defined
+
+**Correlation of a variable with itself across space**
+
+- **Positive**: Similar values cluster spatially
+  - High near high, low near low
+- **Negative**: Dissimilar values are adjacent
+  - High near low, low near high
+- **Zero**: No spatial pattern (independence)
+
+------------------------------------------------------------------------
+
+## Why Spatial Autocorrelation Matters {.smaller}
+
+### Theoretical Importance
+
+- **Diffusion processes**: Contagion, influence, spread
+- **Common exposures**: Environmental factors affect neighbors
+- **Spatial spillovers**: Economic/social interactions
+
+### Statistical Implications
+
+- Violates **independence** assumption of classical statistics
+- Standard errors underestimated
+- Significance tests invalid
+- Need spatial statistical methods
+
+### Practical Applications
+
+- Identify spatial clusters (hot spots)
+- Disease surveillance
+- Environmental justice
+- Market analysis
+
+------------------------------------------------------------------------
+
+## Defining Spatial Neighbors {.smaller}
+
+::: callout-note
+## Fundamental Question
+
+Who is a neighbor? This defines the spatial structure!
+:::
+
+### Common Approaches
+
+1.  **Contiguity** (shared boundary)
+    - **Rook**: Shared edge
+    - **Queen**: Shared edge or vertex
+    - **Higher-order**: Neighbors of neighbors
+2.  **Distance**
+    - Fixed distance threshold
+    - K-nearest neighbors
+    - Inverse distance weighting
+3.  **Other**
+    - Graph-based (networks)
+    - Time-based (diffusion)
+
+------------------------------------------------------------------------
+
+## Contiguity Definitions: Visual
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4
+
+# Create simple grid to show rook vs queen
+grid <- expand.grid(x = 0:2, y = 0:2)
+grid$id <- 1:9
+
+# Central cell is #5
+center_cell <- data.frame(x = c(1, 2, 2, 1, 1), y = c(1, 1, 2, 2, 1))
+
+# Rook neighbors (4 neighbors)
+rook_neighbors <- data.frame(
+  x = c(0,1,1,0,0, 2,3,3,2,2, 1,2,2,1,1, 1,2,2,1,1),
+  y = c(1,1,2,2,1, 1,1,2,2,1, 0,0,1,1,0, 2,2,3,3,2),
+  group = rep(1:4, each = 5)
+)
+
+p1 <- ggplot() +
+  geom_rect(xmin = 0, xmax = 3, ymin = 0, ymax = 3, 
+            fill = NA, color = "gray50") +
+  geom_polygon(data = center_cell, aes(x, y), 
+               fill = "yellow", alpha = 0.7, color = "black", linewidth = 1) +
+  geom_polygon(data = rook_neighbors, aes(x, y, group = group), 
+               fill = "lightblue", alpha = 0.5, color = "black", linewidth = 0.5) +
+  geom_vline(xintercept = 0:3, color = "gray30") +
+  geom_hline(yintercept = 0:3, color = "gray30") +
+  annotate("text", x = 1.5, y = 1.5, label = "A", size = 8) +
+  ggtitle("ROOK: Shared Edge (4 neighbors)") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  coord_fixed()
+
+# Queen neighbors (8 neighbors)
+queen_neighbors <- data.frame(
+  x = c(0,1,1,0,0, 2,3,3,2,2, 1,2,2,1,1, 1,2,2,1,1,
+        0,1,1,0,0, 2,3,3,2,2, 0,1,1,0,0, 2,3,3,2,2),
+  y = c(1,1,2,2,1, 1,1,2,2,1, 0,0,1,1,0, 2,2,3,3,2,
+        0,0,1,1,0, 0,0,1,1,0, 2,2,3,3,2, 2,2,3,3,2),
+  group = rep(1:8, each = 5)
+)
+
+p2 <- ggplot() +
+  geom_rect(xmin = 0, xmax = 3, ymin = 0, ymax = 3, 
+            fill = NA, color = "gray50") +
+  geom_polygon(data = center_cell, aes(x, y), 
+               fill = "yellow", alpha = 0.7, color = "black", linewidth = 1) +
+  geom_polygon(data = queen_neighbors, aes(x, y, group = group), 
+               fill = "lightblue", alpha = 0.5, color = "black", linewidth = 0.5) +
+  geom_vline(xintercept = 0:3, color = "gray30") +
+  geom_hline(yintercept = 0:3, color = "gray30") +
+  annotate("text", x = 1.5, y = 1.5, label = "A", size = 8) +
+  ggtitle("QUEEN: Shared Edge or Vertex (8 neighbors)") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  coord_fixed()
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+------------------------------------------------------------------------
+
+## Spatial Weights Matrix {.smaller}
+
+### Definition
+
+**W = matrix encoding neighborhood structure**
+
+- Rows and columns = spatial units
+- $w_{ij}$ = weight between unit $i$ and unit $j$
+- Diagonal = 0 (unit not neighbor to itself)
+
+### Binary Weights (Contiguity)
+
+$$w_{ij} = \begin{cases} 
+1 & \text{if } i \text{ and } j \text{ are neighbors} \\
+0 & \text{otherwise}
+\end{cases}$$
+
+### Row Standardization (Common)
+
+$$w_{ij}^* = \frac{w_{ij}}{\sum_j w_{ij}}$$
+
+Row sums = 1 (weights represent proportions)
+
+------------------------------------------------------------------------
+
+## Example: Simple Weights Matrix
+
+```{r}
+#| echo: false
+
+library(knitr)
+
+# Create example for 4 areas
+W_example <- data.frame(
+  Area = c("A", "B", "C", "D"),
+  A = c(0, 1, 1, 0),
+  B = c(1, 0, 0, 1),
+  C = c(1, 0, 0, 1),
+  D = c(0, 1, 1, 0)
+)
+
+kable(W_example, caption = "Binary Spatial Weights Matrix (Queen Contiguity)")
+```
+
+**Interpretation**: - A is neighbor to B and C - B is neighbor to A and D - C is neighbor to A and D - D is neighbor to B and C
+
+------------------------------------------------------------------------
+
+# Join Count Analysis {background-color="#004d00"}
+
+## Join Count Analysis: Introduction {.smaller}
+
+### Purpose
+
+**Analyze spatial patterns of CATEGORICAL data**
+
+### Key Concept
+
+A **"join"** is a connection between two adjacent areas
+
+### Types of Joins
+
+| Join Type            | Description                              |
+|----------------------|------------------------------------------|
+| **Black-Black (BB)** | Two adjacent "black" areas               |
+| **White-White (WW)** | Two adjacent "white" areas               |
+| **Black-White (BW)** | Adjacent areas with different categories |
+
+### The Question
+
+Are there more same-category joins than expected by chance?
+
+------------------------------------------------------------------------
+
+## Join Count: The Logic {.smaller}
+
+### Observed vs. Expected
+
+**Observed**: Count actual joins in the data
+
+**Expected**: What would we expect under random arrangement?
+
+### Hypotheses
+
+- $H_0$: Spatial pattern is random (no spatial autocorrelation)
+- $H_A$: Clustering exists
+  - **Positive autocorrelation**: More BB and WW joins than expected
+  - **Negative autocorrelation**: More BW joins than expected
+
+------------------------------------------------------------------------
+
+## Join Count: Visual Example
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4
+
+# Create three patterns: clustered, random, dispersed
+# Clustered
+clust_vals <- c(1,1,1,1,0,0,0,0,0,
+                1,1,1,1,0,0,0,0,0,
+                1,1,1,1,0,0,0,0,0,
+                1,1,1,1,0,0,0,0,0,
+                0,0,0,0,0,1,1,1,1)
+
+clust_df <- data.frame(
+  x = rep(0:8, times = 5) + 0.5,
+  y = rep(0:4, each = 9) + 0.5,
+  value = clust_vals
+)
+
+# Random
+set.seed(999)
+rand_df <- data.frame(
+  x = rep(0:8, times = 5) + 0.5,
+  y = rep(0:4, each = 9) + 0.5,
+  value = sample(0:1, 45, replace = TRUE, prob = c(0.5, 0.5))
+)
+
+p1 <- ggplot(clust_df, aes(x, y, fill = factor(value))) +
+  geom_tile(color = "white", linewidth = 2) +
+  scale_fill_manual(values = c("0" = "white", "1" = "black"),
+                    labels = c("White", "Black")) +
+  theme_void() +
+  theme(legend.position = "bottom") +
+  ggtitle("Clustered (Positive SA)") +
+  labs(subtitle = "Many BB and WW joins", fill = "") +
+  coord_fixed()
+
+p2 <- ggplot(rand_df, aes(x, y, fill = factor(value))) +
+  geom_tile(color = "white", linewidth = 2) +
+  scale_fill_manual(values = c("0" = "white", "1" = "black"),
+                    labels = c("White", "Black")) +
+  theme_void() +
+  theme(legend.position = "bottom") +
+  ggtitle("Random (No SA)") +
+  labs(subtitle = "Expected number of joins", fill = "") +
+  coord_fixed()
+
+grid.arrange(p1, p2, ncol = 2)
+```
+
+------------------------------------------------------------------------
+
+## Join Count: Formulas {.smaller}
+
+### Expected Number of Joins (Free Sampling)
+
+For **Black-White joins**:
+
+$$E[BW] = \frac{2JBW}{N(N-1)}$$
+
+where: - $J$ = total number of joins - $B$ = number of black areas - $W$ = number of white areas\
+- $N$ = total areas ($B + W$)
+
+### Standard Error
+
+$$\sigma_{BW} = \sqrt{E_{BW} + \frac{\sum L(L-1)BW - 2JBW^2}{N(N-1)} + \frac{4[\sum(L-1)^2] B(B-1)W(W-1)}{N(N-1)(N-2)(N-3)}}$$
+
+where $L$ = number of links (neighbors) for each area
+
+------------------------------------------------------------------------
+
+## Join Count: Test Statistic
+
+### Z-Score
+
+$$Z_{join} = \frac{O_{BW} - E_{BW}}{\sigma_{BW}}$$
+
+where: - $O_{BW}$ = observed number of Black-White joins - $E_{BW}$ = expected number under randomness
+
+### Interpretation
+
+- **Positive** $Z$: More BW joins than expected (negative SA)
+- **Negative** $Z$: Fewer BW joins than expected (positive SA / clustering)
+- $|Z| > 1.96$ → Significant at $\alpha = 0.05$
+
+------------------------------------------------------------------------
+
+## Join Count Example: US Obesity {.smaller}
+
+**From your reading**: State obesity levels 1995-2020
+
+### Setup
+
+- States classified as **above** or **below** national average
+- Queen contiguity weights
+- Binary categorization per year
+
+### Results (2020)
+
+| Join Type       | Observed | Expected |
+|-----------------|----------|----------|
+| **Above-Above** | 26       | 21       |
+| **Below-Below** | 27       | 32       |
+| **Dissimilar**  | 22       | 53.75    |
+
+**Test**: $Z = -6.40$, $p < 0.001$
+
+**Conclusion**: Significant **positive spatial autocorrelation**\
+States with similar obesity levels cluster together
+
+------------------------------------------------------------------------
+
+## Join Count: Interpretation Tips {.smaller}
+
+### What Positive SA Means
+
+- Similar values cluster spatially
+- Neighbors tend to be alike
+- Evidence of:
+  - Diffusion processes
+  - Common exposures
+  - Spatial spillovers
+
+### What Negative SA Means (Rare)
+
+- Dissimilar values adjacent
+- "Checkerboard" pattern
+- Possible:
+  - Competition effects
+  - Complementarity
+  - Zoning/planning
+
+### Non-Significance
+
+- Random spatial arrangement
+- No evidence of spatial pattern
+- Independence assumption reasonable
+
+------------------------------------------------------------------------
+
+## Join Count in R
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Using spdep package
+library(spdep)
+library(sf)
+
+# Read spatial data
+states <- st_read("states.shp")
+
+# Create binary variable
+states$obese_binary <- ifelse(states$obesity > mean(states$obesity), 
+                              "High", "Low")
+
+# Create queen contiguity neighbors
+nb <- poly2nb(states, queen = TRUE)
+
+# Convert to spatial weights
+listw <- nb2listw(nb, style = "B")  # Binary weights
+
+# Join count test
+jc_test <- joincount.test(
+  fx = factor(states$obese_binary),
+  listw = listw
+)
+
+print(jc_test)
+```
+
+------------------------------------------------------------------------
+
+# Moran's I {background-color="#004d00"}
+
+## Moran's I: Introduction {.smaller}
+
+### Purpose
+
+**Measure spatial autocorrelation for CONTINUOUS data**
+
+### Key Differences from Join Count
+
+- **Join Count**: Categorical (black/white, yes/no)
+- **Moran's I**: Continuous (income, temperature, rates)
+
+### Global Moran's I
+
+- **Single value** summarizing spatial autocorrelation for entire study area
+- Analogous to Pearson correlation, but for spatial data
+
+### Range
+
+- Typically: $-1 \leq I \leq +1$
+- $I > 0$: Positive SA (clustering of similar values)
+- $I \approx 0$: No SA (random)
+- $I < 0$: Negative SA (dissimilar values adjacent)
+
+------------------------------------------------------------------------
+
+## Moran's I: The Formula {.smaller}
+
+### Global Moran's I
+
+$$I = \frac{n}{\sum_{i}\sum_{j} w_{ij}} \cdot \frac{\sum_{i}\sum_{j} w_{ij}(x_i - \bar{x})(x_j - \bar{x})}{\sum_{i}(x_i - \bar{x})^2}$$
+
+### Simpler form (row-standardized weights):
+
+$$I = \frac{n \sum_{i}\sum_{j} w_{ij}(x_i - \bar{x})(x_j - \bar{x})}{(\sum_{i}\sum_{j} w_{ij}) \sum_{i}(x_i - \bar{x})^2}$$
+
+where: - $n$ = number of areas - $x_i$ = value for area $i$ - $\bar{x}$ = mean value - $w_{ij}$ = spatial weight between $i$ and $j$
+
+------------------------------------------------------------------------
+
+## Moran's I: Intuition {.smaller}
+
+### What It Calculates
+
+**Product of deviations for neighboring areas**
+
+### Positive I (Clustering)
+
+- High values near high values: $(+)(+) = +$
+- Low values near low values: $(-)(-)  = +$
+- Cross-products tend to be positive
+
+### Negative I (Dispersion)
+
+- High values near low values: $(+)(-) = -$
+- Low values near high values: $(-)(+) = -$
+- Cross-products tend to be negative
+
+### Random (I ≈ 0)
+
+- Mix of positive and negative cross-products
+- Cancel out on average
+
+------------------------------------------------------------------------
+
+## Moran's I: Hypothesis Test {.smaller}
+
+### Expected Value Under Randomness
+
+$$E[I] = \frac{-1}{n-1}$$
+
+(Not zero! Small negative value)
+
+### Variance (Normalization Assumption)
+
+$$Var[I] = \frac{n^2 \cdot \sum_{i} (n - \tilde{n}_i - 1) + n \sum_{i} \tilde{n}_i (n - \tilde{n}_i - 3) - n^2 \sum_{i} \tilde{n}_i^2}{(n-1)^2 \sum_{i} \tilde{n}_i}$$
+
+### Z-Score
+
+$$Z = \frac{I - E[I]}{\sqrt{Var[I]}}$$
+
+### Decision
+
+- $|Z| > 1.96$ → Significant at $\alpha = 0.05$
+- Positive $Z$: significant positive autocorrelation
+- Negative $Z$: significant negative autocorrelation
+
+------------------------------------------------------------------------
+
+## Moran's I: Worked Example {.smaller}
+
+**Pennsylvania County Obesity Levels** (from reading)
+
+### Setup
+
+- $n = 67$ counties
+- Variable: Obesity rate (%)
+- Queen contiguity weights
+
+### Results
+
+| Statistic  | Value    |
+|------------|----------|
+| Moran's I  | 0.69     |
+| Expected I | -0.015   |
+| Variance   | 0.0043   |
+| Z-score    | 10.8     |
+| p-value    | \< 0.001 |
+
+**Interpretation**: **Strong positive spatial autocorrelation**\
+Counties with similar obesity rates cluster together
+
+------------------------------------------------------------------------
+
+## Global vs. Local Measures {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+### Global Moran's I
+
+- **One value** for entire study area
+- "Is there clustering?"
+- Like a correlation coefficient
+- Summary statistic
+
+### Limitations
+
+- Doesn't tell you WHERE
+- May miss local variation
+- Average over whole area
+:::
+
+::: {.column width="50%"}
+### Local Moran's I (LISA)
+
+- **One value per area**
+- "Where is clustering?"
+- Identifies hot spots / cold spots
+- Spatial outliers
+
+### Advantages
+
+- Maps of local patterns
+- Identifies specific locations
+- Heterogeneous patterns
+:::
+:::::
+
+::: callout-tip
+Use **global** to test for overall SA, then **local** to find where
+:::
+
+------------------------------------------------------------------------
+
+## Local Moran's I (LISA) {.smaller}
+
+### Formula
+
+$$I_i = \frac{(x_i - \bar{x})}{S_i^2} \sum_{j} w_{ij}(x_j - \bar{x})$$
+
+where: - $I_i$ = local Moran's I for area $i$ - $S_i^2 = \frac{\sum (x_i - \bar{x})^2}{n}$ (variance) - $w_{ij}$ = spatial weights
+
+### Interpretation for Area $i$
+
+- **High positive** $I_i$: Area similar to neighbors
+  - **High-High**: High value surrounded by high
+  - **Low-Low**: Low value surrounded by low
+- **Negative** $I_i$: Area different from neighbors
+  - **High-Low**: High value surrounded by low (outlier)
+  - **Low-High**: Low value surrounded by high (outlier)
+
+------------------------------------------------------------------------
+
+## LISA: Cluster Types
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 5
+
+# Create example LISA map
+set.seed(123)
+n_areas <- 50
+lisa_data <- data.frame(
+  x = runif(n_areas, 0, 10),
+  y = runif(n_areas, 0, 10)
+)
+
+# Assign cluster types with spatial structure
+lisa_data$cluster_type <- "Not Significant"
+# High-High cluster (upper right)
+lisa_data$cluster_type[lisa_data$x > 7 & lisa_data$y > 7] <- "High-High"
+# Low-Low cluster (lower left)
+lisa_data$cluster_type[lisa_data$x < 3 & lisa_data$y < 3] <- "Low-Low"
+# Add some outliers
+lisa_data$cluster_type[lisa_data$x > 8 & lisa_data$y < 2] <- "High-Low"
+lisa_data$cluster_type[lisa_data$x < 2 & lisa_data$y > 8] <- "Low-High"
+
+lisa_colors <- c("High-High" = "red",
+                 "Low-Low" = "blue",
+                 "High-Low" = "pink",
+                 "Low-High" = "lightblue",
+                 "Not Significant" = "gray90")
+
+ggplot(lisa_data, aes(x, y, color = cluster_type, size = cluster_type != "Not Significant")) +
+  geom_point(alpha = 0.7) +
+  scale_color_manual(values = lisa_colors) +
+  scale_size_manual(values = c("TRUE" = 4, "FALSE" = 2), guide = "none") +
+  theme_minimal() +
+  labs(title = "LISA Cluster Map",
+       subtitle = "Local Indicators of Spatial Association",
+       color = "Cluster Type",
+       x = "", y = "") +
+  theme(legend.position = "bottom")
+```
+
+------------------------------------------------------------------------
+
+## LISA: Cleveland Racial Composition {.smaller}
+
+**Example from reading**: Census block groups
+
+### Four Groups Analyzed
+
+- Asian, Black, White, Hispanic
+
+### Key Findings (Moran's I values)
+
+| Group        | Moran's I | Z     | p-value | Interpretation         |
+|--------------|-----------|-------|---------|------------------------|
+| **Asian**    | 0.35      | 18.39 | 0.000   | Moderate clustering    |
+| **Black**    | 0.58      | 64.6  | 0.000   | Strong clustering      |
+| **White**    | 0.64      | 65.4  | 0.000   | Strong clustering      |
+| **Hispanic** | 0.81      | 65.7  | 0.000   | Very strong clustering |
+
+**Conclusion**: Significant residential segregation across all groups\
+Hispanic communities most strongly clustered
+
+------------------------------------------------------------------------
+
+## Moran Scatterplot {.smaller}
+
+### Visual Tool for Understanding Moran's I
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+
+# Create example Moran scatterplot
+set.seed(456)
+n <- 100
+x <- rnorm(n)
+# Create spatially lagged y with positive autocorrelation
+y <- 0.7 * x + rnorm(n, 0, 0.5)
+
+moran_df <- data.frame(
+  value = x,
+  lagged_value = y
+)
+
+# Assign quadrants
+moran_df$quadrant <- "HH"
+moran_df$quadrant[moran_df$value < 0 & moran_df$lagged_value > 0] <- "LH"
+moran_df$quadrant[moran_df$value < 0 & moran_df$lagged_value < 0] <- "LL"
+moran_df$quadrant[moran_df$value > 0 & moran_df$lagged_value < 0] <- "HL"
+
+ggplot(moran_df, aes(value, lagged_value, color = quadrant)) +
+  geom_point(size = 2, alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "black", linewidth = 1) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  scale_color_manual(values = c("HH" = "red", "LL" = "blue", 
+                                 "HL" = "pink", "LH" = "lightblue")) +
+  theme_minimal() +
+  labs(title = "Moran Scatterplot",
+       subtitle = "Slope = Moran's I",
+       x = "Value (Standardized)",
+       y = "Spatially Lagged Value",
+       color = "Quadrant") +
+  annotate("text", x = 2, y = 2, label = "High-High", size = 5) +
+  annotate("text", x = -2, y = -2, label = "Low-Low", size = 5) +
+  annotate("text", x = 2, y = -2, label = "High-Low", size = 5) +
+  annotate("text", x = -2, y = 2, label = "Low-High", size = 5)
+```
+
+**Slope of regression line = Moran's I**
+
+------------------------------------------------------------------------
+
+## Moran's I in R {.smaller}
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(spdep)
+library(sf)
+
+# Read spatial data
+counties <- st_read("counties.shp")
+
+# Create neighbors list (Queen contiguity)
+nb <- poly2nb(counties, queen = TRUE)
+
+# Create spatial weights (row-standardized)
+listw <- nb2listw(nb, style = "W")
+
+# Global Moran's I test
+moran_test <- moran.test(counties$obesity, listw)
+print(moran_test)
+
+# Moran scatterplot
+moran.plot(counties$obesity, listw, 
+           main = "Moran Scatterplot: Obesity",
+           xlab = "Obesity Rate (standardized)",
+           ylab = "Spatially Lagged Obesity")
+
+# Local Moran's I (LISA)
+lisa <- localmoran(counties$obesity, listw)
+counties$lisa_I <- lisa[, 1]
+counties$lisa_p <- lisa[, 5]
+
+# Map significant clusters
+plot(counties["lisa_I"], main = "Local Moran's I")
+```
+
+------------------------------------------------------------------------
+
+## LISA Significance and Multiple Testing {.smaller}
+
+::: callout-warning
+## Problem: Multiple Comparisons
+
+Testing hundreds of areas → inflation of Type I error!
+:::
+
+### Solutions
+
+1.  **Bonferroni correction**
+    - $\alpha_{adj} = \alpha / n$
+    - Very conservative
+2.  **False Discovery Rate (FDR)**
+    - Controls proportion of false positives
+    - Less conservative than Bonferroni
+3.  **Permutation approach**
+    - Simulate null distribution
+    - More robust
+
+### Recommendation
+
+- Report both corrected and uncorrected p-values
+- Use permutation tests (available in `spdep`)
+
+------------------------------------------------------------------------
+
+## Comparing Area Pattern Methods {.smaller}
+
+| Feature            | Join Count                | Moran's I                 |
+|--------------------|---------------------------|---------------------------|
+| **Data type**      | Categorical               | Continuous                |
+| **Output**         | Join counts               | Correlation-like index    |
+| **Range**          | Count values              | -1 to +1                  |
+| **Interpretation** | Number of joins           | Degree of autocorrelation |
+| **Local version**  | No standard version       | LISA (Local Moran's I)    |
+| **Use cases**      | Land use, binary outcomes | Rates, prices, densities  |
+
+### Complementary Approaches
+
+- Both test spatial autocorrelation
+- Both require defining neighbors
+- Both compare observed to expected under randomness
+
+------------------------------------------------------------------------
+
+## Practical Applications {.smaller}
+
+### Public Health
+
+- **Disease mapping**: Identify disease clusters
+- **Health disparities**: Unequal access to care
+- **Outbreak detection**: Early warning systems
+
+### Urban Planning
+
+- **Gentrification**: Spreading neighborhood change
+- **Segregation**: Residential clustering by race/income
+- **Housing markets**: Price spillovers
+
+### Environmental
+
+- **Pollution**: Clustering of environmental hazards
+- **Environmental justice**: Disproportionate exposure
+- **Climate adaptation**: Regional vulnerability
+
+### Economics
+
+- **Unemployment**: Regional labor markets
+- **Innovation**: Technology spillovers
+- **Poverty**: Persistent spatial poverty traps
+
+------------------------------------------------------------------------
+
+## Common Issues and Solutions {.smaller}
+
+### Issue 1: Modifiable Areal Unit Problem (MAUP)
+
+- Results sensitive to zone definition
+- **Solution**: Test multiple aggregations, report sensitivity
+
+### Issue 2: Boundary Definition
+
+- Edge areas have fewer neighbors
+- **Solution**: Consider broader study area, report boundary effects
+
+### Issue 3: Choosing Neighbors
+
+- Contiguity vs. distance? Rook vs. Queen?
+- **Solution**: Test multiple definitions, justify choice theoretically
+
+### Issue 4: Statistical vs. Practical Significance
+
+- Large samples → everything significant
+- **Solution**: Report effect sizes (Moran's I value), visualize
+
+------------------------------------------------------------------------
+
+## Assumptions and Limitations {.smaller}
+
+### Key Assumptions
+
+1.  **Stationarity**: Process constant across space
+    - May not hold in heterogeneous regions
+2.  **Isotropy**: Relationships same in all directions
+    - Geographic barriers may violate this
+3.  **Appropriate neighborhood definition**
+    - Neighbors must be meaningful
+4.  **Independence of areas** (for inference)
+    - Actually violated if SA exists! (parametric bootstrap helps)
+
+### Limitations
+
+- **Descriptive, not causal**
+- **Cannot distinguish processes** (multiple processes → same pattern)
+- **Scale-dependent** (MAUP)
+
+------------------------------------------------------------------------
+
+## Advanced Topics (Brief Overview) {.smaller}
+
+### Other Spatial Autocorrelation Measures
+
+- **Geary's C**: More sensitive to local differences
+- **Getis-Ord G**: Hot spot analysis
+- **Spatial correlogram**: SA at multiple distances
+
+### Spatial Regression Models
+
+- When SA exists, OLS invalid
+- **Spatial lag model**: Y depends on neighbor Y
+- **Spatial error model**: Errors spatially correlated
+
+### Space-Time Analysis
+
+- Extend to temporal dimension
+- Emerging/declining clusters
+- **Knox test**, **Space-time scan statistics**
+
+::: notes
+These go beyond ESDA into confirmatory spatial analysis
+:::
+
+------------------------------------------------------------------------
+
+## Best Practices Summary {.smaller}
+
+### Workflow for Area Pattern Analysis
+
+1.  **Visualize**: Create choropleth maps
+2.  **Define neighbors**: Justify choice
+3.  **Test globally**: Join Count or Moran's I
+4.  **If significant, test locally**: LISA
+5.  **Map results**: Show cluster locations
+6.  **Interpret substantively**: Connect to theory/process
+
+### Reporting Checklist
+
+✓ Study area definition and rationale\
+✓ Neighborhood definition (rook/queen/distance)\
+✓ Weighting scheme (binary/row-standardized)\
+✓ Global test results (statistic, p-value)\
+✓ Local analysis (if applicable)\
+✓ Maps of patterns\
+✓ Substantive interpretation
+
+------------------------------------------------------------------------
+
+## Integration: Point and Area Patterns {.smaller}
+
+### Conceptual Connections
+
+| Concept | Point Pattern | Area Pattern |
+|------------------|---------------------------|---------------------------|
+| **Random baseline** | CSR | Spatial independence |
+| **Clustering** | NNA: R \< 1<br>Quadrat: VMR \> 1 | Positive Moran's I<br>High join counts |
+| **Dispersion** | NNA: R \> 1<br>Quadrat: VMR \< 1 | Negative Moran's I |
+| **Local vs. Global** | Individual distances vs. overall R | LISA vs. global I |
+| **First-order** | Quadrat analysis | Less emphasized |
+| **Second-order** | NNA | Moran's I, Join Count |
+
+------------------------------------------------------------------------
+
+# Summary: Lecture 3 {background-color="#660000"}
+
+## Key Concepts Covered {.smaller}
+
+1.  **Areal Data**
+    - Continuous spatial units
+    - Attribute values over areas
+2.  **Spatial Autocorrelation**
+    - Tobler's Law
+    - Positive, negative, none
+3.  **Spatial Weights**
+    - Defining neighbors
+    - Rook vs. Queen contiguity
+4.  **Join Count Analysis**
+    - Categorical data
+    - Black-white joins
+    - Testing for clustering
+5.  **Moran's I**
+    - Continuous data
+    - Global and Local (LISA)
+    - Hot spot identification
+
+------------------------------------------------------------------------
+
+## Module Synthesis {.smaller}
+
+### Three Lectures, Unified Framework
+
+**Lecture 1**: Foundations - Patterns vs. processes - First vs. second-order effects - Point patterns: NNA
+
+**Lecture 2**: Point patterns continued - Quadrat analysis - Comparing methods - Applications
+
+**Lecture 3**: Area patterns - Join Count (categorical) - Moran's I (continuous) - Local spatial analysis
+
+### Core Theme
+
+**Exploratory spatial data analysis reveals structure**\
+→ Inform modeling and theory development
+
+------------------------------------------------------------------------
+
+## Moving Forward {.smaller}
+
+### From ESDA to Confirmatory Analysis
+
+**ESDA (what we covered)**: - Describe patterns - Generate hypotheses - Identify where to look
+
+**Next steps** (beyond this module): - Spatial regression models - Hypothesis testing with spatial data - Causal inference in spatial context
+
+### Skills You've Gained
+
+✓ Recognize spatial patterns\
+✓ Choose appropriate methods\
+✓ Interpret spatial statistics\
+✓ Connect patterns to processes\
+✓ Implement in R\
+✓ Report findings effectively
+
+------------------------------------------------------------------------
+
+## Final Recommendations {.smaller}
+
+### For Your Research
+
+1.  **Start with visualization**
+    - Maps reveal patterns statistics might miss
+2.  **Use multiple methods**
+    - Different methods = different insights
+3.  **Think about process**
+    - What mechanism generated this pattern?
+4.  **Consider scale**
+    - Patterns are scale-dependent (MAUP)
+5.  **Report thoroughly**
+    - Study area, neighbors, weights, sensitivity
+6.  **Be humble about inference**
+    - Pattern ≠ process
+    - Correlation ≠ causation
+    - Spatial patterns suggest but don't prove
+
+------------------------------------------------------------------------
+
+## Resources for Further Learning {.smaller}
+
+### Textbooks
+
+- Bivand et al. (2013) *Applied Spatial Data Analysis with R*
+- Anselin (1988) *Spatial Econometrics*
+- O'Sullivan & Unwin (2010) *Geographic Information Analysis*
+
+### Software
+
+- **R packages**: `spatstat`, `spdep`, `sf`, `sp`
+- **Python**: `PySAL`, `GeoPandas`
+- **GeoDa**: Free software by Luc Anselin
+
+### Online Resources
+
+- CRAN Task View: Spatial
+- Geocomputation with R: https://geocompr.robinlovelace.net/
+- Spatial Data Science: https://r-spatial.org/
+
+------------------------------------------------------------------------
+
+## Thank You! {.center}
+
+### Questions?
+
+**Office Hours**: \[Your schedule\]\
+**Email**: \[Your email\]
+
+### Assignment Due
+
+\[Date and details\]
+
+Good luck with your spatial analysis projects!
+
+------------------------------------------------------------------------
+
+## Appendix: R Code Examples {.smaller visibility="uncounted"}
+
+### Complete Workflow Example
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Load packages
+library(sf)
+library(spatstat)
+library(spdep)
+library(ggplot2)
+
+# === Point Pattern Analysis ===
+
+# Load point data
+coords <- read.csv("points.csv")
+pp <- ppp(coords$x, coords$y, window = owin(c(0,100), c(0,100)))
+
+# Nearest Neighbor Analysis
+nnd_mean <- mean(nndist(pp))
+nnd_expected <- 1 / (2 * sqrt(npoints(pp) / area(Window(pp))))
+R_stat <- nnd_mean / nnd_expected
+
+# Quadrat Analysis
+Q <- quadratcount(pp, nx = 5, ny = 5)
+quadrat.test(pp, nx = 5, ny = 5)
+
+# === Area Pattern Analysis ===
+
+# Load areal data
+regions <- st_read("regions.shp")
+
+# Create spatial weights
+nb <- poly2nb(regions, queen = TRUE)
+listw <- nb2listw(nb, style = "W")
+
+# Global Moran's I
+moran.test(regions$value, listw)
+
+# Local Moran's I (LISA)
+lisa <- localmoran(regions$value, listw)
+regions$lisa_I <- lisa[,1]
+regions$lisa_p <- lisa[,5]
+
+# Map results
+ggplot(regions) +
+  geom_sf(aes(fill = lisa_I)) +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red") +
+  theme_minimal()
+```

@@ -1,0 +1,3917 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Varun Goel">
+
+<title>Exploratory Spatial Data Analysis – GEOG 531</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-7d090a7e39110af4430c0129adf67a43.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">GEOG 531</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-materials" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Materials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-materials">    
+        <li>
+    <a class="dropdown-item" href="../../lectures.html">
+ <span class="dropdown-text">Lectures</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../readings.html">
+ <span class="dropdown-text">Readings</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../assignments.html">
+ <span class="dropdown-text">Homeworks</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../FinalProject.html">
+ <span class="dropdown-text">Final Project</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../../data.html">
+ <span class="dropdown-text">Data Resources</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lecture-1-introduction-to-esda-point-pattern-analysis" id="toc-lecture-1-introduction-to-esda-point-pattern-analysis" class="nav-link active" data-scroll-target="#lecture-1-introduction-to-esda-point-pattern-analysis">Lecture 1: Introduction to ESDA &amp; Point Pattern Analysis</a>
+  <ul class="collapse">
+  <li><a href="#module-overview" id="toc-module-overview" class="nav-link" data-scroll-target="#module-overview">Module Overview</a>
+  <ul class="collapse">
+  <li><a href="#course-structure-3-lectures-75-min" id="toc-course-structure-3-lectures-75-min" class="nav-link" data-scroll-target="#course-structure-3-lectures-75-min">Course Structure (3 Lectures × 75 min)</a></li>
+  </ul></li>
+  <li><a href="#what-is-exploratory-spatial-data-analysis" id="toc-what-is-exploratory-spatial-data-analysis" class="nav-link" data-scroll-target="#what-is-exploratory-spatial-data-analysis">What is Exploratory Spatial Data Analysis?</a></li>
+  <li><a href="#types-of-spatial-data" id="toc-types-of-spatial-data" class="nav-link" data-scroll-target="#types-of-spatial-data">Types of Spatial Data</a></li>
+  <li><a href="#patterns-vs.-processes" id="toc-patterns-vs.-processes" class="nav-link" data-scroll-target="#patterns-vs.-processes">Patterns vs.&nbsp;Processes</a></li>
+  <li><a href="#pattern-process-examples" id="toc-pattern-process-examples" class="nav-link" data-scroll-target="#pattern-process-examples">Pattern-Process Examples</a>
+  <ul class="collapse">
+  <li><a href="#urban-crime-distribution" id="toc-urban-crime-distribution" class="nav-link" data-scroll-target="#urban-crime-distribution">Urban Crime Distribution</a></li>
+  </ul></li>
+  <li><a href="#first-order-vs.-second-order-effects" id="toc-first-order-vs.-second-order-effects" class="nav-link" data-scroll-target="#first-order-vs.-second-order-effects">First-Order vs.&nbsp;Second-Order Effects</a>
+  <ul class="collapse">
+  <li><a href="#first-order-effects-intensitydensity" id="toc-first-order-effects-intensitydensity" class="nav-link" data-scroll-target="#first-order-effects-intensitydensity">First-Order Effects (Intensity/Density)</a></li>
+  <li><a href="#second-order-effects-dependenceinteraction" id="toc-second-order-effects-dependenceinteraction" class="nav-link" data-scroll-target="#second-order-effects-dependenceinteraction">Second-Order Effects (Dependence/Interaction)</a></li>
+  </ul></li>
+  <li><a href="#visual-comparison-first-vs.-second-order" id="toc-visual-comparison-first-vs.-second-order" class="nav-link" data-scroll-target="#visual-comparison-first-vs.-second-order">Visual Comparison: First vs.&nbsp;Second Order</a></li>
+  <li><a href="#first-order-effects-in-detail" id="toc-first-order-effects-in-detail" class="nav-link" data-scroll-target="#first-order-effects-in-detail">First-Order Effects in Detail</a>
+  <ul class="collapse">
+  <li><a href="#characteristics" id="toc-characteristics" class="nav-link" data-scroll-target="#characteristics">Characteristics</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#analysis-methods" id="toc-analysis-methods" class="nav-link" data-scroll-target="#analysis-methods">Analysis Methods</a></li>
+  </ul></li>
+  <li><a href="#second-order-effects-in-detail" id="toc-second-order-effects-in-detail" class="nav-link" data-scroll-target="#second-order-effects-in-detail">Second-Order Effects in Detail</a>
+  <ul class="collapse">
+  <li><a href="#characteristics-1" id="toc-characteristics-1" class="nav-link" data-scroll-target="#characteristics-1">Characteristics</a></li>
+  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1">Examples</a></li>
+  <li><a href="#analysis-methods-1" id="toc-analysis-methods-1" class="nav-link" data-scroll-target="#analysis-methods-1">Analysis Methods</a></li>
+  </ul></li>
+  <li><a href="#why-the-distinction-matters" id="toc-why-the-distinction-matters" class="nav-link" data-scroll-target="#why-the-distinction-matters">Why the Distinction Matters</a></li>
+  </ul></li>
+  <li><a href="#point-pattern-analysis" id="toc-point-pattern-analysis" class="nav-link" data-scroll-target="#point-pattern-analysis">Point Pattern Analysis</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-point-patterns" id="toc-introduction-to-point-patterns" class="nav-link" data-scroll-target="#introduction-to-point-patterns">Introduction to Point Patterns</a>
+  <ul class="collapse">
+  <li><a href="#what-are-point-patterns" id="toc-what-are-point-patterns" class="nav-link" data-scroll-target="#what-are-point-patterns">What Are Point Patterns?</a></li>
+  <li><a href="#examples-2" id="toc-examples-2" class="nav-link" data-scroll-target="#examples-2">Examples</a></li>
+  </ul></li>
+  <li><a href="#goals-of-point-pattern-analysis" id="toc-goals-of-point-pattern-analysis" class="nav-link" data-scroll-target="#goals-of-point-pattern-analysis">Goals of Point Pattern Analysis</a>
+  <ul class="collapse">
+  <li><a href="#primary-objectives" id="toc-primary-objectives" class="nav-link" data-scroll-target="#primary-objectives">Primary Objectives</a></li>
+  </ul></li>
+  <li><a href="#complete-spatial-randomness-csr" id="toc-complete-spatial-randomness-csr" class="nav-link" data-scroll-target="#complete-spatial-randomness-csr">Complete Spatial Randomness (CSR)</a>
+  <ul class="collapse">
+  <li><a href="#the-null-hypothesis" id="toc-the-null-hypothesis" class="nav-link" data-scroll-target="#the-null-hypothesis">The Null Hypothesis</a></li>
+  <li><a href="#implications-under-csr" id="toc-implications-under-csr" class="nav-link" data-scroll-target="#implications-under-csr">Implications Under CSR</a></li>
+  </ul></li>
+  <li><a href="#departures-from-csr" id="toc-departures-from-csr" class="nav-link" data-scroll-target="#departures-from-csr">Departures from CSR</a></li>
+  <li><a href="#nearest-neighbor-analysis-nna" id="toc-nearest-neighbor-analysis-nna" class="nav-link" data-scroll-target="#nearest-neighbor-analysis-nna">Nearest Neighbor Analysis (NNA)</a>
+  <ul class="collapse">
+  <li><a href="#concept" id="toc-concept" class="nav-link" data-scroll-target="#concept">Concept</a></li>
+  <li><a href="#key-advantage" id="toc-key-advantage" class="nav-link" data-scroll-target="#key-advantage">Key Advantage</a></li>
+  <li><a href="#limitation" id="toc-limitation" class="nav-link" data-scroll-target="#limitation">Limitation</a></li>
+  </ul></li>
+  <li><a href="#nna-the-mathematics" id="toc-nna-the-mathematics" class="nav-link" data-scroll-target="#nna-the-mathematics">NNA: The Mathematics</a>
+  <ul class="collapse">
+  <li><a href="#observed-mean-nearest-neighbor-distance" id="toc-observed-mean-nearest-neighbor-distance" class="nav-link" data-scroll-target="#observed-mean-nearest-neighbor-distance">Observed Mean Nearest Neighbor Distance</a></li>
+  <li><a href="#expected-distance-under-csr" id="toc-expected-distance-under-csr" class="nav-link" data-scroll-target="#expected-distance-under-csr">Expected Distance Under CSR</a></li>
+  </ul></li>
+  <li><a href="#nna-r-statistic" id="toc-nna-r-statistic" class="nav-link" data-scroll-target="#nna-r-statistic">NNA: R-Statistic</a>
+  <ul class="collapse">
+  <li><a href="#standardized-nearest-neighbor-index" id="toc-standardized-nearest-neighbor-index" class="nav-link" data-scroll-target="#standardized-nearest-neighbor-index">Standardized Nearest Neighbor Index</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  </ul></li>
+  <li><a href="#nna-statistical-significance" id="toc-nna-statistical-significance" class="nav-link" data-scroll-target="#nna-statistical-significance">NNA: Statistical Significance</a>
+  <ul class="collapse">
+  <li><a href="#standard-error" id="toc-standard-error" class="nav-link" data-scroll-target="#standard-error">Standard Error</a></li>
+  <li><a href="#test-statistic-z-score" id="toc-test-statistic-z-score" class="nav-link" data-scroll-target="#test-statistic-z-score">Test Statistic (Z-score)</a></li>
+  <li><a href="#decision-rule" id="toc-decision-rule" class="nav-link" data-scroll-target="#decision-rule">Decision Rule</a></li>
+  </ul></li>
+  <li><a href="#nna-worked-example-from-reading" id="toc-nna-worked-example-from-reading" class="nav-link" data-scroll-target="#nna-worked-example-from-reading">NNA: Worked Example from Reading</a>
+  <ul class="collapse">
+  <li><a href="#interpretations" id="toc-interpretations" class="nav-link" data-scroll-target="#interpretations">Interpretations</a></li>
+  </ul></li>
+  <li><a href="#nna-in-r-basic-implementation" id="toc-nna-in-r-basic-implementation" class="nav-link" data-scroll-target="#nna-in-r-basic-implementation">NNA in R: Basic Implementation</a></li>
+  <li><a href="#boundary-effects-in-nna" id="toc-boundary-effects-in-nna" class="nav-link" data-scroll-target="#boundary-effects-in-nna">Boundary Effects in NNA</a>
+  <ul class="collapse">
+  <li><a href="#types-of-bias" id="toc-types-of-bias" class="nav-link" data-scroll-target="#types-of-bias">Types of Bias</a></li>
+  <li><a href="#practical-recommendation" id="toc-practical-recommendation" class="nav-link" data-scroll-target="#practical-recommendation">Practical Recommendation</a></li>
+  </ul></li>
+  <li><a href="#when-to-use-nna" id="toc-when-to-use-nna" class="nav-link" data-scroll-target="#when-to-use-nna">When to Use NNA</a>
+  <ul class="collapse">
+  <li><a href="#appropriate-situations" id="toc-appropriate-situations" class="nav-link" data-scroll-target="#appropriate-situations">Appropriate Situations ✓</a></li>
+  <li><a href="#less-appropriate" id="toc-less-appropriate" class="nav-link" data-scroll-target="#less-appropriate">Less Appropriate ✗</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary-lecture-1" id="toc-summary-lecture-1" class="nav-link" data-scroll-target="#summary-lecture-1">Summary: Lecture 1</a>
+  <ul class="collapse">
+  <li><a href="#key-concepts-covered" id="toc-key-concepts-covered" class="nav-link" data-scroll-target="#key-concepts-covered">Key Concepts Covered</a></li>
+  <li><a href="#before-next-class" id="toc-before-next-class" class="nav-link" data-scroll-target="#before-next-class">Before Next Class</a>
+  <ul class="collapse">
+  <li><a href="#required-reading" id="toc-required-reading" class="nav-link" data-scroll-target="#required-reading">Required Reading</a></li>
+  <li><a href="#think-about" id="toc-think-about" class="nav-link" data-scroll-target="#think-about">Think About</a></li>
+  <li><a href="#next-lecture" id="toc-next-lecture" class="nav-link" data-scroll-target="#next-lecture">Next Lecture</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#lecture-2-point-pattern-analysis-continued" id="toc-lecture-2-point-pattern-analysis-continued" class="nav-link" data-scroll-target="#lecture-2-point-pattern-analysis-continued">Lecture 2: Point Pattern Analysis (Continued)</a>
+  <ul class="collapse">
+  <li><a href="#lecture-1-recap" id="toc-lecture-1-recap" class="nav-link" data-scroll-target="#lecture-1-recap">Lecture 1 Recap</a>
+  <ul class="collapse">
+  <li><a href="#todays-focus" id="toc-todays-focus" class="nav-link" data-scroll-target="#todays-focus">Today’s Focus</a></li>
+  </ul></li>
+  <li><a href="#quadrat-analysis-introduction" id="toc-quadrat-analysis-introduction" class="nav-link" data-scroll-target="#quadrat-analysis-introduction">Quadrat Analysis: Introduction</a>
+  <ul class="collapse">
+  <li><a href="#core-concept" id="toc-core-concept" class="nav-link" data-scroll-target="#core-concept">Core Concept</a></li>
+  <li><a href="#what-it-measures" id="toc-what-it-measures" class="nav-link" data-scroll-target="#what-it-measures">What It Measures</a></li>
+  <li><a href="#key-difference-from-nna" id="toc-key-difference-from-nna" class="nav-link" data-scroll-target="#key-difference-from-nna">Key Difference from NNA</a></li>
+  </ul></li>
+  <li><a href="#quadrat-analysis-visual-concept" id="toc-quadrat-analysis-visual-concept" class="nav-link" data-scroll-target="#quadrat-analysis-visual-concept">Quadrat Analysis: Visual Concept</a></li>
+  <li><a href="#variance-mean-ratio-vmr" id="toc-variance-mean-ratio-vmr" class="nav-link" data-scroll-target="#variance-mean-ratio-vmr">Variance-Mean Ratio (VMR)</a>
+  <ul class="collapse">
+  <li><a href="#the-key-statistic" id="toc-the-key-statistic" class="nav-link" data-scroll-target="#the-key-statistic">The Key Statistic</a></li>
+  <li><a href="#theoretical-expectations" id="toc-theoretical-expectations" class="nav-link" data-scroll-target="#theoretical-expectations">Theoretical Expectations</a></li>
+  </ul></li>
+  <li><a href="#why-vmr-1-for-random-patterns" id="toc-why-vmr-1-for-random-patterns" class="nav-link" data-scroll-target="#why-vmr-1-for-random-patterns">Why VMR = 1 for Random Patterns?</a>
+  <ul class="collapse">
+  <li><a href="#poisson-distribution-property" id="toc-poisson-distribution-property" class="nav-link" data-scroll-target="#poisson-distribution-property">Poisson Distribution Property</a></li>
+  </ul></li>
+  <li><a href="#vmr-mathematical-details" id="toc-vmr-mathematical-details" class="nav-link" data-scroll-target="#vmr-mathematical-details">VMR: Mathematical Details</a>
+  <ul class="collapse">
+  <li><a href="#calculating-vmr" id="toc-calculating-vmr" class="nav-link" data-scroll-target="#calculating-vmr">Calculating VMR</a></li>
+  </ul></li>
+  <li><a href="#vmr-chi-square-test" id="toc-vmr-chi-square-test" class="nav-link" data-scroll-target="#vmr-chi-square-test">VMR: Chi-Square Test</a>
+  <ul class="collapse">
+  <li><a href="#test-statistic" id="toc-test-statistic" class="nav-link" data-scroll-target="#test-statistic">Test Statistic</a></li>
+  <li><a href="#hypothesis-test" id="toc-hypothesis-test" class="nav-link" data-scroll-target="#hypothesis-test">Hypothesis Test</a></li>
+  <li><a href="#decision-rule-1" id="toc-decision-rule-1" class="nav-link" data-scroll-target="#decision-rule-1">Decision Rule</a></li>
+  </ul></li>
+  <li><a href="#quadrat-analysis-worked-example" id="toc-quadrat-analysis-worked-example" class="nav-link" data-scroll-target="#quadrat-analysis-worked-example">Quadrat Analysis: Worked Example</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#calculations" id="toc-calculations" class="nav-link" data-scroll-target="#calculations">Calculations</a></li>
+  <li><a href="#result" id="toc-result" class="nav-link" data-scroll-target="#result">Result</a></li>
+  </ul></li>
+  <li><a href="#comparison-three-decades-of-wildfires" id="toc-comparison-three-decades-of-wildfires" class="nav-link" data-scroll-target="#comparison-three-decades-of-wildfires">Comparison: Three Decades of Wildfires</a>
+  <ul class="collapse">
+  <li><a href="#insights-from-reading" id="toc-insights-from-reading" class="nav-link" data-scroll-target="#insights-from-reading">Insights from Reading</a></li>
+  </ul></li>
+  <li><a href="#quadrat-size-selection" id="toc-quadrat-size-selection" class="nav-link" data-scroll-target="#quadrat-size-selection">Quadrat Size Selection</a>
+  <ul class="collapse">
+  <li><a href="#general-guidelines" id="toc-general-guidelines" class="nav-link" data-scroll-target="#general-guidelines">General Guidelines</a></li>
+  </ul></li>
+  <li><a href="#quadrat-analysis-in-r" id="toc-quadrat-analysis-in-r" class="nav-link" data-scroll-target="#quadrat-analysis-in-r">Quadrat Analysis in R</a></li>
+  <li><a href="#comparing-nna-and-quadrat-analysis" id="toc-comparing-nna-and-quadrat-analysis" class="nav-link" data-scroll-target="#comparing-nna-and-quadrat-analysis">Comparing NNA and Quadrat Analysis</a></li>
+  <li><a href="#when-results-disagree" id="toc-when-results-disagree" class="nav-link" data-scroll-target="#when-results-disagree">When Results Disagree</a>
+  <ul class="collapse">
+  <li><a href="#scenario-nna-says-clustered-quadrat-says-random" id="toc-scenario-nna-says-clustered-quadrat-says-random" class="nav-link" data-scroll-target="#scenario-nna-says-clustered-quadrat-says-random">Scenario: NNA says “clustered”, Quadrat says “random”</a></li>
+  <li><a href="#scenario-nna-says-random-quadrat-says-clustered" id="toc-scenario-nna-says-random-quadrat-says-clustered" class="nav-link" data-scroll-target="#scenario-nna-says-random-quadrat-says-clustered">Scenario: NNA says “random”, Quadrat says “clustered”</a></li>
+  </ul></li>
+  <li><a href="#case-study-toronto-public-services" id="toc-case-study-toronto-public-services" class="nav-link" data-scroll-target="#case-study-toronto-public-services">Case Study: Toronto Public Services</a>
+  <ul class="collapse">
+  <li><a href="#facilities-analyzed" id="toc-facilities-analyzed" class="nav-link" data-scroll-target="#facilities-analyzed">Facilities Analyzed</a></li>
+  <li><a href="#key-findings" id="toc-key-findings" class="nav-link" data-scroll-target="#key-findings">Key Findings</a></li>
+  </ul></li>
+  <li><a href="#case-study-patterns-and-processes" id="toc-case-study-patterns-and-processes" class="nav-link" data-scroll-target="#case-study-patterns-and-processes">Case Study: Patterns and Processes</a>
+  <ul class="collapse">
+  <li><a href="#emergency-services-police-fire" id="toc-emergency-services-police-fire" class="nav-link" data-scroll-target="#emergency-services-police-fire">Emergency Services (Police, Fire)</a></li>
+  <li><a href="#community-services-schools-voting" id="toc-community-services-schools-voting" class="nav-link" data-scroll-target="#community-services-schools-voting">Community Services (Schools, Voting)</a></li>
+  </ul></li>
+  <li><a href="#boundary-and-study-area-issues" id="toc-boundary-and-study-area-issues" class="nav-link" data-scroll-target="#boundary-and-study-area-issues">Boundary and Study Area Issues</a>
+  <ul class="collapse">
+  <li><a href="#critical-considerations" id="toc-critical-considerations" class="nav-link" data-scroll-target="#critical-considerations">Critical Considerations</a></li>
+  </ul></li>
+  <li><a href="#practical-workflow-for-point-pattern-analysis" id="toc-practical-workflow-for-point-pattern-analysis" class="nav-link" data-scroll-target="#practical-workflow-for-point-pattern-analysis">Practical Workflow for Point Pattern Analysis</a>
+  <ul class="collapse">
+  <li><a href="#step-by-step-approach" id="toc-step-by-step-approach" class="nav-link" data-scroll-target="#step-by-step-approach">Step-by-Step Approach</a></li>
+  </ul></li>
+  <li><a href="#advanced-topics-brief-overview" id="toc-advanced-topics-brief-overview" class="nav-link" data-scroll-target="#advanced-topics-brief-overview">Advanced Topics (Brief Overview)</a>
+  <ul class="collapse">
+  <li><a href="#k-function-and-l-function" id="toc-k-function-and-l-function" class="nav-link" data-scroll-target="#k-function-and-l-function">K-function and L-function</a></li>
+  <li><a href="#marked-point-patterns" id="toc-marked-point-patterns" class="nav-link" data-scroll-target="#marked-point-patterns">Marked Point Patterns</a></li>
+  <li><a href="#space-time-point-patterns" id="toc-space-time-point-patterns" class="nav-link" data-scroll-target="#space-time-point-patterns">Space-Time Point Patterns</a></li>
+  </ul></li>
+  <li><a href="#common-pitfalls-and-misconceptions" id="toc-common-pitfalls-and-misconceptions" class="nav-link" data-scroll-target="#common-pitfalls-and-misconceptions">Common Pitfalls and Misconceptions</a>
+  <ul class="collapse">
+  <li><a href="#avoid-these-mistakes" id="toc-avoid-these-mistakes" class="nav-link" data-scroll-target="#avoid-these-mistakes">❌ Avoid These Mistakes</a></li>
+  </ul></li>
+  <li><a href="#r-packages-for-point-pattern-analysis" id="toc-r-packages-for-point-pattern-analysis" class="nav-link" data-scroll-target="#r-packages-for-point-pattern-analysis">R Packages for Point Pattern Analysis</a>
+  <ul class="collapse">
+  <li><a href="#primary-package-spatstat" id="toc-primary-package-spatstat" class="nav-link" data-scroll-target="#primary-package-spatstat">Primary Package: <code>spatstat</code></a></li>
+  <li><a href="#other-useful-packages" id="toc-other-useful-packages" class="nav-link" data-scroll-target="#other-useful-packages">Other Useful Packages</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary-lecture-2" id="toc-summary-lecture-2" class="nav-link" data-scroll-target="#summary-lecture-2">Summary: Lecture 2</a>
+  <ul class="collapse">
+  <li><a href="#key-concepts-covered-1" id="toc-key-concepts-covered-1" class="nav-link" data-scroll-target="#key-concepts-covered-1">Key Concepts Covered</a></li>
+  <li><a href="#before-next-class-1" id="toc-before-next-class-1" class="nav-link" data-scroll-target="#before-next-class-1">Before Next Class</a>
+  <ul class="collapse">
+  <li><a href="#required-reading-1" id="toc-required-reading-1" class="nav-link" data-scroll-target="#required-reading-1">Required Reading</a></li>
+  <li><a href="#prepare" id="toc-prepare" class="nav-link" data-scroll-target="#prepare">Prepare</a></li>
+  <li><a href="#next-lecture-1" id="toc-next-lecture-1" class="nav-link" data-scroll-target="#next-lecture-1">Next Lecture</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#lecture-3-area-pattern-analysis" id="toc-lecture-3-area-pattern-analysis" class="nav-link" data-scroll-target="#lecture-3-area-pattern-analysis">Lecture 3: Area Pattern Analysis</a>
+  <ul class="collapse">
+  <li><a href="#transition-points-to-areas" id="toc-transition-points-to-areas" class="nav-link" data-scroll-target="#transition-points-to-areas">Transition: Points to Areas</a></li>
+  <li><a href="#what-is-areal-data" id="toc-what-is-areal-data" class="nav-link" data-scroll-target="#what-is-areal-data">What is Areal Data?</a>
+  <ul class="collapse">
+  <li><a href="#definition" id="toc-definition" class="nav-link" data-scroll-target="#definition">Definition</a></li>
+  <li><a href="#characteristics-2" id="toc-characteristics-2" class="nav-link" data-scroll-target="#characteristics-2">Characteristics</a></li>
+  <li><a href="#examples-3" id="toc-examples-3" class="nav-link" data-scroll-target="#examples-3">Examples</a></li>
+  </ul></li>
+  <li><a href="#key-difference-from-point-patterns" id="toc-key-difference-from-point-patterns" class="nav-link" data-scroll-target="#key-difference-from-point-patterns">Key Difference from Point Patterns</a></li>
+  <li><a href="#spatial-autocorrelation" id="toc-spatial-autocorrelation" class="nav-link" data-scroll-target="#spatial-autocorrelation">Spatial Autocorrelation</a>
+  <ul class="collapse">
+  <li><a href="#core-concept-1" id="toc-core-concept-1" class="nav-link" data-scroll-target="#core-concept-1">Core Concept</a></li>
+  <li><a href="#spatial-autocorrelation-defined" id="toc-spatial-autocorrelation-defined" class="nav-link" data-scroll-target="#spatial-autocorrelation-defined">Spatial Autocorrelation Defined</a></li>
+  </ul></li>
+  <li><a href="#why-spatial-autocorrelation-matters" id="toc-why-spatial-autocorrelation-matters" class="nav-link" data-scroll-target="#why-spatial-autocorrelation-matters">Why Spatial Autocorrelation Matters</a>
+  <ul class="collapse">
+  <li><a href="#theoretical-importance" id="toc-theoretical-importance" class="nav-link" data-scroll-target="#theoretical-importance">Theoretical Importance</a></li>
+  <li><a href="#statistical-implications" id="toc-statistical-implications" class="nav-link" data-scroll-target="#statistical-implications">Statistical Implications</a></li>
+  <li><a href="#practical-applications" id="toc-practical-applications" class="nav-link" data-scroll-target="#practical-applications">Practical Applications</a></li>
+  </ul></li>
+  <li><a href="#defining-spatial-neighbors" id="toc-defining-spatial-neighbors" class="nav-link" data-scroll-target="#defining-spatial-neighbors">Defining Spatial Neighbors</a>
+  <ul class="collapse">
+  <li><a href="#common-approaches" id="toc-common-approaches" class="nav-link" data-scroll-target="#common-approaches">Common Approaches</a></li>
+  </ul></li>
+  <li><a href="#contiguity-definitions-visual" id="toc-contiguity-definitions-visual" class="nav-link" data-scroll-target="#contiguity-definitions-visual">Contiguity Definitions: Visual</a></li>
+  <li><a href="#spatial-weights-matrix" id="toc-spatial-weights-matrix" class="nav-link" data-scroll-target="#spatial-weights-matrix">Spatial Weights Matrix</a>
+  <ul class="collapse">
+  <li><a href="#definition-1" id="toc-definition-1" class="nav-link" data-scroll-target="#definition-1">Definition</a></li>
+  <li><a href="#binary-weights-contiguity" id="toc-binary-weights-contiguity" class="nav-link" data-scroll-target="#binary-weights-contiguity">Binary Weights (Contiguity)</a></li>
+  <li><a href="#row-standardization-common" id="toc-row-standardization-common" class="nav-link" data-scroll-target="#row-standardization-common">Row Standardization (Common)</a></li>
+  </ul></li>
+  <li><a href="#example-simple-weights-matrix" id="toc-example-simple-weights-matrix" class="nav-link" data-scroll-target="#example-simple-weights-matrix">Example: Simple Weights Matrix</a></li>
+  </ul></li>
+  <li><a href="#join-count-analysis" id="toc-join-count-analysis" class="nav-link" data-scroll-target="#join-count-analysis">Join Count Analysis</a>
+  <ul class="collapse">
+  <li><a href="#join-count-analysis-introduction" id="toc-join-count-analysis-introduction" class="nav-link" data-scroll-target="#join-count-analysis-introduction">Join Count Analysis: Introduction</a>
+  <ul class="collapse">
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
+  <li><a href="#key-concept" id="toc-key-concept" class="nav-link" data-scroll-target="#key-concept">Key Concept</a></li>
+  <li><a href="#types-of-joins" id="toc-types-of-joins" class="nav-link" data-scroll-target="#types-of-joins">Types of Joins</a></li>
+  <li><a href="#the-question" id="toc-the-question" class="nav-link" data-scroll-target="#the-question">The Question</a></li>
+  </ul></li>
+  <li><a href="#join-count-the-logic" id="toc-join-count-the-logic" class="nav-link" data-scroll-target="#join-count-the-logic">Join Count: The Logic</a>
+  <ul class="collapse">
+  <li><a href="#observed-vs.-expected" id="toc-observed-vs.-expected" class="nav-link" data-scroll-target="#observed-vs.-expected">Observed vs.&nbsp;Expected</a></li>
+  <li><a href="#hypotheses" id="toc-hypotheses" class="nav-link" data-scroll-target="#hypotheses">Hypotheses</a></li>
+  </ul></li>
+  <li><a href="#join-count-visual-example" id="toc-join-count-visual-example" class="nav-link" data-scroll-target="#join-count-visual-example">Join Count: Visual Example</a></li>
+  <li><a href="#join-count-formulas" id="toc-join-count-formulas" class="nav-link" data-scroll-target="#join-count-formulas">Join Count: Formulas</a>
+  <ul class="collapse">
+  <li><a href="#expected-number-of-joins-free-sampling" id="toc-expected-number-of-joins-free-sampling" class="nav-link" data-scroll-target="#expected-number-of-joins-free-sampling">Expected Number of Joins (Free Sampling)</a></li>
+  <li><a href="#standard-error-1" id="toc-standard-error-1" class="nav-link" data-scroll-target="#standard-error-1">Standard Error</a></li>
+  </ul></li>
+  <li><a href="#join-count-test-statistic" id="toc-join-count-test-statistic" class="nav-link" data-scroll-target="#join-count-test-statistic">Join Count: Test Statistic</a>
+  <ul class="collapse">
+  <li><a href="#z-score" id="toc-z-score" class="nav-link" data-scroll-target="#z-score">Z-Score</a></li>
+  <li><a href="#interpretation-1" id="toc-interpretation-1" class="nav-link" data-scroll-target="#interpretation-1">Interpretation</a></li>
+  </ul></li>
+  <li><a href="#join-count-example-us-obesity" id="toc-join-count-example-us-obesity" class="nav-link" data-scroll-target="#join-count-example-us-obesity">Join Count Example: US Obesity</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#results-2020" id="toc-results-2020" class="nav-link" data-scroll-target="#results-2020">Results (2020)</a></li>
+  </ul></li>
+  <li><a href="#join-count-interpretation-tips" id="toc-join-count-interpretation-tips" class="nav-link" data-scroll-target="#join-count-interpretation-tips">Join Count: Interpretation Tips</a>
+  <ul class="collapse">
+  <li><a href="#what-positive-sa-means" id="toc-what-positive-sa-means" class="nav-link" data-scroll-target="#what-positive-sa-means">What Positive SA Means</a></li>
+  <li><a href="#what-negative-sa-means-rare" id="toc-what-negative-sa-means-rare" class="nav-link" data-scroll-target="#what-negative-sa-means-rare">What Negative SA Means (Rare)</a></li>
+  <li><a href="#non-significance" id="toc-non-significance" class="nav-link" data-scroll-target="#non-significance">Non-Significance</a></li>
+  </ul></li>
+  <li><a href="#join-count-in-r" id="toc-join-count-in-r" class="nav-link" data-scroll-target="#join-count-in-r">Join Count in R</a></li>
+  </ul></li>
+  <li><a href="#morans-i" id="toc-morans-i" class="nav-link" data-scroll-target="#morans-i">Moran’s I</a>
+  <ul class="collapse">
+  <li><a href="#morans-i-introduction" id="toc-morans-i-introduction" class="nav-link" data-scroll-target="#morans-i-introduction">Moran’s I: Introduction</a>
+  <ul class="collapse">
+  <li><a href="#purpose-1" id="toc-purpose-1" class="nav-link" data-scroll-target="#purpose-1">Purpose</a></li>
+  <li><a href="#key-differences-from-join-count" id="toc-key-differences-from-join-count" class="nav-link" data-scroll-target="#key-differences-from-join-count">Key Differences from Join Count</a></li>
+  <li><a href="#global-morans-i" id="toc-global-morans-i" class="nav-link" data-scroll-target="#global-morans-i">Global Moran’s I</a></li>
+  <li><a href="#range" id="toc-range" class="nav-link" data-scroll-target="#range">Range</a></li>
+  </ul></li>
+  <li><a href="#morans-i-the-formula" id="toc-morans-i-the-formula" class="nav-link" data-scroll-target="#morans-i-the-formula">Moran’s I: The Formula</a>
+  <ul class="collapse">
+  <li><a href="#global-morans-i-1" id="toc-global-morans-i-1" class="nav-link" data-scroll-target="#global-morans-i-1">Global Moran’s I</a></li>
+  <li><a href="#simpler-form-row-standardized-weights" id="toc-simpler-form-row-standardized-weights" class="nav-link" data-scroll-target="#simpler-form-row-standardized-weights">Simpler form (row-standardized weights):</a></li>
+  </ul></li>
+  <li><a href="#morans-i-intuition" id="toc-morans-i-intuition" class="nav-link" data-scroll-target="#morans-i-intuition">Moran’s I: Intuition</a>
+  <ul class="collapse">
+  <li><a href="#what-it-calculates" id="toc-what-it-calculates" class="nav-link" data-scroll-target="#what-it-calculates">What It Calculates</a></li>
+  <li><a href="#positive-i-clustering" id="toc-positive-i-clustering" class="nav-link" data-scroll-target="#positive-i-clustering">Positive I (Clustering)</a></li>
+  <li><a href="#negative-i-dispersion" id="toc-negative-i-dispersion" class="nav-link" data-scroll-target="#negative-i-dispersion">Negative I (Dispersion)</a></li>
+  <li><a href="#random-i-0" id="toc-random-i-0" class="nav-link" data-scroll-target="#random-i-0">Random (I ≈ 0)</a></li>
+  </ul></li>
+  <li><a href="#morans-i-hypothesis-test" id="toc-morans-i-hypothesis-test" class="nav-link" data-scroll-target="#morans-i-hypothesis-test">Moran’s I: Hypothesis Test</a>
+  <ul class="collapse">
+  <li><a href="#expected-value-under-randomness" id="toc-expected-value-under-randomness" class="nav-link" data-scroll-target="#expected-value-under-randomness">Expected Value Under Randomness</a></li>
+  <li><a href="#variance-normalization-assumption" id="toc-variance-normalization-assumption" class="nav-link" data-scroll-target="#variance-normalization-assumption">Variance (Normalization Assumption)</a></li>
+  <li><a href="#z-score-1" id="toc-z-score-1" class="nav-link" data-scroll-target="#z-score-1">Z-Score</a></li>
+  <li><a href="#decision" id="toc-decision" class="nav-link" data-scroll-target="#decision">Decision</a></li>
+  </ul></li>
+  <li><a href="#morans-i-worked-example" id="toc-morans-i-worked-example" class="nav-link" data-scroll-target="#morans-i-worked-example">Moran’s I: Worked Example</a>
+  <ul class="collapse">
+  <li><a href="#setup-1" id="toc-setup-1" class="nav-link" data-scroll-target="#setup-1">Setup</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  </ul></li>
+  <li><a href="#global-vs.-local-measures" id="toc-global-vs.-local-measures" class="nav-link" data-scroll-target="#global-vs.-local-measures">Global vs.&nbsp;Local Measures</a></li>
+  <li><a href="#local-morans-i-lisa-1" id="toc-local-morans-i-lisa-1" class="nav-link" data-scroll-target="#local-morans-i-lisa-1">Local Moran’s I (LISA)</a>
+  <ul class="collapse">
+  <li><a href="#formula" id="toc-formula" class="nav-link" data-scroll-target="#formula">Formula</a></li>
+  <li><a href="#interpretation-for-area-i" id="toc-interpretation-for-area-i" class="nav-link" data-scroll-target="#interpretation-for-area-i">Interpretation for Area <span class="math inline">\(i\)</span></a></li>
+  </ul></li>
+  <li><a href="#lisa-cluster-types" id="toc-lisa-cluster-types" class="nav-link" data-scroll-target="#lisa-cluster-types">LISA: Cluster Types</a></li>
+  <li><a href="#lisa-cleveland-racial-composition" id="toc-lisa-cleveland-racial-composition" class="nav-link" data-scroll-target="#lisa-cleveland-racial-composition">LISA: Cleveland Racial Composition</a>
+  <ul class="collapse">
+  <li><a href="#four-groups-analyzed" id="toc-four-groups-analyzed" class="nav-link" data-scroll-target="#four-groups-analyzed">Four Groups Analyzed</a></li>
+  <li><a href="#key-findings-morans-i-values" id="toc-key-findings-morans-i-values" class="nav-link" data-scroll-target="#key-findings-morans-i-values">Key Findings (Moran’s I values)</a></li>
+  </ul></li>
+  <li><a href="#moran-scatterplot" id="toc-moran-scatterplot" class="nav-link" data-scroll-target="#moran-scatterplot">Moran Scatterplot</a>
+  <ul class="collapse">
+  <li><a href="#visual-tool-for-understanding-morans-i" id="toc-visual-tool-for-understanding-morans-i" class="nav-link" data-scroll-target="#visual-tool-for-understanding-morans-i">Visual Tool for Understanding Moran’s I</a></li>
+  </ul></li>
+  <li><a href="#morans-i-in-r" id="toc-morans-i-in-r" class="nav-link" data-scroll-target="#morans-i-in-r">Moran’s I in R</a></li>
+  <li><a href="#lisa-significance-and-multiple-testing" id="toc-lisa-significance-and-multiple-testing" class="nav-link" data-scroll-target="#lisa-significance-and-multiple-testing">LISA Significance and Multiple Testing</a>
+  <ul class="collapse">
+  <li><a href="#solutions" id="toc-solutions" class="nav-link" data-scroll-target="#solutions">Solutions</a></li>
+  <li><a href="#recommendation" id="toc-recommendation" class="nav-link" data-scroll-target="#recommendation">Recommendation</a></li>
+  </ul></li>
+  <li><a href="#comparing-area-pattern-methods" id="toc-comparing-area-pattern-methods" class="nav-link" data-scroll-target="#comparing-area-pattern-methods">Comparing Area Pattern Methods</a>
+  <ul class="collapse">
+  <li><a href="#complementary-approaches" id="toc-complementary-approaches" class="nav-link" data-scroll-target="#complementary-approaches">Complementary Approaches</a></li>
+  </ul></li>
+  <li><a href="#practical-applications-1" id="toc-practical-applications-1" class="nav-link" data-scroll-target="#practical-applications-1">Practical Applications</a>
+  <ul class="collapse">
+  <li><a href="#public-health" id="toc-public-health" class="nav-link" data-scroll-target="#public-health">Public Health</a></li>
+  <li><a href="#urban-planning" id="toc-urban-planning" class="nav-link" data-scroll-target="#urban-planning">Urban Planning</a></li>
+  <li><a href="#environmental" id="toc-environmental" class="nav-link" data-scroll-target="#environmental">Environmental</a></li>
+  <li><a href="#economics" id="toc-economics" class="nav-link" data-scroll-target="#economics">Economics</a></li>
+  </ul></li>
+  <li><a href="#common-issues-and-solutions" id="toc-common-issues-and-solutions" class="nav-link" data-scroll-target="#common-issues-and-solutions">Common Issues and Solutions</a>
+  <ul class="collapse">
+  <li><a href="#issue-1-modifiable-areal-unit-problem-maup" id="toc-issue-1-modifiable-areal-unit-problem-maup" class="nav-link" data-scroll-target="#issue-1-modifiable-areal-unit-problem-maup">Issue 1: Modifiable Areal Unit Problem (MAUP)</a></li>
+  <li><a href="#issue-2-boundary-definition" id="toc-issue-2-boundary-definition" class="nav-link" data-scroll-target="#issue-2-boundary-definition">Issue 2: Boundary Definition</a></li>
+  <li><a href="#issue-3-choosing-neighbors" id="toc-issue-3-choosing-neighbors" class="nav-link" data-scroll-target="#issue-3-choosing-neighbors">Issue 3: Choosing Neighbors</a></li>
+  <li><a href="#issue-4-statistical-vs.-practical-significance" id="toc-issue-4-statistical-vs.-practical-significance" class="nav-link" data-scroll-target="#issue-4-statistical-vs.-practical-significance">Issue 4: Statistical vs.&nbsp;Practical Significance</a></li>
+  </ul></li>
+  <li><a href="#assumptions-and-limitations" id="toc-assumptions-and-limitations" class="nav-link" data-scroll-target="#assumptions-and-limitations">Assumptions and Limitations</a>
+  <ul class="collapse">
+  <li><a href="#key-assumptions" id="toc-key-assumptions" class="nav-link" data-scroll-target="#key-assumptions">Key Assumptions</a></li>
+  <li><a href="#limitations-1" id="toc-limitations-1" class="nav-link" data-scroll-target="#limitations-1">Limitations</a></li>
+  </ul></li>
+  <li><a href="#advanced-topics-brief-overview-1" id="toc-advanced-topics-brief-overview-1" class="nav-link" data-scroll-target="#advanced-topics-brief-overview-1">Advanced Topics (Brief Overview)</a>
+  <ul class="collapse">
+  <li><a href="#other-spatial-autocorrelation-measures" id="toc-other-spatial-autocorrelation-measures" class="nav-link" data-scroll-target="#other-spatial-autocorrelation-measures">Other Spatial Autocorrelation Measures</a></li>
+  <li><a href="#spatial-regression-models" id="toc-spatial-regression-models" class="nav-link" data-scroll-target="#spatial-regression-models">Spatial Regression Models</a></li>
+  <li><a href="#space-time-analysis" id="toc-space-time-analysis" class="nav-link" data-scroll-target="#space-time-analysis">Space-Time Analysis</a></li>
+  </ul></li>
+  <li><a href="#best-practices-summary" id="toc-best-practices-summary" class="nav-link" data-scroll-target="#best-practices-summary">Best Practices Summary</a>
+  <ul class="collapse">
+  <li><a href="#workflow-for-area-pattern-analysis" id="toc-workflow-for-area-pattern-analysis" class="nav-link" data-scroll-target="#workflow-for-area-pattern-analysis">Workflow for Area Pattern Analysis</a></li>
+  <li><a href="#reporting-checklist" id="toc-reporting-checklist" class="nav-link" data-scroll-target="#reporting-checklist">Reporting Checklist</a></li>
+  </ul></li>
+  <li><a href="#integration-point-and-area-patterns" id="toc-integration-point-and-area-patterns" class="nav-link" data-scroll-target="#integration-point-and-area-patterns">Integration: Point and Area Patterns</a>
+  <ul class="collapse">
+  <li><a href="#conceptual-connections" id="toc-conceptual-connections" class="nav-link" data-scroll-target="#conceptual-connections">Conceptual Connections</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary-lecture-3" id="toc-summary-lecture-3" class="nav-link" data-scroll-target="#summary-lecture-3">Summary: Lecture 3</a>
+  <ul class="collapse">
+  <li><a href="#key-concepts-covered-2" id="toc-key-concepts-covered-2" class="nav-link" data-scroll-target="#key-concepts-covered-2">Key Concepts Covered</a></li>
+  <li><a href="#module-synthesis" id="toc-module-synthesis" class="nav-link" data-scroll-target="#module-synthesis">Module Synthesis</a>
+  <ul class="collapse">
+  <li><a href="#three-lectures-unified-framework" id="toc-three-lectures-unified-framework" class="nav-link" data-scroll-target="#three-lectures-unified-framework">Three Lectures, Unified Framework</a></li>
+  <li><a href="#core-theme" id="toc-core-theme" class="nav-link" data-scroll-target="#core-theme">Core Theme</a></li>
+  </ul></li>
+  <li><a href="#moving-forward" id="toc-moving-forward" class="nav-link" data-scroll-target="#moving-forward">Moving Forward</a>
+  <ul class="collapse">
+  <li><a href="#from-esda-to-confirmatory-analysis" id="toc-from-esda-to-confirmatory-analysis" class="nav-link" data-scroll-target="#from-esda-to-confirmatory-analysis">From ESDA to Confirmatory Analysis</a></li>
+  <li><a href="#skills-youve-gained" id="toc-skills-youve-gained" class="nav-link" data-scroll-target="#skills-youve-gained">Skills You’ve Gained</a></li>
+  </ul></li>
+  <li><a href="#final-recommendations" id="toc-final-recommendations" class="nav-link" data-scroll-target="#final-recommendations">Final Recommendations</a>
+  <ul class="collapse">
+  <li><a href="#for-your-research" id="toc-for-your-research" class="nav-link" data-scroll-target="#for-your-research">For Your Research</a></li>
+  </ul></li>
+  <li><a href="#resources-for-further-learning" id="toc-resources-for-further-learning" class="nav-link" data-scroll-target="#resources-for-further-learning">Resources for Further Learning</a>
+  <ul class="collapse">
+  <li><a href="#textbooks" id="toc-textbooks" class="nav-link" data-scroll-target="#textbooks">Textbooks</a></li>
+  <li><a href="#software" id="toc-software" class="nav-link" data-scroll-target="#software">Software</a></li>
+  <li><a href="#online-resources" id="toc-online-resources" class="nav-link" data-scroll-target="#online-resources">Online Resources</a></li>
+  </ul></li>
+  <li><a href="#thank-you" id="toc-thank-you" class="nav-link" data-scroll-target="#thank-you">Thank You!</a>
+  <ul class="collapse">
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions?</a></li>
+  <li><a href="#assignment-due" id="toc-assignment-due" class="nav-link" data-scroll-target="#assignment-due">Assignment Due</a></li>
+  </ul></li>
+  <li><a href="#appendix-r-code-examples" id="toc-appendix-r-code-examples" class="nav-link" data-scroll-target="#appendix-r-code-examples">Appendix: R Code Examples</a>
+  <ul class="collapse">
+  <li><a href="#complete-workflow-example" id="toc-complete-workflow-example" class="nav-link" data-scroll-target="#complete-workflow-example">Complete Workflow Example</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="esda_revamped.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Exploratory Spatial Data Analysis</h1>
+<p class="subtitle lead">Point Pattern and Area Pattern Analysis</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Varun Goel </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Sep 22, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="lecture-1-introduction-to-esda-point-pattern-analysis" class="level1" data-background-color="#003366">
+<h1 data-background-color="#003366">Lecture 1: Introduction to ESDA &amp; Point Pattern Analysis</h1>
+<section id="module-overview" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="module-overview">Module Overview</h2>
+<section id="course-structure-3-lectures-75-min" class="level3">
+<h3 class="anchored" data-anchor-id="course-structure-3-lectures-75-min">Course Structure (3 Lectures × 75 min)</h3>
+<p><strong>Lecture 1</strong>: Foundations &amp; Point Patterns<br>
+- Introduction to Exploratory Spatial Data Analysis (ESDA) - Patterns vs.&nbsp;Processes - First-order vs.&nbsp;Second-order Effects - Nearest Neighbor Analysis</p>
+<p><strong>Lecture 2</strong>: Point Pattern Analysis (continued)<br>
+- Quadrat Analysis - Comparing Methods - Applications &amp; Case Studies</p>
+<p><strong>Lecture 3</strong>: Area Pattern Analysis<br>
+- Join Count Analysis - Moran’s I (Global &amp; Local) - Applications to Areal Data</p>
+<hr>
+</section>
+</section>
+<section id="what-is-exploratory-spatial-data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-exploratory-spatial-data-analysis">What is Exploratory Spatial Data Analysis?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<section id="core-concepts" class="level3">
+<h3 class="anchored" data-anchor-id="core-concepts">Core Concepts</h3>
+<ul>
+<li><strong>Exploratory</strong>: Initial investigation of spatial data</li>
+<li><strong>Visual</strong>: Maps, plots, graphs</li>
+<li><strong>Statistical</strong>: Quantitative measures</li>
+<li><strong>Hypothesis-generating</strong>: Not confirmatory</li>
+</ul>
+</section>
+</div><div class="column" style="width:50%;">
+<section id="key-questions" class="level3">
+<h3 class="anchored" data-anchor-id="key-questions">Key Questions</h3>
+<ol type="1">
+<li>Is there spatial pattern?</li>
+<li>Where are the patterns?</li>
+<li>Are patterns clustered or dispersed?</li>
+<li>Are patterns random or systematic?</li>
+</ol>
+</section>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ESDA reveals structure before formal modeling</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="types-of-spatial-data" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-spatial-data">Types of Spatial Data</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="esda_revamped_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="patterns-vs.-processes" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="patterns-vs.-processes">Patterns vs.&nbsp;Processes</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<section id="pattern" class="level3">
+<h3 class="anchored" data-anchor-id="pattern">Pattern</h3>
+<ul>
+<li><strong>What we observe</strong></li>
+<li>The spatial arrangement</li>
+<li>Descriptive</li>
+<li>Examples:
+<ul>
+<li>Clustered disease cases</li>
+<li>Dispersed fire stations</li>
+<li>Random plant distribution</li>
+</ul></li>
+</ul>
+</section>
+</div><div class="column" style="width:50%;">
+<section id="process" class="level3">
+<h3 class="anchored" data-anchor-id="process">Process</h3>
+<ul>
+<li><strong>Why it exists</strong></li>
+<li>The generating mechanism</li>
+<li>Explanatory</li>
+<li>Examples:
+<ul>
+<li>Disease transmission</li>
+<li>Planning optimization</li>
+<li>Seed dispersal mechanisms</li>
+</ul></li>
+</ul>
+</section>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Critical Distinction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Multiple processes can produce similar patterns!</strong><br>
+<strong>Same process can produce different patterns!</strong></p>
+</div>
+</div>
+<div class="notes">
+<p>Emphasize: We analyze patterns to infer processes, but this inference is not straightforward. Different underlying mechanisms can create similar-looking spatial arrangements.</p>
+</div>
+<hr>
+</section>
+<section id="pattern-process-examples" class="level2">
+<h2 class="anchored" data-anchor-id="pattern-process-examples">Pattern-Process Examples</h2>
+<section id="urban-crime-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="urban-crime-distribution">Urban Crime Distribution</h3>
+<p><strong>Observed Pattern</strong>: Crime clustered in certain neighborhoods</p>
+<p><strong>Possible Processes</strong>:</p>
+<ol type="1">
+<li><strong>Social disorganization</strong> (community characteristics)</li>
+<li><strong>Routine activity theory</strong> (opportunity structures)</li>
+<li><strong>Broken windows</strong> (environmental cues)</li>
+<li><strong>Repeat victimization</strong> (contagion effects)</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Same pattern, different theoretical explanations!<br>
+Need theory + statistical analysis + domain knowledge</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="first-order-vs.-second-order-effects" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="first-order-vs.-second-order-effects">First-Order vs.&nbsp;Second-Order Effects</h2>
+<section id="first-order-effects-intensitydensity" class="level3">
+<h3 class="anchored" data-anchor-id="first-order-effects-intensitydensity">First-Order Effects (Intensity/Density)</h3>
+<ul>
+<li><strong>Definition</strong>: Variation in the <em>average</em> number of events across space</li>
+<li><strong>What it captures</strong>: Spatial trend, large-scale variation</li>
+<li><strong>Example</strong>: More disease cases in densely populated areas</li>
+</ul>
+</section>
+<section id="second-order-effects-dependenceinteraction" class="level3">
+<h3 class="anchored" data-anchor-id="second-order-effects-dependenceinteraction">Second-Order Effects (Dependence/Interaction)</h3>
+<ul>
+<li><strong>Definition</strong>: Correlation between events at <em>different locations</em></li>
+<li><strong>What it captures</strong>: Local clustering, spatial dependence</li>
+<li><strong>Example</strong>: Disease cases clustered due to contagion (beyond population density)</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Why This Matters
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Different analysis methods target different effects!<br>
+Understanding this helps you choose the right tool.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="visual-comparison-first-vs.-second-order" class="level2">
+<h2 class="anchored" data-anchor-id="visual-comparison-first-vs.-second-order">Visual Comparison: First vs.&nbsp;Second Order</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="esda_revamped_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="first-order-effects-in-detail" class="level2">
+<h2 class="anchored" data-anchor-id="first-order-effects-in-detail">First-Order Effects in Detail</h2>
+<section id="characteristics" class="level3">
+<h3 class="anchored" data-anchor-id="characteristics">Characteristics</h3>
+<ul>
+<li>Large-scale spatial trends</li>
+<li>“Density surface” varies across study area</li>
+<li>Related to environmental/contextual factors</li>
+</ul>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<ul>
+<li>Population density → disease incidence</li>
+<li>Elevation → vegetation types<br>
+</li>
+<li>Distance from CBD → housing prices</li>
+</ul>
+</section>
+<section id="analysis-methods" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-methods">Analysis Methods</h3>
+<ul>
+<li>Kernel density estimation</li>
+<li>Trend surface analysis</li>
+<li><strong>Quadrat analysis</strong> (density variation)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="second-order-effects-in-detail" class="level2">
+<h2 class="anchored" data-anchor-id="second-order-effects-in-detail">Second-Order Effects in Detail</h2>
+<section id="characteristics-1" class="level3">
+<h3 class="anchored" data-anchor-id="characteristics-1">Characteristics</h3>
+<ul>
+<li><strong>Spatial dependence</strong>: “Everything is related, but nearby things more so” (Tobler’s Law)</li>
+<li>Local clustering beyond overall density</li>
+<li>Point-to-point interactions</li>
+</ul>
+</section>
+<section id="examples-1" class="level3">
+<h3 class="anchored" data-anchor-id="examples-1">Examples</h3>
+<ul>
+<li>Contagious disease spread (beyond density)</li>
+<li>Tree competition effects</li>
+<li>Social influence on voting patterns</li>
+</ul>
+</section>
+<section id="analysis-methods-1" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-methods-1">Analysis Methods</h3>
+<ul>
+<li><strong>Nearest Neighbor Analysis</strong> (spacing patterns)</li>
+<li>K-functions, L-functions</li>
+<li>Spatial autocorrelation (for areal data)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="why-the-distinction-matters" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="why-the-distinction-matters">Why the Distinction Matters</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Interpretation Challenge
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A clustered pattern could result from:</p>
+<ol type="1">
+<li><strong>First-order effects only</strong>: Varying density due to environmental factors</li>
+<li><strong>Second-order effects only</strong>: Uniform density but local interactions</li>
+<li><strong>Both</strong>: Density variation AND clustering within high-density areas</li>
+</ol>
+</div>
+</div>
+<p><strong>Implication for Analysis:</strong> - Need appropriate null models - Consider study area boundaries - Think about scale of analysis - Use complementary methods</p>
+<hr>
+</section>
+</section>
+<section id="point-pattern-analysis" class="level1" data-background-color="#004d00">
+<h1 data-background-color="#004d00">Point Pattern Analysis</h1>
+<section id="introduction-to-point-patterns" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-point-patterns">Introduction to Point Patterns</h2>
+<section id="what-are-point-patterns" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-point-patterns">What Are Point Patterns?</h3>
+<p><strong>Definition</strong>: Spatial arrangement of discrete events/objects represented as points</p>
+<p><strong>Characteristics</strong>: - <strong>Location</strong>: <span class="math inline">\((x, y)\)</span> coordinates - <strong>Marked</strong>: May have attributes (size, type, time) - <strong>Study area</strong>: Defined region of interest</p>
+</section>
+<section id="examples-2" class="level3">
+<h3 class="anchored" data-anchor-id="examples-2">Examples</h3>
+<ul>
+<li>Disease cases (lat/lon of residences)</li>
+<li>Tree locations in a forest</li>
+<li>Crime incidents</li>
+<li>Fire/emergency service facilities</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="goals-of-point-pattern-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="goals-of-point-pattern-analysis">Goals of Point Pattern Analysis</h2>
+<section id="primary-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="primary-objectives">Primary Objectives</h3>
+<ol type="1">
+<li><strong>Describe</strong> the spatial arrangement
+<ul>
+<li>Is it clustered, dispersed, or random?</li>
+</ul></li>
+<li><strong>Quantify</strong> the degree of clustering/dispersion
+<ul>
+<li>How clustered/dispersed?</li>
+</ul></li>
+<li><strong>Test</strong> against theoretical distributions
+<ul>
+<li>Is the pattern significantly different from random?</li>
+</ul></li>
+<li><strong>Infer</strong> underlying processes
+<ul>
+<li>What mechanism generated this pattern?</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="complete-spatial-randomness-csr" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="complete-spatial-randomness-csr">Complete Spatial Randomness (CSR)</h2>
+<section id="the-null-hypothesis" class="level3">
+<h3 class="anchored" data-anchor-id="the-null-hypothesis">The Null Hypothesis</h3>
+<p><strong>CSR Assumptions</strong>:</p>
+<ol type="1">
+<li><strong>Homogeneous Poisson process</strong></li>
+<li><strong>Constant intensity</strong> <span class="math inline">\(\lambda\)</span> (events per unit area)</li>
+<li><strong>Independence</strong>: Location of one event doesn’t affect others</li>
+<li><strong>Random</strong>: Each location equally likely</li>
+</ol>
+</section>
+<section id="implications-under-csr" class="level3">
+<h3 class="anchored" data-anchor-id="implications-under-csr">Implications Under CSR</h3>
+<ul>
+<li>Number of events in any region follows Poisson distribution</li>
+<li>Event locations uniformly distributed</li>
+<li>No clustering, no dispersion</li>
+<li><strong>This is our baseline for comparison</strong></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Most real-world patterns deviate from CSR!<br>
+That’s what makes spatial analysis interesting.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="departures-from-csr" class="level2">
+<h2 class="anchored" data-anchor-id="departures-from-csr">Departures from CSR</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="esda_revamped_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Clustered</strong>: <span class="math inline">\(R &lt; 1\)</span> (points closer than expected)<br>
+<strong>Random</strong>: <span class="math inline">\(R \approx 1\)</span> (CSR)<br>
+<strong>Dispersed</strong>: <span class="math inline">\(R &gt; 1\)</span> (points farther apart than expected)</p>
+<hr>
+</section>
+<section id="nearest-neighbor-analysis-nna" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="nearest-neighbor-analysis-nna">Nearest Neighbor Analysis (NNA)</h2>
+<section id="concept" class="level3">
+<h3 class="anchored" data-anchor-id="concept">Concept</h3>
+<p><strong>Measures the spacing between points</strong></p>
+<ul>
+<li>For each point, find distance to its nearest neighbor</li>
+<li>Calculate mean nearest neighbor distance (<span class="math inline">\(\overline{NND}\)</span>)</li>
+<li>Compare to expected distance under CSR</li>
+</ul>
+</section>
+<section id="key-advantage" class="level3">
+<h3 class="anchored" data-anchor-id="key-advantage">Key Advantage</h3>
+<ul>
+<li>Simple to calculate and interpret</li>
+<li>Sensitive to second-order clustering/dispersion</li>
+</ul>
+</section>
+<section id="limitation" class="level3">
+<h3 class="anchored" data-anchor-id="limitation">Limitation</h3>
+<ul>
+<li>Reduces all spatial information to a single number</li>
+<li>Sensitive to boundary effects</li>
+<li>Only uses nearest neighbor (ignores other distances)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="nna-the-mathematics" class="level2">
+<h2 class="anchored" data-anchor-id="nna-the-mathematics">NNA: The Mathematics</h2>
+<section id="observed-mean-nearest-neighbor-distance" class="level3">
+<h3 class="anchored" data-anchor-id="observed-mean-nearest-neighbor-distance">Observed Mean Nearest Neighbor Distance</h3>
+<p><span class="math display">\[\overline{NND} = \frac{\sum NND}{n}\]</span></p>
+<p>where <span class="math inline">\(n\)</span> = number of points</p>
+</section>
+<section id="expected-distance-under-csr" class="level3">
+<h3 class="anchored" data-anchor-id="expected-distance-under-csr">Expected Distance Under CSR</h3>
+<p><span class="math display">\[\overline{NND}_E = \frac{1}{2\sqrt{Density}} = \frac{1}{2\sqrt{n/A}}\]</span></p>
+<p>where:<br>
+- <span class="math inline">\(n\)</span> = number of points<br>
+- <span class="math inline">\(A\)</span> = area of study region<br>
+- Density = <span class="math inline">\(n/A\)</span> (points per unit area)</p>
+<hr>
+</section>
+</section>
+<section id="nna-r-statistic" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="nna-r-statistic">NNA: R-Statistic</h2>
+<section id="standardized-nearest-neighbor-index" class="level3">
+<h3 class="anchored" data-anchor-id="standardized-nearest-neighbor-index">Standardized Nearest Neighbor Index</h3>
+<p><span class="math display">\[R = \frac{\overline{NND}}{\overline{NND}_E}\]</span></p>
+</section>
+<section id="interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 33%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>R Value</th>
+<th>Pattern Type</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(R = 0\)</span></td>
+<td><strong>Maximum clustering</strong></td>
+<td>All points at same location</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(0 &lt; R &lt; 1\)</span></td>
+<td><strong>Clustered</strong></td>
+<td>Points closer than random</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(R = 1\)</span></td>
+<td><strong>Random (CSR)</strong></td>
+<td>Points follow CSR</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(R &gt; 1\)</span></td>
+<td><strong>Dispersed</strong></td>
+<td>Points farther apart than random</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(R = 2.149\)</span></td>
+<td><strong>Maximum dispersion</strong></td>
+<td>Perfect hexagonal spacing</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="nna-statistical-significance" class="level2">
+<h2 class="anchored" data-anchor-id="nna-statistical-significance">NNA: Statistical Significance</h2>
+<section id="standard-error" class="level3">
+<h3 class="anchored" data-anchor-id="standard-error">Standard Error</h3>
+<p><span class="math display">\[\sigma_{NND} = \frac{0.26136}{\sqrt{n(Density)}}\]</span></p>
+</section>
+<section id="test-statistic-z-score" class="level3">
+<h3 class="anchored" data-anchor-id="test-statistic-z-score">Test Statistic (Z-score)</h3>
+<p><span class="math display">\[Z_R = \frac{\overline{NND} - \overline{NND}_E}{\sigma_{NND}}\]</span></p>
+</section>
+<section id="decision-rule" class="level3">
+<h3 class="anchored" data-anchor-id="decision-rule">Decision Rule</h3>
+<ul>
+<li>If <span class="math inline">\(|Z_R| &gt; 1.96\)</span> → Reject CSR at <span class="math inline">\(\alpha = 0.05\)</span></li>
+<li>Positive <span class="math inline">\(Z\)</span>: significantly dispersed</li>
+<li>Negative <span class="math inline">\(Z\)</span>: significantly clustered</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="nna-worked-example-from-reading" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="nna-worked-example-from-reading">NNA: Worked Example from Reading</h2>
+<p><strong>Toronto Community Services</strong> (Police, Fire, Elementary Schools, Voting)</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Facility</th>
+<th>n</th>
+<th>Density</th>
+<th><span class="math inline">\(\overline{NND}\)</span></th>
+<th><span class="math inline">\(\overline{NND}_E\)</span></th>
+<th>R</th>
+<th>Z</th>
+<th>p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Police</td>
+<td>20</td>
+<td>0.0312</td>
+<td>2.08</td>
+<td>2.83</td>
+<td>1.28</td>
+<td>2.42</td>
+<td>0.0153</td>
+</tr>
+<tr class="even">
+<td>Fire</td>
+<td>20</td>
+<td>0.0312</td>
+<td>2.08</td>
+<td>2.83</td>
+<td>1.28</td>
+<td>2.42</td>
+<td>0.0153</td>
+</tr>
+<tr class="odd">
+<td>Schools</td>
+<td>20</td>
+<td>0.7308</td>
+<td>0.59</td>
+<td>-</td>
+<td>0.84</td>
+<td>-12.23</td>
+<td>0.0000</td>
+</tr>
+<tr class="even">
+<td>Voting</td>
+<td>20</td>
+<td>24.4351</td>
+<td>0.27</td>
+<td>-</td>
+<td>0.84</td>
+<td>-</td>
+<td>0.0153</td>
+</tr>
+</tbody>
+</table>
+<section id="interpretations" class="level3">
+<h3 class="anchored" data-anchor-id="interpretations">Interpretations</h3>
+<ul>
+<li><strong>Police &amp; Fire</strong>: Dispersed (planned spacing)</li>
+<li><strong>Schools</strong>: Clustered (population density)</li>
+<li><strong>Voting</strong>: Highly clustered</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="nna-in-r-basic-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="nna-in-r-basic-implementation">NNA in R: Basic Implementation</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using spatstat package</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create point pattern object</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ppp</span>(<span class="at">x =</span> coords<span class="sc">$</span>x, <span class="at">y =</span> coords<span class="sc">$</span>y, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">window =</span> <span class="fu">owin</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>)))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate nearest neighbor distances</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>nnd <span class="ot">&lt;-</span> <span class="fu">nndist</span>(pp)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>mean_nnd <span class="ot">&lt;-</span> <span class="fu">mean</span>(nnd)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected under CSR</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">npoints</span>(pp)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>area <span class="ot">&lt;-</span> <span class="fu">area</span>(<span class="fu">Window</span>(pp))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>density <span class="ot">&lt;-</span> n <span class="sc">/</span> area</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>expected_nnd <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(density))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># R-statistic</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> mean_nnd <span class="sc">/</span> expected_nnd</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Z-test</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>se_nnd <span class="ot">&lt;-</span> <span class="fl">0.26136</span> <span class="sc">/</span> <span class="fu">sqrt</span>(n <span class="sc">*</span> density)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>z_score <span class="ot">&lt;-</span> (mean_nnd <span class="sc">-</span> expected_nnd) <span class="sc">/</span> se_nnd</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fu">abs</span>(z_score))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="boundary-effects-in-nna" class="level2">
+<h2 class="anchored" data-anchor-id="boundary-effects-in-nna">Boundary Effects in NNA</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>The Problem
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Points near study area boundary have truncated neighborhoods!</p>
+</div>
+</div>
+<section id="types-of-bias" class="level3">
+<h3 class="anchored" data-anchor-id="types-of-bias">Types of Bias</h3>
+<ul>
+<li><strong>Edge effects</strong>: Nearest neighbors may lie outside study area</li>
+<li><strong>Guard area</strong>: Use buffer zone (exclude boundary points)</li>
+<li><strong>Toroidal correction</strong>: “Wrap around” boundaries</li>
+<li><strong>Border correction methods</strong>: Weight by probability of inclusion</li>
+</ul>
+</section>
+<section id="practical-recommendation" class="level3">
+<h3 class="anchored" data-anchor-id="practical-recommendation">Practical Recommendation</h3>
+<ul>
+<li>Report study area definition</li>
+<li>Use correction methods when available</li>
+<li>Interpret carefully for irregular boundaries</li>
+<li>Consider sensitivity analysis</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="when-to-use-nna" class="level2">
+<h2 class="anchored" data-anchor-id="when-to-use-nna">When to Use NNA</h2>
+<section id="appropriate-situations" class="level3">
+<h3 class="anchored" data-anchor-id="appropriate-situations">Appropriate Situations ✓</h3>
+<ul>
+<li>Relatively homogeneous study area</li>
+<li>Interest in overall spacing pattern</li>
+<li>Quick exploratory analysis</li>
+<li>Second-order effects (clustering)</li>
+</ul>
+</section>
+<section id="less-appropriate" class="level3">
+<h3 class="anchored" data-anchor-id="less-appropriate">Less Appropriate ✗</h3>
+<ul>
+<li>Strong first-order effects (use quadrat)</li>
+<li>Multiple scales of clustering</li>
+<li>Need to identify cluster locations</li>
+<li>Very irregular boundaries</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Best Practice</strong>: Use NNA in combination with other methods (e.g., quadrat analysis, visual inspection)</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="summary-lecture-1" class="level1" data-background-color="#660000">
+<h1 data-background-color="#660000">Summary: Lecture 1</h1>
+<section id="key-concepts-covered" class="level2">
+<h2 class="anchored" data-anchor-id="key-concepts-covered">Key Concepts Covered</h2>
+<ol type="1">
+<li><strong>ESDA Framework</strong>
+<ul>
+<li>Exploratory approach to spatial data</li>
+</ul></li>
+<li><strong>Patterns vs.&nbsp;Processes</strong>
+<ul>
+<li>Observable vs.&nbsp;generative mechanisms</li>
+</ul></li>
+<li><strong>First vs.&nbsp;Second-Order Effects</strong>
+<ul>
+<li>Density variation vs.&nbsp;spatial dependence</li>
+</ul></li>
+<li><strong>Point Pattern Analysis Introduction</strong>
+<ul>
+<li>Complete Spatial Randomness (CSR)</li>
+</ul></li>
+<li><strong>Nearest Neighbor Analysis</strong>
+<ul>
+<li>Measurement, interpretation, significance testing</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="before-next-class" class="level2">
+<h2 class="anchored" data-anchor-id="before-next-class">Before Next Class</h2>
+<section id="required-reading" class="level3">
+<h3 class="anchored" data-anchor-id="required-reading">Required Reading</h3>
+<ul>
+<li>Review Lembo Chapter 14 (sections 14.1-14.2)</li>
+<li>Focus on examples and interpretation</li>
+</ul>
+</section>
+<section id="think-about" class="level3">
+<h3 class="anchored" data-anchor-id="think-about">Think About</h3>
+<ul>
+<li>What spatial patterns exist in your research area?</li>
+<li>Are they first-order or second-order effects?</li>
+<li>What processes might generate these patterns?</li>
+</ul>
+</section>
+<section id="next-lecture" class="level3">
+<h3 class="anchored" data-anchor-id="next-lecture">Next Lecture</h3>
+<ul>
+<li>Quadrat Analysis</li>
+<li>Variance-Mean Ratio (VMR)</li>
+<li>Comparing NNA and Quadrat approaches</li>
+<li>More case studies</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="lecture-2-point-pattern-analysis-continued" class="level1" data-background-color="#003366">
+<h1 data-background-color="#003366">Lecture 2: Point Pattern Analysis (Continued)</h1>
+<section id="lecture-1-recap" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="lecture-1-recap">Lecture 1 Recap</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<section id="conceptual-foundations" class="level3">
+<h3 class="anchored" data-anchor-id="conceptual-foundations">Conceptual Foundations</h3>
+<ul>
+<li><strong>ESDA</strong>: Exploratory spatial data analysis</li>
+<li><strong>Pattern vs.&nbsp;Process</strong>: Observable vs.&nbsp;mechanism</li>
+<li><strong>First-order</strong>: Density/intensity variation</li>
+<li><strong>Second-order</strong>: Spatial dependence</li>
+<li><strong>CSR</strong>: Complete Spatial Randomness baseline</li>
+</ul>
+</section>
+</div><div class="column" style="width:50%;">
+<section id="nearest-neighbor-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="nearest-neighbor-analysis">Nearest Neighbor Analysis</h3>
+<ul>
+<li>Measures point <strong>spacing</strong></li>
+<li>Mean nearest neighbor distance</li>
+<li>R-statistic: <span class="math inline">\(\overline{NND} / \overline{NND}_E\)</span></li>
+<li>Sensitive to <strong>second-order effects</strong></li>
+<li>Good for overall pattern assessment</li>
+</ul>
+</section>
+</div>
+</div>
+<section id="todays-focus" class="level3">
+<h3 class="anchored" data-anchor-id="todays-focus">Today’s Focus</h3>
+<p><strong>Quadrat Analysis</strong> - A complementary approach focusing on <strong>density variation</strong></p>
+<hr>
+</section>
+</section>
+<section id="quadrat-analysis-introduction" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="quadrat-analysis-introduction">Quadrat Analysis: Introduction</h2>
+<section id="core-concept" class="level3">
+<h3 class="anchored" data-anchor-id="core-concept">Core Concept</h3>
+<p><strong>Divide study area into cells (quadrats) and count points in each cell</strong></p>
+</section>
+<section id="what-it-measures" class="level3">
+<h3 class="anchored" data-anchor-id="what-it-measures">What It Measures</h3>
+<ul>
+<li><strong>Variability in cell frequencies</strong> (not spacing)</li>
+<li>Primarily <strong>first-order effects</strong> (density variation)</li>
+<li>Pattern of points across the study area</li>
+</ul>
+</section>
+<section id="key-difference-from-nna" class="level3">
+<h3 class="anchored" data-anchor-id="key-difference-from-nna">Key Difference from NNA</h3>
+<ul>
+<li>NNA: Point-to-point distances (spacing)</li>
+<li>Quadrat: Point counts per area unit (density)</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Quadrat analysis is analogous to a <strong>frequency distribution</strong> for spatial data</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="quadrat-analysis-visual-concept" class="level2">
+<h2 class="anchored" data-anchor-id="quadrat-analysis-visual-concept">Quadrat Analysis: Visual Concept</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="esda_revamped_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Insight</strong>: Clustered patterns → high variance in cell counts<br>
+Random patterns → moderate variance (Poisson)</p>
+<hr>
+</section>
+<section id="variance-mean-ratio-vmr" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="variance-mean-ratio-vmr">Variance-Mean Ratio (VMR)</h2>
+<section id="the-key-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="the-key-statistic">The Key Statistic</h3>
+<p><span class="math display">\[VMR = \frac{VAR}{MEAN} = \frac{s^2}{\bar{X}}\]</span></p>
+<p>where: - <span class="math inline">\(s^2\)</span> = variance of cell frequencies - <span class="math inline">\(\bar{X}\)</span> = mean cell frequency</p>
+</section>
+<section id="theoretical-expectations" class="level3">
+<h3 class="anchored" data-anchor-id="theoretical-expectations">Theoretical Expectations</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 15%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>VMR</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Clustered</strong></td>
+<td><span class="math inline">\(VMR &gt; 1\)</span></td>
+<td>Variance exceeds mean (overdispersion)</td>
+</tr>
+<tr class="even">
+<td><strong>Random (CSR)</strong></td>
+<td><span class="math inline">\(VMR = 1\)</span></td>
+<td>Poisson distribution</td>
+</tr>
+<tr class="odd">
+<td><strong>Dispersed</strong></td>
+<td><span class="math inline">\(VMR &lt; 1\)</span></td>
+<td>Variance less than mean (underdispersion)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="why-vmr-1-for-random-patterns" class="level2">
+<h2 class="anchored" data-anchor-id="why-vmr-1-for-random-patterns">Why VMR = 1 for Random Patterns?</h2>
+<section id="poisson-distribution-property" class="level3">
+<h3 class="anchored" data-anchor-id="poisson-distribution-property">Poisson Distribution Property</h3>
+<p>For a <strong>Poisson process</strong>: - Mean = <span class="math inline">\(\lambda\)</span> (events per unit area) - Variance = <span class="math inline">\(\lambda\)</span> - Therefore: <span class="math inline">\(VMR = \lambda / \lambda = 1\)</span></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Deviation from VMR = 1 indicates departure from CSR
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>VMR &gt;&gt; 1</strong>: Strong clustering</li>
+<li><strong>VMR ≈ 1</strong>: Consistent with random</li>
+<li><strong>VMR &lt;&lt; 1</strong>: Regular/dispersed</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="vmr-mathematical-details" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="vmr-mathematical-details">VMR: Mathematical Details</h2>
+<section id="calculating-vmr" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-vmr">Calculating VMR</h3>
+<ol type="1">
+<li><p><strong>Count points in each quadrat</strong>: <span class="math inline">\(f_1, f_2, \ldots, f_m\)</span></p></li>
+<li><p><strong>Calculate mean frequency</strong>: <span class="math display">\[\bar{X} = \frac{\sum f_i}{m}\]</span></p></li>
+<li><p><strong>Calculate variance</strong>: <span class="math display">\[s^2 = \frac{\sum (f_i - \bar{X})^2}{m-1}\]</span></p></li>
+<li><p><strong>Compute VMR</strong>: <span class="math display">\[VMR = \frac{s^2}{\bar{X}}\]</span></p></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="vmr-chi-square-test" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="vmr-chi-square-test">VMR: Chi-Square Test</h2>
+<section id="test-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="test-statistic">Test Statistic</h3>
+<p><span class="math display">\[\chi^2 = VMR \times (m - 1)\]</span></p>
+<p>where <span class="math inline">\(m\)</span> = number of quadrats</p>
+</section>
+<section id="hypothesis-test" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-test">Hypothesis Test</h3>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: Pattern is random (CSR), <span class="math inline">\(VMR = 1\)</span></li>
+<li><span class="math inline">\(H_A\)</span>: Pattern is not random
+<ul>
+<li><span class="math inline">\(H_A: VMR \neq 1\)</span> (two-tailed)</li>
+<li><span class="math inline">\(H_A: VMR &gt; 1\)</span> (clustering, one-tailed)</li>
+<li><span class="math inline">\(H_A: VMR &lt; 1\)</span> (dispersion, one-tailed)</li>
+</ul></li>
+</ul>
+</section>
+<section id="decision-rule-1" class="level3">
+<h3 class="anchored" data-anchor-id="decision-rule-1">Decision Rule</h3>
+<ul>
+<li>df = <span class="math inline">\(m - 1\)</span></li>
+<li>Compare <span class="math inline">\(\chi^2\)</span> to critical value from <span class="math inline">\(\chi^2\)</span> distribution</li>
+<li>Common: two-tailed test at <span class="math inline">\(\alpha = 0.05\)</span></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="quadrat-analysis-worked-example" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="quadrat-analysis-worked-example">Quadrat Analysis: Worked Example</h2>
+<p><strong>New Mexico Wildfires</strong> (1980-1989)</p>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<ul>
+<li>2,500 random points from 16,000 recorded wildfire starting points</li>
+<li>Study area divided into 120 quadrats (cells)</li>
+<li>Cell frequency mean = 20.9 points/cell</li>
+<li>Variance = 10.5</li>
+</ul>
+</section>
+<section id="calculations" class="level3">
+<h3 class="anchored" data-anchor-id="calculations">Calculations</h3>
+<p><span class="math display">\[VMR = \frac{10.5}{20.9} = 0.504\]</span></p>
+<p><span class="math display">\[\chi^2 = 0.504 \times (120 - 1) = 0.504 \times 119 = 60.0\]</span></p>
+</section>
+<section id="result" class="level3">
+<h3 class="anchored" data-anchor-id="result">Result</h3>
+<ul>
+<li>Critical value: <span class="math inline">\(\chi^2_{0.05, 119}\)</span> ≈ 146 (two-tailed)</li>
+<li>Observed: 60.0 &lt;&lt; 146</li>
+<li><strong>Conclusion</strong>: Pattern does NOT differ significantly from random</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="comparison-three-decades-of-wildfires" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-three-decades-of-wildfires">Comparison: Three Decades of Wildfires</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Wildfire Distribution in New Mexico by Decade</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Decade</th>
+<th style="text-align: right;">VMR</th>
+<th style="text-align: right;">ChiSquare</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1980-1989</td>
+<td style="text-align: right;">0.504</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: left;">Random</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1990-1999</td>
+<td style="text-align: right;">20.381</td>
+<td style="text-align: right;">2425</td>
+<td style="text-align: left;">Highly Clustered</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2000-2009</td>
+<td style="text-align: right;">30.818</td>
+<td style="text-align: right;">3667</td>
+<td style="text-align: left;">Highly Clustered</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="insights-from-reading" class="level3">
+<h3 class="anchored" data-anchor-id="insights-from-reading">Insights from Reading</h3>
+<ul>
+<li><strong>1980s</strong>: Random/dispersed pattern</li>
+<li><strong>1990s &amp; 2000s</strong>: Highly clustered</li>
+<li><strong>Interpretation</strong>: Human footprint expansion into natural areas
+<ul>
+<li>Increased clustering over time</li>
+<li>Evidence of changing fire ignition processes</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="quadrat-size-selection" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="quadrat-size-selection">Quadrat Size Selection</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Critical Decision
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Quadrat size strongly influences results!</p>
+</div>
+</div>
+<section id="general-guidelines" class="level3">
+<h3 class="anchored" data-anchor-id="general-guidelines">General Guidelines</h3>
+<ol type="1">
+<li><strong>Too large</strong>:
+<ul>
+<li>Many points per cell</li>
+<li>Low variance → may miss clustering</li>
+<li>Tends toward VMR = 1</li>
+</ul></li>
+<li><strong>Too small</strong>:
+<ul>
+<li>Many empty or single-point cells</li>
+<li>High variance from sampling variation</li>
+<li>Unstable estimates</li>
+</ul></li>
+<li><strong>Rule of thumb</strong>:
+<ul>
+<li>Mean count per cell: 1-2 points</li>
+<li>At least <span class="math inline">\(m \geq 50\)</span> quadrats for stable estimates</li>
+<li>Consider multiple quadrat sizes</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="quadrat-analysis-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="quadrat-analysis-in-r">Quadrat Analysis in R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using spatstat package</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create point pattern</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ppp</span>(x, y, <span class="at">window =</span> <span class="fu">owin</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>)))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Quadrat test with specified grid</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Q <span class="ot">&lt;-</span> <span class="fu">quadratcount</span>(pp, <span class="at">nx =</span> <span class="dv">5</span>, <span class="at">ny =</span> <span class="dv">5</span>)  <span class="co"># 5x5 grid = 25 quadrats</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Visual display</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Q)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pp, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Formal test</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>qt <span class="ot">&lt;-</span> <span class="fu">quadrat.test</span>(pp, <span class="at">nx =</span> <span class="dv">5</span>, <span class="at">ny =</span> <span class="dv">5</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(qt)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Manual VMR calculation</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(Q)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>mean_count <span class="ot">&lt;-</span> <span class="fu">mean</span>(counts)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>var_count <span class="ot">&lt;-</span> <span class="fu">var</span>(counts)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>vmr <span class="ot">&lt;-</span> var_count <span class="sc">/</span> mean_count</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>chi_sq <span class="ot">&lt;-</span> vmr <span class="sc">*</span> (<span class="fu">length</span>(counts) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"VMR ="</span>, vmr, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Chi-square ="</span>, chi_sq, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="comparing-nna-and-quadrat-analysis" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="comparing-nna-and-quadrat-analysis">Comparing NNA and Quadrat Analysis</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 32%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Nearest Neighbor</th>
+<th>Quadrat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Measures</strong></td>
+<td>Spacing between points</td>
+<td>Density variation</td>
+</tr>
+<tr class="even">
+<td><strong>Sensitive to</strong></td>
+<td>Second-order effects</td>
+<td>First-order effects</td>
+</tr>
+<tr class="odd">
+<td><strong>Index</strong></td>
+<td>R-statistic</td>
+<td>VMR</td>
+</tr>
+<tr class="even">
+<td><strong>Random baseline</strong></td>
+<td><span class="math inline">\(R = 1\)</span></td>
+<td><span class="math inline">\(VMR = 1\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Clustered</strong></td>
+<td><span class="math inline">\(R &lt; 1\)</span></td>
+<td><span class="math inline">\(VMR &gt; 1\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Dispersed</strong></td>
+<td><span class="math inline">\(R &gt; 1\)</span></td>
+<td><span class="math inline">\(VMR &lt; 1\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Advantages</strong></td>
+<td>Simple, intuitive</td>
+<td>Shows spatial distribution</td>
+</tr>
+<tr class="even">
+<td><strong>Limitations</strong></td>
+<td>Single summary value</td>
+<td>Sensitive to quadrat size</td>
+</tr>
+<tr class="odd">
+<td><strong>Best for</strong></td>
+<td>Overall spacing</td>
+<td>Density variation</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="when-results-disagree" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="when-results-disagree">When Results Disagree</h2>
+<section id="scenario-nna-says-clustered-quadrat-says-random" class="level3">
+<h3 class="anchored" data-anchor-id="scenario-nna-says-clustered-quadrat-says-random">Scenario: NNA says “clustered”, Quadrat says “random”</h3>
+<p><strong>Possible Explanation</strong>: - Local clustering (detected by NNA) - But overall density relatively uniform across study area - Second-order effects without strong first-order effects</p>
+</section>
+<section id="scenario-nna-says-random-quadrat-says-clustered" class="level3">
+<h3 class="anchored" data-anchor-id="scenario-nna-says-random-quadrat-says-clustered">Scenario: NNA says “random”, Quadrat says “clustered”</h3>
+<p><strong>Possible Explanation</strong>: - Large-scale density variation (first-order) - But within high-density regions, spacing is random - No local point-to-point interaction</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>This is why we use multiple methods!</strong> They provide complementary information.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="case-study-toronto-public-services" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="case-study-toronto-public-services">Case Study: Toronto Public Services</h2>
+<p><strong>From your reading</strong> (Lembo Chapter 14)</p>
+<section id="facilities-analyzed" class="level3">
+<h3 class="anchored" data-anchor-id="facilities-analyzed">Facilities Analyzed</h3>
+<ul>
+<li>Police stations</li>
+<li>Fire stations</li>
+<li>Elementary schools</li>
+<li>Voting locations</li>
+</ul>
+</section>
+<section id="key-findings" class="level3">
+<h3 class="anchored" data-anchor-id="key-findings">Key Findings</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 31%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Facility</th>
+<th>NNA Result</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Police</strong></td>
+<td><span class="math inline">\(R = 1.28\)</span> (dispersed)</td>
+<td>Planned spacing for coverage</td>
+</tr>
+<tr class="even">
+<td><strong>Fire</strong></td>
+<td><span class="math inline">\(R = 1.28\)</span> (dispersed)</td>
+<td>Optimal response time locations</td>
+</tr>
+<tr class="odd">
+<td><strong>Elementary Schools</strong></td>
+<td><span class="math inline">\(R = 0.84\)</span> (clustered)</td>
+<td>Follow population density</td>
+</tr>
+<tr class="even">
+<td><strong>Voting</strong></td>
+<td><span class="math inline">\(R = 0.84\)</span> (clustered)</td>
+<td>Dense in populated areas</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="case-study-patterns-and-processes" class="level2">
+<h2 class="anchored" data-anchor-id="case-study-patterns-and-processes">Case Study: Patterns and Processes</h2>
+<section id="emergency-services-police-fire" class="level3">
+<h3 class="anchored" data-anchor-id="emergency-services-police-fire">Emergency Services (Police, Fire)</h3>
+<p><strong>Pattern</strong>: Dispersed<br>
+<strong>Process</strong>: - Optimization algorithms - Coverage requirements - Response time goals - Planning decisions</p>
+</section>
+<section id="community-services-schools-voting" class="level3">
+<h3 class="anchored" data-anchor-id="community-services-schools-voting">Community Services (Schools, Voting)</h3>
+<p><strong>Pattern</strong>: Clustered<br>
+<strong>Process</strong>: - Population distribution - Demand-based location - Accessibility requirements - Historical development</p>
+<hr>
+</section>
+</section>
+<section id="boundary-and-study-area-issues" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="boundary-and-study-area-issues">Boundary and Study Area Issues</h2>
+<section id="critical-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="critical-considerations">Critical Considerations</h3>
+<ol type="1">
+<li><strong>Study area definition</strong>
+<ul>
+<li>Arbitrary vs.&nbsp;natural boundaries</li>
+<li>Affects density calculations</li>
+<li>Influences null hypothesis</li>
+</ul></li>
+<li><strong>Edge effects</strong>
+<ul>
+<li>Points near boundaries have truncated neighborhoods</li>
+<li>Bias in nearest neighbor distances</li>
+<li>Solutions: guard areas, corrections</li>
+</ul></li>
+<li><strong>Scale dependence</strong>
+<ul>
+<li>Patterns may appear at multiple scales</li>
+<li>Analysis scale affects results</li>
+<li>Consider hierarchical approaches</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Always report</strong>: Study area definition, size, and boundary rationale</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="practical-workflow-for-point-pattern-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="practical-workflow-for-point-pattern-analysis">Practical Workflow for Point Pattern Analysis</h2>
+<section id="step-by-step-approach" class="level3">
+<h3 class="anchored" data-anchor-id="step-by-step-approach">Step-by-Step Approach</h3>
+<ol type="1">
+<li><strong>Visualize</strong> the data
+<ul>
+<li>Create map</li>
+<li>Visual inspection for obvious patterns</li>
+</ul></li>
+<li><strong>Calculate density</strong>
+<ul>
+<li>Points per unit area</li>
+<li>Kernel density surface</li>
+</ul></li>
+<li><strong>Run multiple tests</strong>
+<ul>
+<li>NNA for spacing</li>
+<li>Quadrat for density variation</li>
+<li>Consider different quadrat sizes</li>
+</ul></li>
+<li><strong>Interpret jointly</strong>
+<ul>
+<li>Do methods agree?</li>
+<li>First-order vs.&nbsp;second-order?</li>
+</ul></li>
+<li><strong>Connect to theory</strong>
+<ul>
+<li>What process could generate this pattern?</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="advanced-topics-brief-overview" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-topics-brief-overview">Advanced Topics (Brief Overview)</h2>
+<section id="k-function-and-l-function" class="level3">
+<h3 class="anchored" data-anchor-id="k-function-and-l-function">K-function and L-function</h3>
+<ul>
+<li>Multi-distance analysis</li>
+<li>Detects clustering at different scales</li>
+<li>More powerful than single-distance NNA</li>
+</ul>
+</section>
+<section id="marked-point-patterns" class="level3">
+<h3 class="anchored" data-anchor-id="marked-point-patterns">Marked Point Patterns</h3>
+<ul>
+<li>Points have attributes (marks)</li>
+<li>Test for relationships between marks and location</li>
+<li>Example: Tree species and spatial pattern</li>
+</ul>
+</section>
+<section id="space-time-point-patterns" class="level3">
+<h3 class="anchored" data-anchor-id="space-time-point-patterns">Space-Time Point Patterns</h3>
+<ul>
+<li>Events have time stamps</li>
+<li>Test for space-time clustering</li>
+<li>Example: Disease outbreak detection</li>
+</ul>
+<div class="notes">
+<p>These are beyond our scope, but good to know they exist for future work</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="common-pitfalls-and-misconceptions" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="common-pitfalls-and-misconceptions">Common Pitfalls and Misconceptions</h2>
+<section id="avoid-these-mistakes" class="level3">
+<h3 class="anchored" data-anchor-id="avoid-these-mistakes">❌ Avoid These Mistakes</h3>
+<ol type="1">
+<li><strong>“Random means evenly spread”</strong>
+<ul>
+<li>No! Random (CSR) shows local clustering by chance</li>
+</ul></li>
+<li><strong>“Clustering always means interaction”</strong>
+<ul>
+<li>Could be first-order (density) not process</li>
+</ul></li>
+<li><strong>“One test is enough”</strong>
+<ul>
+<li>Use multiple complementary methods</li>
+</ul></li>
+<li><strong>“P-value tells you the cause”</strong>
+<ul>
+<li>Significance ≠ explanation</li>
+</ul></li>
+<li><strong>“Ignore study area”</strong>
+<ul>
+<li>Boundary definition matters!</li>
+</ul></li>
+<li><strong>“Assume stationarity”</strong>
+<ul>
+<li>Check for large-scale trends first</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="r-packages-for-point-pattern-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="r-packages-for-point-pattern-analysis">R Packages for Point Pattern Analysis</h2>
+<section id="primary-package-spatstat" class="level3">
+<h3 class="anchored" data-anchor-id="primary-package-spatstat">Primary Package: <code>spatstat</code></h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Core functions</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ppp</span>()              <span class="co"># Create point pattern</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nndist</span>()          <span class="co"># Nearest neighbor distances</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">quadratcount</span>()    <span class="co"># Quadrat counts</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">quadrat.test</span>()    <span class="co"># Quadrat test</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Kest</span>()            <span class="co"># K-function</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">density.ppp</span>()     <span class="co"># Kernel density</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">envelope</span>()        <span class="co"># Simulation envelopes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="other-useful-packages" class="level3">
+<h3 class="anchored" data-anchor-id="other-useful-packages">Other Useful Packages</h3>
+<ul>
+<li><code>sf</code>: Spatial data handling</li>
+<li><code>mapview</code>: Interactive mapping</li>
+<li><code>splancs</code>: Spatial and space-time analysis</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="summary-lecture-2" class="level1" data-background-color="#660000">
+<h1 data-background-color="#660000">Summary: Lecture 2</h1>
+<section id="key-concepts-covered-1" class="level2">
+<h2 class="anchored" data-anchor-id="key-concepts-covered-1">Key Concepts Covered</h2>
+<ol type="1">
+<li><strong>Quadrat Analysis</strong>
+<ul>
+<li>Measures density variation</li>
+<li>Variance-Mean Ratio (VMR)</li>
+<li>Chi-square test</li>
+</ul></li>
+<li><strong>Comparing Methods</strong>
+<ul>
+<li>NNA vs.&nbsp;Quadrat</li>
+<li>First-order vs.&nbsp;second-order</li>
+<li>Complementary insights</li>
+</ul></li>
+<li><strong>Practical Considerations</strong>
+<ul>
+<li>Boundary effects</li>
+<li>Scale selection</li>
+<li>Study area definition</li>
+</ul></li>
+<li><strong>Case Studies</strong>
+<ul>
+<li>Toronto public services</li>
+<li>New Mexico wildfires</li>
+<li>Interpreting real patterns</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="before-next-class-1" class="level2">
+<h2 class="anchored" data-anchor-id="before-next-class-1">Before Next Class</h2>
+<section id="required-reading-1" class="level3">
+<h3 class="anchored" data-anchor-id="required-reading-1">Required Reading</h3>
+<ul>
+<li>Review Lembo Chapter 15 (Area Pattern Analysis)</li>
+<li>Focus on Join Count and Moran’s I</li>
+</ul>
+</section>
+<section id="prepare" class="level3">
+<h3 class="anchored" data-anchor-id="prepare">Prepare</h3>
+<ul>
+<li>Think about areal data in your field</li>
+<li>Examples: Census data, election results, disease rates by county</li>
+</ul>
+</section>
+<section id="next-lecture-1" class="level3">
+<h3 class="anchored" data-anchor-id="next-lecture-1">Next Lecture</h3>
+<ul>
+<li><strong>Area Pattern Analysis</strong></li>
+<li>Join Count Analysis (categorical data)</li>
+<li>Moran’s I (continuous data)</li>
+<li>Local vs.&nbsp;global spatial autocorrelation</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="lecture-3-area-pattern-analysis" class="level1" data-background-color="#003366">
+<h1 data-background-color="#003366">Lecture 3: Area Pattern Analysis</h1>
+<section id="transition-points-to-areas" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="transition-points-to-areas">Transition: Points to Areas</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<section id="point-pattern-data" class="level3">
+<h3 class="anchored" data-anchor-id="point-pattern-data">Point Pattern Data</h3>
+<ul>
+<li>Discrete events/objects</li>
+<li><span class="math inline">\((x, y)\)</span> coordinates</li>
+<li>Questions:
+<ul>
+<li>Clustered or dispersed?</li>
+<li>Random spacing?</li>
+</ul></li>
+</ul>
+</section>
+<section id="methods" class="level3">
+<h3 class="anchored" data-anchor-id="methods">Methods</h3>
+<ul>
+<li>Nearest Neighbor</li>
+<li>Quadrat Analysis</li>
+</ul>
+</section>
+</div><div class="column" style="width:50%;">
+<section id="areal-pattern-data" class="level3">
+<h3 class="anchored" data-anchor-id="areal-pattern-data">Areal Pattern Data</h3>
+<ul>
+<li><strong>Continuous</strong> spatial units</li>
+<li>Polygons (counties, tracts, regions)</li>
+<li>Questions:
+<ul>
+<li>Do adjacent areas have similar values?</li>
+<li>Spatial clustering of attributes?</li>
+</ul></li>
+</ul>
+</section>
+<section id="methods-today" class="level3">
+<h3 class="anchored" data-anchor-id="methods-today">Methods (Today)</h3>
+<ul>
+<li><strong>Join Count Analysis</strong></li>
+<li><strong>Moran’s I</strong> (global &amp; local)</li>
+</ul>
+</section>
+</div>
+</div>
+<hr>
+</section>
+<section id="what-is-areal-data" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="what-is-areal-data">What is Areal Data?</h2>
+<section id="definition" class="level3">
+<h3 class="anchored" data-anchor-id="definition">Definition</h3>
+<p><strong>Attributes measured or aggregated over spatial units</strong></p>
+</section>
+<section id="characteristics-2" class="level3">
+<h3 class="anchored" data-anchor-id="characteristics-2">Characteristics</h3>
+<ul>
+<li><strong>Complete coverage</strong> of study area</li>
+<li><strong>Mutually exclusive</strong> units</li>
+<li>Values represent entire area (not points)</li>
+<li><strong>Neighborhood structure</strong> defined by adjacency/proximity</li>
+</ul>
+</section>
+<section id="examples-3" class="level3">
+<h3 class="anchored" data-anchor-id="examples-3">Examples</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Domain</th>
+<th>Spatial Unit</th>
+<th>Variable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Public Health</td>
+<td>Counties</td>
+<td>Disease rate</td>
+</tr>
+<tr class="even">
+<td>Economics</td>
+<td>States</td>
+<td>Unemployment</td>
+</tr>
+<tr class="odd">
+<td>Politics</td>
+<td>Precincts</td>
+<td>Vote share</td>
+</tr>
+<tr class="even">
+<td>Environment</td>
+<td>Watersheds</td>
+<td>Pollution level</td>
+</tr>
+<tr class="odd">
+<td>Demography</td>
+<td>Census tracts</td>
+<td>Median income</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="key-difference-from-point-patterns" class="level2">
+<h2 class="anchored" data-anchor-id="key-difference-from-point-patterns">Key Difference from Point Patterns</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="esda_revamped_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Point patterns</strong>: Location of events is the variable<br>
+<strong>Areal data</strong>: Attribute values across locations</p>
+<hr>
+</section>
+<section id="spatial-autocorrelation" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="spatial-autocorrelation">Spatial Autocorrelation</h2>
+<section id="core-concept-1" class="level3">
+<h3 class="anchored" data-anchor-id="core-concept-1">Core Concept</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Tobler’s First Law of Geography
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“Everything is related to everything else, but near things are more related than distant things.”</p>
+</div>
+</div>
+</section>
+<section id="spatial-autocorrelation-defined" class="level3">
+<h3 class="anchored" data-anchor-id="spatial-autocorrelation-defined">Spatial Autocorrelation Defined</h3>
+<p><strong>Correlation of a variable with itself across space</strong></p>
+<ul>
+<li><strong>Positive</strong>: Similar values cluster spatially
+<ul>
+<li>High near high, low near low</li>
+</ul></li>
+<li><strong>Negative</strong>: Dissimilar values are adjacent
+<ul>
+<li>High near low, low near high</li>
+</ul></li>
+<li><strong>Zero</strong>: No spatial pattern (independence)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="why-spatial-autocorrelation-matters" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="why-spatial-autocorrelation-matters">Why Spatial Autocorrelation Matters</h2>
+<section id="theoretical-importance" class="level3">
+<h3 class="anchored" data-anchor-id="theoretical-importance">Theoretical Importance</h3>
+<ul>
+<li><strong>Diffusion processes</strong>: Contagion, influence, spread</li>
+<li><strong>Common exposures</strong>: Environmental factors affect neighbors</li>
+<li><strong>Spatial spillovers</strong>: Economic/social interactions</li>
+</ul>
+</section>
+<section id="statistical-implications" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-implications">Statistical Implications</h3>
+<ul>
+<li>Violates <strong>independence</strong> assumption of classical statistics</li>
+<li>Standard errors underestimated</li>
+<li>Significance tests invalid</li>
+<li>Need spatial statistical methods</li>
+</ul>
+</section>
+<section id="practical-applications" class="level3">
+<h3 class="anchored" data-anchor-id="practical-applications">Practical Applications</h3>
+<ul>
+<li>Identify spatial clusters (hot spots)</li>
+<li>Disease surveillance</li>
+<li>Environmental justice</li>
+<li>Market analysis</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="defining-spatial-neighbors" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="defining-spatial-neighbors">Defining Spatial Neighbors</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Fundamental Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Who is a neighbor? This defines the spatial structure!</p>
+</div>
+</div>
+<section id="common-approaches" class="level3">
+<h3 class="anchored" data-anchor-id="common-approaches">Common Approaches</h3>
+<ol type="1">
+<li><strong>Contiguity</strong> (shared boundary)
+<ul>
+<li><strong>Rook</strong>: Shared edge</li>
+<li><strong>Queen</strong>: Shared edge or vertex</li>
+<li><strong>Higher-order</strong>: Neighbors of neighbors</li>
+</ul></li>
+<li><strong>Distance</strong>
+<ul>
+<li>Fixed distance threshold</li>
+<li>K-nearest neighbors</li>
+<li>Inverse distance weighting</li>
+</ul></li>
+<li><strong>Other</strong>
+<ul>
+<li>Graph-based (networks)</li>
+<li>Time-based (diffusion)</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="contiguity-definitions-visual" class="level2">
+<h2 class="anchored" data-anchor-id="contiguity-definitions-visual">Contiguity Definitions: Visual</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="esda_revamped_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="spatial-weights-matrix" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="spatial-weights-matrix">Spatial Weights Matrix</h2>
+<section id="definition-1" class="level3">
+<h3 class="anchored" data-anchor-id="definition-1">Definition</h3>
+<p><strong>W = matrix encoding neighborhood structure</strong></p>
+<ul>
+<li>Rows and columns = spatial units</li>
+<li><span class="math inline">\(w_{ij}\)</span> = weight between unit <span class="math inline">\(i\)</span> and unit <span class="math inline">\(j\)</span></li>
+<li>Diagonal = 0 (unit not neighbor to itself)</li>
+</ul>
+</section>
+<section id="binary-weights-contiguity" class="level3">
+<h3 class="anchored" data-anchor-id="binary-weights-contiguity">Binary Weights (Contiguity)</h3>
+<p><span class="math display">\[w_{ij} = \begin{cases}
+1 &amp; \text{if } i \text{ and } j \text{ are neighbors} \\
+0 &amp; \text{otherwise}
+\end{cases}\]</span></p>
+</section>
+<section id="row-standardization-common" class="level3">
+<h3 class="anchored" data-anchor-id="row-standardization-common">Row Standardization (Common)</h3>
+<p><span class="math display">\[w_{ij}^* = \frac{w_{ij}}{\sum_j w_{ij}}\]</span></p>
+<p>Row sums = 1 (weights represent proportions)</p>
+<hr>
+</section>
+</section>
+<section id="example-simple-weights-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="example-simple-weights-matrix">Example: Simple Weights Matrix</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Binary Spatial Weights Matrix (Queen Contiguity)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Area</th>
+<th style="text-align: right;">A</th>
+<th style="text-align: right;">B</th>
+<th style="text-align: right;">C</th>
+<th style="text-align: right;">D</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>Interpretation</strong>: - A is neighbor to B and C - B is neighbor to A and D - C is neighbor to A and D - D is neighbor to B and C</p>
+<hr>
+</section>
+</section>
+<section id="join-count-analysis" class="level1" data-background-color="#004d00">
+<h1 data-background-color="#004d00">Join Count Analysis</h1>
+<section id="join-count-analysis-introduction" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="join-count-analysis-introduction">Join Count Analysis: Introduction</h2>
+<section id="purpose" class="level3">
+<h3 class="anchored" data-anchor-id="purpose">Purpose</h3>
+<p><strong>Analyze spatial patterns of CATEGORICAL data</strong></p>
+</section>
+<section id="key-concept" class="level3">
+<h3 class="anchored" data-anchor-id="key-concept">Key Concept</h3>
+<p>A <strong>“join”</strong> is a connection between two adjacent areas</p>
+</section>
+<section id="types-of-joins" class="level3">
+<h3 class="anchored" data-anchor-id="types-of-joins">Types of Joins</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Join Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Black-Black (BB)</strong></td>
+<td>Two adjacent “black” areas</td>
+</tr>
+<tr class="even">
+<td><strong>White-White (WW)</strong></td>
+<td>Two adjacent “white” areas</td>
+</tr>
+<tr class="odd">
+<td><strong>Black-White (BW)</strong></td>
+<td>Adjacent areas with different categories</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-question" class="level3">
+<h3 class="anchored" data-anchor-id="the-question">The Question</h3>
+<p>Are there more same-category joins than expected by chance?</p>
+<hr>
+</section>
+</section>
+<section id="join-count-the-logic" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="join-count-the-logic">Join Count: The Logic</h2>
+<section id="observed-vs.-expected" class="level3">
+<h3 class="anchored" data-anchor-id="observed-vs.-expected">Observed vs.&nbsp;Expected</h3>
+<p><strong>Observed</strong>: Count actual joins in the data</p>
+<p><strong>Expected</strong>: What would we expect under random arrangement?</p>
+</section>
+<section id="hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="hypotheses">Hypotheses</h3>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: Spatial pattern is random (no spatial autocorrelation)</li>
+<li><span class="math inline">\(H_A\)</span>: Clustering exists
+<ul>
+<li><strong>Positive autocorrelation</strong>: More BB and WW joins than expected</li>
+<li><strong>Negative autocorrelation</strong>: More BW joins than expected</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="join-count-visual-example" class="level2">
+<h2 class="anchored" data-anchor-id="join-count-visual-example">Join Count: Visual Example</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="esda_revamped_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="join-count-formulas" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="join-count-formulas">Join Count: Formulas</h2>
+<section id="expected-number-of-joins-free-sampling" class="level3">
+<h3 class="anchored" data-anchor-id="expected-number-of-joins-free-sampling">Expected Number of Joins (Free Sampling)</h3>
+<p>For <strong>Black-White joins</strong>:</p>
+<p><span class="math display">\[E[BW] = \frac{2JBW}{N(N-1)}\]</span></p>
+<p>where: - <span class="math inline">\(J\)</span> = total number of joins - <span class="math inline">\(B\)</span> = number of black areas - <span class="math inline">\(W\)</span> = number of white areas<br>
+- <span class="math inline">\(N\)</span> = total areas (<span class="math inline">\(B + W\)</span>)</p>
+</section>
+<section id="standard-error-1" class="level3">
+<h3 class="anchored" data-anchor-id="standard-error-1">Standard Error</h3>
+<p><span class="math display">\[\sigma_{BW} = \sqrt{E_{BW} + \frac{\sum L(L-1)BW - 2JBW^2}{N(N-1)} + \frac{4[\sum(L-1)^2] B(B-1)W(W-1)}{N(N-1)(N-2)(N-3)}}\]</span></p>
+<p>where <span class="math inline">\(L\)</span> = number of links (neighbors) for each area</p>
+<hr>
+</section>
+</section>
+<section id="join-count-test-statistic" class="level2">
+<h2 class="anchored" data-anchor-id="join-count-test-statistic">Join Count: Test Statistic</h2>
+<section id="z-score" class="level3">
+<h3 class="anchored" data-anchor-id="z-score">Z-Score</h3>
+<p><span class="math display">\[Z_{join} = \frac{O_{BW} - E_{BW}}{\sigma_{BW}}\]</span></p>
+<p>where: - <span class="math inline">\(O_{BW}\)</span> = observed number of Black-White joins - <span class="math inline">\(E_{BW}\)</span> = expected number under randomness</p>
+</section>
+<section id="interpretation-1" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-1">Interpretation</h3>
+<ul>
+<li><strong>Positive</strong> <span class="math inline">\(Z\)</span>: More BW joins than expected (negative SA)</li>
+<li><strong>Negative</strong> <span class="math inline">\(Z\)</span>: Fewer BW joins than expected (positive SA / clustering)</li>
+<li><span class="math inline">\(|Z| &gt; 1.96\)</span> → Significant at <span class="math inline">\(\alpha = 0.05\)</span></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="join-count-example-us-obesity" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="join-count-example-us-obesity">Join Count Example: US Obesity</h2>
+<p><strong>From your reading</strong>: State obesity levels 1995-2020</p>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">Setup</h3>
+<ul>
+<li>States classified as <strong>above</strong> or <strong>below</strong> national average</li>
+<li>Queen contiguity weights</li>
+<li>Binary categorization per year</li>
+</ul>
+</section>
+<section id="results-2020" class="level3">
+<h3 class="anchored" data-anchor-id="results-2020">Results (2020)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Join Type</th>
+<th>Observed</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Above-Above</strong></td>
+<td>26</td>
+<td>21</td>
+</tr>
+<tr class="even">
+<td><strong>Below-Below</strong></td>
+<td>27</td>
+<td>32</td>
+</tr>
+<tr class="odd">
+<td><strong>Dissimilar</strong></td>
+<td>22</td>
+<td>53.75</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Test</strong>: <span class="math inline">\(Z = -6.40\)</span>, <span class="math inline">\(p &lt; 0.001\)</span></p>
+<p><strong>Conclusion</strong>: Significant <strong>positive spatial autocorrelation</strong><br>
+States with similar obesity levels cluster together</p>
+<hr>
+</section>
+</section>
+<section id="join-count-interpretation-tips" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="join-count-interpretation-tips">Join Count: Interpretation Tips</h2>
+<section id="what-positive-sa-means" class="level3">
+<h3 class="anchored" data-anchor-id="what-positive-sa-means">What Positive SA Means</h3>
+<ul>
+<li>Similar values cluster spatially</li>
+<li>Neighbors tend to be alike</li>
+<li>Evidence of:
+<ul>
+<li>Diffusion processes</li>
+<li>Common exposures</li>
+<li>Spatial spillovers</li>
+</ul></li>
+</ul>
+</section>
+<section id="what-negative-sa-means-rare" class="level3">
+<h3 class="anchored" data-anchor-id="what-negative-sa-means-rare">What Negative SA Means (Rare)</h3>
+<ul>
+<li>Dissimilar values adjacent</li>
+<li>“Checkerboard” pattern</li>
+<li>Possible:
+<ul>
+<li>Competition effects</li>
+<li>Complementarity</li>
+<li>Zoning/planning</li>
+</ul></li>
+</ul>
+</section>
+<section id="non-significance" class="level3">
+<h3 class="anchored" data-anchor-id="non-significance">Non-Significance</h3>
+<ul>
+<li>Random spatial arrangement</li>
+<li>No evidence of spatial pattern</li>
+<li>Independence assumption reasonable</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="join-count-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="join-count-in-r">Join Count in R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using spdep package</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spdep)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read spatial data</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>states <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"states.shp"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create binary variable</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>states<span class="sc">$</span>obese_binary <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(states<span class="sc">$</span>obesity <span class="sc">&gt;</span> <span class="fu">mean</span>(states<span class="sc">$</span>obesity), </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"High"</span>, <span class="st">"Low"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create queen contiguity neighbors</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="fu">poly2nb</span>(states, <span class="at">queen =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to spatial weights</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>listw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(nb, <span class="at">style =</span> <span class="st">"B"</span>)  <span class="co"># Binary weights</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Join count test</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>jc_test <span class="ot">&lt;-</span> <span class="fu">joincount.test</span>(</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">fx =</span> <span class="fu">factor</span>(states<span class="sc">$</span>obese_binary),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">listw =</span> listw</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(jc_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="morans-i" class="level1" data-background-color="#004d00">
+<h1 data-background-color="#004d00">Moran’s I</h1>
+<section id="morans-i-introduction" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="morans-i-introduction">Moran’s I: Introduction</h2>
+<section id="purpose-1" class="level3">
+<h3 class="anchored" data-anchor-id="purpose-1">Purpose</h3>
+<p><strong>Measure spatial autocorrelation for CONTINUOUS data</strong></p>
+</section>
+<section id="key-differences-from-join-count" class="level3">
+<h3 class="anchored" data-anchor-id="key-differences-from-join-count">Key Differences from Join Count</h3>
+<ul>
+<li><strong>Join Count</strong>: Categorical (black/white, yes/no)</li>
+<li><strong>Moran’s I</strong>: Continuous (income, temperature, rates)</li>
+</ul>
+</section>
+<section id="global-morans-i" class="level3">
+<h3 class="anchored" data-anchor-id="global-morans-i">Global Moran’s I</h3>
+<ul>
+<li><strong>Single value</strong> summarizing spatial autocorrelation for entire study area</li>
+<li>Analogous to Pearson correlation, but for spatial data</li>
+</ul>
+</section>
+<section id="range" class="level3">
+<h3 class="anchored" data-anchor-id="range">Range</h3>
+<ul>
+<li>Typically: <span class="math inline">\(-1 \leq I \leq +1\)</span></li>
+<li><span class="math inline">\(I &gt; 0\)</span>: Positive SA (clustering of similar values)</li>
+<li><span class="math inline">\(I \approx 0\)</span>: No SA (random)</li>
+<li><span class="math inline">\(I &lt; 0\)</span>: Negative SA (dissimilar values adjacent)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="morans-i-the-formula" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="morans-i-the-formula">Moran’s I: The Formula</h2>
+<section id="global-morans-i-1" class="level3">
+<h3 class="anchored" data-anchor-id="global-morans-i-1">Global Moran’s I</h3>
+<p><span class="math display">\[I = \frac{n}{\sum_{i}\sum_{j} w_{ij}} \cdot \frac{\sum_{i}\sum_{j} w_{ij}(x_i - \bar{x})(x_j - \bar{x})}{\sum_{i}(x_i - \bar{x})^2}\]</span></p>
+</section>
+<section id="simpler-form-row-standardized-weights" class="level3">
+<h3 class="anchored" data-anchor-id="simpler-form-row-standardized-weights">Simpler form (row-standardized weights):</h3>
+<p><span class="math display">\[I = \frac{n \sum_{i}\sum_{j} w_{ij}(x_i - \bar{x})(x_j - \bar{x})}{(\sum_{i}\sum_{j} w_{ij}) \sum_{i}(x_i - \bar{x})^2}\]</span></p>
+<p>where: - <span class="math inline">\(n\)</span> = number of areas - <span class="math inline">\(x_i\)</span> = value for area <span class="math inline">\(i\)</span> - <span class="math inline">\(\bar{x}\)</span> = mean value - <span class="math inline">\(w_{ij}\)</span> = spatial weight between <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span></p>
+<hr>
+</section>
+</section>
+<section id="morans-i-intuition" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="morans-i-intuition">Moran’s I: Intuition</h2>
+<section id="what-it-calculates" class="level3">
+<h3 class="anchored" data-anchor-id="what-it-calculates">What It Calculates</h3>
+<p><strong>Product of deviations for neighboring areas</strong></p>
+</section>
+<section id="positive-i-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="positive-i-clustering">Positive I (Clustering)</h3>
+<ul>
+<li>High values near high values: <span class="math inline">\((+)(+) = +\)</span></li>
+<li>Low values near low values: <span class="math inline">\((-)(-)  = +\)</span></li>
+<li>Cross-products tend to be positive</li>
+</ul>
+</section>
+<section id="negative-i-dispersion" class="level3">
+<h3 class="anchored" data-anchor-id="negative-i-dispersion">Negative I (Dispersion)</h3>
+<ul>
+<li>High values near low values: <span class="math inline">\((+)(-) = -\)</span></li>
+<li>Low values near high values: <span class="math inline">\((-)(+) = -\)</span></li>
+<li>Cross-products tend to be negative</li>
+</ul>
+</section>
+<section id="random-i-0" class="level3">
+<h3 class="anchored" data-anchor-id="random-i-0">Random (I ≈ 0)</h3>
+<ul>
+<li>Mix of positive and negative cross-products</li>
+<li>Cancel out on average</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="morans-i-hypothesis-test" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="morans-i-hypothesis-test">Moran’s I: Hypothesis Test</h2>
+<section id="expected-value-under-randomness" class="level3">
+<h3 class="anchored" data-anchor-id="expected-value-under-randomness">Expected Value Under Randomness</h3>
+<p><span class="math display">\[E[I] = \frac{-1}{n-1}\]</span></p>
+<p>(Not zero! Small negative value)</p>
+</section>
+<section id="variance-normalization-assumption" class="level3">
+<h3 class="anchored" data-anchor-id="variance-normalization-assumption">Variance (Normalization Assumption)</h3>
+<p><span class="math display">\[Var[I] = \frac{n^2 \cdot \sum_{i} (n - \tilde{n}_i - 1) + n \sum_{i} \tilde{n}_i (n - \tilde{n}_i - 3) - n^2 \sum_{i} \tilde{n}_i^2}{(n-1)^2 \sum_{i} \tilde{n}_i}\]</span></p>
+</section>
+<section id="z-score-1" class="level3">
+<h3 class="anchored" data-anchor-id="z-score-1">Z-Score</h3>
+<p><span class="math display">\[Z = \frac{I - E[I]}{\sqrt{Var[I]}}\]</span></p>
+</section>
+<section id="decision" class="level3">
+<h3 class="anchored" data-anchor-id="decision">Decision</h3>
+<ul>
+<li><span class="math inline">\(|Z| &gt; 1.96\)</span> → Significant at <span class="math inline">\(\alpha = 0.05\)</span></li>
+<li>Positive <span class="math inline">\(Z\)</span>: significant positive autocorrelation</li>
+<li>Negative <span class="math inline">\(Z\)</span>: significant negative autocorrelation</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="morans-i-worked-example" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="morans-i-worked-example">Moran’s I: Worked Example</h2>
+<p><strong>Pennsylvania County Obesity Levels</strong> (from reading)</p>
+<section id="setup-1" class="level3">
+<h3 class="anchored" data-anchor-id="setup-1">Setup</h3>
+<ul>
+<li><span class="math inline">\(n = 67\)</span> counties</li>
+<li>Variable: Obesity rate (%)</li>
+<li>Queen contiguity weights</li>
+</ul>
+</section>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Statistic</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Moran’s I</td>
+<td>0.69</td>
+</tr>
+<tr class="even">
+<td>Expected I</td>
+<td>-0.015</td>
+</tr>
+<tr class="odd">
+<td>Variance</td>
+<td>0.0043</td>
+</tr>
+<tr class="even">
+<td>Z-score</td>
+<td>10.8</td>
+</tr>
+<tr class="odd">
+<td>p-value</td>
+<td>&lt; 0.001</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation</strong>: <strong>Strong positive spatial autocorrelation</strong><br>
+Counties with similar obesity rates cluster together</p>
+<hr>
+</section>
+</section>
+<section id="global-vs.-local-measures" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="global-vs.-local-measures">Global vs.&nbsp;Local Measures</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<section id="global-morans-i-2" class="level3">
+<h3 class="anchored" data-anchor-id="global-morans-i-2">Global Moran’s I</h3>
+<ul>
+<li><strong>One value</strong> for entire study area</li>
+<li>“Is there clustering?”</li>
+<li>Like a correlation coefficient</li>
+<li>Summary statistic</li>
+</ul>
+</section>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
+<ul>
+<li>Doesn’t tell you WHERE</li>
+<li>May miss local variation</li>
+<li>Average over whole area</li>
+</ul>
+</section>
+</div><div class="column" style="width:50%;">
+<section id="local-morans-i-lisa" class="level3">
+<h3 class="anchored" data-anchor-id="local-morans-i-lisa">Local Moran’s I (LISA)</h3>
+<ul>
+<li><strong>One value per area</strong></li>
+<li>“Where is clustering?”</li>
+<li>Identifies hot spots / cold spots</li>
+<li>Spatial outliers</li>
+</ul>
+</section>
+<section id="advantages" class="level3">
+<h3 class="anchored" data-anchor-id="advantages">Advantages</h3>
+<ul>
+<li>Maps of local patterns</li>
+<li>Identifies specific locations</li>
+<li>Heterogeneous patterns</li>
+</ul>
+</section>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use <strong>global</strong> to test for overall SA, then <strong>local</strong> to find where</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="local-morans-i-lisa-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="local-morans-i-lisa-1">Local Moran’s I (LISA)</h2>
+<section id="formula" class="level3">
+<h3 class="anchored" data-anchor-id="formula">Formula</h3>
+<p><span class="math display">\[I_i = \frac{(x_i - \bar{x})}{S_i^2} \sum_{j} w_{ij}(x_j - \bar{x})\]</span></p>
+<p>where: - <span class="math inline">\(I_i\)</span> = local Moran’s I for area <span class="math inline">\(i\)</span> - <span class="math inline">\(S_i^2 = \frac{\sum (x_i - \bar{x})^2}{n}\)</span> (variance) - <span class="math inline">\(w_{ij}\)</span> = spatial weights</p>
+</section>
+<section id="interpretation-for-area-i" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-for-area-i">Interpretation for Area <span class="math inline">\(i\)</span></h3>
+<ul>
+<li><strong>High positive</strong> <span class="math inline">\(I_i\)</span>: Area similar to neighbors
+<ul>
+<li><strong>High-High</strong>: High value surrounded by high</li>
+<li><strong>Low-Low</strong>: Low value surrounded by low</li>
+</ul></li>
+<li><strong>Negative</strong> <span class="math inline">\(I_i\)</span>: Area different from neighbors
+<ul>
+<li><strong>High-Low</strong>: High value surrounded by low (outlier)</li>
+<li><strong>Low-High</strong>: Low value surrounded by high (outlier)</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="lisa-cluster-types" class="level2">
+<h2 class="anchored" data-anchor-id="lisa-cluster-types">LISA: Cluster Types</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="esda_revamped_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="lisa-cleveland-racial-composition" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="lisa-cleveland-racial-composition">LISA: Cleveland Racial Composition</h2>
+<p><strong>Example from reading</strong>: Census block groups</p>
+<section id="four-groups-analyzed" class="level3">
+<h3 class="anchored" data-anchor-id="four-groups-analyzed">Four Groups Analyzed</h3>
+<ul>
+<li>Asian, Black, White, Hispanic</li>
+</ul>
+</section>
+<section id="key-findings-morans-i-values" class="level3">
+<h3 class="anchored" data-anchor-id="key-findings-morans-i-values">Key Findings (Moran’s I values)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Moran’s I</th>
+<th>Z</th>
+<th>p-value</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Asian</strong></td>
+<td>0.35</td>
+<td>18.39</td>
+<td>0.000</td>
+<td>Moderate clustering</td>
+</tr>
+<tr class="even">
+<td><strong>Black</strong></td>
+<td>0.58</td>
+<td>64.6</td>
+<td>0.000</td>
+<td>Strong clustering</td>
+</tr>
+<tr class="odd">
+<td><strong>White</strong></td>
+<td>0.64</td>
+<td>65.4</td>
+<td>0.000</td>
+<td>Strong clustering</td>
+</tr>
+<tr class="even">
+<td><strong>Hispanic</strong></td>
+<td>0.81</td>
+<td>65.7</td>
+<td>0.000</td>
+<td>Very strong clustering</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Conclusion</strong>: Significant residential segregation across all groups<br>
+Hispanic communities most strongly clustered</p>
+<hr>
+</section>
+</section>
+<section id="moran-scatterplot" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="moran-scatterplot">Moran Scatterplot</h2>
+<section id="visual-tool-for-understanding-morans-i" class="level3">
+<h3 class="anchored" data-anchor-id="visual-tool-for-understanding-morans-i">Visual Tool for Understanding Moran’s I</h3>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="esda_revamped_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Slope of regression line = Moran’s I</strong></p>
+<hr>
+</section>
+</section>
+<section id="morans-i-in-r" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="morans-i-in-r">Moran’s I in R</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spdep)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read spatial data</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>counties <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"counties.shp"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create neighbors list (Queen contiguity)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="fu">poly2nb</span>(counties, <span class="at">queen =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create spatial weights (row-standardized)</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>listw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(nb, <span class="at">style =</span> <span class="st">"W"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Global Moran's I test</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>moran_test <span class="ot">&lt;-</span> <span class="fu">moran.test</span>(counties<span class="sc">$</span>obesity, listw)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(moran_test)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Moran scatterplot</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">moran.plot</span>(counties<span class="sc">$</span>obesity, listw, </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">main =</span> <span class="st">"Moran Scatterplot: Obesity"</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">xlab =</span> <span class="st">"Obesity Rate (standardized)"</span>,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">ylab =</span> <span class="st">"Spatially Lagged Obesity"</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Local Moran's I (LISA)</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>lisa <span class="ot">&lt;-</span> <span class="fu">localmoran</span>(counties<span class="sc">$</span>obesity, listw)</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>counties<span class="sc">$</span>lisa_I <span class="ot">&lt;-</span> lisa[, <span class="dv">1</span>]</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>counties<span class="sc">$</span>lisa_p <span class="ot">&lt;-</span> lisa[, <span class="dv">5</span>]</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Map significant clusters</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(counties[<span class="st">"lisa_I"</span>], <span class="at">main =</span> <span class="st">"Local Moran's I"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="lisa-significance-and-multiple-testing" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="lisa-significance-and-multiple-testing">LISA Significance and Multiple Testing</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Problem: Multiple Comparisons
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Testing hundreds of areas → inflation of Type I error!</p>
+</div>
+</div>
+<section id="solutions" class="level3">
+<h3 class="anchored" data-anchor-id="solutions">Solutions</h3>
+<ol type="1">
+<li><strong>Bonferroni correction</strong>
+<ul>
+<li><span class="math inline">\(\alpha_{adj} = \alpha / n\)</span></li>
+<li>Very conservative</li>
+</ul></li>
+<li><strong>False Discovery Rate (FDR)</strong>
+<ul>
+<li>Controls proportion of false positives</li>
+<li>Less conservative than Bonferroni</li>
+</ul></li>
+<li><strong>Permutation approach</strong>
+<ul>
+<li>Simulate null distribution</li>
+<li>More robust</li>
+</ul></li>
+</ol>
+</section>
+<section id="recommendation" class="level3">
+<h3 class="anchored" data-anchor-id="recommendation">Recommendation</h3>
+<ul>
+<li>Report both corrected and uncorrected p-values</li>
+<li>Use permutation tests (available in <code>spdep</code>)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="comparing-area-pattern-methods" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="comparing-area-pattern-methods">Comparing Area Pattern Methods</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Join Count</th>
+<th>Moran’s I</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Data type</strong></td>
+<td>Categorical</td>
+<td>Continuous</td>
+</tr>
+<tr class="even">
+<td><strong>Output</strong></td>
+<td>Join counts</td>
+<td>Correlation-like index</td>
+</tr>
+<tr class="odd">
+<td><strong>Range</strong></td>
+<td>Count values</td>
+<td>-1 to +1</td>
+</tr>
+<tr class="even">
+<td><strong>Interpretation</strong></td>
+<td>Number of joins</td>
+<td>Degree of autocorrelation</td>
+</tr>
+<tr class="odd">
+<td><strong>Local version</strong></td>
+<td>No standard version</td>
+<td>LISA (Local Moran’s I)</td>
+</tr>
+<tr class="even">
+<td><strong>Use cases</strong></td>
+<td>Land use, binary outcomes</td>
+<td>Rates, prices, densities</td>
+</tr>
+</tbody>
+</table>
+<section id="complementary-approaches" class="level3">
+<h3 class="anchored" data-anchor-id="complementary-approaches">Complementary Approaches</h3>
+<ul>
+<li>Both test spatial autocorrelation</li>
+<li>Both require defining neighbors</li>
+<li>Both compare observed to expected under randomness</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="practical-applications-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="practical-applications-1">Practical Applications</h2>
+<section id="public-health" class="level3">
+<h3 class="anchored" data-anchor-id="public-health">Public Health</h3>
+<ul>
+<li><strong>Disease mapping</strong>: Identify disease clusters</li>
+<li><strong>Health disparities</strong>: Unequal access to care</li>
+<li><strong>Outbreak detection</strong>: Early warning systems</li>
+</ul>
+</section>
+<section id="urban-planning" class="level3">
+<h3 class="anchored" data-anchor-id="urban-planning">Urban Planning</h3>
+<ul>
+<li><strong>Gentrification</strong>: Spreading neighborhood change</li>
+<li><strong>Segregation</strong>: Residential clustering by race/income</li>
+<li><strong>Housing markets</strong>: Price spillovers</li>
+</ul>
+</section>
+<section id="environmental" class="level3">
+<h3 class="anchored" data-anchor-id="environmental">Environmental</h3>
+<ul>
+<li><strong>Pollution</strong>: Clustering of environmental hazards</li>
+<li><strong>Environmental justice</strong>: Disproportionate exposure</li>
+<li><strong>Climate adaptation</strong>: Regional vulnerability</li>
+</ul>
+</section>
+<section id="economics" class="level3">
+<h3 class="anchored" data-anchor-id="economics">Economics</h3>
+<ul>
+<li><strong>Unemployment</strong>: Regional labor markets</li>
+<li><strong>Innovation</strong>: Technology spillovers</li>
+<li><strong>Poverty</strong>: Persistent spatial poverty traps</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="common-issues-and-solutions" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="common-issues-and-solutions">Common Issues and Solutions</h2>
+<section id="issue-1-modifiable-areal-unit-problem-maup" class="level3">
+<h3 class="anchored" data-anchor-id="issue-1-modifiable-areal-unit-problem-maup">Issue 1: Modifiable Areal Unit Problem (MAUP)</h3>
+<ul>
+<li>Results sensitive to zone definition</li>
+<li><strong>Solution</strong>: Test multiple aggregations, report sensitivity</li>
+</ul>
+</section>
+<section id="issue-2-boundary-definition" class="level3">
+<h3 class="anchored" data-anchor-id="issue-2-boundary-definition">Issue 2: Boundary Definition</h3>
+<ul>
+<li>Edge areas have fewer neighbors</li>
+<li><strong>Solution</strong>: Consider broader study area, report boundary effects</li>
+</ul>
+</section>
+<section id="issue-3-choosing-neighbors" class="level3">
+<h3 class="anchored" data-anchor-id="issue-3-choosing-neighbors">Issue 3: Choosing Neighbors</h3>
+<ul>
+<li>Contiguity vs.&nbsp;distance? Rook vs.&nbsp;Queen?</li>
+<li><strong>Solution</strong>: Test multiple definitions, justify choice theoretically</li>
+</ul>
+</section>
+<section id="issue-4-statistical-vs.-practical-significance" class="level3">
+<h3 class="anchored" data-anchor-id="issue-4-statistical-vs.-practical-significance">Issue 4: Statistical vs.&nbsp;Practical Significance</h3>
+<ul>
+<li>Large samples → everything significant</li>
+<li><strong>Solution</strong>: Report effect sizes (Moran’s I value), visualize</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="assumptions-and-limitations" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="assumptions-and-limitations">Assumptions and Limitations</h2>
+<section id="key-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="key-assumptions">Key Assumptions</h3>
+<ol type="1">
+<li><strong>Stationarity</strong>: Process constant across space
+<ul>
+<li>May not hold in heterogeneous regions</li>
+</ul></li>
+<li><strong>Isotropy</strong>: Relationships same in all directions
+<ul>
+<li>Geographic barriers may violate this</li>
+</ul></li>
+<li><strong>Appropriate neighborhood definition</strong>
+<ul>
+<li>Neighbors must be meaningful</li>
+</ul></li>
+<li><strong>Independence of areas</strong> (for inference)
+<ul>
+<li>Actually violated if SA exists! (parametric bootstrap helps)</li>
+</ul></li>
+</ol>
+</section>
+<section id="limitations-1" class="level3">
+<h3 class="anchored" data-anchor-id="limitations-1">Limitations</h3>
+<ul>
+<li><strong>Descriptive, not causal</strong></li>
+<li><strong>Cannot distinguish processes</strong> (multiple processes → same pattern)</li>
+<li><strong>Scale-dependent</strong> (MAUP)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="advanced-topics-brief-overview-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="advanced-topics-brief-overview-1">Advanced Topics (Brief Overview)</h2>
+<section id="other-spatial-autocorrelation-measures" class="level3">
+<h3 class="anchored" data-anchor-id="other-spatial-autocorrelation-measures">Other Spatial Autocorrelation Measures</h3>
+<ul>
+<li><strong>Geary’s C</strong>: More sensitive to local differences</li>
+<li><strong>Getis-Ord G</strong>: Hot spot analysis</li>
+<li><strong>Spatial correlogram</strong>: SA at multiple distances</li>
+</ul>
+</section>
+<section id="spatial-regression-models" class="level3">
+<h3 class="anchored" data-anchor-id="spatial-regression-models">Spatial Regression Models</h3>
+<ul>
+<li>When SA exists, OLS invalid</li>
+<li><strong>Spatial lag model</strong>: Y depends on neighbor Y</li>
+<li><strong>Spatial error model</strong>: Errors spatially correlated</li>
+</ul>
+</section>
+<section id="space-time-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="space-time-analysis">Space-Time Analysis</h3>
+<ul>
+<li>Extend to temporal dimension</li>
+<li>Emerging/declining clusters</li>
+<li><strong>Knox test</strong>, <strong>Space-time scan statistics</strong></li>
+</ul>
+<div class="notes">
+<p>These go beyond ESDA into confirmatory spatial analysis</p>
+</div>
+<hr>
+</section>
+</section>
+<section id="best-practices-summary" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="best-practices-summary">Best Practices Summary</h2>
+<section id="workflow-for-area-pattern-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="workflow-for-area-pattern-analysis">Workflow for Area Pattern Analysis</h3>
+<ol type="1">
+<li><strong>Visualize</strong>: Create choropleth maps</li>
+<li><strong>Define neighbors</strong>: Justify choice</li>
+<li><strong>Test globally</strong>: Join Count or Moran’s I</li>
+<li><strong>If significant, test locally</strong>: LISA</li>
+<li><strong>Map results</strong>: Show cluster locations</li>
+<li><strong>Interpret substantively</strong>: Connect to theory/process</li>
+</ol>
+</section>
+<section id="reporting-checklist" class="level3">
+<h3 class="anchored" data-anchor-id="reporting-checklist">Reporting Checklist</h3>
+<p>✓ Study area definition and rationale<br>
+✓ Neighborhood definition (rook/queen/distance)<br>
+✓ Weighting scheme (binary/row-standardized)<br>
+✓ Global test results (statistic, p-value)<br>
+✓ Local analysis (if applicable)<br>
+✓ Maps of patterns<br>
+✓ Substantive interpretation</p>
+<hr>
+</section>
+</section>
+<section id="integration-point-and-area-patterns" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="integration-point-and-area-patterns">Integration: Point and Area Patterns</h2>
+<section id="conceptual-connections" class="level3">
+<h3 class="anchored" data-anchor-id="conceptual-connections">Conceptual Connections</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concept</th>
+<th>Point Pattern</th>
+<th>Area Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Random baseline</strong></td>
+<td>CSR</td>
+<td>Spatial independence</td>
+</tr>
+<tr class="even">
+<td><strong>Clustering</strong></td>
+<td>NNA: R &lt; 1<br>Quadrat: VMR &gt; 1</td>
+<td>Positive Moran’s I<br>High join counts</td>
+</tr>
+<tr class="odd">
+<td><strong>Dispersion</strong></td>
+<td>NNA: R &gt; 1<br>Quadrat: VMR &lt; 1</td>
+<td>Negative Moran’s I</td>
+</tr>
+<tr class="even">
+<td><strong>Local vs.&nbsp;Global</strong></td>
+<td>Individual distances vs.&nbsp;overall R</td>
+<td>LISA vs.&nbsp;global I</td>
+</tr>
+<tr class="odd">
+<td><strong>First-order</strong></td>
+<td>Quadrat analysis</td>
+<td>Less emphasized</td>
+</tr>
+<tr class="even">
+<td><strong>Second-order</strong></td>
+<td>NNA</td>
+<td>Moran’s I, Join Count</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+</section>
+<section id="summary-lecture-3" class="level1" data-background-color="#660000">
+<h1 data-background-color="#660000">Summary: Lecture 3</h1>
+<section id="key-concepts-covered-2" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="key-concepts-covered-2">Key Concepts Covered</h2>
+<ol type="1">
+<li><strong>Areal Data</strong>
+<ul>
+<li>Continuous spatial units</li>
+<li>Attribute values over areas</li>
+</ul></li>
+<li><strong>Spatial Autocorrelation</strong>
+<ul>
+<li>Tobler’s Law</li>
+<li>Positive, negative, none</li>
+</ul></li>
+<li><strong>Spatial Weights</strong>
+<ul>
+<li>Defining neighbors</li>
+<li>Rook vs.&nbsp;Queen contiguity</li>
+</ul></li>
+<li><strong>Join Count Analysis</strong>
+<ul>
+<li>Categorical data</li>
+<li>Black-white joins</li>
+<li>Testing for clustering</li>
+</ul></li>
+<li><strong>Moran’s I</strong>
+<ul>
+<li>Continuous data</li>
+<li>Global and Local (LISA)</li>
+<li>Hot spot identification</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="module-synthesis" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="module-synthesis">Module Synthesis</h2>
+<section id="three-lectures-unified-framework" class="level3">
+<h3 class="anchored" data-anchor-id="three-lectures-unified-framework">Three Lectures, Unified Framework</h3>
+<p><strong>Lecture 1</strong>: Foundations - Patterns vs.&nbsp;processes - First vs.&nbsp;second-order effects - Point patterns: NNA</p>
+<p><strong>Lecture 2</strong>: Point patterns continued - Quadrat analysis - Comparing methods - Applications</p>
+<p><strong>Lecture 3</strong>: Area patterns - Join Count (categorical) - Moran’s I (continuous) - Local spatial analysis</p>
+</section>
+<section id="core-theme" class="level3">
+<h3 class="anchored" data-anchor-id="core-theme">Core Theme</h3>
+<p><strong>Exploratory spatial data analysis reveals structure</strong><br>
+→ Inform modeling and theory development</p>
+<hr>
+</section>
+</section>
+<section id="moving-forward" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="moving-forward">Moving Forward</h2>
+<section id="from-esda-to-confirmatory-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="from-esda-to-confirmatory-analysis">From ESDA to Confirmatory Analysis</h3>
+<p><strong>ESDA (what we covered)</strong>: - Describe patterns - Generate hypotheses - Identify where to look</p>
+<p><strong>Next steps</strong> (beyond this module): - Spatial regression models - Hypothesis testing with spatial data - Causal inference in spatial context</p>
+</section>
+<section id="skills-youve-gained" class="level3">
+<h3 class="anchored" data-anchor-id="skills-youve-gained">Skills You’ve Gained</h3>
+<p>✓ Recognize spatial patterns<br>
+✓ Choose appropriate methods<br>
+✓ Interpret spatial statistics<br>
+✓ Connect patterns to processes<br>
+✓ Implement in R<br>
+✓ Report findings effectively</p>
+<hr>
+</section>
+</section>
+<section id="final-recommendations" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="final-recommendations">Final Recommendations</h2>
+<section id="for-your-research" class="level3">
+<h3 class="anchored" data-anchor-id="for-your-research">For Your Research</h3>
+<ol type="1">
+<li><strong>Start with visualization</strong>
+<ul>
+<li>Maps reveal patterns statistics might miss</li>
+</ul></li>
+<li><strong>Use multiple methods</strong>
+<ul>
+<li>Different methods = different insights</li>
+</ul></li>
+<li><strong>Think about process</strong>
+<ul>
+<li>What mechanism generated this pattern?</li>
+</ul></li>
+<li><strong>Consider scale</strong>
+<ul>
+<li>Patterns are scale-dependent (MAUP)</li>
+</ul></li>
+<li><strong>Report thoroughly</strong>
+<ul>
+<li>Study area, neighbors, weights, sensitivity</li>
+</ul></li>
+<li><strong>Be humble about inference</strong>
+<ul>
+<li>Pattern ≠ process</li>
+<li>Correlation ≠ causation</li>
+<li>Spatial patterns suggest but don’t prove</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="resources-for-further-learning" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="resources-for-further-learning">Resources for Further Learning</h2>
+<section id="textbooks" class="level3">
+<h3 class="anchored" data-anchor-id="textbooks">Textbooks</h3>
+<ul>
+<li>Bivand et al.&nbsp;(2013) <em>Applied Spatial Data Analysis with R</em></li>
+<li>Anselin (1988) <em>Spatial Econometrics</em></li>
+<li>O’Sullivan &amp; Unwin (2010) <em>Geographic Information Analysis</em></li>
+</ul>
+</section>
+<section id="software" class="level3">
+<h3 class="anchored" data-anchor-id="software">Software</h3>
+<ul>
+<li><strong>R packages</strong>: <code>spatstat</code>, <code>spdep</code>, <code>sf</code>, <code>sp</code></li>
+<li><strong>Python</strong>: <code>PySAL</code>, <code>GeoPandas</code></li>
+<li><strong>GeoDa</strong>: Free software by Luc Anselin</li>
+</ul>
+</section>
+<section id="online-resources" class="level3">
+<h3 class="anchored" data-anchor-id="online-resources">Online Resources</h3>
+<ul>
+<li>CRAN Task View: Spatial</li>
+<li>Geocomputation with R: https://geocompr.robinlovelace.net/</li>
+<li>Spatial Data Science: https://r-spatial.org/</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="thank-you" class="level2 center">
+<h2 class="center anchored" data-anchor-id="thank-you">Thank You!</h2>
+<section id="questions" class="level3">
+<h3 class="anchored" data-anchor-id="questions">Questions?</h3>
+<p><strong>Office Hours</strong>: [Your schedule]<br>
+<strong>Email</strong>: [Your email]</p>
+</section>
+<section id="assignment-due" class="level3">
+<h3 class="anchored" data-anchor-id="assignment-due">Assignment Due</h3>
+<p>[Date and details]</p>
+<p>Good luck with your spatial analysis projects!</p>
+<hr>
+</section>
+</section>
+<section id="appendix-r-code-examples" class="level2 smaller" data-visibility="uncounted">
+<h2 class="smaller anchored" data-visibility="uncounted" data-anchor-id="appendix-r-code-examples">Appendix: R Code Examples</h2>
+<section id="complete-workflow-example" class="level3">
+<h3 class="anchored" data-anchor-id="complete-workflow-example">Complete Workflow Example</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatstat)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spdep)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># === Point Pattern Analysis ===</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load point data</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>coords <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"points.csv"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">ppp</span>(coords<span class="sc">$</span>x, coords<span class="sc">$</span>y, <span class="at">window =</span> <span class="fu">owin</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>), <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>)))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Nearest Neighbor Analysis</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>nnd_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">nndist</span>(pp))</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>nnd_expected <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">npoints</span>(pp) <span class="sc">/</span> <span class="fu">area</span>(<span class="fu">Window</span>(pp))))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>R_stat <span class="ot">&lt;-</span> nnd_mean <span class="sc">/</span> nnd_expected</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Quadrat Analysis</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>Q <span class="ot">&lt;-</span> <span class="fu">quadratcount</span>(pp, <span class="at">nx =</span> <span class="dv">5</span>, <span class="at">ny =</span> <span class="dv">5</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">quadrat.test</span>(pp, <span class="at">nx =</span> <span class="dv">5</span>, <span class="at">ny =</span> <span class="dv">5</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># === Area Pattern Analysis ===</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Load areal data</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>regions <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"regions.shp"</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Create spatial weights</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>nb <span class="ot">&lt;-</span> <span class="fu">poly2nb</span>(regions, <span class="at">queen =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>listw <span class="ot">&lt;-</span> <span class="fu">nb2listw</span>(nb, <span class="at">style =</span> <span class="st">"W"</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Global Moran's I</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="fu">moran.test</span>(regions<span class="sc">$</span>value, listw)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Local Moran's I (LISA)</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>lisa <span class="ot">&lt;-</span> <span class="fu">localmoran</span>(regions<span class="sc">$</span>value, listw)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>regions<span class="sc">$</span>lisa_I <span class="ot">&lt;-</span> lisa[,<span class="dv">1</span>]</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>regions<span class="sc">$</span>lisa_p <span class="ot">&lt;-</span> lisa[,<span class="dv">5</span>]</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Map results</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(regions) <span class="sc">+</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> lisa_I)) <span class="sc">+</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">mid =</span> <span class="st">"white"</span>, <span class="at">high =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

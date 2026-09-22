@@ -6,11 +6,24 @@ date-format: medium
 
 ------------------------------------------------------------------------
 
-#### List of Homeworks
+# List of Homeworks
 
 ------------------------------------------------------------------------
 
-#### Homework 1: Once Upon a Stormy Evening (Due September 25, 11:59 pm)
+### Homework 1: Once Upon a Stormy Evening (Due September 25, 11:59 pm)
 
 - [*Part A: Descriptive statistics and Visualization*](./hw/hw1/hw1_partA.qmd){target="_blank"}
-- [*Part B: Descriptive mapping and spatial Statistics*](./hw/hw1/hw1_partB_revised.qmd){target="_blank"}
+  - [*Part B: Descriptive mapping and spatial Statistics*](./hw/hw1/hw1_partB_revised.qmd){target="_blank"}
+
+    - **Important Errata**: In your posit cloud Homework 1B, go to the folder Code and check the descriptive_geo_functions.R script. Then check for the following comments at the beginning.
+
+```{r}
+    # ------------------------
+    # NOTE: IF YOU SEE THIS LINE THEN THIS IS THE CORRECT FILE WITH THE CORRECT
+    # WEIGHTED STANDARD DEVIATIONAL ELLIPSE FUNCTION
+    # ----------------------------------------------------------
+```
+
+- If the script DOES NOT show the above comments at the start:
+- Download the [*correct file here*](./hw/hw1/code/descriptive_geo_functions.R){target="_blank"}, delete the old script, and upload the downloaded file in the Code folder.
+- If your original script already shows the comments, you dont need to do anything else.
