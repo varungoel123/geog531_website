@@ -7,13 +7,15 @@ date: 2026-09-22
 date-format: medium
 format:
   revealjs:
-    theme: [default]
+    theme: [default,../../assets/style.scss]
     slide-number: true
-    chalkboard: true
+    chalkboard:
+      buttons: false
+      preview-links: auto
     footer: "#6 Exploratory Spatial Analysis"
     incremental: false
     smaller: false
-    scrollable: false
+    scrollable: true
 ---
 
 ## Module Overview {.smaller}
