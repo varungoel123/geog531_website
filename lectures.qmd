@@ -32,3 +32,5 @@ date-format: medium
 #### Week 6: Exploratory Spatial Data Analysis
 
 - *Tuesday, Sept 22: Patterns Process, Nearest Neighbor Analysis* ([class lecture](./lectures/6_esda/esda.qmd){target="_blank"})
+
+- *Thursday, Sept 24: Quadrat Analysis* ([class lecture](./lectures/6_esda/esda_2.qmd){target="_blank"})
