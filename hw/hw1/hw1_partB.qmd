@@ -1,0 +1,244 @@
+---
+title: "Homework 1 Part B: Once Upon a Stormy Evening"
+author: "Varun Goel"
+description: |
+  Due Date: **September 25, Friday, 11:59 pm** \newline \newline
+  **(150 points + 20 bonus points)**
+execute:
+  warning: false
+  eval: false
+  echo: true
+date: "`r Sys.Date()`"
+format: 
+  html:
+    toc: true
+    toc-expand: 3
+editor: visual
+---
+
+# Introduction
+
+In part B here, you will use descriptive mapping and spatial statistics to further help understand that spatial distribution and differences in the the impact of extreme weather events in South Carolina.
+
+As you think about this part of your homework, [assume the following role]{.underline}:
+
+You are a GIS analyst advising the South Carolina Emergency Management Division. Severe weather patterns may have changed since 2015, and the agency wants evidence-based recommendations for where to prioritize preparedness and response resources in 2024. Your final task is to prepare a short spatial evidence brief for an emergency-planning meeting.
+
+# Instructions (Read first)
+
+- Go to `File –> Save as`, and save this as `hw1b_answers.qmd`. Then you can use that file for filling in all your answers.
+
+## 1 Load packages and data
+
+Wheneve you start an analysis, it is good practice to first install and load all your packages, and also import data that you may be using. We have already installed this packages in R Posit, but we will load them, and also import severe weather events data. Luckily for us, the **National Center for Environmental Information at NOAA** maintains a comprehensive database of severe weather events. You can read more about it here: <https://www.ncei.noaa.gov/stormevents/>
+
+Run the following code below.
+
+```{r}
+#| eval: true
+#load packages
+library(tidyverse)
+library(sf) # for spatial data
+library(plotly) # For interactive plotting
+library(tidycensus) # for reading US census data in R
+library(tigris)# For downloading and reading US geographic administrative boundaries in R
+options(tigris_use_cache = TRUE)
+
+### DONT TOUCH THIS NEXT LINE OF CODE ###
+census_api_key(key = "a0b70fd4d6380a164f8b90cef1e114f9a7ed6706", install = TRUE, overwrite = TRUE)
+# load SC severe weather events 2015 and 2024
+all_storms <- read_csv("data/all_storms.csv")
+
+```
+
+### 2.3 Examining Spatial Data
+
+Since we have locational information in our dataframe, we will convert the dataframe into a spatial object.
+
+Q.5 [Now convert the csv files to spatial data]{style="color: darkred;"} **\[5 points\]**
+
+```{r}
+all_storms_sf <- st_as_sf(all_storms, coords = c("BEGIN_LON","BEGIN_LAT"), crs = 4269) %>%
+  st_transform(crs = 32133) # Here we convert Geographic projection to a Lambert Conformal Conic Projection. This helps use deal with area level data better
+
+
+```
+
+### 2.4 Retrieving Spatial Data
+
+One great part about coding and the R ecosystem is that you can directly retrieve some spatial data without going through the hassle of downloading and storing it. It is beyond the scope of this class, but the census bureau has APIs (Application Programming Interface) that let you 'connect' to their data ecosystem and get all sorts of tabular and spatial data. The `tigris` and the `tidycensus` packages help read that data in R. Here we will retrieve SC county level geospatial data using that functionality. We can then use this data on our map to provide more context.
+
+```{r}
+## Import SC county file from the census api
+county_geo <- counties(state = "SC") %>%
+  st_transform(crs = 32133)
+```
+
+### 2.5 Mapping Spatial Distribution of extreme events
+
+Our first step towards spatially exploring our data is to map the distribution of extreme events. Using `ggplot()` we can make various kinds of maps. Here is a simple map
+
+```{r}
+map_allstorms <- ggplot() + # tell R that you are creating a graphic
+  geom_sf(data = county_geo) + # create a base layer of counties
+  geom_sf(data = all_storms_sf,# add the extreme event points
+          color = "red", # assign red color to each point
+          alpha = 0.2) + # for transparency
+  geom_sf_label(data = county_geo,aes(label = NAME), size = 2) + # add labels to counties
+  theme_minimal() +
+  coord_sf(datum = st_crs(county_geo)) # ensure map is in right coordinate system
+plot(map_allstorms)
+```
+
+In the first map, we assume that each extreme event is exactly the same. Is that a realistic assumption? In the next map, lets create a proportional symbol map where we adjust the 'size' of dots based on how much property damage an event did. We can also use colors to highlight events with more property damage vs less. There are lots of colors one can use, but nowadays cartographers are using color schemes called 'viridis' that are universally accepted.
+
+<https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html>
+
+```{r}
+all_storms_sf <- all_storms_sf %>%
+  filter(PROP_DAMAGE_USD > 0)
+
+
+prop_map <- ggplot() + 
+  geom_sf(data = county_geo) +
+  geom_sf(data = all_storms_sf,
+          aes(size = PROP_DAMAGE_USD, color = PROP_DAMAGE_USD),# size and color are based on property damage
+          alpha = 0.2) +
+  scale_color_viridis_c(option = "magma",
+                        direction = -1) + # there are several other color palettes, direction reverses the palette 
+  geom_sf_label(data = county_geo,aes(label = NAME), size = 2) +
+  theme_minimal() +
+  coord_sf(datum = st_crs(county_geo))
+plot(prop_map)
+```
+
+[Q.5 Describe in 1-2 sentences - What do you notice about the spatial distribution of severe weather events based on this map?]{style="color: darkred;"} **\[5 points\]**
+
+Notice how R automatically classified the sizes and colors. These are not always correct. We can also use algorithms to decide how to classify our size or colors. We can do this using the `classInt` library. For example, in the method used in the upcoming example, we use the 'natural breaks' (called 'jenks') classification method which divides the data based on natural classes. While we are not in a cartography class, below are a few good resources to under stand classification schemes, and mapping tips in general.
+
+<https://www.axismaps.com/guide/data-classification>
+
+<https://www.axismaps.com/guide>
+
+<https://workshop.palaeoverse.org/NAPC2024/materials/4_visualization/practical-spatial.html>
+
+```{r}
+library(classInt) # load library
+
+# Now we tell R how to 'cut up' or classify our data
+# We provide the data column, how many bins/classes we want, and the style of classification
+breaks_qt <- classIntervals(all_storms_sf$PROP_DAMAGE_USD, n = 5, style = "jenks",
+                            )
+
+# add the new cut values to dat15
+all_storms_sf <- all_storms_sf |>
+  mutate(damage_jenks5 = cut(PROP_DAMAGE_USD,breaks_qt$brks,
+                             include.lowest = T))
+
+propMap_jenks <- ggplot() + 
+  geom_sf(data = county_geo) +
+  geom_sf(data = all_storms_sf,
+          aes(size = damage_jenks5, color = damage_jenks5),
+          alpha = 0.5) +
+  scale_color_viridis_d(option = "rocket",
+                        direction = -1 ) +
+  geom_sf_label(data = county_geo,aes(label = NAME), size = 2) +
+  theme_minimal() +
+  coord_sf(datum = st_crs(county_geo)) +
+  ggtitle("SC Extreme Events") # add title
+plot(propMap_jenks)
+```
+
+Notice how the map looks now with the classification schemes. The `help()` function in R is very useful to get an idea for how you need to write your code and what inputs you may need. So for example if you want to know want to know more about the function `geom_sf()`, you could type `help(geom_sf)` or `?geom_sf`
+
+[Q.6 Now modifying the above code:]{style="color: darkred;"}
+
+1\) [create your own map to look at the distribution of severe weather events in SC in 2024]{style="color: darkred;"}. **\[5 points\]**
+
+2\) [in 1-2 sentences, describe how the spatial distribution of severe events is different 2024 compared 2015]{style="color: darkred;"} .**\[5 points\]**
+
+```{r}
+# Your code for Q6 1) here
+```
+
+One issue with plotting all events is that it might be misleading since different events have different geographies and magnitudes.
+
+[Q.7 Create 2 maps, 1 for 2015, and 1 for 2024 showing the spatial distribution of extreme events categorized by the TYPE of EVENT, and by Property Damage.]{style="color: darkred;"} **\[10 points\]**
+
+If you are curious about using different color schemes in R - here is a good resource.
+
+<https://datavizf24.classes.andrewheiss.com/resource/colors.html>
+
+```{r}
+# your code here
+#Hint: the code will be very similar to your previous map code. The main difference will be that you will need to assign a different variable (capturing event types) to the 'color =' argument.
+#additionally change alpha to 0.5 and change the viridis option "magma"
+
+
+```
+
+## 3 Descriptive Spatial Statistics and Visualizations
+
+While the maps are a good start, we can see that the story becomes complicated due to the large number of points on our map. Your task is to use descriptive spatial statistics and visualizations to answer the questions in this section.
+
+To help you, I have already created all the descriptive spatial statistic functions for you. To load those functions in R, run the following code
+
+```{r}
+source("code/descriptive_geo_functions.R")
+```
+
+You will notice your Environment window (top right window) now has 6 functions that are loaded:
+
+a\. `calc_mc()` - calculate mean center
+
+b\. `calc_wmc()` - weighted mean center
+
+c\. `calc_medc()` - median center
+
+d\. `calc_weighted_medc()` - weighted median center
+
+e\. `calc_weighted_sd()` - weighted standard distance
+
+f\. `calc_sde_sf()` - weighted standard deviational ellipse
+
+Below are 2 examples of calculating mean center and weighted mean center.
+
+```{r}
+mc <- calc_mc(all_storms_sf)
+wmc <- calc_wmc(all_storms_sf,all_storms_sf$DEATHS_DIRECT)
+
+```
+
+Using appropriate statistics to answer the following questions. Use code and maps as needed to demonstrate your answer. [**Then in 1-2 sentences interpret your results**]{.underline}. Note that I do not care how you organize your code, maps, answers as long as you demonstrate evidence of how you reached the answers. I also encourage you to use `ggplotly()` for interactive plotting tool
+
+[Q 8) How has the average geographic center for all severe weather events shifted in 2024, compared to 2025.]{style="color: darkred;"} **\[10 points\]**
+
+[Q 9) How has the average geographic center, accounting for the magnitude of property damage for all severe weather events shifted in 2024, compared to 2025.]{style="color: darkred;"}**\[10 points\]**
+
+[Q 10) Accounting for the magnitude of property damage, how are the average geographic centers different for the top 3 most frequently occuring event types in 2024.]{style="color: darkred;"}**\[10 points\]**
+
+[Q 11) How did the spatial distribution and mean centers of flash floods change between 2015 and 2024?]{style="color: darkred;"} **\[10 points\]**
+
+[Q 12) What is the difference between the mean center, distribution, and shape of thunderstorm winds between 2015 and 2024?]{style="color: darkred;"} **\[10 points\]**
+
+[Q 13) What is the difference between the mean center, distribution, and shape of flash floods and regular floods in 2015? Do you notice any differences in 2024?]{style="color: darkred;"} **\[10 points\]**
+
+[Q 14) Using data from 2024: Suppose you want to create a centralized disaster hub to respond to flash floods effectively. To do so you, you are looking to create a hub that minimizes the distance to all flash flooding events. Where would that hub be located?]{style="color: darkred;"} **\[10 points\]**
+
+[Q 15) Using the same data from 2024, you also want to ensure that you are able to make more trips efficiently to locations that may cause higher property damage. Where would that hub be located?]{style="color: darkred;"} **\[10 points\]**
+
+[Q 16) Would that hub been located differently in 2024, as compared 2015?]{style="color: darkred;"} **\[10 points\]**
+
+[Bonus Q **\[Worth upto 20 points\]**: In real life, a single centralized hub to respond to different types of disasters (flood vs hail vs tornado) may not be very efficient as each disaster has its own response specifics.]{style="color: darkred;"}
+
+[A better way would be to have a centralized hub for each disaster, and then one single master hub that helps assist each hub! How can you use the descriptive spatial statistics that you have learned to decide to where located these disaster specific hubs and a master hub!]{style="color: darkred;"}
+
+[Q 20) In 1-2 sentences each answer the following:]{style="color: darkred;"}
+
+- [What did you like about this assignment?]{style="color: darkred;"}
+
+- [What did you most struggle with while working on the assignment ?]{style="color: darkred;"}
+
+- 
+
+[Q 21) Make sure that your file renders into an html successfully. (You dont need to type an answer here).]{style="color: darkred;"} **\[ 10 points\]**

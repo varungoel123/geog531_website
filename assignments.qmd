@@ -27,3 +27,7 @@ date-format: medium
 - If the script DOES NOT show the above comments at the start:
 - Download the [*correct file here*](./hw/hw1/code/descriptive_geo_functions.R){target="_blank"}, delete the old script, and upload the downloaded file in the Code folder.
 - If your original script already shows the comments, you dont need to do anything else.
+
+### Final Project: Quantitative Geographic Showcase (Due December 8, 11:59 pm)
+
+- [*Quantitative Geographic Showcase Instructions*](./GEOG531_Quantitative_Geography_Showcase_Instructions.pdf){target="_blank"}

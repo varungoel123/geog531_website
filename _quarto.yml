@@ -17,8 +17,6 @@ website:
         href: readings.qmd
       - text: "Homeworks"
         href: assignments.qmd
-      - text: "Final Project"
-        href: FinalProject.qmd
     - text: "Resources"
       menu:
       - text: "Data Resources"
