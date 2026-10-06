@@ -30,4 +30,4 @@ date-format: medium
 
 ### Final Project: Quantitative Geographic Showcase (Due December 8, 11:59 pm)
 
-- [*Quantitative Geographic Showcase Instructions*](./GEOG531_Quantitative_Geography_Showcase_Instructions.pdf){target="_blank"}
+- [*Qunatitative Geographic Showcase*](./hw/GEOG531_Quantitative_Geography_Showcase_Instructions.pdf){target="_blank"}
