@@ -50,7 +50,7 @@ format:
 
 ![](assets/cs.png){fig-align="center"}
 
-- [High variability within]{.underline} Cluster [low variability within]{.underline} stratum
+- [High variability within]{.underline} Cluster [low variability across]{.underline} clusters
 
 ## Multistage cluster sampling
 
