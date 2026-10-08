@@ -28,6 +28,8 @@ date-format: medium
 - Download the [*correct file here*](./hw/hw1/code/descriptive_geo_functions.R){target="_blank"}, delete the old script, and upload the downloaded file in the Code folder.
 - If your original script already shows the comments, you dont need to do anything else.
 
+**Answer Keys:** [Part A,](./hw/hw1/hw1_answers.qmd){target="_blank"} [Part B](./hw/hw1/hw1_partB_answers.qmd){target="_blank"}
+
 ### Final Project: Quantitative Geographic Showcase (Due December 8, 11:59 pm)
 
 - [*Qunatitative Geographic Showcase*](./hw/GEOG531_Quantitative_Geography_Showcase_Instructions.pdf){target="_blank"}

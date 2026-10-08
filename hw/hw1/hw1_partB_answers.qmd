@@ -1,0 +1,877 @@
+---
+title: "Homework 1 Part B: Mapping the Storm"
+subtitle: "From descriptive statistics to spatial evidence"
+author: "Y-H, Cho"
+description: |
+  Due date: **September 25, Friday, 11:59 pm**  
+  **75 points + 20 optional bonus points**
+execute:
+  warning: false
+  message: false
+  echo: true
+date: "`r Sys.Date()`"
+format:
+  html:
+    toc: true
+    toc-expand: 3
+    code-fold: false
+editor: visual
+---
+
+# The assignment story
+
+In **Part A**, you cleaned and summarized South Carolina severe-weather data for 2015 and 2024. You examined which hazards were most common, how reported property damage was distributed, and whether the two years differed.
+
+In **Part B**, you will continue the same investigation by asking a new set of questions:
+
+- **Where** did severe-weather events occur?
+- How did their locations, spatial spread, and property damage differ between 2015 and 2024?
+- What can maps and descriptive spatial statistics reveal that the tables and graphs in Part A could not?
+- How could this evidence inform an emergency-planning decision?
+
+You are not starting a separate analysis. Part A tells you **what happened and how much**; Part B adds **where it happened and how the geography changed**.
+
+## Your role
+
+Assume that you are a GIS analyst advising the South Carolina Emergency Management Division. The agency wants to understand whether the geography of severe-weather hazards changed between 2015 and 2024 and where response resources might be most useful.
+
+Your final task is to turn your maps and spatial statistics into a short, evidence-based recommendation.
+
+# Instructions
+
+1.  Save a copy of this file as `hw1_partB_answers.qmd`.
+2.  Keep your code inside R code chunks and write your interpretations outside the code chunks.
+3.  Your code does not have to match the examples exactly. You may adjust colors, point sizes, transparency, labels, facets, themes, and other parameters.
+4.  The purpose is not to test whether you can memorize R syntax. The purpose is to help you become comfortable modifying code, evaluating maps, selecting spatial statistics, and interpreting results.
+5.  Render your completed file to HTML before submitting it.
+6.  The collaboration and generative-AI policies provided in Part A also apply to Part B.
+
+## Point distribution
+
+| Section                                 |                    Points |
+|-----------------------------------------|--------------------------:|
+| Connecting Parts A and B                |                         5 |
+| Mapping severe-weather events           |                        35 |
+| Applying descriptive spatial statistics |                        35 |
+| **Total**                               |                    **75** |
+| Optional challenge and feedback         | **Up to 20 bonus points** |
+
+# 1 Setup
+
+## 1.1 Load packages and data
+
+The file `all_storms.csv` contains the cleaned and combined 2015 and 2024 data used in Part A. We begin with this file so that Part B can focus on mapping and spatial reasoning rather than repeating the earlier data-cleaning work.
+
+```{r}
+library(tidyverse)
+library(sf) 
+library(tigris) # for loading shapefiles from the census
+library(classInt) # for creating classification categories
+library(scales) # for making changes to scales in graphics
+
+options(tigris_use_cache = TRUE)
+
+all_storms <- read_csv("data/all_storms.csv") |>
+  mutate(
+    YEAR = factor(YEAR),
+    EVENT_TYPE = factor(EVENT_TYPE)
+  )
+```
+
+## 1.2 Convert the event data to spatial data
+
+Each row contains a beginning longitude and latitude. The code below converts those coordinates into point geometries and transforms them to a projected coordinate reference system appropriate for analysis within South Carolina.
+
+```{r}
+all_storms_sf <- st_as_sf(
+  all_storms,
+  coords = c("BEGIN_LON", "BEGIN_LAT"),
+  crs = 4269, # Geographic coordinates (lat and lon)
+  remove = FALSE
+) |>
+  st_transform(crs = 32133) # converted to cartesian coordinates for 2d map (x and y)
+```
+
+## 1.3 Retrieve a South Carolina county layer
+
+```{r}
+county_geo <- counties(
+  state = "SC",
+  year = 2024,
+  cb = TRUE,
+  class = "sf"
+) |>
+  st_transform(crs = 32133)
+```
+
+::: callout-note
+The county layer provides geographic context. It is not the unit of analysis: each severe-weather record remains a point event.
+:::
+
+# 2 Connect Parts A and B
+
+## Question 1: Begin with a hypothesis \[5 points\]
+
+Before making a map, return to one result from Part A.
+
+1.  State one finding from Part A about event frequency or property damage.
+    - **Thunderstorm wind frequency decreased from 334 to 72. It is the biggest difference among the 7 events.**
+2.  Based on that finding, predict one spatial pattern you expect to observe in Part B.
+    - **There may be fewer spatial areas experiencing thunderstorm wind in 2024, compared to 2015.**
+3.  Explain briefly why a map is needed to evaluate your prediction.
+    - **data is not enough, we need to show 'where'**
+
+Write approximately 3–4 sentences.
+
+**Your response:**
+
+# 3 Mapping severe-weather events \[35 points\]
+
+## 3.1 Start with a basic event map
+
+The map below treats all events alike. Run it first, then use it as a starting point for Question 2.
+
+```{r}
+map_events_start <- ggplot() +
+  geom_sf(
+    data = county_geo,
+    fill = "grey95",
+    color = "white",
+    linewidth = 0.3
+  ) +
+  geom_sf(
+    data = all_storms_sf,
+    color = "darkred",
+    size = 0.8,
+    alpha = 0.25
+  ) +
+  theme_minimal() +
+  labs(
+    title = "Reported Severe-Weather Events in South Carolina",
+    subtitle = "2015 and 2024 combined"
+  ) +
+  theme(axis.title = element_blank())
+
+map_events_start
+```
+
+## Question 2: Make the basic map more informative \[10 points\]
+
+Create a map that compares the locations of **all reported events in 2015 and 2024**. You may use separate colors, facets, or another clear design.
+
+Your map must include:
+
+- a meaningful title and legend;
+- visible county boundaries;
+- a clear distinction between 2015 and 2024; and
+- at least **three aesthetic changes** to the starter map, such as color, size, transparency, background fill, labels, theme, or facet arrangement.
+
+```{r}
+# Starter structure: modify it rather than beginning from a blank page.
+
+map_events_year <- ggplot() +
+  geom_sf(
+    data = county_geo,
+    fill = "grey95",
+    color = "grey30",
+    linewidth = 0.25
+  ) +
+  geom_sf(
+    data = all_storms_sf,
+    aes(color = YEAR),
+    size = 0.8,
+    alpha = 0.30
+  ) +
+  scale_color_manual(
+    values = c("2015" = "#D55E00", "2024" = "#0072B2") 
+  ) +
+  facet_wrap(~YEAR) +
+  theme_void() +
+  labs(
+    title = "Storm Events by Year",
+    color = "Year"
+  ) +
+  theme(axis.title = element_blank(),
+        plot.title = element_text(face = "bold", size = 18, hjust = 0.5, margin = margin(t = 10, b = 25)),
+        strip.text = element_text(face = "bold", size = 16),
+        legend.position = "bottom",
+        legend.justification = "center",
+        legend.direction = "horizontal",
+        legend.title= element_text(face = "bold", size = 13),
+        legend.text = element_text(size = 12))
+
+map_events_year
+```
+
+In 2–3 sentences, describe one spatial similarity and one spatial difference between the two years. Also identify one aesthetic choice you made and explain how it improves the map.
+
+**Your interpretation: The distribution of storm events are quite sparse across the all counties, but we can find concentration in the middle part of South Carolina. The most noticeable difference is that storm events occurred in Barnwell, Allendale, and Hampton counties in 2015, while very few occurred in those counties in 2024. I tried to adjust dot colors which are more vivid for me, adjust the location of titles and legend, and erased the coordinate grid, which is not needed in my opinion.**
+
+## 3.2 Map property damage
+
+Property damage is highly right-skewed, as you observed in Part A. If raw dollar values control point size or color, a few exceptionally damaging events can visually dominate the map.
+
+The first map below uses the raw property-damage values.
+
+::: {.callout-note title="Optional resource" collapse="true"}
+There are lots of colors one can use, but nowadays cartographers are using color schemes called 'viridis' that are universally accepted. <https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html>
+:::
+
+```{r}
+storms_damage_sf <- all_storms_sf |>
+  filter(!is.na(PROP_DAMAGE_USD), PROP_DAMAGE_USD > 0)
+
+map_damage_raw <- ggplot() +
+  geom_sf(
+    data = county_geo,
+    fill = "grey95",
+    color = "white",
+    linewidth = 0.3
+  ) +
+  geom_sf(
+    data = storms_damage_sf,
+    aes(
+      size = PROP_DAMAGE_USD,
+      color = PROP_DAMAGE_USD
+    ),
+    alpha = 0.35
+  ) +
+  scale_size_continuous(
+    range = c(0.5, 6),
+    labels = label_dollar()
+  ) +
+  scale_color_viridis_c(
+    option = "magma",
+    direction = -1,
+    labels = label_dollar()
+  ) +
+  facet_wrap(~YEAR) +
+  theme_minimal() +
+  labs(
+    title = "Reported Property Damage from Severe Weather",
+    size = "Property damage",
+    color = "Property damage"
+  ) +
+  theme(axis.title = element_blank())
+
+map_damage_raw
+```
+
+## Question 3: Raw versus log-scaled damage maps \[15 points\]
+
+Create a second version of the property-damage map in which both the size and color scales use a base-10 logarithmic transformation. You do not need to create a new variable. Add the transformation within the appropriate `scale_*` functions.
+
+Hints:
+
+``` r
+scale_size_continuous(trans = "log10", ...)
+scale_color_viridis_c(trans = "log10", ...)
+```
+
+```{r}
+# Copy and modify map_damage_raw here.
+# Keep PROP_DAMAGE_USD mapped to size and color.
+map_damage_log <-ggplot() +
+  geom_sf(
+    data = county_geo,
+    fill = "grey95",
+    color = "white",
+    linewidth = 0.3
+  ) +
+  geom_sf(
+    data = storms_damage_sf,
+    aes(
+      size = PROP_DAMAGE_USD,
+      color = PROP_DAMAGE_USD
+    ),
+    alpha = 0.35
+  ) +
+  scale_size_continuous(
+    trans = "log10",
+    #range = c(0.5, 6),
+    labels = label_dollar()
+  ) +
+  scale_color_viridis_c(
+    trans = "log10", 
+    option = "magma",
+    direction = -1,
+    labels = label_dollar()
+  ) +
+  facet_wrap(~YEAR) +
+  theme_minimal() +
+  labs(
+    title = "Reported Property Damage from Severe Weather",
+    size = "Property damage",
+    color = "Property damage"
+  ) +
+  theme(axis.title = element_blank())
+
+map_damage_log
+```
+
+Answer the following in 3–5 sentences:
+
+1.  What becomes easier to see after applying the log transformation?
+    - In raw value map, it is difficult to notice the existence of small-damaged events. But if we look into log-transformed map, we can see the distribution of small-damaged/ midium-damaged events.
+2.  What information or visual emphasis is reduced by the transformation?
+    - All dots may feel similar giving the impression that there is no difference in the severity of the events. Differences become less stark
+3.  Which version would you use to explore the statewide spatial pattern, and which might you use to emphasize the most financially damaging events?
+    - raw value for pronounced damage, but log transformed for overall patterns
+4.  Why would `scale_x_log10()` be inappropriate for transforming property damage on this map?
+    - X value of this map is not property damage, it is x coordinate(longitude). What we want to see and change into log is the amount of the damage, not longitude.
+
+**Your interpretation:**
+
+## 3.3 Compare event types across years
+
+First, use the following table to see which event types occur frequently enough to compare.
+
+```{r}
+event_year_counts <- all_storms_sf |>
+  st_drop_geometry() |>
+  count(YEAR, EVENT_TYPE, sort = TRUE)
+
+event_year_counts
+```
+
+## Question 4: Design an event-type comparison \[10 points\]
+
+Choose **two event types** that occur in both years. Create a map that allows the reader to compare:
+
+- the spatial distribution of the two selected hazards;
+- differences between 2015 and 2024; and
+- the relative magnitude of property damage among events with positive reported damage.
+
+Use event type for color and property damage for point size. You may use a log-transformed size scale if it improves readability. Faceting by year is recommended.
+
+```{r}
+# Replace the event names with your two choices.
+selected_events <- c("Hail", "Flood")
+
+storms_selected_sf <- all_storms_sf |>
+  filter(
+    EVENT_TYPE %in% selected_events,
+    !is.na(PROP_DAMAGE_USD),
+    PROP_DAMAGE_USD > 0
+  )
+
+# Build your map here.
+map_event_types <- ggplot() +
+  geom_sf(
+    data = county_geo,
+    fill = "grey95",
+    color = "white",
+    linewidth = 0.3
+  ) +
+  geom_sf(
+    data = storms_selected_sf,
+    aes(
+      size = PROP_DAMAGE_USD,
+      color = EVENT_TYPE
+    ),
+    alpha = 0.5
+  ) +
+  facet_wrap(~YEAR) +
+  scale_size_continuous(
+    trans  = "log10",
+    range  = c(0.5, 6),
+    labels = label_dollar()
+  ) +
+  scale_color_manual(
+    values = c("Hail" = "#0072B2", "Flood" = "#D55E00")
+  ) +
+  theme_void() +
+  labs(
+    title = "Hail and Flood Events by Year",
+    size  = "Property damage",
+    color = "Event type"
+  ) +
+  guides(color = guide_legend(override.aes = list(alpha = 1, size = 3))) +
+  theme( plot.title = element_text(face = "bold", size = 18, hjust = 0.5,
+                                   margin = margin(t = 10, b = 20)),
+         strip.text = element_text(face = "bold", size = 16, margin = margin(b = 6))
+  )
+    
+map_event_types 
+  
+```
+
+In 3–4 sentences, explain how the geography and property damage of the two selected event types differ across the two years. Refer to specific regions or counties visible on your map.
+
+**Your interpretation: The most visible difference across the two years is flood events around Colleton county. In 2015, no flood happened Colleton county and its neighborhood, but in 2024, approximately 5 flood events, which caused more than \$10,000 damage, happened. Also, in 2015, hail was not recorded around Lexington and Columbia, but in 2024, small but quite many hail events happened in those counties and they show quite dense distribution. Moreover, it is quite visible that flood events are concentrated in North-West part(ex. Pickens, Greenville, Spartanburg) and South part(Charleston) of South Carolina in 2024. Finally, Flood events generally caused greater property damage than hail events.**
+
+# 4 Descriptive spatial statistics \[35 points\]
+
+Maps provide a visual description, but descriptive spatial statistics help summarize location, spread, direction, and shape. The functions below were developed for this course so that you can concentrate on selecting, mapping, and interpreting the statistics rather than programming the formulas from scratch.
+
+```{r}
+source("code/descriptive_geo_functions.R")
+```
+
+## Function menu
+
+| Function               | Spatial summary              |
+|------------------------|------------------------------|
+| `calc_mc()`            | Mean center                  |
+| `calc_wmc()`           | Weighted mean center         |
+| `calc_medc()`          | Median center                |
+| `calc_weighted_medc()` | Weighted median center       |
+| `calc_weighted_sd()`   | Weighted standard distance   |
+| `calc_sde_sf()`        | Standard deviational ellipse |
+
+Create separate spatial datasets for the two years:
+
+```{r}
+storms15_sf <- all_storms_sf |>
+  filter(YEAR == "2015")
+
+storms24_sf <- all_storms_sf |>
+  filter(YEAR == "2024")
+```
+
+## Question 5: How did the center of severe weather shift? \[10 points\]
+
+For each year, calculate:
+
+1.  the unweighted mean center of all severe-weather events; and
+2.  the property-damage-weighted mean center of events with positive (more than 0 USD) reported damage.
+
+Display all four centers on one county map using different shapes or colors. The starter code demonstrates the first calculations; adapt it to complete the analysis.
+
+```{r}
+mc15 <- calc_mc(storms15_sf)
+mc24 <- calc_mc(storms24_sf)
+
+storms15_damage_sf <- storms15_sf |>
+  filter(!is.na(PROP_DAMAGE_USD), PROP_DAMAGE_USD > 0)
+
+storms24_damage_sf <- storms24_sf |>
+  filter(!is.na(PROP_DAMAGE_USD), PROP_DAMAGE_USD > 0)
+
+wmc15 <- calc_wmc(
+  storms15_damage_sf,
+  storms15_damage_sf$PROP_DAMAGE_USD
+)
+
+wmc24 <- calc_wmc(
+  storms24_damage_sf,
+  storms24_damage_sf$PROP_DAMAGE_USD
+)
+```
+
+```{r}
+# Add year and center-type labels to the four result objects,
+# combine them, and display them on a county map.
+
+mc15_lab <- mc15 |>
+  mutate(
+    YEAR   = "2015",
+    CENTER = "Mean center"
+  )
+
+mc24_lab <- mc24 |>
+  mutate(
+    YEAR = "2024",
+    CENTER = "Mean center"
+  )
+
+wmc15_lab <- wmc15 |>
+  mutate(
+    YEAR   = "2015",
+    CENTER = "Weighted Mean center"
+  )
+
+wmc24_lab <- wmc24 |>
+  mutate(
+    YEAR   = "2024",
+    CENTER = "Weighted Mean center"
+  )
+
+centers_sf <- bind_rows(mc15_lab, mc24_lab, wmc15_lab, wmc24_lab)
+
+map_centers_sf <- ggplot() +
+  geom_sf(
+    data = county_geo,
+    fill = "grey95",
+    color = "white"
+  ) +
+  geom_sf(
+    data = centers_sf,
+    aes(
+      color = YEAR,
+      shape = CENTER
+    ),
+    size = 4
+  ) +
+  theme_void()
+
+
+map_centers_sf
+```
+
+In 3–4 sentences, answer:
+
+- How did the unweighted mean center shift between 2015 and 2024?
+  - **Unweighted mean center moved a little bit to the east, but still located in Richland county.**
+- How did weighting by property damage change the center in each year?
+  - **2015 weighted mean center is located in Clarendon county, quite center of the state, but it moved to North in 2024, located in the border of York and Chester county.**
+- What does the difference between the unweighted and weighted centers tell the emergency-management agency?
+  - **It shows events caused different amount of property damage. The difference of location of mean center and weighted mean center means that relatively small number of highly damaged events occurred in different locations from overall events. So when we make plans to prevent the event or respond to the event, we should consider not only how often the events occur, but also how much damage the events make, so that we can efficiently and quickly distribute our resources.**
+
+**Your interpretation:**
+
+## Question 6: Describe the geography of one hazard \[10 points\]
+
+Choose **one event type** that occurs often enough in both years. Use at least:
+
+- one measure of center; and
+- one measure of spatial spread or directional shape.
+
+Display the results for 2015 and 2024 on a map. You may use the mean center, median center, standard distance, standard deviational ellipse, or their weighted versions. Select statistics that help answer a clear question about your chosen hazard.
+
+Begin by stating your analytical question. For example:
+
+> Did the center, spread, or directional pattern of flash-flood events change between 2015 and 2024?
+
+```{r}
+chosen_event <- "Flood"
+
+event15_sf <- storms15_sf |>
+  filter(EVENT_TYPE == chosen_event)
+
+event24_sf <- storms24_sf |>
+  filter(EVENT_TYPE == chosen_event)
+
+# Calculate at least one measure of center and one measure of
+# spatial spread or directional shape for each year.
+event15_dmg <- event15_sf |> filter(!is.na(PROP_DAMAGE_USD), PROP_DAMAGE_USD > 0)
+event24_dmg <- event24_sf |> filter(!is.na(PROP_DAMAGE_USD), PROP_DAMAGE_USD > 0)
+
+flood_mc_15 <- calc_mc(event15_sf)
+flood_mc_24 <- calc_mc(event24_sf)
+
+flood_wmc_15 <- calc_wmc(event15_dmg, event15_dmg$PROP_DAMAGE_USD)
+flood_wmc_24 <- calc_wmc(event24_dmg, event24_dmg$PROP_DAMAGE_USD)
+
+flood_sde_15 <- calc_sde_sf(event15_dmg, event15_dmg$PROP_DAMAGE_USD)
+flood_sde_24 <- calc_sde_sf(event24_dmg, event24_dmg$PROP_DAMAGE_USD)
+
+
+```
+
+```{r}
+# Map the event points and your spatial-statistic results.
+# Distinguish the years clearly.
+
+flood_mc_15_lab <- flood_mc_15 |>
+  mutate(
+    YEAR = "2015",
+    CENTER = "Mean Center"
+  )
+flood_mc_24_lab <- flood_mc_24 |>
+  mutate(
+    YEAR = "2024",
+    CENTER = "Mean Center"
+  )
+flood_wmc_15_lab <- flood_wmc_15 |>
+  mutate(
+    YEAR = "2015",
+    CENTER = "Weighted Mean Center"
+  )
+flood_wmc_24_lab <- flood_wmc_24 |>
+  mutate(
+    YEAR = "2024",
+    CENTER = "Weighted Mean Center"
+  )
+
+flood_sde_15_lab <- flood_sde_15 |>
+  mutate(
+    YEAR = "2015",
+    CENTER = "Standard Deviational Ellipse"
+  )
+flood_sde_24_lab <- flood_sde_24 |>
+  mutate(
+    YEAR = "2024",
+    CENTER = "Standard Deviational Ellipse"
+  )
+
+
+flood_centers_sf <- bind_rows(flood_mc_15_lab, flood_mc_24_lab, flood_wmc_15_lab, flood_wmc_24_lab)
+flood_sde_sf <- bind_rows(flood_sde_15_lab, flood_sde_24_lab)
+
+flood_map_sf <- ggplot() +
+  geom_sf(
+    data = county_geo,
+    fill = "grey95",
+    color = "white"
+  )+
+   geom_sf(
+    data = flood_sde_sf,
+    aes(
+      color = YEAR
+    ),
+    fill = NA,
+    linewidth = 0.8
+  ) +
+  geom_sf(
+    data = flood_centers_sf,
+    aes(
+      color = YEAR,
+      shape = CENTER
+    ),
+    size = 3
+  )+
+  theme_void()
+    
+    
+flood_map_sf
+
+```
+
+In 3–5 sentences:
+
+1.  interpret the center and spread/shape statistics;
+2.  explain what changed or remained similar between the years; and
+3.  identify one feature visible in the map that is not fully captured by the statistics.
+
+**Your interpretation:**
+
+- **Question: Did the center and spatial spread of flood events change between 2015 and 2024 in South Carolina?**
+
+- In 2015, the mean center is located in quite center of the state, but the weighted mean center is located quite eastern part. That implies in 2015, more severe floods were concentrated in eastern part, regardless of the total number of floods. And small SDE also supports the interpretation.
+
+- In 2024, both the mean center and weighted mean center are located in western part of the state. But the weighted mean center is located more north-western part, which means that property damage were severe in north-western states. Also we can see the 2024 SDE shows huge variation, which means that floods with bigger damage were more widely across the western part of the state.
+
+- But when we compare to the map that I created through question 4, 2024 flood events formed two distinct clusters in the northern and southern parts of the state. I think the 2024 SDE can not show the gap between the clusters, making the events appear continuously distributed along the western side of the state.
+
+## Question 7: Emergency-response hub recommendation \[15 points\]
+
+The agency wants to consider a centralized response hub for **flash-flood events**.
+
+Prepare a short spatial evidence brief that addresses the following:
+
+1.  Where would you place a 2024 hub if the objective were to minimize overall distance to reported flash-flood events?
+2.  Would the recommended location change if events with greater property damage received more weight?
+3.  How do the 2024 recommendations compare with 2015?
+4.  Which center statistic is most appropriate for each objective, and why?
+
+Your submission must include:
+
+- one map displaying the relevant event locations and candidate hubs;
+- the spatial statistics used to generate the recommendations; and
+- a **150–200 word recommendation** written for an emergency-management audience.
+
+```{r}
+flash_floods_sf <- all_storms_sf |>
+  filter(EVENT_TYPE == "Flash Flood")
+
+flash_floods_15_sf <- flash_floods_sf |>
+  filter(YEAR == 2015)
+
+flash_floods_24_sf <- flash_floods_sf |>
+  filter(YEAR == 2024)
+# MedC
+flash_medc_15 <- calc_medc(flash_floods_15_sf)
+flash_medc_24 <- calc_medc(flash_floods_24_sf)
+
+# WMedC
+flash_damage_15 <- flash_floods_15_sf |>
+  filter(!is.na(PROP_DAMAGE_USD), PROP_DAMAGE_USD>0)
+flash_damage_24 <- flash_floods_24_sf |>
+  filter(!is.na(PROP_DAMAGE_USD), PROP_DAMAGE_USD>0)
+#another package...
+library(DescTools)
+flash_wmedc_15 <- calc_weighted_medc(
+  flash_damage_15,
+  flash_damage_15$PROP_DAMAGE_USD
+)
+flash_wmedc_24 <- calc_weighted_medc(
+  flash_damage_24,
+  flash_damage_24$PROP_DAMAGE_USD
+)
+#mutate
+flash_medc_15_lab <- flash_medc_15 |>
+  mutate(
+    YEAR = "2015",
+    CENTER = "Median Center"
+  )
+
+flash_medc_24_lab <- flash_medc_24 |>
+  mutate(
+    YEAR = "2024",
+    CENTER = "Median Center"
+  )
+flash_wmedc_15_lab <- flash_wmedc_15 |>
+  mutate(
+    YEAR = "2015",
+    CENTER = "Damage-Weighted Median Center"
+  )
+flash_wmedc_24_lab <- flash_wmedc_24 |>
+  mutate(
+    YEAR = "2024",
+    CENTER = "Damage-Weighted Median Center"
+  )
+#bind
+flash_centers_sf <- bind_rows(flash_medc_15_lab, flash_medc_24_lab, flash_wmedc_15_lab, flash_wmedc_24_lab)
+
+# Separate the years, calculate the relevant center statistics,
+# and build the decision map.
+# another packages...
+#library(ggnewscale)
+# YOUR CODE
+
+map_flash_floods <- ggplot()+
+  geom_sf(
+    data = county_geo,
+         fill = "grey95",
+         color = "white"
+  )+
+  geom_sf(
+    data = flash_floods_sf,
+    aes(
+      color = YEAR,
+    ),
+  )+
+  scale_color_manual(values = c("2015" = "#F28E8E", "2024" = "#4FBDBD"),
+                     name = "Year") +
+  geom_sf(
+    data = flash_centers_sf,
+    aes(
+      color = YEAR,
+      shape = CENTER
+    ),
+    size = 4
+  )+
+  scale_shape_manual(values = c("Median Center" = 17, "Damage-Weighted Median Center"= 16))+
+  scale_color_manual(values = c("2015" = "#8B0000", "2024" = "#00008B"),
+                     name = "Center Year") +
+  theme_void()
+    
+map_flash_floods
+```
+
+```{r}
+# calculate coordinate
+list(
+  medc_2015  = flash_medc_15,
+  medc_2024  = flash_medc_24,
+  wmedc_2015 = flash_wmedc_15,
+  wmedc_2024 = flash_wmedc_24
+) |>
+  purrr::map(sf::st_coordinates) |>
+  purrr::map(as.data.frame) |>
+  dplyr::bind_rows(.id = "statistic")
+```
+
+**Spatial evidence brief:**
+
+- For 2024, I recommend locating the flash-flood response hub in median center, blue triangle, if we treat all events equally. It minimizes the overall distance to all reported flash-flood events, providing balanced statewide response access. If events with bigger property damage should be weighted, the recommended location will move to north-western part of South Carolina, near Greenville and Pickens county, blue circle. This is because heavily-damaged flash-flood events happened more in the northwest.
+
+- In 2015, the median center and damage-weighted median center were both located near the central part of the state and quite close to each other. Considering both year and weight, I would recommend to locate the flash-flood response hub around the place where Richland, Sumter, Calhoun, and Clarendon meets.
+
+# 5 Optional challenge \[up to 10 bonus points\]
+
+A single hub may be unrealistic because floods, hail, tornadoes, and thunderstorm winds require different equipment and may have different spatial patterns.
+
+Design a **multi-hub strategy** using descriptive spatial statistics:
+
+1.  Select at least three hazard types.
+2.  Recommend one hazard-specific hub for each selected type.
+3.  Recommend a master coordination hub serving the hazard-specific hubs.
+4.  Display the system on a map.
+5.  In no more than 200 words, explain your choice of statistics, identify one important limitation of this approach, and name one additional dataset that would improve the real-world decision.
+
+The bonus is intentionally open-ended. There is no single correct answer; credit will be based on the logic, transparency, and spatial evidence supporting your design.
+
+Answer: Think about median vs mean center for each hub. A master hub could be the mean/median center for those centers!
+
+```{r}
+# OPTIONAL BONUS CODE
+```
+
+**Bonus explanation:**
+
+# 6 Optional Assignment Feedback \[up to 10 bonus points\]
+
+This optional prompt asks you to provide specific, evidence-based feedback that can improve this assignment for future students. Credit is based on the quality and usefulness of your analysis, and not on whether your feedback is positive (or negative)
+
+Your response must refer to specific question numbers, code, outputs, instructions, or experiences from your completed assignment. General comments such as “I liked the assignment,” “the coding was difficult,” or “the instructions should be clearer” will receive little or no credit unless supported with specific evidence.
+
+The generative-AI disclosure policy applies to this bonus. AI may help organize your writing, but the response must be grounded in your own submitted work and actual experience. Feedback that does not contain verifiable references to your questions, code, outputs, or troubleshooting process will not receive substantial credit.
+
+### A. Evidence of learning \[3 points\]
+
+Identify one map, statistic, or interpretation from Part B that changed or improved your understanding of the severe-weather data.
+
+Include:
+
+- the relevant question number;
+
+- what you understood before completing that question;
+
+- what you understood afterward; and
+
+- the specific output or result that led to that change.
+
+### B. Analysis of one difficulty \[3 points\]
+
+Describe one substantive difficulty you encountered.
+
+Include:
+
+- the exact question or code step;
+
+- what you expected to happen;
+
+- what actually happened;
+
+- how you resolved it, or what prevented you from resolving it; and one change to the instructions or scaffolding that would help without giving away the answer.
+
+If the difficulty involved code, include the relevant error message or a short code excerpt.
+
+### C. Assignment revision \[3 points\]
+
+Identify one specific part of the assignment that should be retained, revised, removed, or replaced.
+
+Your recommendation must:
+
+- identify the exact section or question;
+
+- explain how it affected your learning;
+
+- propose concrete changes such as instructions or question design; and explain why your proposed revision would improve the assignment.
+
+### D. Workload estimate \[1 point\]
+
+Estimate how much time you spent on:
+
+1.  mapping;
+
+2.  descriptive spatial statistics;
+
+3.  interpretation and writing; and
+
+4.  troubleshooting.
+
+Identify any section whose workload seemed disproportionate to its point value.
+
+### Scoring criteria
+
+| Score | Standard |
+|------------------------------------|------------------------------------|
+| 9–10 | Specific, reflective, evidence-based, and directly actionable |
+| 7–8 | Substantive and specific, but one component lacks evidence or detail |
+| 4–6 | Some useful feedback, but primarily descriptive or only partly actionable |
+| 1–3 | Mostly general opinions with little reference to the student’s work |
+| 0 | Missing, generic, or unrelated response |
+
+# 7 Final submission check
+
+Before submitting, confirm that:
+
+- your `.qmd` file renders successfully to HTML;
+- every map has a clear title and readable legend;
+- every mapped statistic is interpreted in words;
+- your answers connect back to findings from Part A where relevant;
+- you have included any required collaboration or generative-AI disclosure; and
+- both the `.qmd` and rendered `.html` files are submitted to your posit assignment along with AI prompts document.
