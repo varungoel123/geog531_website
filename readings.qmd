@@ -78,3 +78,15 @@ date-format: medium
 #### **Week 6: Exploratory Spatial Analysis**
 
 - [Point and Area Pattern Analysis](readings/point_area_patternAnalysis_Lembo.pdf){target="_blank"}
+
+#### **Week 7: Midterm Exam**
+
+#### **Week 8: Foundations of Inference/ Hypothesis Testing**
+
+[***Required:***]{.underline}
+
+- [Foundations of Inference Chapters 11 to 15](https://openintro-ims.netlify.app/foundations-of-inference){target="_blank"}
+
+<!-- -->
+
+- [Lesson on Foundations of Inference](https://openintrostat.github.io/ims-tutorials/04-foundations/){target="_blank"}

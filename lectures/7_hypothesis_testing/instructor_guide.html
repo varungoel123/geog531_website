@@ -1,0 +1,235 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Instructor guide</title><style>body{font:17px/1.55 Arial,sans-serif;color:#233742;max-width:1000px;margin:40px auto;padding:0 28px}h1,h2,h3{color:#06796f}table{border-collapse:collapse;width:100%}td,th{border:1px solid #aaa;padding:8px}pre{background:#f2f6f5;padding:18px;overflow:auto;font-size:14px}a{color:#06796f}@media print{body{font-size:11pt;margin:0;padding:0}.page{break-after:page}.no-print{display:none}}</style></head><body><h1 id="instructor-guide">Instructor guide</h1>
+<p>This pack is designed for an approximately 70-minute introductory
+lecture. All examples are fictional. Students need R with tidyverse and
+infer installed. Nothing needs printing. Assign each student a different
+seat number, 1 through class size, and have them replace the setup value
+before running the lab. Each student generates one sample, one shuffle,
+and one bootstrap resample, and contributes one statistic to the board
+at each stage. For a large class, use a few designated students to place
+dots after everyone records a result, or collect results
+electronically.</p>
+<h2 id="running-the-lesson">Running the lesson</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Minutes</th>
+<th>Activity</th>
+<th>Whiteboard</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0–7</td>
+<td>Purpose of inference and sources of randomness</td>
+<td>Population/sample versus fixed experimental plots/assignment</td>
+</tr>
+<tr class="even">
+<td>7–15</td>
+<td>Commute lottery: each person generates five draws with
+replacement</td>
+<td>One dot per sample mean, reference at 17.5 minutes</td>
+</tr>
+<tr class="odd">
+<td>15–25</td>
+<td>Shade experiment, hypotheses, observed difference</td>
+<td>D = shade minus sun = −4°C; keep visible</td>
+</tr>
+<tr class="even">
+<td>25–40</td>
+<td>Everyone runs one shuffle; combine dots; define and compute
+p-value</td>
+<td>New axis for randomized D; lines at −4, 0, +4</td>
+</tr>
+<tr class="odd">
+<td>40–49</td>
+<td>Survey estimate; everyone runs one bootstrap resample</td>
+<td>Separate axis for bootstrap mean, reference at 25 minutes</td>
+</tr>
+<tr class="even">
+<td>49–63</td>
+<td>Percentile interval, repeated-sampling coverage, interpretation</td>
+<td>Lower and upper percentiles; interval sketches crossing a fixed
+mean</td>
+</tr>
+<tr class="odd">
+<td>63–70</td>
+<td>Compare methods, geographic scope, exit ticket</td>
+<td>Name the generating process under each dotplot</td>
+</tr>
+</tbody>
+</table>
+<p>For 50 minutes, use only the one-simulation blocks, show the prepared
+figures for bulk results, and assign the worksheet and optional coverage
+investigation after class. For a longer class, let students run all code
+and discuss the prediction questions. Notes on every slide give
+facilitation prompts and correct interpretations.</p>
+<h2 id="keeping-the-class-engaged-without-cards">Keeping the class
+engaged without cards</h2>
+<ol type="1">
+<li>Assign distinct seat numbers. Students record their number, and use
+<code>student_seed &lt;- 1000 + seat_number</code>. The lab uses a
+separate reproducible seed for each activity.</li>
+<li>Ask for a prediction before each single-simulation block. Students
+inspect the five lottery draws, the twenty shuffled temperatures, or the
+eight bootstrap draws before calculating a statistic.</li>
+<li>Each student reports ONE number to the whiteboard. Keep three
+separate labelled axes. Talk about the class distribution before
+students generate thousands of replicates.</li>
+<li>For a second round, use the supplied three-replicate blocks rather
+than repeatedly resetting the same seed. Re-running a block from its
+same seed intentionally reproduces the same results.</li>
+<li>Ask a student with an unusually high or low statistic to explain how
+their simulated dataset produced it. A shared statistic from different
+students is normal and does not mean their code failed.</li>
+<li>Finish with 10,000 simulations. Compare the smooth computer
+distribution with the rough whiteboard dots. Emphasize that simulation
+count changes Monte Carlo precision, while sample size changes
+information.</li>
+</ol>
+<p><strong>Suggested pause points:</strong> stop after
+<code>my_sample</code> and its mean, after <code>one_shuffle</code> and
+its mean difference, and after <code>one_bootstrap</code> and its mean.
+Each has a comment saying to report the statistic. Avoid sourcing the
+whole script during the first activity. The instructor can demonstrate
+the first block, but students run the single-simulation blocks
+themselves.</p>
+<h2 id="opening-language">Opening language</h2>
+<p>“Geographers often want to understand a city, a population, or a
+process, but we observe only part of it. A sample gives an answer.
+Inference asks how much that answer might vary, and what conclusions the
+study design supports. Today we will use R to simulate the reference
+distributions that turn an observed number into an interpretable
+result.”</p>
+<h2 id="benchmarks-and-expected-discussion">Benchmarks and expected
+discussion</h2>
+<ul>
+<li>Lottery population mean: 17.5 minutes. Its individual-observation SD
+is about 8.539 minutes. Theoretical SE at n = 5 is 3.819; at n = 20 it
+is 1.909. More observations reduce sample-mean variability under
+independence.</li>
+<li>Shade mean: 33.6°C. Sun mean: 37.6°C. Observed difference: −4°C.
+Complete random assignment has 184,756 possible allocations. Exact
+two-sided randomization p = 0.024822. At a preselected .05 threshold
+this rejects the sharp no-effect null. Report the observed difference as
+well as the evidence. Random assignment supports the causal comparison
+for these experimental units under the design assumptions, not automatic
+statewide generalization.</li>
+<li>A simulated p-value from 10,000 <code>infer</code> permutations
+should be near the exact value. <code>infer</code> doubles a tail for a
+two-sided p-value; direct absolute-tail counting may differ slightly in
+a finite simulation. Both target the same exact p here because this
+balanced design has a symmetric randomization distribution. Avoid
+changing tails after looking at the result.</li>
+<li>Survey sample mean: 25 minutes. The independent Python illustration,
+with 50,000 resamples, gives an approximate percentile interval of
+17.500–33.750 minutes. R’s seeded 10,000-resample output may differ
+slightly. This is an intentionally tiny, skewed teaching sample.
+Percentile-bootstrap coverage need not equal 95% here. A large resample
+count does not solve the information limits of n = 8.</li>
+<li>The coverage figure uses a known-SD interval with new normal
+samples, specifically to illustrate the repeated-sampling definition
+without claiming that the eight-person bootstrap is exactly calibrated.
+The optional R coverage function uses genuinely new normal samples and
+bootstrap intervals, so its coverage is approximate and random.</li>
+</ul>
+<h2 id="common-answers-and-misconceptions">Common answers and
+misconceptions</h2>
+<ol type="1">
+<li>One dot: a mean of five independent lottery draws; a mean difference
+under a possible null assignment; or a mean from an eight-row bootstrap
+resample. These represent different processes.</li>
+<li>Randomization without replacement: every observed plot outcome
+appears once, and both experimental groups retain n = 10. Bootstrap with
+replacement: repeated respondent rows allow resample composition to vary
+while preserving n = 8. Drawing all eight without replacement always
+returns mean 25.</li>
+<li>Correct p-value language: assuming no shade effect on any plot and
+the assignment model holds, the probability of a randomized mean
+difference at least 4°C from zero in either direction is about 0.025.
+This is not P(null is true) or the probability that the study’s
+conclusion is wrong.</li>
+<li>Correct confidence language: the interval estimates the city
+population mean. Its confidence level refers to the approximate coverage
+of the procedure over repeated original samples. It is not a range
+containing 95% of people and does not assign a frequentist probability
+to the fixed parameter after the interval is computed.</li>
+<li>Raising confidence from 90% to 99% widens the interval for the same
+bootstrap distribution. Raising resample count reduces Monte Carlo
+instability. Raising original sample size generally reduces SE under
+independent sampling, but cannot by itself repair bias.</li>
+<li>A p-value above .05 is insufficient evidence against the null at
+that threshold, not proof of no effect. A statistically significant
+difference need not be practically important. A small p-value does not
+establish good measurement, independence, or broad
+generalizability.</li>
+<li>Convenience samples and clustered/spatially correlated units require
+design-aware inference. Mention cluster or spatial block resampling as
+future material. Keep today’s simple iid survey and completely
+randomized experiment assumptions explicit.</li>
+</ol>
+<h2 id="files-and-use">Files and use</h2>
+<ul>
+<li><code>foundations_inference_slides.qmd</code>: editable Quarto
+revealjs source, 32 slides, notes, and embedded figures. All code chunks
+intentionally display without executing. Render with
+<code>quarto render foundations_inference_slides.qmd</code>. Quarto and
+R are not needed to open the supplied offline HTML presentation.</li>
+<li><code>foundations_inference_slides.html</code>: offline presentation
+from the same content. Arrow keys or space advance; N toggles notes; F
+requests full screen. Click the slide counter to jump. Print gives all
+slides.</li>
+<li><code>student_inference.R</code>: runnable script using only
+tidyverse, infer, and base R. Run from the top in a fresh session.
+Optional functions do not run automatically.</li>
+<li><code>student_inference_worksheet.qmd</code>: executable student
+worksheet with the same workflows and prediction/interpretation
+questions. Render with
+<code>quarto render student_inference_worksheet.qmd</code> after
+installing packages.</li>
+</ul>
+<h2 id="validation-and-limits">Validation and limits</h2>
+<p>Arithmetic, exact randomization probability, bootstrap illustration,
+and sampling distributions were independently checked in Python. The
+HTML companion was built from the Quarto source through Pandoc with an
+offline presentation wrapper. This environment does not include R or
+Quarto, so the R code and native Quarto rendering have not been executed
+here. Function signatures and workflows were checked against official
+infer documentation. Run the R script once on your teaching computer
+before class. The source contains all figures inline and requires no
+external datasets or images.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a
+href="https://openintro-ims.netlify.app/foundations-of-inference">OpenIntro
+IMS: Foundations of inference</a></li>
+<li><a
+href="https://openintro-ims.netlify.app/foundations-randomization">Chapter
+11: Hypothesis testing with randomization</a></li>
+<li><a
+href="https://openintro-ims.netlify.app/foundations-bootstrapping">Chapter
+12: Confidence intervals with bootstrapping</a></li>
+<li><a
+href="https://openintro-ims.netlify.app/foundations-errors">Chapter 14:
+Decision errors</a></li>
+<li><a
+href="https://openintro-ims.netlify.app/foundations-applications">Chapter
+15: Foundations applications and interactive tutorials</a></li>
+<li><a
+href="https://infer.tidymodels.org/reference/generate.html">infer:
+generate</a></li>
+<li><a
+href="https://infer.tidymodels.org/reference/get_p_value.html">infer:
+get_p_value</a></li>
+<li><a
+href="https://infer.tidymodels.org/reference/get_confidence_interval.html">infer:
+get_confidence_interval</a></li>
+<li><a
+href="https://infer.tidymodels.org/reference/rep_sample_n.html">infer:
+repeated sampling</a></li>
+</ul>
+</body></html>

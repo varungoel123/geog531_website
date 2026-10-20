@@ -20,6 +20,11 @@ date-format: medium
 #### Week 3: Sampling and Study Design
 
 - *Tuesday, Thursday, Sep 1,3: Sampling and Study Design* ( [class lecture](./lectures/3_samplingAndDesign/3a_sampling_study_design.qmd){target="_blank"})
+- Case Studies
+  - ([Heat Adaptation](./lectures/3_samplingAndDesign/assets/climHealth.docx){target="_blank"}) ([Answer Key](./lectures/3_samplingAndDesign/assets/Q1_HeatAdaptation_ANSWERS-2.docx){target="_blank"})
+  - ([Environmental Pollution](./lectures/3_samplingAndDesign/assets/EnvHealth.docx){target="_blank"}) ([Answer Key](./lectures/3_samplingAndDesign/assets/Q4_EnvironmentalPollution_ANSWERS-2.docx){target="_blank"})
+  - ([Transportation and accessibility](./lectures/3_samplingAndDesign/assets/TransportationAccessibility.docx){target="_blank"}) ([Answer Key](./lectures/3_samplingAndDesign/assets/Q6_Transportation_ANSWERS.docx){target="_blank"})
+  - ([Energy Burden](./lectures/3_samplingAndDesign/assets/Energyaccess.docx){target="_blank"}) ([Answer Key](./lectures/3_samplingAndDesign/assets/Q5_EnergyBurden_ANSWERS.docx){target="_blank"})
 
 #### Week 4: Descriptive Statistics and Data Visualization
 
@@ -38,3 +43,8 @@ date-format: medium
 #### Week 7: Exploratory Spatial Data Analysis
 
 - *Tuesday/Thursday, Sept 29,Oct 1: Area Pattern Analysis* ([class lecture](./lectures/6_esda/esda_3.qmd){target="_blank"})
+
+
+#### Week 8: Foundations of Inference / Hypothesis Testing
+
+- *Tuesday, Oct 20: Foundations of Inference* ([class lecture](./lectures/7_hypothesis_testing/foundations_inference_slides.qmd){target="_blank"})
