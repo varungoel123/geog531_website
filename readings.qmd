@@ -86,7 +86,17 @@ date-format: medium
 [***Required:***]{.underline}
 
 - [Foundations of Inference Chapters 11 to 15](https://openintro-ims.netlify.app/foundations-of-inference){target="_blank"}
-
-<!-- -->
-
 - [Lesson on Foundations of Inference](https://openintrostat.github.io/ims-tutorials/04-foundations/){target="_blank"}
+
+#### **Week 9 (Oct 27) : Correlation vs Causation**
+
+[***Required:***]{.underline}
+
+- [Causality and Causal Diagrams (Chapter 6 and 7)](https://theeffectbook.net/ch-CausalDiagrams.html)
+- [Lesson on Foundations of Inference](https://openintrostat.github.io/ims-tutorials/04-foundations/){target="_blank"}
+
+[***Recommended:***]{.underline}
+
+- [A deeper explanation of correlation vs causation for most real world data](https://journals.sagepub.com/doi/10.1177/2515245917745629)
+
+- [How to distinguish causation and correlation in causal diagrams](https://pmc.ncbi.nlm.nih.gov/articles/PMC12674023/)
