@@ -33,3 +33,7 @@ date-format: medium
 ### Final Project: Quantitative Geographic Showcase (Due December 8, 11:59 pm)
 
 - [*Qunatitative Geographic Showcase*](./hw/GEOG531_Quantitative_Geography_Showcase_Instructions.pdf){target="_blank"}
+
+### Homework 2: Developing your research question using DAGs (Due November 11, 11:59 pm)
+
+- [*Download HW2 Here*](./hw/hw2/GEOG531_HW2.pdf){target="_blank"}

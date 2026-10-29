@@ -1,0 +1,751 @@
+---
+title: "Homework 2: Is There a Pattern in the Storm?"
+subtitle: "GEOG 531 · Exploratory Spatial Analysis · Fall 2026"
+author: "Your name"
+date: "November 4, 2026"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    embed-resources: true
+    code-fold: false
+execute:
+  eval: false
+  echo: true
+  warning: true
+  message: false
+editor: source
+---
+
+::: callout-important
+**150 points · 15% of the course grade**\
+**Due Wednesday, November 4, 2026, at 11:59 p.m. Eastern Time.**
+
+Submit your completed `.qmd`, rendered HTML, and AI-use log if applicable. Keep input data in your class Posit project so your analysis can be reproduced. Your written interpretation is as important as running the code.
+:::
+
+# The investigation
+
+In Homework 1, you described severe-weather reports in South Carolina. Now you will investigate whether their locations and county summaries show spatial patterns, how the answer changes with the question and scale, and what those patterns can—and cannot—tell us about geographic processes.
+
+The instructor will provide `data/all_storms.gpkg`, containing geocoded reports from 2015 and 2024. Each row represents a **reported event location**, not necessarily a distinct weather system, storm footprint, affected person, or complete inventory of physical hazards. A single weather system can generate many reports. Beginning-point locations do not describe the full geographic extent of flooding or wind damage.
+
+You will work through a 2015 example and adapt it to 2024. Use all event types for the main analysis. Mixing hazards gives a useful overview but combines processes with different geographies; you will explicitly consider that limitation.
+
+## Learning goals
+
+- Run and interpret quadrat and nearest-neighbor analyses with a defensible observation window.
+- Examine property damage as a **mark attached to a point**, distinguishing damage patterns from event-location patterns.
+- Aggregate points to polygons while retaining zero-event counties and checking joins.
+- Use join counts, global Moran's I, and local Moran's I to investigate county patterns.
+- Distinguish spatially varying intensity or expected values (first-order structure) from dependence beyond those expectations (second-order structure).
+- Develop a feasible Showcase question, obtain data, and produce an initial exploratory result.
+
+## How to use this document
+
+1.  Save a copy as `lastname_hw2.qmd`. Place the GeoPackage in a `data` folder beside it.
+2.  Code is **displayed but not executed** because the YAML header contains `eval: false`. Run worked chunks interactively while learning. Add `#| eval: true` to each completed chunk, or change the document header to `eval: true` after completing all required work. Student chunks contain comments rather than deliberately broken code.
+3.  Write responses **outside** code chunks. Replace each response placeholder with your answer. Keep relevant figures and output visible.
+4.  Before submitting, restart R and render from a clean session. All required analysis chunks must execute in the submitted report. Optional extensions may remain unevaluated and should be clearly labeled.
+5.  Use 999 simulations/permutations for final core tests. You may temporarily use 99 while debugging; restore 999 for submission. Set seeds as shown. Report small simulated p-values as approximately the simulation resolution, never as proof that the probability is zero.
+6.  Cite external code, readings, and data. You may discuss approaches with classmates, but submit your own code adaptations and interpretations and name collaborators.
+7.  You may use AI for coding assistance. Submit `ai_prompts.docx` recording the question number, exact prompt, and unchanged response for **every** use, consistent with Homework 1. Check the code and explain your results in your own words. If you did not use AI, state that. You are responsible for understanding any submitted code.
+
+## Points and pacing
+
+| Part | Focus | Points | Suggested checkpoint |
+|:---|:---|---:|:---|
+| A | Audit, map, and predictions | 15 | Days 1–3 |
+| B | Quadrat and nearest-neighbor analysis | 30 | Days 4–7 |
+| C | Property damage as a point mark | 15 | Days 7–9 |
+| D | From event points to county data | 20 | Days 9–11 |
+| E | Join counts, Moran's I, and LISA | 40 | Days 11–14 |
+| F | Showcase development | 25 | Begin early; finish by Day 16 |
+| G | Reproducibility and communication | 5 | Before submission |
+| **Total** |  | **150** |  |
+
+Allow approximately 12–16 hours, including interpretation and finding Showcase data; seek help early if setup takes more than an hour.
+
+# A. Know your observations and study area (15 points)
+
+## Load packages and inspect the input
+
+Install missing packages **once in the Console**, not each time you render:
+
+```{r}
+#| label: install-once
+#| eval: false
+# Run in the Console if needed:
+# install.packages(c("tidyverse", "sf", "tigris", "spatstat",
+#                    "spatstat", "spdep"))
+```
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(sf)
+library(tigris)
+library(spatstat)
+library(spdep)
+options(tigris_use_cache = TRUE)
+set.seed(531)
+
+# List layers first. If there is more than one, choose the storm point layer.
+st_layers("data/all_storms.gpkg")
+raw <- st_read("data/all_storms.gpkg", quiet = TRUE)
+names(raw)
+st_crs(raw)
+table(st_geometry_type(raw))
+```
+
+The examples expect `YEAR`, `EVENT_TYPE`, and `PROP_DAMAGE_USD`, as in Homework 1. If names differ, rename them once below after inspecting the actual fields. `PROP_DAMAGE_USD` must be numeric dollars, not strings such as `25K`. If needed, reuse the damage-conversion function from Homework 1 before proceeding. Do not assign a CRS by guessing; a missing CRS requires checking with the instructor.
+
+```{r}
+#| label: prepare-points
+required <- c("YEAR", "EVENT_TYPE", "PROP_DAMAGE_USD")
+stopifnot(all(required %in% names(raw)))
+stopifnot(!is.na(st_crs(raw)))
+stopifnot(all(st_geometry_type(raw) == "POINT"))
+stopifnot(is.numeric(raw$PROP_DAMAGE_USD))
+
+storms <- raw |>
+  mutate(YEAR = as.integer(as.character(YEAR)),
+         EVENT_TYPE = as.character(EVENT_TYPE),
+         row_id = row_number()) |>
+  st_transform(32133) # NAD83 / South Carolina; distances in meters
+
+stopifnot(!anyNA(storms$YEAR))
+stopifnot(all(storms$YEAR %in% c(2015L, 2024L)))
+stopifnot(all(is.na(storms$PROP_DAMAGE_USD) |
+                (is.finite(storms$PROP_DAMAGE_USD) & storms$PROP_DAMAGE_USD >= 0)))
+
+# Use detailed, common-vintage county boundaries for both years.
+# First retrieval requires internet; tigris caches the download.
+# An instructor-supplied county GPKG can replace this download if necessary.
+counties_sc <- tigris::counties(state = "SC", year = 2024,
+                              cb = FALSE, class = "sf") |>
+  st_make_valid() |>
+  st_transform(32133) |>
+  arrange(GEOID)
+stopifnot(nrow(counties_sc) == 46L)
+sc <- st_union(counties_sc)
+
+# Check before excluding; do not silently drop points.
+empty <- st_is_empty(storms)
+print(tibble(empty_geometries = sum(empty)))
+stopifnot(!any(empty))
+inside <- lengths(st_intersects(storms, sc)) > 0
+storms |>
+  st_drop_geometry() |>
+  mutate(inside_SC = inside) |>
+  count(YEAR, inside_SC)
+
+# Keep a record of excluded rows, if any, and explain exclusions in Q1.
+excluded <- storms[!inside, ]
+storms_sc <- storms[inside, ]
+
+storms_sc |> st_drop_geometry() |> count(YEAR)
+storms_sc |> st_drop_geometry() |> count(YEAR, EVENT_TYPE)
+storms_sc |> st_drop_geometry() |>
+  group_by(YEAR) |>
+  summarise(n = n(), missing_damage = sum(is.na(PROP_DAMAGE_USD)),
+            zero_damage = sum(PROP_DAMAGE_USD == 0, na.rm = TRUE),
+            maximum_damage = max(PROP_DAMAGE_USD, na.rm = TRUE))
+
+# Repeated coordinates are not automatically duplicate records.
+xy <- as.data.frame(st_coordinates(storms_sc))
+bind_cols(st_drop_geometry(storms_sc), xy) |>
+  count(YEAR, X, Y, name = "reports_at_coordinate") |>
+  filter(reports_at_coordinate > 1) |>
+  arrange(desc(reports_at_coordinate))
+
+s15 <- filter(storms_sc, YEAR == 2015)
+s24 <- filter(storms_sc, YEAR == 2024)
+
+# Same observation window for both years, in meters.
+W <- as.owin(sc)
+make_pattern <- function(s) {
+  xy <- st_coordinates(s)
+  # Keep coincident reports: they may be distinct observations.
+  ppp(xy[, 1], xy[, 2], window = W, checkdup = TRUE)
+}
+X15 <- make_pattern(s15)
+X24 <- make_pattern(s24)
+stopifnot(npoints(X15) == nrow(s15), npoints(X24) == nrow(s24))
+```
+
+Warnings about coincident points are information to investigate. Do not jitter or remove reports merely to produce a cleaner result. Repeated geocoded locations can strongly affect nearest-neighbor distances.
+
+```{r}
+#| label: event-map
+#| fig-cap: "Geocoded severe-weather reports in South Carolina, by year."
+ggplot() +
+  geom_sf(data = counties_sc, fill = "grey98", color = "grey75", linewidth = 0.2) +
+  geom_sf(data = storms_sc, aes(color = EVENT_TYPE), size = 0.7, alpha = 0.55) +
+  facet_wrap(~YEAR) +
+  labs(color = "Reported event type") +
+  theme_void() + theme(legend.position = "bottom")
+```
+
+## Q1. Audit and define the evidence \[8 points\]
+
+(a) Report the input count, analysis count by year, exclusions, missing/zero damage, and whether coordinates repeat. **\[3\]**\
+(b) The supplied event-type screenshot sums to **785 reports in 2015 and 583 in 2024 (1,368 total)**; an earlier description gives 768 and 543. Which counts does your actual file support? Explain any discrepancy you can verify; identify anything that needs instructor clarification rather than forcing a match. **\[2\]**\
+(c) Explain what a row represents, why repeated coordinates need investigation, and two ways the geocoded reports may differ from the underlying distribution of severe weather. **\[3\]**
+
+**Your response:**
+
+## Q2. Predict before testing \[7 points\]
+
+Using the maps, predict one **broad spatial variation in event intensity** and one **local proximity pattern**. Give a plausible geographic explanation for each. State a testable prediction for the difference between years and one reason that a difference could reflect event-type composition or reporting rather than a change in physical hazard. **\[4\]**
+
+Define first- and second-order structure in your own words. Explain how independent events could still appear concentrated in one part of the state. **\[3\]**
+
+**Your response:**
+
+::: {.callout-note title="A guide to careful interpretation"}
+**First-order structure** concerns how expected event intensity or expected areal values vary across space, potentially with rainfall, elevation, land cover, exposure, or reporting opportunity. **Second-order structure** concerns dependence between locations after accounting for those expectations. Uniform independent points represent a restrictive null model.
+
+Quadrat counts summarize spatial variation in counts; nearest neighbors summarize local spacing. **Neither a rejection of uniformity nor short neighbor distances alone separates first-order variation from second-order dependence.** Join counts, Moran's I, and LISA describe neighbor association in areal values, but spatial trends and shared covariates can produce that association. A statistic does not uniquely identify the mechanism.
+:::
+
+# B. Point patterns: counts and distances (30 points)
+
+## Worked example: quadrat analysis for 2015
+
+The null is spatially uniform, independent event locations within South Carolina, conditional on the observed number of reports. We use the SC polygon, **not its bounding rectangle**, as the observation window. Edge quadrats contain different areas within SC; their expected counts must differ accordingly. A 4 × 4 grid is clipped to this window by `spatstat`.
+
+```{r}
+#| label: quadrat-2015
+Q15 <- quadratcount(X15, nx = 4, ny = 4)
+plot(X15, main = "2015 reports and clipped quadrats", pch = 16, cex = 0.35)
+plot(Q15, add = TRUE, col = "blue")
+
+set.seed(53101)
+qt15 <- quadrat.test(X15, nx = 4, ny = 4,
+                     method = "MonteCarlo", conditional = TRUE,
+                     alternative = "two.sided", nsim = 999)
+qt15
+plot(qt15, main = "2015: observed, expected, and Pearson residuals")
+```
+
+The Monte Carlo approach accommodates small expected counts in clipped coastal/border cells. A large Pearson statistic indicates more uneven counts than expected; an unusually small statistic indicates more even counts. The two-sided p-value alone does not tell you which. The simple variance-to-mean benchmark of 1 assumes equal-area quadrats; do not apply it uncritically to this clipped grid.
+
+## Q3. Quadrat interpretation and adaptation \[15 points\]
+
+(a) State the null and alternative in plain language. Report the 2015 statistic and simulated p-value; use observed/expected counts or residuals to interpret the direction and geography of departure. What does a positive Pearson residual mean? **\[5\]**\
+(b) Adapt the code for 2024 using the same grid and window. Compare results without claiming that a smaller p-value means a stronger effect or a statistically demonstrated difference between years. **\[4\]**\
+(c) For **one year**, repeat with a 6 × 6 grid. Explain what changed and what grid sensitivity means for the scale of your conclusion. **\[3\]**\
+(d) Does rejection prove interacting events or second-order dependence? Explain one first-order explanation that could generate uneven quadrat counts. **\[3\]**
+
+```{r}
+#| label: student-quadrats
+# Your 2024 analysis and the grid sensitivity check go here.
+```
+
+**Your response:**
+
+## Worked example: nearest-neighbor analysis for 2015
+
+The Clark–Evans ratio compares observed mean nearest-neighbor distance to the infinite-plane homogeneous Poisson benchmark, approximately $1/(2\sqrt{\lambda})$, where $\lambda=n/A$. Values below 1 suggest shorter spacing; values above 1 suggest more regular spacing. The finite observation window affects this benchmark.
+
+We therefore use a **Monte Carlo test in the actual SC window**, with the same number of points and the same uncorrected statistic for observations and simulations. This calibrates the p-value for the window geometry. The uncorrected ratio itself still has edge effects; do not use an uncorrected asymptotic normal test.
+
+```{r}
+#| label: nna-2015
+nna_summary <- function(X) {
+  lambda <- npoints(X) / area.owin(Window(X))
+  observed <- mean(nndist(X))
+  expected <- 1 / (2 * sqrt(lambda))
+  tibble(n = npoints(X), mean_NN_m = observed,
+         theoretical_CSR_NN_m = expected, R_uncorrected = observed / expected,
+         fraction_zero_NN = mean(nndist(X) == 0))
+}
+nna_summary(X15)
+set.seed(53102)
+nn15 <- clarkevans.test(X15, correction = "none", method = "MonteCarlo",
+                        alternative = "two.sided", nsim = 999)
+nn15
+```
+
+## Q4. Near neighbors, unequal intensity, and two years \[15 points\]
+
+(a) Report and interpret the 2015 observed mean distance, theoretical expectation, ratio, zero-distance fraction, and p-value. State the null. **\[4\]**\
+(b) Adapt the analysis to 2024. Compare both the distances and ratios. Explain why raw distances are difficult to compare when the number of reports differs. Separate tests do not formally test a between-year difference. **\[4\]**\
+(c) Bring together quadrat and nearest-neighbor results. Are they consistent, or do they emphasize different scales? Explain why both rejecting CSR still would not prove second-order dependence. **\[4\]**\
+(d) Propose an analysis or additional information that would help distinguish varying intensity from residual dependence. Explain how repeated coordinates and reports from the same weather system could change your interpretation. **\[3\]**
+
+```{r}
+#| label: student-nna
+# Your 2024 nearest-neighbor analysis goes here.
+```
+
+**Your response:**
+
+# C. Where are damaging reports? (15 points)
+
+A property-damage value is a **mark** on an event point. Standard `quadrat.test()` and Clark–Evans tests do not become damage-weighted tests by attaching marks. Replicating a point once per dollar would invent observations.
+
+We will first map a genuine **damage-weighted kernel intensity surface**: each event contributes its reported dollars rather than a weight of 1. Then we will ask a different question: do nearby reports have unusually similar damage values?
+
+## Worked example: counts versus damage intensity
+
+Use only reports with known damage for both surfaces, including known zeros. This holds the analyzed locations constant. `NA` means unknown and is not replaced by zero. Use a fixed 25-km bandwidth for comparison; it is an illustrative smoothing choice, not an estimated storm footprint. Surfaces are descriptive and their units differ.
+
+```{r}
+#| label: weighted-intensity
+known15 <- filter(s15, !is.na(PROP_DAMAGE_USD))
+M15 <- make_pattern(known15)
+marks(M15) <- known15$PROP_DAMAGE_USD
+stopifnot(sum(marks(M15)) > 0)
+
+count_surface15 <- density(unmark(M15), sigma = 25000, edge = TRUE)
+damage_surface15 <- density(unmark(M15), sigma = 25000,
+                            weights = marks(M15), edge = TRUE)
+par(mfrow = c(1, 2))
+plot(count_surface15 * 1e6, main = "2015: reports per square km")
+plot(damage_surface15 * 1e6, main = "2015: reported dollars per square km")
+par(mfrow = c(1, 1))
+```
+
+## Worked example: random labeling of damage
+
+Keep locations fixed, including their existing clustering. Let $T$ be the mean absolute difference in `log1p(damage)` between each report and its nearest neighbor. Smaller $T$ means greater similarity. `log1p(x)=log(1+x)` retains zeros and limits domination by very large marks. Shuffle the damage labels 999 times across these fixed locations. This tests **random labeling**, not CSR; its validity assumes labels are exchangeable under the null. Event type and geographic exposure may violate that assumption.
+
+```{r}
+#| label: damage-random-label
+nn_damage_test <- function(M, nsim = 999, seed = 53103) {
+  stopifnot(npoints(M) >= 3, all(is.finite(marks(M))), all(marks(M) >= 0))
+  z <- log1p(marks(M))
+  neighbor <- nnwhich(M) # With distance ties, one nearest neighbor is selected.
+  Tstat <- function(v) mean(abs(v - v[neighbor]))
+  observed <- Tstat(z)
+  set.seed(seed)
+  simulated <- replicate(nsim, Tstat(sample(z)))
+  p <- (1 + sum(simulated <= observed)) / (nsim + 1)
+  list(summary = tibble(n = length(z), observed_T = observed,
+                       permutation_mean_T = mean(simulated),
+                       p_similarity = p), simulated = simulated)
+}
+mark15 <- nn_damage_test(M15)
+mark15$summary
+hist(mark15$simulated, main = "2015: shuffled damage labels", xlab = "Mean NN log-damage difference")
+abline(v = mark15$summary$observed_T, col = "red", lwd = 2)
+```
+
+## Q5. Interpret and investigate the marks \[15 points\]
+
+(a) Explain what the two 2015 intensity surfaces measure and why the same locations and bandwidth are used. Identify a place where they differ, or explain a broad similarity. **\[3\]**\
+(b) State the random-labeling null and the one-sided alternative. Report $T$, its permutation mean, and p-value, and interpret damage similarity without claiming that this is a test of event-location clustering. **\[4\]**\
+(c) Adapt the surfaces and random-label test to 2024; keep the bandwidth at 25 km. Compare the substantive findings. Do not compare surface colors across years unless using common limits for the same measure. **\[4\]**\
+(d) Explain why nominal damage comparisons between 2015 and 2024 require caution about inflation, reporting, asset exposure, event type, missingness, and the influence of extreme values. Choose **two** of these and propose a concrete check. Address why coincident-point ties can affect the mark test. **\[4\]**
+
+```{r}
+#| label: student-damage
+# Create known24 and M24, then adapt the surfaces and mark test.
+```
+
+**Your response:**
+
+# D. From points to counties (20 points)
+
+South Carolina's 46 counties are sufficient for a useful instructional areal analysis. There is no universal rule requiring more than 46 units. County results have limited local detail and depend on the neighbor graph. Tracts would provide more units but many empty or sparse observations for these data. More polygons do not automatically create more information.
+
+Use the **same 2024 boundary vintage for both years** to make the comparison consistent. This is a common geography, not a claim that all historic administrative details are unchanged.
+
+## Worked example: one report, one county
+
+Most points fall inside one county. A point exactly on a border can intersect more than one. We retain it once, assigning the lowest sorted GEOID as an explicit tie rule. Report such cases: the tie rule is reproducible but has no physical meaning. Do not snap outside points into a county without examining their locations.
+
+```{r}
+#| label: assign-counties
+hits <- st_intersects(storms_sc, counties_sc)
+assignment_audit <- tibble(row_id = storms_sc$row_id, matches = lengths(hits))
+count(assignment_audit, matches)
+stopifnot(all(lengths(hits) >= 1))
+
+county_index <- vapply(hits, function(i) i[1], integer(1))
+assigned <- storms_sc |>
+  mutate(county_GEOID = counties_sc$GEOID[county_index])
+
+summaries <- assigned |>
+  st_drop_geometry() |>
+  group_by(county_GEOID, YEAR) |>
+  summarise(n_events = n(),
+            n_damage_known = sum(!is.na(PROP_DAMAGE_USD)),
+            n_damage_missing = sum(is.na(PROP_DAMAGE_USD)),
+            damage_known_sum = if (all(is.na(PROP_DAMAGE_USD))) NA_real_
+                               else sum(PROP_DAMAGE_USD, na.rm = TRUE),
+            .groups = "drop")
+
+# Full county-year skeleton preserves counties with zero reports.
+skeleton <- crossing(GEOID = counties_sc$GEOID, YEAR = c(2015L, 2024L))
+county_values <- skeleton |>
+  left_join(summaries, by = c("GEOID" = "county_GEOID", "YEAR")) |>
+  mutate(no_reports = is.na(n_events),
+         # No reports means zero recorded damage. Reports with ALL unknown
+         # damage remain NA; partial totals are labeled as known-only sums.
+         damage_known_sum = if_else(no_reports, 0, damage_known_sum),
+         across(c(n_events, n_damage_known, n_damage_missing), ~replace_na(.x, 0L)))
+
+county_panel <- counties_sc |>
+  select(GEOID, NAME, ALAND) |>
+  left_join(county_values, by = "GEOID") |>
+  mutate(land_km2 = as.numeric(ALAND) / 1e6,
+         events_per_1000_land_km2 = 1000 * n_events / land_km2) |>
+  arrange(YEAR, GEOID)
+
+stopifnot(nrow(county_panel) == 92L)
+check_totals <- county_panel |> st_drop_geometry() |>
+  group_by(YEAR) |> summarise(assigned_total = sum(n_events), .groups = "drop") |>
+  left_join(storms_sc |> st_drop_geometry() |> count(YEAR, name = "point_total"),
+            by = "YEAR")
+check_totals
+stopifnot(all(check_totals$assigned_total == check_totals$point_total))
+
+c15 <- filter(county_panel, YEAR == 2015) |> arrange(GEOID)
+c24 <- filter(county_panel, YEAR == 2024) |> arrange(GEOID)
+stopifnot(identical(c15$GEOID, c24$GEOID))
+
+ggplot(county_panel) +
+  geom_sf(aes(fill = events_per_1000_land_km2), color = "white", linewidth = 0.2) +
+  facet_wrap(~YEAR) + scale_fill_viridis_c() +
+  labs(fill = "Reports / 1,000\nland km²", title = "Reported event density on a common county geography") +
+  theme_void()
+```
+
+Land area is a transparent denominator for comparing reporting intensity, but it is not a complete exposure model. The point-process window includes the county polygons, while this density denominator uses Census land area. These are related but not identical supports, especially near water; acknowledge the difference. An event count per population measures reporting relative to residents, not the probability of an individual experiencing a storm.
+
+## Q6. Defend the aggregation \[12 points\]
+
+(a) Report the number of unmatched/multi-matched points, how they were handled, and the county-year total checks. Why do these checks matter? **\[3\]**\
+(b) Display a small table with county name, count, density, known damage sum, and missing damage count for the **five highest-density counties in each year**. Identify one difference between ranking by counts and density. **\[4\]**\
+(c) Explain why zero reports and unknown damage need different treatment. Explain one MAUP concern and one ecological-fallacy risk when interpreting county results. Would tracts necessarily improve this dataset? **\[5\]**
+
+```{r}
+#| label: student-county-table
+# Use st_drop_geometry(), group_by(YEAR), and slice_max(...).
+# For exactly five counties per year, set with_ties = FALSE.
+```
+
+**Your response:**
+
+## Q7. First-order reasoning before autocorrelation \[8 points\]
+
+Make a scatterplot of `n_events` against `land_km2`, colored or faceted by year. **\[2\]** Explain why spatially varying county size can produce differences in expected counts even if point intensity were constant. Does dividing by land area account for rainfall, reporting opportunity, or all differences in exposure? **\[3\]**
+
+Choose one additional plausible first-order predictor, such as rainfall, elevation, population density, or housing density. State the expected relationship, a specific obtainable data source, and the spatial/temporal match needed. You do **not** need to download it for full credit. Explain why spatially patterned covariates could produce Moran's I even if counties were conditionally independent. **\[3\]**
+
+```{r}
+#| label: student-first-order
+# Create the county area/count plot here.
+```
+
+**Your response:**
+
+# E. Areal patterns: neighboring counties (40 points)
+
+## Define the graph once and preserve county order
+
+A queen neighbor shares a boundary or vertex; a rook neighbor shares a boundary segment. A neighbor graph defines what “nearby” means. Binary weights are appropriate for counting joins; row-standardized weights make a spatial lag the average of neighboring county values.
+
+```{r}
+#| label: county-neighbors
+nb_q <- poly2nb(c15, queen = TRUE, row.names = c15$GEOID)
+summary(nb_q)
+print(tibble(county = c15$NAME, n_neighbors = card(nb_q)))
+print(n.comp.nb(nb_q)$nc)
+# Stop and investigate an unexpected island rather than treating its lag as 0.
+stopifnot(all(card(nb_q) > 0), n.comp.nb(nb_q)$nc == 1L)
+w_B <- nb2listw(nb_q, style = "B", zero.policy = FALSE)
+w_W <- nb2listw(nb_q, style = "W", zero.policy = FALSE)
+
+plot(st_geometry(c15), border = "grey60", main = "Queen-neighbor graph")
+centers <- st_coordinates(st_point_on_surface(st_geometry(c15)))
+plot(nb_q, centers, add = TRUE, col = "steelblue")
+```
+
+Never reorder or filter a county table without rebuilding/aligning the weights. The same geometry and GEOID ordering let us use this graph for both years.
+
+## Worked example: join counts for a categorical attribute
+
+Classify counties by whether report density is **strictly above** the 2015 median. Keep this 2015 threshold in 2024 so “high” uses the same numerical cutoff. Median ties are assigned to “Other”; this need not split counties equally. “High” is a relative classification for this exercise, not a public-safety threshold.
+
+```{r}
+#| label: join-counts-2015
+cutoff15 <- median(c15$events_per_1000_land_km2)
+c15$high <- factor(ifelse(c15$events_per_1000_land_km2 > cutoff15, "High", "Other"),
+                   levels = c("Other", "High"))
+c24$high <- factor(ifelse(c24$events_per_1000_land_km2 > cutoff15, "High", "Other"),
+                   levels = c("Other", "High"))
+table(c15$high)
+table(c24$high)
+stopifnot(all(table(c15$high) > 0), all(table(c24$high) > 0))
+
+set.seed(53104)
+jc15 <- joincount.mc(c15$high, w_B, nsim = 999, alternative = "greater")
+jc15
+
+# Manually verify the High–High join count: each undirected edge counts once.
+edge_matrix <- nb2mat(nb_q, style = "B", zero.policy = FALSE)
+hi <- as.integer(c15$high == "High")
+HH15 <- as.numeric(t(hi) %*% edge_matrix %*% hi) / 2
+HH15
+
+ggplot(c15) + geom_sf(aes(fill = high), color = "white") +
+  scale_fill_manual(values = c(Other = "grey85", High = "#b2182b"), drop = FALSE) +
+  labs(title = "2015: counties above the 2015 median density", fill = "Category") +
+  theme_void()
+```
+
+The null randomly permutes the observed category labels over the fixed graph, preserving category totals. The one-sided alternative asks whether same-category joins are more frequent than expected. The output contains a result for **each** category; identify which you interpret. Our prespecified focus is High–High joins.
+
+## Q8. Categorical spatial association \[10 points\]
+
+(a) Define a join, the null, and the High–High alternative. Report the cutoff, category counts, observed High–High joins, simulated expectation, and p-value for 2015. Check the manual count against the output. **\[4\]**\
+(b) Repeat for 2024 using the same cutoff and graph, and compare. Explain how changes in the number of High counties affect the expected number of High–High joins. **\[3\]**\
+(c) What information is lost through dichotomization? Why does evidence of same-category association fail to establish a second-order mechanism? **\[3\]**
+
+```{r}
+#| label: student-join-counts
+# Adapt the join-count code and map for 2024.
+```
+
+**Your response:**
+
+## Worked example: global Moran's I for numerical values
+
+Our core variable is report density per 1,000 land km². Raw counts are also examined as a denominator sensitivity check. We retain numerical magnitudes instead of converting them into categories.
+
+```{r}
+#| label: moran-2015
+v15 <- c15$events_per_1000_land_km2
+stopifnot(all(is.finite(v15)), sd(v15) > 0)
+set.seed(53105)
+mi15 <- moran.mc(v15, w_W, nsim = 999, alternative = "two.sided")
+mi15
+
+z15 <- as.numeric(scale(v15))
+lag_z15 <- lag.listw(w_W, z15)
+plot(z15, lag_z15, pch = 19,
+     xlab = "Standardized county report density", ylab = "Mean neighboring standardized density",
+     main = "2015 Moran scatterplot")
+abline(h = 0, v = 0, col = "grey65")
+abline(lm(lag_z15 ~ z15), col = "steelblue", lwd = 2)
+
+# Compare the same year's raw counts with density.
+set.seed(53106)
+mi15_counts <- moran.mc(c15$n_events, w_W, nsim = 999, alternative = "two.sided")
+mi15_counts
+```
+
+The random-labeling null permutes numerical values among counties on the fixed graph. Its usual expected Moran's I is $-1/(n-1)$, rather than exactly zero. Positive autocorrelation means similar values tend to be adjacent; negative autocorrelation means dissimilar values tend to be adjacent. Positive I can reflect both high–high and low–low associations. It is not a map of where clusters occur and does not measure a first-order trend directly.
+
+## Q9. Global association and sensitivity \[10 points\]
+
+(a) Report the 2015 density I and p-value, state the null, and interpret the sign and scatterplot. Contrast what Moran's I and join counts preserve about the data. **\[3\]**\
+(b) Adapt to 2024 density and counts. Compare count-versus-density findings and the two years. Explain why comparing significance labels does not demonstrate that spatial association changed significantly between years. **\[3\]**\
+(c) For **one year**, rebuild the graph using rook neighbors, check neighbor counts/components, and rerun density Moran's I. Report the graph change and its effect on interpretation. If rook and queen are identical, report that finding; do not invent a difference. **\[2\]**\
+(d) Explain how spatially varying mean density could lead to positive I without dependence after accounting for that mean. Identify a meaningful next step. **\[2\]**
+
+```{r}
+#| label: student-global-moran
+# Your 2024 tests and one-year rook-neighbor sensitivity check.
+```
+
+**Your response:**
+
+## Worked example: local Moran's I (LISA)
+
+Local statistics locate county–neighbor associations. A positive local I can indicate high–high **or** low–low. A negative local I can indicate high–low or low–high. Classification requires the county's standardized value and spatial lag as well as statistical evidence.
+
+We use conditional permutations. For each county, its observed value is held fixed while other counties' values supply shuffled neighbor values. These are different reference distributions from the global permutation test. Because 46 local tests create multiple-testing concerns, show both unadjusted and Benjamini–Hochberg (BH) adjusted results. BH is a useful exploratory false-discovery-rate procedure with assumptions about dependence; it does not guarantee that every highlighted county is a true finding.
+
+```{r}
+#| label: lisa-helper
+make_lisa <- function(county_sf, listw, seed) {
+  v <- county_sf$events_per_1000_land_km2
+  stopifnot(all(is.finite(v)), sd(v) > 0)
+  z <- as.numeric(scale(v))
+  wz <- lag.listw(listw, z)
+  local <- localmoran_perm(v, listw, nsim = 999, alternative = "two.sided",
+                           iseed = seed, no_repeat_in_row = TRUE)
+  # Select the two-sided permutation p-value, not the normal approximation
+  # and not the folded [0, 0.5] pseudo-p column.
+  print(colnames(local))
+  p_column <- "Pr(z != E(Ii)) Sim"
+  if (!p_column %in% colnames(local)) {
+    stop("Inspect localmoran_perm column names; identify its two-sided simulation p-value.")
+  }
+  p <- local[, p_column]
+  quadrant <- case_when(
+    z > 0 & wz > 0 ~ "High–High",
+    z < 0 & wz < 0 ~ "Low–Low",
+    z > 0 & wz < 0 ~ "High–Low",
+    z < 0 & wz > 0 ~ "Low–High",
+    TRUE ~ "At mean"
+  )
+  county_sf |>
+    mutate(local_I = local[, "Ii"], z_value = z, lag_z = wz,
+           quadrant = quadrant, p_local = p, p_BH = p.adjust(p, method = "BH"),
+           lisa_raw = if_else(p_local < 0.05, quadrant, "Not significant"),
+           lisa_BH = if_else(p_BH < 0.05, quadrant, "Not significant"))
+}
+lisa15 <- make_lisa(c15, w_W, seed = 53107)
+lisa_colors <- c("High–High" = "#b2182b", "Low–Low" = "#2166ac",
+                 "High–Low" = "#ef8a62", "Low–High" = "#67a9cf",
+                 "At mean" = "white", "Not significant" = "grey85")
+
+lisa_long15 <- lisa15 |>
+  pivot_longer(c(lisa_raw, lisa_BH), names_to = "adjustment", values_to = "LISA")
+ggplot(lisa_long15) +
+  geom_sf(aes(fill = LISA), color = "white", linewidth = 0.2) +
+  facet_wrap(~adjustment) +
+  scale_fill_manual(values = lisa_colors, drop = FALSE) +
+  labs(title = "2015 local association in county report density",
+       subtitle = "Two-sided local tests; alpha = 0.05", fill = "Local pattern") +
+  theme_void()
+
+lisa15 |> st_drop_geometry() |>
+  select(NAME, n_events, events_per_1000_land_km2, local_I,
+         z_value, lag_z, p_local, p_BH, lisa_raw, lisa_BH) |>
+  arrange(p_local)
+```
+
+If no counties survive adjustment, report that result. Do not raise alpha, change the variable, or switch the weights merely to obtain clusters. “Not significant” means insufficient evidence under this setup; it does not establish spatial randomness or safety.
+
+## Q10. Locate, compare, and build hypotheses \[15 points\]
+
+(a) Interpret the 2015 raw and BH maps. Report the number of counties in each class for each map. Select two counties with different quadrants and explain their values, lags, local I, and evidence. If no significant counties exist, discuss two illustrative quadrants and explicitly distinguish them from statistically supported local findings. **\[5\]**\
+(b) Adapt LISA to 2024. Compare the BH classifications using the same graph, density definition, and legend. Name an apparent persistence or difference and explain why this is descriptive, not a formal test of local change over time. **\[4\]**\
+(c) Can a significant global result coexist with few BH-significant counties, or can meaningful local patterns coexist with a nonsignificant global result? Explain. Why is a High–Low county an outlier rather than a High–High cluster? **\[3\]**\
+(d) Use one observed pattern to propose a first-order explanatory hypothesis and one hypothesis about remaining dependence after adjustment. For each, identify data or an analytical next step needed to investigate it. Avoid causal claims from these maps. **\[3\]**
+
+```{r}
+#| label: student-lisa
+# Run make_lisa(c24, w_W, seed = 53108), map, and compare classifications.
+```
+
+**Your response:**
+
+## Q11. An evidence-based briefing \[5 points\]
+
+Write **150–200 words** to a South Carolina emergency-management analyst. Connect the point and county findings, identify one substantive pattern worth investigating, and state at least two limitations. Include the distinction between reported event concentration and danger or vulnerability. State what additional evidence would be needed before recommending a resource-allocation decision. **\[5\]**
+
+**Your response:**
+
+# F. Start your Quantitative Geography Showcase now (25 points)
+
+This section develops the Homework 2 milestone described in the Showcase instructions. You may use storm data, but you are encouraged to choose a topic meaningful to your interests. You may revise your idea after feedback. The goal is a feasible geographic question and real progress with data, not a complicated model.
+
+## Q12. A feasible question and data in hand \[12 points\]
+
+(a) Write **one focused geographic research question** naming the phenomenon, place, time period, and relationship or pattern. State the intended audience and why the question matters. **\[3\]**\
+(b) Define your unit of observation and analysis, study area, key outcome, and at least one possible explanatory variable or grouping variable. Identify whether your spatial observations are points, areas, or something else. **\[3\]**\
+(c) Obtain at least one relevant dataset or a usable sample. Provide the **exact source link**, source organization, access date, coverage, variables, data dictionary if available, and the local filename or reproducible retrieval code. Identify a join key, coordinate fields, or geographic identifiers. **\[4\]**\
+(d) Identify two concrete feasibility concerns, such as permission, geocoding, missing values, boundary mismatch, small counts, or incompatible dates. State how you will resolve each. If the preferred dataset is unavailable, obtain and inspect a feasible public alternative. A list of hoped-for datasets is insufficient. **\[2\]**
+
+**Your response:**
+
+## Q13. Make one exploratory result and a purposeful plan \[13 points\]
+
+(a) Using data you actually obtained, create **one initial map, plot, or table** and at least one numerical descriptive summary. Include executable code, a descriptive caption, and a short explanation of what each observation represents. **\[5\]**\
+(b) State one specific finding or data-quality surprise and how it changes or sharpens your question. **\[2\]**\
+(c) Complete the planning table below. Choose methods that fit your data and question; you do not need every method used in this homework. The Showcase also requires an eventual inferential analysis; identify a plausible next step without committing to an unnecessarily complex model. **\[4\]**\
+(d) Specify one task you will complete next, a target date before Homework 3, and one focused question on which you want instructor feedback. **\[2\]**
+
+| Component | Your proposed approach | Why it fits / what it will reveal |
+|:---|:---|:---|
+| Descriptive numerical statistics | Replace this | Replace this |
+| Descriptive spatial statistic, if geography permits | Replace this | Replace this |
+| Exploratory statistic or spatial method | Replace this | Include the variable, spatial unit, and reference model if relevant |
+| Map or other visualization | Replace this | Replace this |
+| Possible later inferential analysis | Replace this | State the question it would test |
+
+```{r}
+#| label: student-showcase
+# Load your actual Showcase data and produce the initial summary and visual.
+# Use a relative project path or reproducible retrieval code.
+```
+
+**Your response:**
+
+# G. Reproducibility and communication (5 points)
+
+These points assess the submission as a whole: **\[2\]** a clean-session render with required outputs and reproducible paths; **\[2\]** labeled, readable maps/tables and clearly linked written interpretations; **\[1\]** source citations, collaborator/AI disclosure, and organized code. Numerical output without a geographic interpretation earns only partial credit on the relevant questions.
+
+```{r}
+#| label: session-info
+sessionInfo()
+```
+
+**Collaborators and AI-use disclosure:** Replace this.
+
+## Submission checklist
+
+- [ ] Q1–Q13 responses, student code adaptations, and interpretations are complete.
+- [ ] The GeoPackage counts and exclusions are documented; county totals match the points.
+- [ ] Quadrats use clipped SC areas; nearest-neighbor simulations use the same SC window.
+- [ ] Unknown damage has not been silently converted to zero.
+- [ ] County order matches the neighbor graph; empty counties remain in the dataset.
+- [ ] I report the correct category/test/p-value and distinguish raw from adjusted LISA evidence.
+- [ ] My Showcase section uses actual data and contains an initial result.
+- [ ] Required chunks execute after restarting R; HTML contains maps, tables, and test output.
+- [ ] I submit `.qmd`, rendered HTML, and the AI-use log if applicable.
+
+# Optional extensions (ungraded)
+
+Complete these only after the core work. They can deepen a graduate-level methodological discussion; they are not required for full credit.
+
+## One hazard at a time
+
+Repeat one point-pattern analysis for Flash Flood or Thunderstorm Wind in both years. Retain the same SC window. Compare with the all-hazard results and explain whether mixing event types obscured a pattern. Very small subsets, such as five tornado reports, offer weak information for statewide point-pattern tests.
+
+## Population as a possible first-order predictor
+
+The population variable below comes from the **2015 and 2024 ACS 5-year releases**, which summarize multi-year periods rather than exact event-year populations. County GEOIDs can be joined to the common county geography, but verify geographic consistency. ACS estimates have margins of error. Downloading without an API key may work within Census limits; if a key is needed, obtain your own and store it locally, never in a submitted file.
+
+```{r}
+#| label: optional-population
+#| eval: false
+# install.packages("tidycensus") # Console only
+library(tidycensus)
+# tidycensus::census_api_key(Sys.getenv("CENSUS_API_KEY"), install = FALSE)
+pop <- purrr::map_dfr(c(2015L, 2024L), function(yr) {
+  get_acs(geography = "county", state = "SC", variables = "B01003_001",
+          year = yr, survey = "acs5", geometry = FALSE) |>
+    transmute(GEOID, YEAR = yr, population = estimate, population_MOE = moe)
+})
+county_pop <- county_panel |>
+  left_join(pop, by = c("GEOID", "YEAR")) |>
+  mutate(population_density = population / land_km2)
+stopifnot(!anyNA(county_pop$population), all(county_pop$population > 0))
+ggplot(county_pop, aes(population_density, events_per_1000_land_km2,
+                       color = factor(YEAR))) +
+  geom_point() + scale_x_log10() +
+  labs(x = "Population / land km² (log scale)", y = "Reports / 1,000 land km²", color = "Year") +
+  theme_minimal()
+```
+
+Discuss whether population density might capture exposure, reporting opportunity, urban land cover, or several processes together. This scatterplot does not remove first-order structure or establish a cause.
+
+## A damage-based county variable
+
+Repeat global Moran's I for `log1p(damage_known_sum)` only after checking damage completeness. Use known-only sums transparently; do not compare a partly observed county with a fully observed county as if totals were equally complete. If you subset counties with missing totals, rebuild the neighbor graph and inspect islands. Interpret this as association in **reported damage**, which combines hazard, exposed assets, reporting, and missingness. Log transformation changes the question and influence of extremes; it does not make damage dollars into normally distributed observations.
+
+## County versus tract scale
+
+Download a common-vintage SC tract geography with `tigris::tracts(state = "SC", year = 2024, cb = FALSE, class = "sf")`. Reuse the point-assignment checks and full polygon-year skeleton at the tract scale. Calculate and compare the zero-event proportion before deciding whether a tract-based LISA is useful. Explain why the number of tracts is not the number of independent weather systems, and why this changes the multiple-testing burden.
+
+# Method and data references
+
+These are starting points for understanding the functions, not substitute interpretations of your results.
+
+- NOAA NCEI. [Storm Events Database](https://www.ncei.noaa.gov/stormevents/): event definitions, collection, and reporting context.
+- `tigris`. [Package documentation](https://cran.r-project.org/package=tigris): Census geographic boundaries and vintage choices.
+- `spatstat.explore`. [Quadrat test documentation](https://search.r-project.org/CRAN/refmans/spatstat.explore/html/quadrat.test.html): counts, observation window, expected values, and Monte Carlo options.
+- `spatstat.explore`. [Clark–Evans test documentation](https://search.r-project.org/CRAN/refmans/spatstat.explore/html/clarkevans.test.html): ratio, edge corrections, and conditional Monte Carlo reference model.
+- `spdep`. [Join-count permutations](https://r-spatial.github.io/spdep/reference/joincount.mc.html), [global Moran permutations](https://r-spatial.github.io/spdep/reference/moran.mc.html), and [local Moran statistics](https://r-spatial.github.io/spdep/reference/localmoran.html): graph, null hypotheses, and output definitions.
+- Anselin, L. (1995). Local Indicators of Spatial Association—LISA. *Geographical Analysis*, 27(2), 93–115. <https://doi.org/10.1111/j.1538-4632.1995.tb00338.x>
+- Baddeley, A., Rubak, E., & Turner, R. (2015). *Spatial Point Patterns: Methodology and Applications with R*. Chapman & Hall/CRC.
