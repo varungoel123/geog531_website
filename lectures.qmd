@@ -48,3 +48,8 @@ date-format: medium
 
 - *Tuesday, Oct 20: Foundations of Inference* ([class lecture](./lectures/7_hypothesis_testing/foundations_inference_slides.qmd){target="_blank"})
 - *Thursday, Oct 22: Hypothesis Testing* ([class lecture](./lectures/8_sampling/hypothesis_testing.qmd){target="_blank"})
+
+
+#### Week 9: DAGs and Causation
+
+- ([Student Exercise Prompts](./lectures/10_DAGs/student_dag_exercise.pptx){target="_blank"})
