@@ -100,3 +100,13 @@ date-format: medium
 - [A deeper explanation of correlation vs causation for most real world data](https://journals.sagepub.com/doi/10.1177/2515245917745629)
 
 - [How to distinguish causation and correlation in causal diagrams](https://pmc.ncbi.nlm.nih.gov/articles/PMC12674023/)
+
+#### **Week 11-12 (Nov 9-16) : Linear Regression**
+
+[***Required:***]{.underline}
+
+- [The Effect, Chapter 13: Regression](https://theeffectbook.net/ch-StatisticalAdjustment.html){target="_blank"}
+- [OpenIntro, Chapter 24: Single-predictor linear inference](https://openintro-ims.netlify.app/inf-model-slr){target="_blank"}
+- [OpenIntro, Chapter 25: Multiple-predictor linear inference](https://openintro-ims.netlify.app/inf-model-mlr){target="_blank"}
+- [OpenIntro, Chapter 26: Logistic inference](https://openintro-ims.netlify.app/inf-model-logistic){target="_blank"}
+
