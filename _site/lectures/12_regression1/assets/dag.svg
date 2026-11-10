@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-label="Deprivation causes canopy and temperature; canopy causes shade and temperature; shade and cool roof cause temperature.">
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#486878"/></marker></defs>
+<rect width="960" height="420" fill="white"/>
+<g fill="none" stroke="#486878" stroke-width="2.5" marker-end="url(#a)">
+<path d="M445,85 Q235,75 153,196"/><path d="M522,85 Q720,75 818,196"/>
+<path d="M253,225 L384,225"/><path d="M564,225 L708,225"/>
+<path d="M200,254 Q470,370 755,254"/><path d="M820,355 L820,254"/>
+</g>
+<g font-family="system-ui,sans-serif" font-size="22" text-anchor="middle" fill="#17344b">
+<rect x="370" y="32" width="220" height="58" rx="10" fill="#fff0e7" stroke="#d45a42"/><text x="480" y="69">Deprivation</text>
+<rect x="45" y="196" width="210" height="58" rx="10" fill="#e8f4f6" stroke="#137b80"/><text x="150" y="232">Tree canopy</text>
+<rect x="386" y="196" width="178" height="58" rx="10" fill="#eff7f7" stroke="#137b80"/><text x="475" y="232">Shade</text>
+<rect x="710" y="196" width="225" height="58" rx="10" fill="#e8f4f6" stroke="#137b80"/><text x="822" y="232">Temperature</text>
+<rect x="716" y="355" width="212" height="56" rx="10" fill="#f1f5f8" stroke="#486878"/><text x="822" y="391">Cool roof</text>
+<text x="477" y="340" font-size="16" fill="#527080">Direct canopy → temperature path</text>
+</g></svg>

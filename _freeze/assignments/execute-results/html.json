@@ -1,0 +1,17 @@
+{
+  "hash": "46bfe3689c0a9011f08ca1cbf4d27cc1",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Homeworks\"\ndate: last-modified\ndate-format: medium\n---\n\n------------------------------------------------------------------------\n\n# List of Homeworks\n\n------------------------------------------------------------------------\n\n### Homework 1: Once Upon a Stormy Evening (Due September 25, 11:59 pm)\n\n- [*Part A: Descriptive statistics and Visualization*](./hw/hw1/hw1_partA.qmd){target=\"_blank\"}\n  - [*Part B: Descriptive mapping and spatial Statistics*](./hw/hw1/hw1_partB_revised.qmd){target=\"_blank\"}\n\n    - **Important Errata**: In your posit cloud Homework 1B, go to the folder Code and check the descriptive_geo_functions.R script. Then check for the following comments at the beginning.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n    # ------------------------\n    # NOTE: IF YOU SEE THIS LINE THEN THIS IS THE CORRECT FILE WITH THE CORRECT\n    # WEIGHTED STANDARD DEVIATIONAL ELLIPSE FUNCTION\n    # ----------------------------------------------------------\n```\n:::\n\n\n- If the script DOES NOT show the above comments at the start:\n- Download the [*correct file here*](./hw/hw1/code/descriptive_geo_functions.R){target=\"_blank\"}, delete the old script, and upload the downloaded file in the Code folder.\n- If your original script already shows the comments, you dont need to do anything else.\n\n**Answer Keys:** [Part A,](./hw/hw1/hw1_answers.qmd){target=\"_blank\"} [Part B](./hw/hw1/hw1_partB_answers.qmd){target=\"_blank\"}\n\n### Final Project: Quantitative Geographic Showcase (Due December 8, 11:59 pm)\n\n- [*Qunatitative Geographic Showcase*](./hw/GEOG531_Quantitative_Geography_Showcase_Instructions.pdf){target=\"_blank\"}\n\n### Homework 2: Developing your research question using DAGs (Due November 11, 11:59 pm)\n\n- [*Download HW2 Here*](./hw/hw2/GEOG531_HW2.pdf){target=\"_blank\"}\n",
+    "supporting": [
+      "assignments_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

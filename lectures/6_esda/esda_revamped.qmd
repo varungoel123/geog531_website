@@ -496,7 +496,7 @@ $$Z_R = \frac{\overline{NND} - \overline{NND}_E}{\sigma_{NND}}$$
 **Toronto Community Services** (Police, Fire, Elementary Schools, Voting)
 
 | Facility | n   | Density | $\overline{NND}$ | $\overline{NND}_E$ | R    | Z      | p-value |
-|---------|---------|---------|---------|---------|---------|---------|---------|
+|----------|-----|---------|------------------|--------------------|------|--------|---------|
 | Police   | 20  | 0.0312  | 2.08             | 2.83               | 1.28 | 2.42   | 0.0153  |
 | Fire     | 20  | 0.0312  | 2.08             | 2.83               | 1.28 | 2.42   | 0.0153  |
 | Schools  | 20  | 0.7308  | 0.59             | \-                 | 0.84 | -12.23 | 0.0000  |
@@ -993,7 +993,7 @@ cat("Chi-square =", chi_sq, "\n")
 ### Key Findings
 
 | Facility | NNA Result | Interpretation |
-|-------------------|-----------------------|------------------------------|
+|----|----|----|
 | **Police** | $R = 1.28$ (dispersed) | Planned spacing for coverage |
 | **Fire** | $R = 1.28$ (dispersed) | Optimal response time locations |
 | **Elementary Schools** | $R = 0.84$ (clustered) | Follow population density |
@@ -2191,7 +2191,7 @@ These go beyond ESDA into confirmatory spatial analysis
 ### Conceptual Connections
 
 | Concept | Point Pattern | Area Pattern |
-|------------------|---------------------------|---------------------------|
+|----|----|----|
 | **Random baseline** | CSR | Spatial independence |
 | **Clustering** | NNA: R \< 1<br>Quadrat: VMR \> 1 | Positive Moran's I<br>High join counts |
 | **Dispersion** | NNA: R \> 1<br>Quadrat: VMR \< 1 | Negative Moran's I |

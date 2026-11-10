@@ -1,0 +1,36 @@
+/* Shared appearance for Quarto and the Pandoc Reveal.js preview. */
+:root { --r-main-font: Arial, Helvetica, sans-serif; --r-heading-font: Arial, Helvetica, sans-serif; --r-main-font-size: 32px; --r-main-color: #17344b; --r-heading-color: #17344b; --r-background-color: #fff; --r-link-color: #08768b; --r-link-color-hover:#0c5360; --r-selection-background-color:#bfe5e8; }
+.reveal { font-family:Arial,Helvetica,sans-serif; color:#17344b; font-size:32px; }
+.reveal .slides { text-align:left; }
+.reveal .slides section { box-sizing:border-box; padding:8px 12px; }
+.reveal h1,.reveal h2,.reveal h3 { font-family:Arial,Helvetica,sans-serif; color:#17344b; font-weight:700; letter-spacing:-.025em; text-transform:none; }
+.reveal h1 { font-size:1.95em; }
+.reveal h2 { font-size:1.38em; padding-bottom:.28em; border-bottom:4px solid #137b80; margin:0 0 .6em; line-height:1.15; }
+.reveal h3 {font-size:1.05em;}
+.reveal p {margin:.5em 0; line-height:1.34;}
+.reveal li {margin:.25em 0;line-height:1.3;}
+.reveal strong {color:#0b7279;}
+.reveal table {font-size:.83em;width:100%;margin:.55em 0 .75em;border-collapse:collapse;}
+.reveal table th {background:#17344b;color:#fff;font-weight:700;border:0;}
+.reveal table th,.reveal table td {padding:.45em .55em;vertical-align:top;border-bottom:1px solid #d7e5eb;line-height:1.24;}
+.reveal table tr:nth-child(even) td {background:#f0f6f8;}
+.reveal pre {width:100%;font-size:.65em;line-height:1.35;margin:.5em 0 .8em;box-shadow:none;border:1px solid #cfdee6;border-radius:4px;background:#f0f5f8;}
+.reveal pre code {padding:16px 20px;max-height:none;color:#17344b;background:#f0f5f8;}
+.reveal code {font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.9em;}
+.reveal figure {margin:0;text-align:center;}
+.reveal img {border:0;box-shadow:none;margin:.1em auto;object-fit:contain;}
+.reveal .wide-figure {max-width:100%;max-height:510px;}
+.reveal .dag-figure {max-width:100%;max-height:405px;}
+.reveal .gallery-figure {max-width:100%;max-height:520px;}
+.reveal figcaption {font-size:.52em;line-height:1.2;color:#55717e;margin-top:.2em;}
+.reveal .lab-slide h2 {border-color:#d45a42;}
+.reveal .lab-slide strong {color:#ba4c35;}
+.reveal .appendix-slide h2 {border-color:#78929e;}
+.reveal .slide-number {background:transparent;color:#55717e;font:18px Arial,sans-serif;right:18px;bottom:14px;}
+.reveal .footer {font-size:16px;color:#6c838e;}
+.reveal .notes {display:none;}
+.reveal #title-slide,.reveal #title-slide h1,.reveal #title-slide p {text-align:left;}
+.reveal #title-slide {padding-top:110px;}
+.reveal #title-slide .subtitle {color:#137b80;font-size:1em;}
+.reveal #title-slide .author {font-size:.85em;margin-top:1.5em;}
+@media print {.reveal pre,.reveal table {break-inside:avoid;}}
