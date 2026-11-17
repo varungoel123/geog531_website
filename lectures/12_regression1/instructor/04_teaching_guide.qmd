@@ -1,0 +1,128 @@
+---
+title: "Teaching guide · Regression week"
+subtitle: "GEOG 531 · Instructor only · Two classes of 75 minutes"
+---
+
+## Teaching choices
+
+The week starts with the students' existing DAG skills and introduces regression as a tool for estimating the comparison their design requires. It uses one simulated urban heat study to reduce the need to learn new substantive settings. Students complete the linear lab and begin logistic regression during Class 1; Class 2 extends the interpretation, uses a split GLM lab, and introduces count rates. This is deliberately not a linear-only first class followed by a disconnected GLM class.
+
+The lecture is now a **Quarto Reveal.js slide deck**, with speaker notes for pacing, prompts and explanations. It contains 49 slides including the title, with five optional reference slides after the core exit ticket. Use arrow keys or Space to advance, Esc for overview, and S for speaker view. The original expanded lecture remains in `01_lecture_notes.html` / `.qmd` as a reading handout. Use `quarto preview 01_lecture.qmd` for a local presentation preview. The two labs remain separate Quarto documents with code already supplied. Both have optional extensions that are outside the scheduled 150 minutes.
+
+R/RStudio is assumed. The labs use `tidyverse` and `broom`: data are loaded with `readr`, comparisons use `dplyr`, results are tidied with `broom`, and plots use `ggplot2`. `lm()` and `glm()` remain the standard fitting functions. Run `R/install_packages.R` before class. Optional extensions use `infer`, `lmtest` and `sandwich`; rendering uses `knitr` and `rmarkdown`. With less confident students, have one student drive and the other explain, then swap. Zoom breakout rooms or in-person pairs both work. With 10 students, use five pairs.
+
+## Before Class 1
+
+1.  Distribute the **student ZIP**, not the full instructor package. It includes the lecture, both labs, CSV, R helpers and scripts, and setup instructions. Retain the separate `instructor` folder and its answer key.
+2.  Ask students to open the RStudio project, install the core packages with `R/install_packages.R`, and run the Lab 1 setup before class. If setup fails, pair that student with a working partner so the activity remains conceptual.
+3.  Review the slide deck, its speaker notes and both labs. The supplied slide preview loads Reveal.js from a CDN and needs internet for slideshow features; the figures are embedded. A native Quarto render is configured to embed resources. Re-render the `.qmd` files once on the classroom machine before teaching, especially if changing the data or model specification. See README for the verification boundary of the supplied HTML previews.
+4.  Prepare a shared response document or LMS submission with labels Q1–Q5 and A1–A4/B1–B4. Students can also insert answers into their own `.qmd` files.
+5.  Keep the instructor answer key available separately from the shared screen.
+
+### Reading prompts
+
+Assign The Effect Chapter 13 and OpenIntro Chapters 24–26 as requested. The Effect chapter is substantial; direct students to interpretation and adjustment first, then functional form, standard errors, and additional concerns. OpenIntro 24–26 focus on inference and assume some earlier modeling familiarity; the lecture supplies that introduction. Poisson is a teaching extension rather than a topic covered by these assigned OpenIntro chapters.
+
+Ask students to bring short answers to these prompts:
+
+- What does a regression coefficient compare when other predictors are included?
+- Why is a predictor's p-value an unsuitable rule for deciding whether to adjust for it?
+- What changes when a predictor is binary? What changes when the **outcome** is binary?
+- Which assumptions concern the mean model, and which concern uncertainty?
+- Why do ordinary standard errors become questionable when observations depend on one another?
+
+## Class 1 · 75-minute run of show
+
+| Minutes | Lead with | Student action / evidence to listen for |
+|----|----|----|
+| 0–5 | “Our target is the total effect of 10 percentage points more canopy.” | Identify unit, exposure, outcome, contrast; name the deprivation backdoor path |
+| 5–12 | Show DAG before any regression table | Explain why deprivation is required, shade is excluded, and roof is optional for this target |
+| 12–22 | Fit and read a linear model; distinguish continuous and binary predictors | Interpret −0.57°C per 10 percentage points and the roof 1-versus-0 difference; identify the extrapolated intercept |
+| 22–30 | Ask for a direction prediction, then show colored scatterplot | Explain why the crude cooling slope is too strong in this simulation; avoid “all coefficient change proves confounding” |
+| 30–33 | Read estimate and interval together | Use units and adjustment conditions; distinguish uncertainty from causal validity |
+| 33–40 | Diagnose curve, funnel, and dependence patterns | Connect a concern to a response, rather than list assumptions mechanically |
+| 40–65 | Lab 1 in pairs | Visit pairs; ask them to interpret before typing; switch roles after Q2 |
+| 65–75 | Bridge to a 0/1 outcome and fit first logistic model | Recognize the outcome selects the family; prepare the OR-versus-probability question for Class 2 |
+
+**If time is tight:** Keep the confounding discussion and Lab 1. Treat the interaction paragraph as a brief connection to prior moderator teaching and leave the optional interaction exercise for after class. Do not compress the pair exercise to deliver more diagnostics terminology. Keep at least five minutes for the binary-outcome bridge.
+
+## Class 2 · 75-minute run of show
+
+| Minutes | Lead with | Student action / evidence to listen for |
+|----|----|----|
+| 0–8 | Retrieve Class 1 exit answers; restate GLM outcome-specific DAG | Correct “binary predictor requires logistic”; keep deprivation adjustment |
+| 8–20 | OR ≈ 0.712, then predictions 30.8% and 18.4% | Distinguish odds, probability, relative change and percentage point difference |
+| 20–35 | Lab 2A | One OR interpretation, two probabilities, and a cautious calibration judgment |
+| 35–48 | Count episodes and person-weeks; model counts with an offset | Explain denominator, IRR, and proportional exposure assumption |
+| 48–63 | Lab 2B | Compare exposure-standardized predictions; interpret dispersion ≈ 0.97 versus 1.79 |
+| 63–71 | GLM diagnostic decisions | Do not demand normal residuals; separate mean misspecification, extra variation and dependence |
+| 71–75 | Three-sentence exit ticket and next-week bridge | Match family to outcome and name the dependence concern needing spatial/hierarchical methods |
+
+**If time is tight:** Use the supplied calibration output rather than explaining every line of its grouped summary. Students only need to read two columns and a bin size. Leave quasi-Poisson code and the changed-baseline extension outside class. Do not drop the offset explanation; a count-model coefficient without a clear denominator can be misleading.
+
+## Suggested discussion language
+
+**Adjustment:** “We are asking the model to compare homes with similar measured deprivation, because deprivation creates an alternative path from canopy to temperature.” Avoid saying adjustment makes an observational study randomized.
+
+**Precision variable:** “Roof status explains some temperature differences but does not close a required backdoor path for canopy in this simulation.” This is a property of this DAG, not a general claim about cool roofs or neighborhood data.
+
+**Mediator:** “Including shade asks about canopy differences after taking away this measured pathway. That changes the target.” Direct-effect interpretation can require assumptions beyond the total-effect adjustment set.
+
+**Uncertainty:** “The interval describes sampling uncertainty under our model and inference assumptions. It does not tell us that our DAG is correct.” A CI excluding zero or one is not evidence of a large or useful effect by itself.
+
+**Logistic scale:** “0.71 is an odds multiplier, not a probability.” If students need a concrete check, start at p = .5, odds = 1; an OR of .5 yields odds .5 and p = 1/3, not p = .25.
+
+**Count scale:** “100 person-weeks could come from 10 people observed for 10 weeks, or another combination with the same exposure. The offset treats these as the same amount of opportunity under a constant-rate model.” It does not guarantee equal susceptibility or correct reporting.
+
+**Next week:** “Families tell us how an outcome behaves. Spatial and hierarchical structures tell us how observations relate to one another.” Neighborhood grouping and spatial proximity are related but distinct; a random intercept alone does not guarantee residual spatial independence.
+
+## Pitfalls to anticipate
+
+| Student statement | Follow-up |
+|----|----|
+| “Canopy is normal, so linear regression is valid.” | Which variable's conditional errors matter for normal-theory inference? What else must be checked? |
+| “The adjusted estimate is smaller, so it is better.” | Why did we choose deprivation before seeing estimates? Could a mediator also reduce a coefficient? |
+| “The model controls everything.” | Which measured variables are included? Which causes remain unmeasured or poorly measured? |
+| “Every coefficient is a causal effect.” | For which exposure did we select this adjustment set? What would the DAG for a different exposure require? |
+| “An OR of .71 means 29 percentage points less illness.” | What are the two baseline probabilities? Convert an odds multiplier to predictions for actual profiles. |
+| “A predicted count of 2.78 is impossible.” | Is that a single observed count or an expected count over repeated comparable settings? |
+| “Count variance exceeds count mean, so Poisson fails.” | Did the comparison condition on exposure and predictors? Look at residual dispersion instead. |
+| “Robust SEs fix the model.” | Which quantities change? Do they block a backdoor path or model a curve? |
+| “No significant interaction means identical effects.” | What values remain compatible with the interaction interval? Were we precise enough? |
+
+## Assessment priorities
+
+Give feedback on correct comparisons and claims before syntax. If grading, the following optional 10-point scales emphasize reasoning.
+
+| Lab 1 element                                           | Points |
+|---------------------------------------------------------|-------:|
+| Target and DAG-based adjustment decision                |      2 |
+| Crude/adjusted comparison with causal explanation       |      2 |
+| Continuous-predictor interpretation, units and interval |      2 |
+| Binary-predictor interpretation and reference group     |      2 |
+| Diagnostic evidence, limit and sensible response        |      2 |
+
+| Lab 2 element                                               | Points |
+|-------------------------------------------------------------|-------:|
+| Correct outcome coding, family and adjustment set           |      1 |
+| OR interpretation with interval and probability distinction |      2 |
+| Probability predictions and percentage point contrast       |      2 |
+| Count offset and IRR interpretation                         |      2 |
+| Count/exposure predictions and rate reasoning               |      1 |
+| Dispersion judgment and remaining limitations               |      2 |
+
+The full worked key is in `05_lab_answer_key.html` / `.qmd`. Numerical values are approximate; small printing differences across software are acceptable. Linear-model CIs use the ordinary t-based method unless labeled HC3. The revised lab GLM tables use broom’s profile-likelihood intervals; the original lecture displays retain Wald intervals. Explain only that these model-based methods can give slightly different bounds. Interpretations and point estimates are unchanged.
+
+## Source alignment and limits
+
+- [The Effect, Ch. 13](https://theeffectbook.net/ch-StatisticalAdjustment.html): causal adjustment, coefficient interpretation, functional form, robust uncertainty, and model concerns. We use independent examples and do not reproduce its exposition.
+- [OpenIntro Ch. 24](https://openintro-ims.netlify.app/inf-model-slr), [Ch. 25](https://openintro-ims.netlify.app/inf-model-mlr), [Ch. 26](https://openintro-ims.netlify.app/inf-model-logistic): inference and conditions, without repeating derivations or resampling algorithms during this limited class time.
+- [Official R family documentation](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html) and [offset documentation](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/offset.html): support the Poisson extension.
+
+The data are independent household draws constructed to illustrate the methods. There are no coordinates or real neighborhood identifiers. Consequently, the exercise cannot diagnose actual spatial dependence or support substantive estimates for any city. This restriction keeps next week's spatial/hierarchical questions visible without making them prerequisites for this week.
+
+## Teaching the tidyverse code without adding a coding lesson
+
+Use the pipe as “then.” A short recurring sequence is: load a tibble, fit the model, `tidy()` its coefficients, `augment()` its observations or predictions, then plot or summarise. Students can reuse the complete code and focus on interpretation. Keep the `infer` bootstrap, robust covariance, interaction and influence extensions outside the 25-minute core linear lab.
+
+The core libraries are `tidyverse` and `broom`. The optional bootstrap is skipped during rendering and does not require installing `infer` to render the core lab. If students choose to run the optional HC3 chunk, they also need `lmtest` and `sandwich`. The source and scripts are matched, including these optional package notes.

@@ -1,0 +1,11 @@
+{
+  "seed": 5312026,
+  "n": 400,
+  "linear_total_effect_per_10pp": -0.6,
+  "linear_direct_effect": -0.25,
+  "linear_deprivation": 2.3,
+  "linear_cool_roof": -1.2,
+  "logistic_canopy_OR": 0.6838614092123558,
+  "poisson_canopy_IRR": 0.7557837414557255,
+  "note": "Teaching simulation; no real people or geographic locations."
+}

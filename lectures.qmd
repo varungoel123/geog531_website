@@ -53,3 +53,8 @@ date-format: medium
 #### Week 9: DAGs and Causation
 
 - ([Student Exercise Prompts](./lectures/10_DAGs/student_dag_exercise.pptx){target="_blank"})
+
+#### Week 11-12: Regression
+
+- ([Regression 1](./lectures/12_regression1/01_lecture.html){target="_blank"})
+([Regression 2](./lectures/12_regression1/01_lecture_notes.qmd){target="_blank"})
