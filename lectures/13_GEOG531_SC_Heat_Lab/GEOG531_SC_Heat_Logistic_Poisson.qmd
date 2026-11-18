@@ -1,0 +1,691 @@
+---
+title: "Heat and health: logistic and Poisson regression"
+subtitle: "GEOG 531 · A companion to the OLS, categorical-predictor and interaction lab"
+author: "Varun Goel"
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    code-copy: true
+    embed-resources: true
+    number-sections: false
+    fig-width: 8
+    fig-height: 4.8
+execute:
+  echo: true
+  message: false
+  warning: true
+  error: false
+---
+
+## The same setting, different outcomes
+
+We return to the same 736 artificial tracts in 46 fictional county groups in hypothetical 2025. The geography and values are simulated, not estimates for South Carolina. This file generates all its own data and can be uploaded to Posit Cloud by itself. It does not read another lab or a CSV.
+
+This time we model:
+
+| Outcome | Measurement | Model |
+|---|---|---|
+| `resident_heat_illness` | One sampled resident per tract reports illness, 1 = yes and 0 = no, during the same complete hypothetical year | Logistic |
+| `heat_visits` | Annual tract count of heat-related emergency episodes, including repeats | Poisson with an exposure offset |
+| `heat_visits_extra` | A separate annual count outcome deliberately generated with extra conditional variation | Poisson screen, then quasi-Poisson / negative binomial |
+
+The binary outcome is **one Bernoulli observation**, not a tract proportion observed without error. The annual count concerns the tract population. They are distinct teaching outcomes, not a biological sequence or a dataset of repeated measures of the same individual.
+
+**A deliberate difference from the OLS lab:** the OLS outcome had spatially correlated errors. These new GLM outcomes are generated independently across tracts **conditional on their specified measured predictors**. Spatially patterned covariates alone do not imply residual spatial dependence. We make this change to teach the outcome families and their diagnostics without silently assuming an ordinary GLM solves the earlier spatial error problem. Real data still need dependence checks.
+
+### A modular pace
+
+Allow 45–60 minutes for logistic regression and its diagnostics, 45–60 for Poisson and count diagnostics, and another 20–30 for the overdispersion extensions and discussion. Do not squeeze all of this plus the expanded OLS lab into the original two class periods. Each section can be paused and resumed.
+
+## 0 · Posit Cloud setup
+
+Upload this `.qmd`, install packages once in the Console, run the setup chunk, then work through chunks in order. Use R 4.1 or newer for `|>`.
+
+```{r}
+#| label: install-glm-packages
+#| eval: false
+install.packages(c("tidyverse", "broom", "knitr", "rmarkdown"))
+# MASS is a recommended R package and is usually already installed.
+# If it is missing, install a version compatible with your R installation:
+# install.packages("MASS")
+```
+
+```{r}
+#| label: glm-setup
+needed <- c("tidyverse", "broom", "MASS", "knitr", "rmarkdown")
+missing <- needed[!vapply(needed, requireNamespace, logical(1), quietly = TRUE)]
+if (length(missing) > 0) stop("Install these packages first: ", paste(missing, collapse = ", "))
+if (getRversion() < "4.1.0") stop("Use R 4.1 or newer.")
+
+library(tidyverse)
+library(broom)
+theme_set(theme_minimal(base_size = 12))
+options(dplyr.summarise.inform = FALSE,
+        contrasts = c("contr.treatment", "contr.poly"))
+```
+
+We use `MASS::glm.nb()` later, without attaching MASS. This keeps the familiar `dplyr::select()` available without a package-name conflict.
+
+### Supplied simulation
+
+You do not need to type or derive this folded code. It recreates the original tract covariates, corrects the deliberately bad continuous-outcome record from its verified source, assigns the new baseline categories, and generates the GLM outcomes. The original continuous health outcome is not used as a GLM predictor.
+
+```{r}
+#| label: glm-simulation
+#| code-fold: true
+#| code-summary: "Supplied self-contained data generator"
+simulate_sc <- function(seed = 5312025) {
+  # Park–Miller uniforms, with exactly representable integer arithmetic.
+  state <- as.double(seed)
+  stopifnot(state > 0, state < 2147483647, state == floor(state))
+  next_u <- function(n) {
+    out <- numeric(n)
+    for (j in seq_len(n)) {
+      state <<- (16807 * state) %% 2147483647
+      out[j] <- state / 2147483647
+    }
+    out
+  }
+  next_z <- function(n) qnorm(next_u(n))
+  clamp <- function(x, lower, upper) pmin(upper, pmax(lower, x))
+
+  # 46 artificial county blocks, each containing 16 artificial tracts.
+  counties <- expand_grid(county_y = 1:6, county_x = 1:8) |>
+    filter(!(county_y == 6 & county_x %in% c(1, 8))) |>
+    mutate(county_number = row_number(),
+           county_id = str_c("SCsim_", str_pad(county_number, 2, pad = "0")),
+           hidden_context = next_z(n()))
+
+  grid <- crossing(county_number = 1:46, local_y = 0:3, local_x = 0:3) |>
+    left_join(counties, by = "county_number") |>
+    arrange(county_number, local_y, local_x) |>
+    mutate(x = (county_x - 1) * 4 + local_x + 1,
+           y = (county_y - 1) * 4 + local_y + 1)
+
+  n <- nrow(grid)
+  east <- (grid$x - mean(grid$x)) / sd(grid$x)
+  context <- grid$hidden_context
+  poverty <- clamp(18 + 2 * context + 7 * next_z(n) + 3 * east, 4, 40)
+  impervious <- clamp(40 + 4 * context + 14 * next_z(n) + 8 * east, 5, 90)
+  imp <- (impervious - 40) / 10
+  heat_rate <- exp(2.1 + .018 * poverty + .13 * imp + .28 * context + .12 * east)
+  heat <- as.integer(qpois(next_u(n), lambda = heat_rate))
+  hardship <- 2 * poverty + .4 * next_z(n)
+
+  # Rook adjacency: share a side on the artificial grid.
+  A <- 1 * ((abs(outer(grid$x, grid$x, "-")) +
+               abs(outer(grid$y, grid$y, "-"))) == 1)
+  stopifnot(all(rowSums(A) > 0))
+  W <- A / rowSums(A)
+  rho <- .70
+  spatial_filter <- diag(n) - rho * W
+  sigma <- .25 + .035 * heat + .015 * poverty
+  z_m <- next_z(n)
+  z_y <- next_z(n)
+  components <- solve(spatial_filter, cbind(.35 * z_m, sigma * z_y))
+  disruption <- .20 * heat + .02 * poverty + .15 * imp + components[, 1]
+
+  # Total heat effect: .10 directly + (.20 * .40) through disruption = .18.
+  mu_total <- 3 + .18 * heat + .048 * poverty + .31 * imp +
+    .20 * imp^2 + .65 * context
+  health <- 3 + .10 * heat + .40 * disruption + .04 * poverty +
+    .25 * imp + .20 * imp^2 + .65 * context + components[, 2]
+
+  dat <- tibble(
+    tract_id = str_c("T", str_pad(seq_len(n), 4, pad = "0")),
+    county_id = factor(grid$county_id), year = 2025L,
+    x = grid$x, y = grid$y, heat_days = heat,
+    poor_health_days = health, poverty_pct = poverty,
+    hardship_index = hardship, impervious_pct = impervious,
+    impervious_c10 = imp, disruption_index = disruption
+  )
+  audit <- tibble(
+    tract_id = dat$tract_id[371],
+    verified_poor_health_days = dat$poor_health_days[371],
+    audit_note = "Source entry check: added 35 days during data entry."
+  )
+  dat$poor_health_days[371] <- dat$poor_health_days[371] + 35
+  dimnames(W) <- list(dat$tract_id, dat$tract_id)
+
+  list(data = dat, audit = audit, W = W,
+       truth = list(total_effect = .18, direct_effect = .10,
+                    indirect_effect = .08, rho = rho, mu_total = mu_total,
+                    hidden_context = context, innovation_sd = sigma))
+}
+
+
+add_modifier_data <- function(data, seed = 531917) {
+  state <- as.double(seed)
+  next_u <- function(n) {
+    out <- numeric(n)
+    for (j in seq_len(n)) {
+      state <<- (16807 * state) %% 2147483647
+      out[j] <- state / 2147483647
+    }
+    out
+  }
+  n <- nrow(data)
+  u <- next_u(n)
+  cooling <- case_when(u < .40 ~ "Limited", u < .75 ~ "Partial", TRUE ~ "Reliable")
+  housing <- if_else(next_u(n) < plogis(-.5 + .035 * (data$poverty_pct - 20)),
+                     "Vulnerable", "Standard")
+  program <- if_else(next_u(n) < .50, "Yes", "No")
+  h <- (data$heat_days - 15) / 5
+  p <- (data$poverty_pct - 20) / 10
+  part <- as.numeric(cooling == "Partial")
+  reliable <- as.numeric(cooling == "Reliable")
+  vulnerable <- as.numeric(housing == "Vulnerable")
+  yes <- as.numeric(program == "Yes")
+
+  modifier_contribution <- -.40 * part - .80 * reliable + .45 * vulnerable -
+    .25 * yes + .25 * h * p - .20 * h * part - .45 * h * reliable -
+    .65 * yes * vulnerable
+
+  data |>
+    mutate(heat5 = h, poverty10 = p,
+           impervious_c10_sq = impervious_c10^2,
+           cooling_access = factor(cooling, levels = c("Limited", "Partial", "Reliable")),
+           housing_profile = factor(housing, levels = c("Standard", "Vulnerable")),
+           warning_program = factor(program, levels = c("No", "Yes")),
+           poor_health_days_modified = poor_health_days + modifier_contribution)
+}
+
+add_glm_outcomes <- function(data, seed = 5311125) {
+  state <- as.double(seed)
+  next_u <- function(n) {
+    out <- numeric(n)
+    for (j in seq_len(n)) {
+      state <<- (16807 * state) %% 2147483647
+      out[j] <- state / 2147483647
+    }
+    out
+  }
+  n <- nrow(data)
+  h <- data$heat5
+  p <- data$poverty10
+  i <- data$impervious_c10
+  part <- as.numeric(data$cooling_access == "Partial")
+  reliable <- as.numeric(data$cooling_access == "Reliable")
+  vulnerable <- as.numeric(data$housing_profile == "Vulnerable")
+  yes <- as.numeric(data$warning_program == "Yes")
+
+  eta <- -1.25 + .40 * h + .35 * p + .18 * i + .10 * i^2 -
+    .35 * part - .75 * reliable + .40 * vulnerable - .25 * yes -
+    .10 * h * part - .22 * h * reliable
+  probability <- plogis(eta)
+  illness <- as.integer(qbinom(next_u(n), size = 1, prob = probability))
+  population <- as.integer(floor(600 + 3400 * next_u(n)))
+  log_rate <- -6 + .28 * h + .30 * p + .15 * i + .08 * i^2 -
+    .20 * part - .45 * reliable + .35 * vulnerable - .25 * yes -
+    .08 * h * part - .16 * h * reliable
+  mu <- population * exp(log_rate)
+  visits <- as.integer(qpois(next_u(n), lambda = mu))
+  theta <- 1.5
+  visits_extra <- as.integer(qnbinom(next_u(n), size = theta, mu = mu))
+
+  list(data = data |>
+         mutate(resident_heat_illness = illness, population_2025 = population,
+                person_years = population, heat_visits = visits,
+                heat_visits_extra = visits_extra),
+       truth = list(probability = probability, expected_visits = mu,
+                    nb_theta = theta, outcomes_conditionally_independent = TRUE))
+}
+
+sim <- simulate_sc()
+base_data <- sim$data |>
+  left_join(sim$audit, by = "tract_id") |>
+  mutate(poor_health_days = coalesce(verified_poor_health_days, poor_health_days)) |>
+  select(-verified_poor_health_days, -audit_note) |>
+  add_modifier_data()
+
+glm_sim <- add_glm_outcomes(base_data)
+gdat <- glm_sim$data
+glm_truth <- glm_sim$truth
+```
+
+### Predictor definitions
+
+| Predictor | Reference / unit |
+|---|---|
+| `heat5` | `(heat_days - 15) / 5`: one unit = five additional heat days |
+| `poverty10` | `(poverty_pct - 20) / 10`: one unit = ten percentage points |
+| `impervious_c10` | `(impervious_pct - 40) / 10` |
+| `impervious_c10_sq` | Squared centered impervious term for mean-model shape |
+| `cooling_access` | Limited, Partial, Reliable; Limited is the reference |
+| `housing_profile` | Standard or Vulnerable; Standard is the reference |
+| `warning_program` | No or Yes; No is the reference |
+| `person_years` | Tract population observed for the full year; positive exposure for the count model |
+
+The full-year follow-up is the same for all count observations. Exposure varies because populations differ, so person-years equal population here. The resident's illness outcome uses the same complete year, but supplies one binary response rather than a population episode count. It has no person-year offset.
+
+## 1 · Choose the outcome-specific DAG and model
+
+Poverty and impervious cover are pre-exposure causes of both heat and these GLM outcomes. Poverty also influences the housing profile. Cooling access, housing profile and the exogenous pre-season program predict the outcome; cooling modifies the heat comparison in the specified GLMs.
+
+```{mermaid}
+flowchart TD
+  C["County context"] --> P["Poverty"]
+  C --> I["Impervious cover"]
+  C --> H["Heat days"]
+  P --> H
+  I --> H
+  P --> Y["GLM outcome"]
+  I --> Y
+  P --> V["Housing profile"]
+  V --> Y
+  H --> Y
+  A["Cooling access"] --> Y
+  G["Warning program"] --> Y
+```
+
+**Unlike the continuous-outcome generator**, there is no remaining direct county-context contribution to these outcome means after the specified predictors. Thus the measured poverty/impervious adjustment blocks the designated heat backdoor paths here, and county fixed effects are not required by this outcome-specific generator. The original service-disruption mediator is not part of these simplified GLM-generating equations. Do not transfer a DAG or a spatial error assumption across outcomes without checking the question.
+
+We include the measured factor predictors to represent their conditional comparisons and the specified modifier. The diagram alone does not specify the interaction scale. The model form below supplies a heat-by-cooling interaction on the log-odds or log-rate scale.
+
+**Write 1:** Identify the observational unit for each outcome, the event coding, the exposure contrast and the required measured adjustment. Why does a numeric count predictor not require Poisson regression when the outcome is binary?
+
+## 2 · Logistic regression: binary outcome, odds and probability
+
+```{r}
+#| label: binary-audit
+gdat |> count(resident_heat_illness) |> mutate(proportion = n / sum(n))
+
+gdat |>
+  group_by(cooling_access, housing_profile) |>
+  summarise(n = n(), events = sum(resident_heat_illness),
+            non_events = sum(resident_heat_illness == 0), .groups = "drop")
+```
+
+Confirm that 1 means the event you want to model. Sparse predictor/outcome cells can produce instability or separation. A model might return enormous coefficients or convergence warnings even though its formula is syntactically correct.
+
+### First fit a working additive model
+
+```{r}
+#| label: additive-logistic
+logit_add <- glm(
+  resident_heat_illness ~ heat5 + poverty10 + impervious_c10 + impervious_c10_sq +
+    cooling_access + housing_profile + warning_program,
+  family = binomial(link = "logit"), data = gdat
+)
+
+tidy(logit_add, conf.int = TRUE, exponentiate = TRUE) |>
+  select(term, estimate, conf.low, conf.high)
+```
+
+Exponentiated **slopes** are odds ratios. An OR of 1 is the null comparison. An OR below 1 describes lower odds, not necessarily the same percentage reduction in probability. The exponentiated intercept is baseline odds, not a slope contrast.
+
+This additive model assumes a constant heat OR across cooling categories. Our modified question asks whether that assumption is adequate.
+
+### Add the prespecified heat-by-cooling interaction
+
+```{r}
+#| label: logistic-interaction
+logit_model <- glm(
+  resident_heat_illness ~ heat5 * cooling_access + poverty10 +
+    impervious_c10 + impervious_c10_sq + housing_profile + warning_program,
+  family = binomial(link = "logit"), data = gdat
+)
+
+tidy(logit_model, conf.int = TRUE, exponentiate = TRUE) |>
+  select(term, estimate, conf.low, conf.high)
+```
+
+The heat OR now applies to the Limited-cooling group. To obtain another cooling group's heat OR, add its interaction coefficient on the **log-odds scale**, then exponentiate; equivalently multiply the corresponding exponentiated terms. Exponentiated interaction coefficients are **ratios of odds ratios**. Their confidence intervals are not automatically intervals for either group's complete heat OR.
+
+The main cooling coefficients compare categories at **15 heat days**, because `heat5 = 0` there. Ordinary `broom` GLM confidence intervals follow the model's profile-likelihood method. We omit `std.error` from ratio tables because its usual value remains on the original coefficient scale, not the OR scale.
+
+**Write 2:** Interpret the heat OR for the reference cooling category and one main cooling comparison. Explain why a cooling main coefficient no longer describes the same odds comparison at every heat exposure.
+
+## 3 · Use predicted probabilities and meaningful contrasts
+
+The helper creates fixed illustrative profiles with 20% poverty, 40% impervious cover, Standard housing and no program, unless overridden. It uses all valid factor levels from the generated data. These are conditional model predictions, not observed group proportions or automatically population-standardized causal effects.
+
+```{r}
+#| label: glm-profile-helper
+#| code-fold: true
+make_glm_profiles <- function(heat_days = 15, cooling_access = "Limited",
+                              poverty_pct = 20, housing_profile = "Standard",
+                              warning_program = "No", person_years = 1000) {
+  crossing(heat_days = heat_days, cooling_access = cooling_access,
+           poverty_pct = poverty_pct, housing_profile = housing_profile,
+           warning_program = warning_program, person_years = person_years) |>
+    mutate(heat5 = (heat_days - 15) / 5, poverty10 = (poverty_pct - 20) / 10,
+           impervious_c10 = 0, impervious_c10_sq = 0,
+           cooling_access = factor(cooling_access, levels = levels(gdat$cooling_access)),
+           housing_profile = factor(housing_profile, levels = levels(gdat$housing_profile)),
+           warning_program = factor(warning_program, levels = levels(gdat$warning_program)))
+}
+```
+
+```{r}
+#| label: logistic-predictions
+probability_grid <- make_glm_profiles(heat_days = 5:30,
+                                      cooling_access = levels(gdat$cooling_access))
+
+probability_predictions <- augment(logit_model, newdata = probability_grid,
+                                    type.predict = "response")
+
+probability_predictions |>
+  ggplot(aes(heat_days, .fitted, color = cooling_access)) +
+  geom_line(linewidth = 1) +
+  scale_y_continuous(labels = scales::label_percent(), limits = c(0, 1)) +
+  labs(x = "Extreme-heat days", y = "Predicted illness probability", color = "Cooling")
+```
+
+```{r}
+#| label: probability-contrasts
+augment(logit_model,
+        newdata = make_glm_profiles(heat_days = c(10, 15),
+                                    cooling_access = levels(gdat$cooling_access)),
+        type.predict = "response") |>
+  select(cooling_access, heat_days, .fitted) |>
+  pivot_wider(names_from = heat_days, values_from = .fitted, names_prefix = "heat_") |>
+  mutate(probability_difference_pp = 100 * (heat_15 - heat_10))
+```
+
+The same fitted model can give each group's five-day OR by comparing **log-odds predictions** and exponentiating their difference. This includes the main and interaction terms together.
+
+```{r}
+#| label: group-specific-odds-ratios
+augment(logit_model,
+        newdata = make_glm_profiles(heat_days = c(10, 15),
+                                    cooling_access = levels(gdat$cooling_access)),
+        type.predict = "link") |>
+  select(cooling_access, heat_days, .fitted) |>
+  pivot_wider(names_from = heat_days, values_from = .fitted, names_prefix = "heat_") |>
+  transmute(cooling_access, OR_per_5_heat_days = exp(heat_15 - heat_10))
+```
+
+**Write 3:** For each category, report the predicted probabilities at 10 and 15 heat days and their difference in **percentage points**. Why is this not the same number as a heat OR? These are point contrasts; we have not calculated confidence intervals for their differences.
+
+Even without an explicit interaction in a logistic model, a common odds ratio can imply different probability differences at different baseline risks. Therefore differences in risk differences alone do not establish an interaction on the log-odds scale. Likewise, adding an outcome predictor can change an OR without confounding because of non-collapsibility; do not select causal controls solely from OR changes.
+
+## 4 · Logistic diagnostics: what can we check?
+
+### Convergence and stability
+
+```{r}
+#| label: logistic-convergence
+tibble(converged = purrr::pluck(logit_model, "converged"))
+
+tidy(logit_model) |>
+  arrange(desc(std.error)) |>
+  select(term, estimate, std.error) |>
+  slice_head(n = 5)
+```
+
+Convergence does not prove no separation or a correct model. Inspect warnings, very large coefficients/SEs, sparse cells and the design. Do not report a huge OR uncritically or automatically delete rare categories to obtain a desired result.
+
+### In-sample calibration
+
+```{r}
+#| label: logistic-calibration
+logit_diagnostics <- augment(logit_model, data = gdat,
+                             type.predict = "response", type.residuals = "pearson")
+
+calibration <- logit_diagnostics |>
+  mutate(bin = ntile(.fitted, 10)) |>
+  group_by(bin) |>
+  summarise(n = n(), predicted = mean(.fitted), observed = mean(resident_heat_illness))
+
+calibration
+
+calibration |>
+  ggplot(aes(predicted, observed)) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+  geom_point(size = 3, color = "#237ba0") +
+  coord_equal(xlim = c(0, 1), ylim = c(0, 1)) +
+  labs(x = "Mean fitted probability", y = "Observed event proportion")
+```
+
+Bins contain finite samples and can be noisy. This is an **in-sample screen**, not validation in new data. Agreement does not verify the DAG, continuous-predictor form or transportability to another county/year.
+
+### Mean form and influential observations
+
+```{r}
+#| label: logistic-residual-shape
+logit_diagnostics |>
+  ggplot(aes(heat5, .resid, color = cooling_access)) +
+  geom_point(alpha = .25) +
+  geom_smooth(method = "loess", se = FALSE) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Centered heat, in five-day units", y = "Pearson residual", color = "Cooling")
+
+logit_diagnostics |>
+  select(tract_id, cooling_access, resident_heat_illness, .fitted, .hat, .cooksd) |>
+  slice_max(.cooksd, n = 5, with_ties = FALSE)
+```
+
+Residuals for 0/1 data naturally look different from OLS residuals. Additivity/linearity applies to **log-odds**, not to the probability curve. A smooth can flag a systematic mismatch but cannot prove the link form is correct. Inspect continuous predictors separately and investigate influential records rather than deleting them by rank.
+
+### A predictive summary, with a limitation
+
+```{r}
+#| label: logistic-fit-summary
+logit_diagnostics |>
+  summarise(Brier_score = mean((resident_heat_illness - .fitted)^2),
+            intercept_only_Brier = mean((resident_heat_illness - mean(resident_heat_illness))^2))
+
+bind_rows(glance(logit_add) |> mutate(model = "Additive"),
+          glance(logit_model) |> mutate(model = "Heat × cooling")) |>
+  select(model, nobs, AIC, deviance)
+```
+
+Lower Brier score means better squared probability prediction in the evaluated data; lower AIC is a likelihood/complexity comparison for these same-outcome, same-row fits. Neither establishes causal validity. In-sample performance is optimistic for prediction. New-data assessment needs a suitable holdout/CV design; geographic transport may require spatially structured validation. A fixed 0.5 classification accuracy is not a substitute for probability calibration.
+
+**Write 4:** Report one reassuring diagnostic and one remaining limitation. Why would a normality test of a 0/1 outcome be unhelpful?
+
+## 5 · Poisson regression: counts need an exposure denominator
+
+```{r}
+#| label: count-audit
+gdat |>
+  summarise(tracts = n(), total_visits = sum(heat_visits),
+            zero_count_tracts = sum(heat_visits == 0),
+            minimum_person_years = min(person_years), maximum_person_years = max(person_years),
+            valid_counts = all(heat_visits >= 0 & heat_visits %% 1 == 0),
+            positive_exposure = all(person_years > 0))
+```
+
+Four visits in 1,000 person-years and four in 4,000 person-years have different rates. Zero is a valid count. Expected counts can be fractional even though observed counts are integers. Repeated episodes are allowed; we are not modeling a number of distinct people who ever became ill.
+
+```{r}
+#| label: poisson-model
+poisson_model <- glm(
+  heat_visits ~ heat5 * cooling_access + poverty10 +
+    impervious_c10 + impervious_c10_sq + housing_profile + warning_program +
+    offset(log(person_years)),
+  family = poisson(link = "log"), data = gdat
+)
+
+tidy(poisson_model, conf.int = TRUE, exponentiate = TRUE) |>
+  select(term, estimate, conf.low, conf.high)
+```
+
+The model keeps the **count** on the left and supplies exposure through an offset. The offset coefficient is fixed at 1. At the same covariate profile, twice the exposure implies twice the expected count. Do not put a noninteger precomputed rate on the left of an ordinary Poisson count likelihood.
+
+Exponentiated slope coefficients are **rate ratios**, with 1 as the null. The heat IRR is for five additional heat days in the Limited-cooling group. Cooling main IRRs compare groups at 15 heat days. Exponentiated interaction coefficients are ratios of rate ratios, not additive differences in rates.
+
+**Write 5:** Interpret the reference-group heat IRR and one cooling comparison. What does the offset assume about how counts scale with person-years? Is that an ordinary fitted confounder coefficient?
+
+## 6 · Predict counts and report rates
+
+```{r}
+#| label: count-predictions
+count_profiles <- make_glm_profiles(
+  heat_days = c(10, 20), cooling_access = levels(gdat$cooling_access),
+  person_years = c(1000, 2000)
+)
+
+augment(poisson_model, newdata = count_profiles, type.predict = "response") |>
+  transmute(heat_days, cooling_access, person_years, expected_visits = .fitted,
+            rate_per_1000_person_years = 1000 * .fitted / person_years)
+```
+
+```{r}
+#| label: count-rate-plot
+augment(poisson_model,
+        newdata = make_glm_profiles(heat_days = 5:30,
+                                    cooling_access = levels(gdat$cooling_access),
+                                    person_years = 1000),
+        type.predict = "response") |>
+  ggplot(aes(heat_days, .fitted, color = cooling_access)) +
+  geom_line(linewidth = 1) +
+  labs(x = "Extreme-heat days", y = "Expected visits per 1,000 person-years", color = "Cooling")
+```
+
+At the same exposure, differences in the model's log expected count give rate ratios after exponentiation. Here the contrast is five heat days; the earlier 10-versus-20-day prediction table spans two such units.
+
+```{r}
+#| label: group-specific-rate-ratios
+augment(poisson_model,
+        newdata = make_glm_profiles(heat_days = c(10, 15),
+                                    cooling_access = levels(gdat$cooling_access),
+                                    person_years = 1000),
+        type.predict = "link") |>
+  select(cooling_access, heat_days, .fitted) |>
+  pivot_wider(names_from = heat_days, values_from = .fitted, names_prefix = "heat_") |>
+  transmute(cooling_access, IRR_per_5_heat_days = exp(heat_15 - heat_10))
+```
+
+**Write 6:** Choose one cooling profile and show that doubling exposure doubles the fitted count while leaving its rate unchanged. Explain why the same numeric contrast is an odds ratio in the logistic model and a rate ratio here only after changing the outcome and model.
+
+## 7 · Count diagnostics: conditional variance and zeros
+
+### Main Poisson-generated outcome
+
+```{r}
+#| label: poisson-dispersion
+poisson_diagnostics <- augment(poisson_model, data = gdat,
+                               type.predict = "response", type.residuals = "pearson")
+
+poisson_diagnostics |>
+  summarise(Pearson_ratio = sum(.resid^2) / df.residual(poisson_model),
+            observed_zero_fraction = mean(heat_visits == 0),
+            predicted_zero_fraction = mean(dpois(0, lambda = .fitted)))
+
+poisson_diagnostics |>
+  ggplot(aes(.fitted, .resid)) +
+  geom_point(alpha = .3, color = "#237ba0") +
+  geom_smooth(method = "loess", se = FALSE, color = "#d45a42") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Expected count", y = "Pearson residual")
+```
+
+Poisson sets variance equal to the mean **conditional on predictors and exposure**. Raw count variance can exceed raw count mean simply because populations and risks differ. The Pearson ratio is a rough residual screen, not a rigid threshold or a complete specification test. A value near 1 does not establish the DAG, independence or correct continuous-predictor shape.
+
+Discrete residuals are not expected to be normally distributed. Compare observed and fitted means, patterns across relevant predictors, unusual observations and exposure measurement, in addition to dispersion.
+
+```{r}
+#| label: poisson-influence
+poisson_diagnostics |>
+  select(tract_id, heat_visits, person_years, .fitted, .resid, .hat, .cooksd) |>
+  slice_max(.cooksd, n = 5, with_ties = FALSE)
+```
+
+### A separate outcome with extra conditional variation
+
+`heat_visits_extra` has the same specified conditional mean but was generated from a negative-binomial distribution. We do not alter the observed main outcome to make its diagnostics “pass.”
+
+```{r}
+#| label: overdispersed-poisson
+poisson_extra <- glm(
+  heat_visits_extra ~ heat5 * cooling_access + poverty10 +
+    impervious_c10 + impervious_c10_sq + housing_profile + warning_program +
+    offset(log(person_years)),
+  family = poisson(link = "log"), data = gdat
+)
+
+extra_diagnostics <- augment(poisson_extra, data = gdat,
+                             type.predict = "response", type.residuals = "pearson")
+
+extra_diagnostics |>
+  summarise(Pearson_ratio = sum(.resid^2) / df.residual(poisson_extra),
+            observed_zero_fraction = mean(heat_visits_extra == 0),
+            predicted_zero_fraction = mean(dpois(0, lambda = .fitted)))
+```
+
+**Write 7:** Which count outcome has more variation than an ordinary Poisson model expects? What could cause this in real data: mean misspecification, unmeasured heterogeneity, dependence, reporting or exposure errors? Why would more zeros alone not prove a separate zero-inflation process?
+
+## 8 · Two responses to overdispersion
+
+### Quasi-Poisson: a different uncertainty calculation
+
+```{r}
+#| label: quasi-poisson
+quasi_model <- glm(formula(poisson_extra), family = quasipoisson(link = "log"), data = gdat)
+
+bind_rows(tidy(poisson_extra) |> mutate(model = "Poisson"),
+          tidy(quasi_model) |> mutate(model = "Quasi-Poisson")) |>
+  filter(term %in% c("heat5", "heat5:cooling_accessReliable")) |>
+  select(model, term, estimate, std.error)
+```
+
+With the same mean formula, these fitted coefficients match while SEs change. This table stays on the log-rate scale to compare SEs clearly. Quasi-Poisson is not a fix for a wrong mean, confounding or dependent observations. It does not provide the same full likelihood used for ordinary AIC comparisons; do not choose it by comparing its AIC to the models below.
+
+### Negative binomial: model extra conditional variance
+
+```{r}
+#| label: negative-binomial
+nb_model <- MASS::glm.nb(formula(poisson_extra), data = gdat)
+
+tidy(nb_model, conf.int = TRUE, exponentiate = TRUE) |>
+  select(term, estimate, conf.low, conf.high)
+
+tibble(model = c("Poisson for extra outcome", "Negative binomial for extra outcome"),
+       AIC = c(AIC(poisson_extra), AIC(nb_model)))
+```
+
+These AIC values compare the **same outcome and same rows**. We are not comparing a fit to `heat_visits` with a fit to `heat_visits_extra`. Negative binomial changes the variance model; its fitted mean coefficients need not match Poisson's.
+
+```{r}
+#| label: nb-diagnostics
+nb_expected <- predict(nb_model, type = "response")
+
+tibble(theta = nb_model$theta,
+       Pearson_ratio = sum(residuals(nb_model, type = "pearson")^2) / df.residual(nb_model),
+       observed_zero_fraction = mean(gdat$heat_visits_extra == 0),
+       predicted_zero_fraction = mean(dnbinom(0, mu = nb_expected, size = nb_model$theta)))
+```
+
+A lower Pearson ratio after a variance-model change is useful, but not proof that every assumption now holds. A negative-binomial model can generate more zeros through heterogeneity without a separate structural-zero process.
+
+**Write 8:** Explain the distinction between quasi-Poisson and negative binomial. Which changes only the uncertainty for this mean formula, and which specifies a full alternative count distribution? Name a problem neither automatically solves.
+
+## 9 · Geographic context and what remains to check
+
+The GLM outcomes here were generated conditionally independently. That does not excuse us from assessing dependence in a real application. Plot Pearson residuals against the artificial coordinates and compare their pattern with the exposure pattern if useful.
+
+```{r}
+#| label: glm-residual-map
+poisson_diagnostics |>
+  ggplot(aes(x, y, fill = .resid)) +
+  geom_tile() + coord_equal() +
+  scale_fill_gradient2(low = "#237ba0", mid = "white", high = "#d45a42", midpoint = 0) +
+  labs(x = NULL, y = NULL, fill = "Pearson residual",
+       title = "Count-model residuals on the artificial grid",
+       caption = "Simulated tracts, not actual South Carolina geography") +
+  theme(axis.text = element_blank(), panel.grid = element_blank())
+```
+
+If observations are repeated, clustered or spatially dependent, ordinary GLM uncertainty may be unsuitable. Cluster-aware inference, GEE, mixed models or spatial GLMs require additional assumptions and data. An OLS spatial-error function is not automatically a valid spatial logistic or Poisson model. Negative binomial alone does not model geographic dependence.
+
+## 10 · Submit a short model decision log
+
+1. Explain why the three outcomes in this lab use different families and how the offset enters the rate question.
+2. Interpret an OR, an IRR and an exponentiated interaction coefficient, including reference groups and five-day units.
+3. Report the logistic probability contrast and the count/rate prediction table.
+4. Identify the useful diagnostic evidence for each family, and what those diagnostics cannot establish.
+5. Explain the overdispersion comparison and the response you selected for the extra-variation outcome.
+6. Distinguish effect modification on the mean-difference, odds and rate scales. Explain why probability differences can vary without a log-odds interaction.
+7. State why the DAG and independence assumptions differ from the earlier continuous-outcome generator.
+
+## Documentation and verification
+
+- [broom tidy GLMs](https://broom.tidymodels.org/reference/tidy.glm.html) and [augment GLMs](https://broom.tidymodels.org/reference/augment.glm.html).
+- [R GLM families and links](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html), [offsets](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/offset.html), and [model formula interaction operators](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/formula.html).
+- [MASS negative-binomial regression](https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/glm.nb.html).
+
+The examples are original simulations, not evidence about South Carolina. Core estimates and diagnostic patterns were checked with independent Python likelihood and linear-model calculations. Native R/Quarto execution was unavailable during creation. The instructor should render once in a prepared Posit Cloud project before distributing it. No external data file is required.

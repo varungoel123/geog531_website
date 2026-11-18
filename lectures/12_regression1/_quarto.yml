@@ -1,0 +1,31 @@
+project:
+  type: default
+  execute-dir: project
+  render:
+  - 01_lecture.qmd
+  - 01_lecture_notes.qmd
+  - 02_lab_linear.qmd
+  - 03_lab_glm.qmd
+  - instructor/04_teaching_guide.qmd
+  - instructor/05_lab_answer_key.qmd
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 2
+    number-sections: false
+    code-copy: true
+    embed-resources: true
+    smooth-scroll: true
+    link-external-newwindow: true
+execute:
+  echo: true
+  message: false
+  warning: true
+  error: false
+knitr:
+  opts_chunk:
+    fig.width: 8
+    fig.height: 4.5
+    dpi: 150

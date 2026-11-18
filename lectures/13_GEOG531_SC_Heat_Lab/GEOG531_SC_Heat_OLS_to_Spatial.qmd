@@ -1,0 +1,920 @@
+---
+title: "Evaluating Extreme heat impacts on health in SC using regression"
+subtitle: "GEOG 531: Quantitative Methods in Geographic Research"
+author: "Varun Goel"
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    code-copy: true
+    embed-resources: true
+    number-sections: false
+    fig-width: 8
+    fig-height: 4.8
+execute:
+  echo: true
+  warning: true
+  message: false
+  error: false
+params:
+  run_spatial: false
+---
+
+## What this lab asks
+
+**Question:** Are more extreme-heat days associated with worse average physical health, and what would we need to estimate a causal effect?
+
+You will follow one dataset through an audit, a causal diagram, crude and adjusted OLS, multicollinearity, mean-model checks, unequal error variance, influence, and county fixed effects. You will then map residuals and see why a spatial model may still be needed. An added module introduces a three-level categorical predictor and continuous × continuous, continuous × categorical, and categorical × categorical interactions using a clearly named related outcome variant.
+
+The dataset is a **simulation inspired by a South Carolina research question**. It contains **736 fictional tracts within 46 fictional county groups in one hypothetical year, 2025**. Its grid is a schematic, not a map of South Carolina. County IDs are invented and do not identify actual counties. No values estimate real health conditions or climate effects in South Carolina.
+
+Tracts, rather than one observation per county, give us variation **within counties** for a county fixed-effects model. With one row per county in one year, a separate intercept for every county would saturate the model.
+
+**Predictor:** number of extreme-heat days during the year. Although this predictor is a count, it can enter OLS as a numeric predictor. **The outcome selects the regression family.**
+
+**Outcome:** the tract's mean number of poor-physical-health days in the past 30 days, averaged across residents surveyed over the year. This is a continuous tract-level mean, with larger values indicating worse health. The analysis gives each tract equal weight and targets a tract-level comparison. It does not estimate an individual resident's causal effect.
+
+```{r}
+#| label: setup
+needed <- c("tidyverse", "broom", "lmtest", "sandwich", "knitr", "rmarkdown","car")
+missing <- needed[!vapply(needed, requireNamespace, logical(1), quietly = TRUE)]
+if (length(missing) > 0) {
+  stop("Install these packages in the Console first: ", paste(missing, collapse = ", "))
+}
+if (getRversion() < "4.1.0") stop("Use R 4.1 or newer for the |> pipe.")
+
+library(tidyverse)
+library(broom)
+theme_set(theme_minimal(base_size = 12))
+options(dplyr.summarise.inform = FALSE,
+        contrasts = c("contr.treatment", "contr.poly"))
+```
+
+### Generate the teaching data
+
+The folded chunk supplies the simulation. **You do not need to type or understand its internals.** It also creates a separate `truth` object for checking the method in a simulated world. Those hidden quantities would not be available in a real observational study.
+
+The small random-number generator keeps the supplied numerical reference reproducible without relying on an external data file. It is a teaching convenience, not a recommendation for general simulation software.
+
+```{r}
+#| label: simulate-data
+#| code-fold: true
+#| code-summary: "Simulation code: supplied, not a student coding exercise"
+simulate_sc <- function(seed = 5312025) {
+  # Park–Miller uniforms, with exactly representable integer arithmetic.
+  state <- as.double(seed)
+  stopifnot(state > 0, state < 2147483647, state == floor(state))
+  next_u <- function(n) {
+    out <- numeric(n)
+    for (j in seq_len(n)) {
+      state <<- (16807 * state) %% 2147483647
+      out[j] <- state / 2147483647
+    }
+    out
+  }
+  next_z <- function(n) qnorm(next_u(n))
+  clamp <- function(x, lower, upper) pmin(upper, pmax(lower, x))
+
+  # 46 artificial county blocks, each containing 16 artificial tracts.
+  counties <- expand_grid(county_y = 1:6, county_x = 1:8) |>
+    filter(!(county_y == 6 & county_x %in% c(1, 8))) |>
+    mutate(county_number = row_number(),
+           county_id = str_c("SCsim_", str_pad(county_number, 2, pad = "0")),
+           hidden_context = next_z(n()))
+
+  grid <- crossing(county_number = 1:46, local_y = 0:3, local_x = 0:3) |>
+    left_join(counties, by = "county_number") |>
+    arrange(county_number, local_y, local_x) |>
+    mutate(x = (county_x - 1) * 4 + local_x + 1,
+           y = (county_y - 1) * 4 + local_y + 1)
+
+  n <- nrow(grid)
+  east <- (grid$x - mean(grid$x)) / sd(grid$x)
+  context <- grid$hidden_context
+  poverty <- clamp(18 + 2 * context + 7 * next_z(n) + 3 * east, 4, 40)
+  impervious <- clamp(40 + 4 * context + 14 * next_z(n) + 8 * east, 5, 90)
+  imp <- (impervious - 40) / 10
+  heat_rate <- exp(2.1 + .018 * poverty + .13 * imp + .28 * context + .12 * east)
+  heat <- as.integer(qpois(next_u(n), lambda = heat_rate))
+  hardship <- 2 * poverty + .4 * next_z(n)
+
+  # Rook adjacency: share a side on the artificial grid.
+  A <- 1 * ((abs(outer(grid$x, grid$x, "-")) +
+               abs(outer(grid$y, grid$y, "-"))) == 1)
+  stopifnot(all(rowSums(A) > 0))
+  W <- A / rowSums(A)
+  rho <- .70
+  spatial_filter <- diag(n) - rho * W
+  sigma <- .25 + .035 * heat + .015 * poverty
+  z_m <- next_z(n)
+  z_y <- next_z(n)
+  components <- solve(spatial_filter, cbind(.35 * z_m, sigma * z_y))
+  disruption <- .20 * heat + .02 * poverty + .15 * imp + components[, 1]
+
+  # Total heat effect: .10 directly + (.20 * .40) through disruption = .18.
+  mu_total <- 3 + .18 * heat + .048 * poverty + .31 * imp +
+    .20 * imp^2 + .65 * context
+  health <- 3 + .10 * heat + .40 * disruption + .04 * poverty +
+    .25 * imp + .20 * imp^2 + .65 * context + components[, 2]
+
+  dat <- tibble(
+    tract_id = str_c("T", str_pad(seq_len(n), 4, pad = "0")),
+    county_id = factor(grid$county_id), year = 2025L,
+    x = grid$x, y = grid$y, heat_days = heat,
+    poor_health_days = health, poverty_pct = poverty,
+    hardship_index = hardship, impervious_pct = impervious,
+    impervious_c10 = imp, disruption_index = disruption
+  )
+  audit <- tibble(
+    tract_id = dat$tract_id[371],
+    verified_poor_health_days = dat$poor_health_days[371],
+    audit_note = "Source entry check: added 35 days during data entry."
+  )
+  dat$poor_health_days[371] <- dat$poor_health_days[371] + 35
+  dimnames(W) <- list(dat$tract_id, dat$tract_id)
+
+  list(data = dat, audit = audit, W = W,
+       truth = list(total_effect = .18, direct_effect = .10,
+                    indirect_effect = .08, rho = rho, mu_total = mu_total,
+                    hidden_context = context, innovation_sd = sigma))
+}
+
+sim <- simulate_sc()
+dat_raw <- sim$data
+truth <- sim$truth
+```
+
+### Keep this vocabulary nearby
+
+| Tool | Purpose |
+|------------------------------------|------------------------------------|
+| `mutate()` / `select()` / `filter()` | Create columns / keep columns / keep rows |
+| `group_by()` + `summarise()` | Compare groups |
+| `lm()` | Fit an OLS model |
+| `tidy()` | Put coefficient estimates into rows |
+| `augment()` | Add fitted values and diagnostics to observations |
+| `glance()` | Return a one-row model summary |
+| `ggplot()` | Plot the data or diagnostic tibble |
+
+The `|>` pipe means “take this result, then…”. `lm()` remains the fitting function; the surrounding workflow uses tidyverse tools.
+
+## 1 · Audit the data before fitting
+
+```{r}
+#| label: inspect-data
+dat_raw |> glimpse()
+
+dat_raw |>
+  summarise(tracts = n(), counties = n_distinct(county_id),
+            missing_outcomes = sum(is.na(poor_health_days)),
+            minimum_health = min(poor_health_days),
+            maximum_health = max(poor_health_days))
+
+flagged <- dat_raw |>
+  filter(poor_health_days < 0 | poor_health_days > 30)
+flagged |> select(tract_id, county_id, poor_health_days)
+```
+
+**Discuss 1:** Could a mean number of days in a 30-day window exceed 30? Is deleting every large residual a suitable substitute for checking the source?
+
+This simulation includes one deliberate data-entry error. The supplied source audit identifies a verified replacement. We correct it from that record; we do not guess a value or remove the tract to improve the regression.
+
+```{r}
+#| label: source-audit
+sim$audit
+
+dat <- dat_raw |>
+  left_join(sim$audit, by = "tract_id") |>
+  mutate(poor_health_days = coalesce(verified_poor_health_days, poor_health_days)) |>
+  select(-verified_poor_health_days, -audit_note)
+
+stopifnot(nrow(dat) == 736, !anyDuplicated(dat$tract_id),
+          !anyNA(dat), all(between(dat$poor_health_days, 0, 30)))
+```
+
+### Data dictionary
+
+| Column | Meaning / role in this simulation |
+|------------------------------------|------------------------------------|
+| `tract_id`, `county_id` | Invented tract and county-group IDs |
+| `year` | One hypothetical year, 2025 |
+| `x`, `y` | Artificial grid coordinates, not longitude/latitude |
+| `heat_days` | Extreme-heat day count, used as a numeric exposure |
+| `poor_health_days` | Continuous tract mean poor-physical-health days per resident in a 30-day window |
+| `poverty_pct` | Pre-exposure poverty percentage, a confounder |
+| `impervious_pct` | Pre-exposure impervious cover percentage, a confounder |
+| `impervious_c10` | `(impervious_pct - 40) / 10`; zero is 40% impervious cover |
+| `hardship_index` | Almost duplicate measurement of poverty, with no separate causal effect once poverty is known |
+| `disruption_index` | Continuous service-disruption score, a mediator; it is not a count of days |
+
+## 2 · The causal diagram comes first
+
+Our target is the **total effect** of one more extreme-heat day on the tract mean health outcome, including the pathway through service disruption. Poverty and built environment are measured before the exposure period. County context represents shared planning, infrastructure and other pre-existing conditions.
+
+```{mermaid}
+flowchart TD
+  C["County context"] --> P["Poverty"]
+  C --> I["Impervious cover"]
+  C --> H["Extreme-heat days"]
+  C --> Y["Mean poor-health days"]
+  P --> H
+  P --> M["Service disruption"]
+  P --> Y
+  P --> K["Hardship proxy"]
+  I --> H
+  I --> M
+  I --> Y
+  H --> M
+  H --> Y
+  M --> Y
+```
+
+This diagram describes the tract's mean causal relationships. It does not display all the cross-tract dependence in the error process. The simulation adds that dependence separately.
+
+| Decision | Reason |
+|------------------------------------|------------------------------------|
+| Include poverty and impervious cover | Both are pre-exposure common causes of exposure and outcome |
+| Eventually include county fixed effects | They absorb the county-constant context in this simulation |
+| Exclude disruption for the total effect | It lies on a causal pathway we want to include |
+| Avoid including poverty and its near-duplicate together without a reason | The proxy adds no distinct backdoor pathway here |
+
+The sufficient adjustment structure is **poverty, impervious cover and county context**, with adequate functional forms. County IDs represent context through fixed intercepts; an ID is not itself a biological cause. We first omit county effects deliberately to see what remains unresolved.
+
+A separate collider example is `heat exposure → study participation ← health`. Conditioning on participation can open a noncausal path. It is not a reason to add every available variable to the model.
+
+**Discuss 2:** Name an open backdoor path. Why would controlling for disruption change the target? What assumptions behind the arrows cannot be established from this dataset?
+
+If useful, paste the following into DAGitty, then set the total-effect question. Its arrows match the main diagram.
+
+```{text}
+# This code can be pasted in Daggitty
+
+dag {
+  county     [pos="3,0"]
+  poverty    [pos="1,2"]
+  impervious [pos="5,2"]
+  hardship   [pos="-1,2"]
+
+  heat       [exposure,pos="1,5"]
+  health     [outcome,pos="5,5"]
+  disruption [pos="3,7"]
+
+  county -> poverty
+  county -> impervious
+  county -> heat
+  county -> health
+
+  poverty -> heat
+  poverty -> disruption
+  poverty -> health
+  poverty -> hardship
+
+  impervious -> heat
+  impervious -> disruption
+  impervious -> health
+
+  heat -> disruption
+  heat -> health
+
+  disruption -> health
+}
+```
+
+## 3 · Unadjusted OLS: a numeric exposure
+
+```{r}
+#| label: crude-plot
+dat |>
+  ggplot(aes(heat_days, poor_health_days)) +
+  geom_point(alpha = .4, color = "#237ba0") +
+  geom_smooth(method = "lm", se = TRUE, color = "#d45a42") +
+  labs(x = "Extreme-heat days in the hypothetical year",
+       y = "Mean poor-health days per resident")
+```
+
+```{r}
+#| label: crude-model
+m0 <- lm(poor_health_days ~ heat_days, data = dat)
+
+tidy(m0, conf.int = TRUE) |>
+  select(term, estimate, std.error, conf.low, conf.high)
+```
+
+**Write 3:** “A tract with one more extreme-heat day has an estimated \_\_\_\_\_\_ more/fewer mean poor-health days.” Is this a crude association or an identified causal effect? What is the fitted difference for five additional heat days?
+
+The coefficient is in **poor-health days per one additional extreme-heat day**. Five additional heat days correspond to five times the coefficient in this model. The intercept refers to zero heat days; check whether that is supported by the data.
+
+All intervals and p-values printed so far use the model's working independence and variance assumptions. We have not checked them yet.
+
+## 4 · Adjusted OLS: improve the comparison
+
+```{r}
+#| label: adjusted-model
+m1 <- lm(poor_health_days ~ heat_days + poverty_pct + impervious_c10, data = dat)
+
+bind_rows(
+  tidy(m0, conf.int = TRUE) |> mutate(model = "Crude"),
+  tidy(m1, conf.int = TRUE) |> mutate(model = "Measured-confounder adjusted")
+) |>
+  filter(term == "heat_days") |>
+  select(model, estimate, conf.low, conf.high)
+```
+
+**Write 4:** Interpret the adjusted heat coefficient, including units and the variables held at the same values. Which backdoor paths did this address? Which specified county path is still open?
+
+`impervious_c10` uses units of **10 percentage points**, centered at 40%. Centering changes the intercept's reference, not the substantive information in the predictor. It will also make the later quadratic term easier to work with.
+
+Adding a variable can increase, decrease, or reverse an estimate. Changes alone do not prove confounding. We chose these variables from the diagram, rather than selecting them by p-values or improvement in R².
+
+### Simulation-only check: estimation error versus bias
+
+The simulation knows the total heat effect: **0.18 additional mean poor-health days per additional heat day**, or **0.90 for five additional heat days**. Its direct component is 0.10 and the disruption pathway adds 0.08.
+
+```{r}
+#| label: observed-estimation-error
+bind_rows(tidy(m0) |> mutate(model = "Crude"),
+          tidy(m1) |> mutate(model = "Adjusted, initial form")) |>
+  filter(term == "heat_days") |>
+  transmute(model, estimate, known_effect = truth$total_effect,
+            estimation_error = estimate - known_effect)
+```
+
+A discrepancy in **one fitted dataset** is estimation error. Statistical bias concerns what the procedure estimates on average across repeated samples or outcome draws.
+
+Here we can also average over mediator noise and health errors to fit the **known conditional mean** at the fixed pre-exposure tract and county values, stored separately in `truth$mu_total`. With these predictors and county context fixed, OLS is linear in the outcome. Fitting this mean therefore gives the expected fitted slope over repeated draws of the simulation's mean-zero errors.
+
+```{r}
+#| label: conditional-bias
+oracle_data <- dat |>
+  mutate(poor_health_days = truth$mu_total)
+
+expected_slope <- function(model) {
+  fitted_mean_model <- lm(formula(model), data = oracle_data)
+  unname(coef(fitted_mean_model)["heat_days"])
+}
+
+tibble(model = c("Crude", "Adjusted, initial form"),
+       expected_heat_slope = c(expected_slope(m0), expected_slope(m1))) |>
+  mutate(known_effect = truth$total_effect,
+         conditional_bias = expected_heat_slope - known_effect)
+```
+
+**Discuss 5:** Did measured adjustment remove all conditional bias? Why can the answer still be no? County context and an imperfect mean form remain unresolved at this stage.
+
+**Real-data limit:** We can perform this check because we invented the process. In real data, residual plots and coefficient changes cannot verify that all confounding has been removed. A residual's zero sample correlation with included predictors follows mechanically from OLS and is not a test for no omitted confounding.
+
+## 5 · Multicollinearity: distinguish redundancy from a causal control
+
+Suppose someone adds the hardship index because it sounds important.
+
+```{r}
+#| label: collinear-model
+m_collinear <- lm(poor_health_days ~ heat_days + poverty_pct +
+                    impervious_c10 + hardship_index, data = dat)
+
+dat |> summarise(poverty_hardship_correlation = cor(poverty_pct, hardship_index))
+
+tidy(m_collinear, conf.int = TRUE) |>
+  filter(term %in% c("poverty_pct", "hardship_index")) |>
+  select(term, estimate, std.error, conf.low, conf.high)
+```
+
+The two variables nearly duplicate the same construct. Separating their coefficients becomes unstable even when the overall model predicts reasonably well. Multicollinearity is about overlap among predictors, not necessarily a biased heat coefficient. We can use VIFs to calculate multicollinearity among our predictors.
+
+Near 1: little overlap with other predictors. Above 5: investigate potentially problematic overlap. Above 10: substantial overlap.
+
+Note that this threshold applies to *continuous predictors*, NOT *categorical predictors*!
+
+```{r}
+#| label: vif-comparison
+
+library(car)
+
+vif(m_collinear)
+vif(m1)
+```
+
+**Write 6:** Which terms have the largest VIFs? Why is retaining poverty and dropping its redundant proxy defensible here? Why would dropping a required confounder merely because its p-value is large be a different decision?
+
+We return to `m1`. Poverty blocks specified backdoor paths; the hardship proxy adds no distinct path once poverty is measured in this simulation.
+
+## 6 · Mean-model shape: inspect each continuous predictor
+
+A good causal adjustment set still needs adequate functional forms. The simulation makes the impervious-cover relationship curved. The heat effect itself is linear, so we should not automatically bend every predictor.
+
+```{r}
+#| label: initial-residual-shape
+diagnostics_m1 <- augment(m1, data = dat)
+
+diagnostics_m1 |>
+  ggplot(aes(impervious_c10, .resid)) +
+  geom_point(alpha = .4, color = "#237ba0") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_smooth(method = "loess", se = FALSE, color = "#d45a42") +
+  labs(x = "Impervious cover: (percentage − 40) / 10", y = "Residual")
+```
+
+```{r}
+#| label: curved-model
+dat <- dat |> mutate(impervious_c10_sq = impervious_c10^2)
+
+m_curve <- lm(poor_health_days ~ heat_days + poverty_pct +
+                impervious_c10 + impervious_c10_sq, data = dat)
+
+augment(m_curve, data = dat) |>
+  ggplot(aes(impervious_c10, .resid)) +
+  geom_point(alpha = .4, color = "#237ba0") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_smooth(method = "loess", se = FALSE, color = "#d45a42") +
+  labs(x = "Centered impervious cover, in 10-percentage-point units", y = "Residual")
+```
+
+We keep both the linear and squared impervious terms. This changes the shape of the adjustment, not the list of underlying causal variables. The linear term by itself is no longer the slope at every impervious-cover value.
+
+**Discuss 7:** Has the dominant curve weakened? Are other problems still plausible? Why would a more flexible model with excellent R² still fail to establish a causal effect?
+
+## 7 · Variance, residual tails and influence
+
+### Is residual spread constant?
+
+```{r}
+#| label: variance-plots
+diagnostics_curve <- augment(m_curve, data = dat)
+
+diagnostics_curve |>
+  ggplot(aes(.fitted, .resid)) +
+  geom_point(alpha = .4, color = "#237ba0") +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Fitted mean poor-health days", y = "Residual")
+
+diagnostics_curve |>
+  mutate(fitted_group = ntile(.fitted, 5)) |>
+  group_by(fitted_group) |>
+  summarise(n = n(), residual_sd = sd(.resid), mean_fitted = mean(.fitted))
+```
+
+```{r}
+#| label: variance-test
+lmtest::bptest(m_curve) |> tidy()
+```
+
+The Breusch–Pagan test is supplementary to the plots. Its usual inferential reference assumes suitable independence; spatial dependence can affect the p-value. It cannot tell us whether the causal adjustment is correct. Treat the printed p-value as provisional in this deliberately spatial dataset.
+
+### A first response: heteroskedasticity-robust uncertainty
+
+```{r}
+#| label: hc3-comparison
+bind_rows(
+  tidy(m_curve, conf.int = TRUE) |> mutate(uncertainty = "Ordinary"),
+  lmtest::coeftest(m_curve, vcov. = sandwich::vcovHC(m_curve, type = "HC3")) |>
+    tidy(conf.int = TRUE) |> mutate(uncertainty = "HC3")
+) |>
+  filter(term == "heat_days") |>
+  select(uncertainty, estimate, std.error, conf.low, conf.high)
+```
+
+HC3 changes the uncertainty estimate, not the OLS slope or the data's error variance. It can support inference under heteroskedasticity with suitable independence and mean-model conditions. **It does not solve the spatial dependence still present here.** These are working intervals, not our final spatial inference.
+
+### A Q–Q plot checks residual behavior
+
+```{r}
+#| label: qq-plot
+diagnostics_curve |>
+  ggplot(aes(sample = .std.resid)) +
+  stat_qq(alpha = .5, color = "#237ba0") +
+  stat_qq_line(color = "#d45a42") +
+  labs(x = "Theoretical normal quantile", y = "Standardized residual")
+```
+
+OLS does not require heat days, poverty, or the observed outcome distribution to be normal. Normal conditional errors are relevant to exact small-sample normal-theory inference. Unequal variance can also make a pooled Q–Q plot depart from a line. Do not transform variables solely to force their histograms to look normal.
+
+### Investigate influential observations
+
+```{r}
+#| label: influence
+diagnostics_curve |>
+  select(tract_id, county_id, heat_days, poor_health_days,
+         .cooksd, .hat, .std.resid) |>
+  slice_max(order_by = .cooksd, n = 6, with_ties = FALSE)
+```
+
+**Write 8:** Pick one tract for investigation. Is it influential because of a rare predictor combination, a large residual, or both? What source information would you request?
+
+The impossible source entry was corrected earlier. The remaining high values can be valid. Cook's distance is a prompt for checking and sensitivity analysis, not a rule to delete the largest observations until p-values improve.
+
+## 8 · County fixed effects: a within-county comparison
+
+The initial DAG specified county-level context as a common cause. A county fixed effect gives each county group its own intercept, absorbing any additive cause that is constant within that county in this cross-section.
+
+```{r}
+#| label: within-county-variation
+dat |>
+  group_by(county_id) |>
+  summarise(tracts = n(), heat_sd = sd(heat_days),
+            minimum_heat = min(heat_days), maximum_heat = max(heat_days)) |>
+  slice_head(n = 8)
+```
+
+```{r}
+#| label: county-fe
+m_fe <- lm(poor_health_days ~ heat_days + poverty_pct +
+             impervious_c10 + impervious_c10_sq + county_id, data = dat)
+
+bind_rows(
+  tidy(m_curve, conf.int = TRUE) |> mutate(model = "Curved mean, no county effects"),
+  tidy(m_fe, conf.int = TRUE) |> mutate(model = "County fixed effects")
+) |>
+  filter(term == "heat_days") |>
+  select(model, estimate, conf.low, conf.high)
+```
+
+`county_id` is a factor, so R creates county indicators automatically and uses a reference county. The heat slope is now identified by the remaining heat variation **within county**, after the other terms are considered. We did not add a coefficient describing a numeric change from county 1 to county 2.
+
+**Write 9:** Interpret the heat estimate from `m_fe`. What county-constant confounding can this remove? What tract-varying confounding could remain in real data? Why is within-county exposure variation necessary?
+
+County fixed effects adjust the **mean structure**. They do not automatically handle within-county correlated errors, neighboring-tract dependence, or cross-county spillovers. A county random-intercept model is a different specification, with different assumptions; it is not an interchangeable name for this model.
+
+### Revisit the simulation truth
+
+```{r}
+#| label: final-bias-comparison
+# Recreate oracle_data so it includes the new squared column.
+oracle_data <- dat |> mutate(poor_health_days = truth$mu_total)
+
+models <- list(Crude = m0, Adjusted = m1, Curved = m_curve, County_FE = m_fe)
+
+model_comparison <- purrr::imap_dfr(models, function(fit, label) {
+  tibble(
+    model = label,
+    observed_heat_slope = broom::tidy(fit) |>
+      filter(term == "heat_days") |>
+      pull(estimate),
+    expected_heat_slope = expected_slope(fit)
+  )
+}) |>
+  mutate(
+    known_total_effect = truth$total_effect,
+    conditional_bias = expected_heat_slope - known_total_effect,
+    error_in_this_sample = observed_heat_slope - known_total_effect
+  )
+
+model_comparison
+```
+
+The adequate mean model has a noise-free expected heat coefficient of 0.18 in this simulation. Its observed estimate can still differ because one realization contains sampling variation. A coefficient nearer the known value is useful feedback here; in real data that value is unknown, so this is not an available model-selection rule.
+
+### Optional: explicitly change the estimand to a direct effect
+
+```{r}
+#| label: mediator-model
+#| code-fold: true
+m_direct <- update(m_fe, . ~ . + disruption_index)
+
+bind_rows(tidy(m_fe) |> mutate(target = "Total-effect model"),
+          tidy(m_direct) |> mutate(target = "Mediator-adjusted model")) |>
+  filter(term == "heat_days") |>
+  select(target, term, estimate)
+```
+
+This simulation's direct heat effect is 0.10, with 0.08 operating through disruption. A finite-sample mediator-adjusted estimate need not equal 0.10 exactly. Its causal interpretation also relies on the specified mediator–outcome structure and adequate adjustment. In real studies, simply adding a mediator does not automatically identify a direct causal effect.
+
+## 9 · A reasonable mean model can still have spatial errors
+
+### Map the study pattern
+
+These maps are deliberately schematic. Each tile is an artificial tract; thick outlines mark artificial county groups. Adjacency is known by construction, not inferred from real South Carolina boundaries.
+
+```{r}
+#| label: map-helper
+#| code-fold: true
+county_bounds <- dat |>
+  group_by(county_id) |>
+  summarise(xmin = min(x) - .5, xmax = max(x) + .5,
+            ymin = min(y) - .5, ymax = max(y) + .5, .groups = "drop")
+
+map_tracts <- function(data, variable, title, diverging = FALSE) {
+  p <- ggplot(data, aes(x, y, fill = .data[[variable]])) +
+    geom_tile(width = .98, height = .98) +
+    geom_rect(data = county_bounds,
+              aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+              fill = NA, color = "grey30", linewidth = .35, inherit.aes = FALSE) +
+    coord_equal() + labs(title = title, x = NULL, y = NULL, fill = NULL,
+                        caption = "Artificial grid, not actual South Carolina geography") +
+    theme_minimal() + theme(axis.text = element_blank(), panel.grid = element_blank())
+  if (diverging) p + scale_fill_gradient2(low = "#237ba0", mid = "white",
+                                          high = "#d45a42", midpoint = 0)
+  else p + scale_fill_viridis_c()
+}
+```
+
+```{r}
+#| label: maps
+map_tracts(dat, "heat_days", "Extreme-heat days")
+
+diagnostics_fe <- augment(m_fe, data = dat)
+map_tracts(diagnostics_fe, ".resid", "County-FE model residuals", diverging = TRUE)
+```
+
+**Discuss 10:** Do nearby residuals have similar signs? Does clustering stop at the artificial county borders? Why does this matter even after county indicators are included?
+
+### Two distinctions to carry into next week
+
+| Approach | What it addresses | What it does not automatically solve |
+|------------------------|------------------------|------------------------|
+| County fixed effects | Additive county-constant mean differences and confounding | Correlated errors within or across counties |
+| HC3 | Heteroskedastic uncertainty under suitable independence assumptions | Spatial dependence, wrong mean form or causal bias |
+| County-clustered SEs | Some within-county dependence, with suitable cluster assumptions | Dependence continuing across county borders |
+| Spatial-error model | A specified geographic error covariance/process | All omitted confounding or every possible spatial mechanism |
+| Hierarchical model | Explicit grouping and partial pooling under its assumptions | Every residual spatial pattern merely by adding an intercept |
+
+## 11 · New module: a categorical predictor and effect modification
+
+A **moderator or effect modifier** is a variable whose value changes the comparison of interest. An interaction term is one way to represent that variation on a stated model scale.
+
+The original stages above deliberately retain a constant total heat effect of 0.18 per heat day. For the next questions, we create a **related outcome variant**, `poor_health_days_modified`, for the same tracts. This variant adds known categorical differences and effect modification. **Do not apply the earlier constant-effect oracle to this new outcome.** The original outcome, source audit, fixed-effects example and spatial errors remain unchanged.
+
+### Pre-exposure factors and centering
+
+| New variable | Coding and interpretation |
+|------------------------------------|------------------------------------|
+| `cooling_access` | Tract cooling-service category: Limited, Partial, Reliable. Limited is the reference. |
+| `housing_profile` | Pre-existing tract housing-vulnerability profile: Standard or Vulnerable. Standard is the reference. |
+| `warning_program` | A pre-season warning program: No or Yes. No is the reference. Assignment is independent in this teaching simulation. |
+| `heat5` | `(heat_days - 15) / 5`. Zero means 15 heat days; one unit is five additional days. |
+| `poverty10` | `(poverty_pct - 20) / 10`. Zero means 20% poverty; one unit is ten percentage points. |
+
+These are tract-level categories, not classifications of individual residents. The housing category depends partly on baseline poverty in the simulation. Cooling and program categories are assigned independently of the original heat/outcome error draws. They are baseline attributes, not post-heat mediators.
+
+```{r}
+#| label: generate-modifiers
+#| code-fold: true
+#| code-summary: "Supplied generator for the related outcome variant"
+add_modifier_data <- function(data, seed = 531917) {
+  state <- as.double(seed)
+  next_u <- function(n) {
+    out <- numeric(n)
+    for (j in seq_len(n)) {
+      state <<- (16807 * state) %% 2147483647
+      out[j] <- state / 2147483647
+    }
+    out
+  }
+  n <- nrow(data)
+  u <- next_u(n)
+  cooling <- case_when(u < .40 ~ "Limited", u < .75 ~ "Partial", TRUE ~ "Reliable")
+  housing <- if_else(next_u(n) < plogis(-.5 + .035 * (data$poverty_pct - 20)),
+                     "Vulnerable", "Standard")
+  program <- if_else(next_u(n) < .50, "Yes", "No")
+  h <- (data$heat_days - 15) / 5
+  p <- (data$poverty_pct - 20) / 10
+  part <- as.numeric(cooling == "Partial")
+  reliable <- as.numeric(cooling == "Reliable")
+  vulnerable <- as.numeric(housing == "Vulnerable")
+  yes <- as.numeric(program == "Yes")
+
+  modifier_contribution <- -.40 * part - .80 * reliable + .45 * vulnerable -
+    .25 * yes + .25 * h * p - .20 * h * part - .45 * h * reliable -
+    .65 * yes * vulnerable
+
+  data |>
+    mutate(heat5 = h, poverty10 = p,
+           impervious_c10_sq = impervious_c10^2,
+           cooling_access = factor(cooling, levels = c("Limited", "Partial", "Reliable")),
+           housing_profile = factor(housing, levels = c("Standard", "Vulnerable")),
+           warning_program = factor(program, levels = c("No", "Yes")),
+           poor_health_days_modified = poor_health_days + modifier_contribution)
+}
+
+dat <- add_modifier_data(dat)
+```
+
+```{r}
+#| label: inspect-factors
+dat |> count(cooling_access)
+dat |> count(warning_program, housing_profile)
+
+levels(dat$cooling_access)
+```
+
+In the extended causal story, cooling access, housing profile and the warning program can affect the new health outcome. Poverty also precedes housing profile. The original poverty/impervious/county backdoor structure remains. The warning program is exogenous in this simulation. Modifying a causal effect does not require a variable to be a confounder, and a moderator is different from the service-disruption mediator.
+
+Poverty is both a confounder and an effect modifier in this variant; these roles are not mutually exclusive.
+
+A DAG does not by itself tell us whether an effect varies on an additive, odds or rate scale. Interactions describe a functional form and scale within a specified causal model. They are not extra arrows that a standard DAG automatically identifies.
+
+### A three-category predictor uses two comparisons
+
+```{r}
+#| label: categorical-predictor
+m_category <- lm(
+  poor_health_days_modified ~ heat5 + poverty10 + cooling_access +
+    warning_program + housing_profile + impervious_c10 + impervious_c10_sq + county_id,
+  data = dat
+)
+
+tidy(m_category, conf.int = TRUE) |>
+  filter(str_detect(term, "cooling_access")) |>
+  select(term, estimate, std.error, conf.low, conf.high)
+```
+
+The Partial and Reliable coefficients each compare with Limited. Three categories require **two indicator coefficients**, not an assumption that the codes 1, 2 and 3 are equally spaced. Changing the reference group changes coefficient labels and baselines, not fitted values.
+
+This working additive model assumes parallel heat slopes across categories and a constant program contrast across housing profiles. The next model relaxes those assumptions. Its categorical coefficients may differ, so interpret them in the context of the model that produced them.
+
+**Write 12:** State both cooling comparisons and their reference. Why would using a numeric 1/2/3 coding impose an additional assumption? Why is the outcome still suited to OLS?
+
+## 12 · One model containing three kinds of two-way interaction
+
+| Type | Example | Comparison that can vary |
+|------------------------|------------------------|------------------------|
+| Continuous × continuous | Heat × poverty | The heat contrast can vary with poverty |
+| Continuous × categorical | Heat × cooling category | The heat contrast can vary across cooling groups |
+| Categorical × categorical | Warning program × housing profile | The program contrast can vary across housing groups |
+
+The third example asks about the **program comparison**, with housing as its modifier. It does not require turning continuous heat exposure into arbitrary high/low groups.
+
+In an R formula, `a * b` expands to `a + b + a:b`. We retain lower-order terms when adding an interaction. A p-value for a lower-order term is not a rule for deleting it from a model that contains its interaction.
+
+```{r}
+#| label: interaction-model
+m_interactions <- lm(
+  poor_health_days_modified ~ heat5 * poverty10 + heat5 * cooling_access +
+    warning_program * housing_profile + impervious_c10 + impervious_c10_sq + county_id,
+  data = dat
+)
+
+tidy(m_interactions, conf.int = TRUE) |>
+  filter(!str_detect(term, "^county_id")) |>
+  select(term, estimate, std.error, conf.low, conf.high)
+```
+
+All three demonstrations below use this **same joint model**. We do not silently omit the other known interaction terms when discussing one example. The repeated `heat5` term is included only once by R.
+
+\]
+
+**Main terms now have conditional meanings:**
+
+- The heat coefficient applies at 20% poverty in the Limited-cooling group.
+- The cooling coefficients compare categories at 15 heat days.
+- The program coefficient compares Yes with No in the Standard-housing group.
+- The housing coefficient compares Vulnerable with Standard when the program is No.
+
+An interaction can be imprecisely estimated. “Significant in one group but not another” is not itself evidence that the groups' effects differ. Compare the interaction or the relevant contrast directly, using an appropriate covariance method.
+
+### A profile helper keeps the prediction comparisons explicit
+
+The helper holds impervious cover at 40%, program at No and housing at Standard unless overridden. It uses the first fictional county as an illustrative reference. These are conditional model profiles, not raw group means or population-standardized effects. Inspect joint support before treating a profile contrast as a real-world causal comparison, especially within a particular county.
+
+```{r}
+#| label: interaction-profile-helper
+#| code-fold: true
+make_ols_profiles <- function(heat_days = 15, poverty_pct = 20,
+                              cooling_access = "Limited", warning_program = "No",
+                              housing_profile = "Standard") {
+  crossing(heat_days = heat_days, poverty_pct = poverty_pct,
+           cooling_access = cooling_access, warning_program = warning_program,
+           housing_profile = housing_profile) |>
+    mutate(heat5 = (heat_days - 15) / 5, poverty10 = (poverty_pct - 20) / 10,
+           impervious_c10 = 0, impervious_c10_sq = 0,
+           county_id = factor(levels(dat$county_id)[1], levels = levels(dat$county_id)),
+           cooling_access = factor(cooling_access, levels = levels(dat$cooling_access)),
+           warning_program = factor(warning_program, levels = levels(dat$warning_program)),
+           housing_profile = factor(housing_profile, levels = levels(dat$housing_profile)))
+}
+```
+
+## 13 · Continuous × continuous: heat and poverty
+
+The `heat5:poverty10` coefficient describes how the five-day heat contrast changes for a **ten-percentage-point** increase in poverty, at the same cooling category and other profile values.
+
+```{r}
+#| label: continuous-continuous-plot
+cc_profiles <- make_ols_profiles(heat_days = 5:30, poverty_pct = c(10, 20, 30))
+
+augment(m_interactions, newdata = cc_profiles) |>
+  ggplot(aes(heat_days, .fitted, color = factor(poverty_pct))) +
+  geom_line(linewidth = 1) +
+  labs(x = "Extreme-heat days", y = "Fitted mean poor-health days",
+       color = "Poverty (%)", title = "Limited cooling, same other profile values")
+```
+
+```{r}
+#| label: continuous-continuous-contrasts
+cc_contrasts <- augment(
+  m_interactions,
+  newdata = make_ols_profiles(heat_days = c(15, 20), poverty_pct = c(10, 20, 30))
+) |>
+  select(poverty_pct, heat_days, .fitted) |>
+  pivot_wider(names_from = heat_days, values_from = .fitted, names_prefix = "heat_") |>
+  mutate(heat_contrast_5days = heat_20 - heat_15)
+
+cc_contrasts
+```
+
+**Write 13:** How does the fitted five-day contrast vary with poverty? Does the interaction coefficient represent the heat slope itself or the change in that slope? Explain the centering reference without calling zero on `poverty10` “zero poverty.”
+
+**Simulation truth for checking:** in the Limited-cooling group, the true five-day heat contrasts at 10%, 20% and 30% poverty are 0.65, 0.90 and 1.15 mean poor-health days. The true interaction is +0.25 per ten-percentage-point poverty difference. A fitted sample need not equal those numbers exactly.
+
+## 14 · Continuous × categorical: heat and cooling access
+
+The heat coefficient is the five-day heat contrast in the Limited group at 20% poverty. Add the relevant `heat5:cooling_access...` coefficient to obtain the Partial or Reliable group's contrast at that poverty level.
+
+```{r}
+#| label: continuous-category-plot
+hc_profiles <- make_ols_profiles(heat_days = 5:30,
+                                 cooling_access = levels(dat$cooling_access))
+
+augment(m_interactions, newdata = hc_profiles) |>
+  ggplot(aes(heat_days, .fitted, color = cooling_access)) +
+  geom_line(linewidth = 1) +
+  labs(x = "Extreme-heat days", y = "Fitted mean poor-health days",
+       color = "Cooling access", title = "20% poverty, same other profile values")
+```
+
+```{r}
+#| label: continuous-category-contrasts
+augment(m_interactions,
+        newdata = make_ols_profiles(heat_days = c(15, 20),
+                                    cooling_access = levels(dat$cooling_access))) |>
+  select(cooling_access, heat_days, .fitted) |>
+  pivot_wider(names_from = heat_days, values_from = .fitted, names_prefix = "heat_") |>
+  mutate(heat_contrast_5days = heat_20 - heat_15)
+```
+
+**Write 14:** Which group has the steepest fitted heat slope? What does the Reliable-versus-Limited cooling coefficient mean when heat exposure is centered at 15 days? Why would that cooling comparison change at another heat level?
+
+At 20% poverty, the true five-day heat contrasts are 0.90 for Limited, 0.70 for Partial and 0.45 for Reliable. The two true interaction coefficients are −0.20 and −0.45. These are differences in heat contrasts, not cooling-group differences in mean health at every heat level.
+
+## 15 · Categorical × categorical: program and housing profile
+
+There are four program-by-housing cells. The interaction describes a **difference in differences** on the additive health-days scale. It is not a longitudinal difference-in-differences research design just because the arithmetic uses two differences.
+
+```{r}
+#| label: category-category-cells
+program_cells <- augment(
+  m_interactions,
+  newdata = make_ols_profiles(warning_program = levels(dat$warning_program),
+                              housing_profile = levels(dat$housing_profile))
+)
+
+program_cells |>
+  select(warning_program, housing_profile, .fitted)
+
+program_cells |>
+  ggplot(aes(warning_program, .fitted, color = housing_profile, group = housing_profile)) +
+  geom_point(size = 3) + geom_line(linewidth = 1) +
+  labs(x = "Warning program", y = "Fitted mean poor-health days", color = "Housing profile")
+```
+
+```{r}
+#| label: category-category-contrasts
+program_contrasts <- program_cells |>
+  select(warning_program, housing_profile, .fitted) |>
+  pivot_wider(names_from = warning_program, values_from = .fitted) |>
+  mutate(program_difference = Yes - No)
+
+program_contrasts
+
+program_contrasts |>
+  select(housing_profile, program_difference) |>
+  pivot_wider(names_from = housing_profile, values_from = program_difference) |>
+  mutate(difference_in_differences = Vulnerable - Standard)
+```
+
+**Write 15:** Interpret the program comparison in each housing group, then their difference. Why is the main program coefficient conditional on Standard housing? Does the existence of an interaction make the warning program a mediator of heat in this simulation?
+
+The true program contrasts are −0.25 in Standard housing and −0.90 in Vulnerable housing, giving a true interaction of −0.65. The program is assigned before the exposure window and independently here. A real observational program evaluation would need its own causal adjustment argument; do not assume this assignment mechanism carries over to real data.
+
+### What to retain from the interaction module
+
+1.  Define the exposure/comparison and modifier for each question.
+2.  State the reference categories and centering values.
+3.  Include lower-order terms and interpret coefficients conditionally.
+4.  Plot predictions and calculate the contrasts you actually want.
+5.  Distinguish point contrasts from their uncertainty. A contrast SE uses covariance between coefficients; it is not generally the sum of separate SEs.
+6.  State the effect scale. A different probability difference alone does not establish a log-odds interaction in a logistic model.
+
+The companion file `GEOG531_SC_Heat_Logistic_Poisson.qmd` carries this setting into binary outcomes and exposure-adjusted counts. It is also self-contained and can be run separately.
+
+## Optional · Export your generated data
+
+This is unnecessary for running the lab, but useful if you want the generated CSVs in your Cloud project.
+
+```{r}
+#| label: export-data
+#| eval: false
+write_csv(dat_raw, "sc_heat_health_2025_raw.csv")
+write_csv(sim$audit, "sc_heat_health_2025_audit.csv")
+write_csv(dat, "sc_heat_health_2025_clean.csv")
+```
+
+## Documentation and scope
+
+This is an original teaching simulation, not a real South Carolina analysis. The causal relationships and effect sizes were chosen to teach the workflow. A more complete real study would need validated exposure definitions, measurement and reporting assessment, sampling/aggregation decisions, substantive adjustment knowledge, and a justified spatial structure.
+
+- [broom model tidiers](https://broom.tidymodels.org/) and [augment for lm](https://broom.tidymodels.org/reference/augment.lm.html).
+- [sandwich HC covariance](https://sandwich.r-forge.r-project.org/reference/vcovHC.html) and [lmtest Breusch–Pagan test](https://search.r-project.org/CRAN/refmans/lmtest/html/bptest.html).
+- [spdep weights conversion](https://r-spatial.github.io/spdep/reference/mat2listw.html), [Moran's I](https://r-spatial.github.io/spdep/reference/moran.test.html), and [OLS residual Moran tests](https://r-spatial.github.io/spdep/reference/lm.morantest.html).
+- [sphet spatial models with heteroskedastic innovations](https://search.r-project.org/CRAN/refmans/sphet/html/spreg.html).
+- [Spatial-error and spatial-lag models](https://r-spatial.github.io/spatialreg/reference/ML_models.html) and [spatial-lag impacts](https://r-spatial.github.io/spatialreg/reference/impacts.html).
