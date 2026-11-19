@@ -313,8 +313,6 @@ tidy(logit_model, conf.int = TRUE, exponentiate = TRUE) |>
 
 The heat OR now applies to the Limited-cooling group. To obtain another cooling group's heat OR, add its interaction coefficient on the **log-odds scale**, then exponentiate; equivalently multiply the corresponding exponentiated terms. Exponentiated interaction coefficients are **ratios of odds ratios**. Their confidence intervals are not automatically intervals for either group's complete heat OR.
 
-**Write 2:** Interpret the heat OR for the reference cooling category and one main cooling comparison. Explain why a cooling main coefficient no longer describes the same odds comparison at every heat exposure.
-
 ## 3 · Use predicted probabilities and meaningful contrasts
 
 The helper creates fixed illustrative profiles with 20% poverty, 40% impervious cover, Standard housing and no program, unless overridden. It uses all valid factor levels from the generated data.
