@@ -148,7 +148,7 @@ truth <- sim$truth
 ### Keep this vocabulary nearby
 
 | Tool | Purpose |
-|------------------------------------|------------------------------------|
+|----|----|
 | `mutate()` / `select()` / `filter()` | Create columns / keep columns / keep rows |
 | `group_by()` + `summarise()` | Compare groups |
 | `lm()` | Fit an OLS model |
@@ -196,7 +196,7 @@ stopifnot(nrow(dat) == 736, !anyDuplicated(dat$tract_id),
 ### Data dictionary
 
 | Column | Meaning / role in this simulation |
-|------------------------------------|------------------------------------|
+|----|----|
 | `tract_id`, `county_id` | Invented tract and county-group IDs |
 | `year` | One hypothetical year, 2025 |
 | `x`, `y` | Artificial grid coordinates, not longitude/latitude |
@@ -233,7 +233,7 @@ flowchart TD
 This diagram describes the tract's mean causal relationships. It does not display all the cross-tract dependence in the error process. The simulation adds that dependence separately.
 
 | Decision | Reason |
-|------------------------------------|------------------------------------|
+|----|----|
 | Include poverty and impervious cover | Both are pre-exposure common causes of exposure and outcome |
 | Eventually include county fixed effects | They absorb the county-constant context in this simulation |
 | Exclude disruption for the total effect | It lies on a causal pathway we want to include |
@@ -621,7 +621,7 @@ map_tracts(diagnostics_fe, ".resid", "County-FE model residuals", diverging = TR
 ### Two distinctions to carry into next week
 
 | Approach | What it addresses | What it does not automatically solve |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | County fixed effects | Additive county-constant mean differences and confounding | Correlated errors within or across counties |
 | HC3 | Heteroskedastic uncertainty under suitable independence assumptions | Spatial dependence, wrong mean form or causal bias |
 | County-clustered SEs | Some within-county dependence, with suitable cluster assumptions | Dependence continuing across county borders |
@@ -637,7 +637,7 @@ The original stages above deliberately retain a constant total heat effect of 0.
 ### Pre-exposure factors and centering
 
 | New variable | Coding and interpretation |
-|------------------------------------|------------------------------------|
+|----|----|
 | `cooling_access` | Tract cooling-service category: Limited, Partial, Reliable. Limited is the reference. |
 | `housing_profile` | Pre-existing tract housing-vulnerability profile: Standard or Vulnerable. Standard is the reference. |
 | `warning_program` | A pre-season warning program: No or Yes. No is the reference. Assignment is independent in this teaching simulation. |
@@ -727,7 +727,7 @@ This working additive model assumes parallel heat slopes across categories and a
 ## 12 · One model containing three kinds of two-way interaction
 
 | Type | Example | Comparison that can vary |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Continuous × continuous | Heat × poverty | The heat contrast can vary with poverty |
 | Continuous × categorical | Heat × cooling category | The heat contrast can vary across cooling groups |
 | Categorical × categorical | Warning program × housing profile | The program contrast can vary across housing groups |

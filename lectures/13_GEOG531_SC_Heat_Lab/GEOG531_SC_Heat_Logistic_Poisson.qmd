@@ -26,31 +26,14 @@ We return to the same 736 artificial tracts in 46 fictional county groups in hyp
 This time we model:
 
 | Outcome | Measurement | Model |
-|---|---|---|
+|------------------------|------------------------|------------------------|
 | `resident_heat_illness` | One sampled resident per tract reports illness, 1 = yes and 0 = no, during the same complete hypothetical year | Logistic |
 | `heat_visits` | Annual tract count of heat-related emergency episodes, including repeats | Poisson with an exposure offset |
 | `heat_visits_extra` | A separate annual count outcome deliberately generated with extra conditional variation | Poisson screen, then quasi-Poisson / negative binomial |
 
-The binary outcome is **one Bernoulli observation**, not a tract proportion observed without error. The annual count concerns the tract population. They are distinct teaching outcomes, not a biological sequence or a dataset of repeated measures of the same individual.
+The binary outcome is **one observation**, not a tract proportion observed without error. The annual count concerns the tract population.
 
-**A deliberate difference from the OLS lab:** the OLS outcome had spatially correlated errors. These new GLM outcomes are generated independently across tracts **conditional on their specified measured predictors**. Spatially patterned covariates alone do not imply residual spatial dependence. We make this change to teach the outcome families and their diagnostics without silently assuming an ordinary GLM solves the earlier spatial error problem. Real data still need dependence checks.
-
-### A modular pace
-
-Allow 45–60 minutes for logistic regression and its diagnostics, 45–60 for Poisson and count diagnostics, and another 20–30 for the overdispersion extensions and discussion. Do not squeeze all of this plus the expanded OLS lab into the original two class periods. Each section can be paused and resumed.
-
-## 0 · Posit Cloud setup
-
-Upload this `.qmd`, install packages once in the Console, run the setup chunk, then work through chunks in order. Use R 4.1 or newer for `|>`.
-
-```{r}
-#| label: install-glm-packages
-#| eval: false
-install.packages(c("tidyverse", "broom", "knitr", "rmarkdown"))
-# MASS is a recommended R package and is usually already installed.
-# If it is missing, install a version compatible with your R installation:
-# install.packages("MASS")
-```
+## 0 · setup
 
 ```{r}
 #| label: glm-setup
@@ -248,7 +231,7 @@ glm_truth <- glm_sim$truth
 ### Predictor definitions
 
 | Predictor | Reference / unit |
-|---|---|
+|------------------------------------|------------------------------------|
 | `heat5` | `(heat_days - 15) / 5`: one unit = five additional heat days |
 | `poverty10` | `(poverty_pct - 20) / 10`: one unit = ten percentage points |
 | `impervious_c10` | `(impervious_pct - 40) / 10` |
@@ -280,11 +263,7 @@ flowchart TD
   G["Warning program"] --> Y
 ```
 
-**Unlike the continuous-outcome generator**, there is no remaining direct county-context contribution to these outcome means after the specified predictors. Thus the measured poverty/impervious adjustment blocks the designated heat backdoor paths here, and county fixed effects are not required by this outcome-specific generator. The original service-disruption mediator is not part of these simplified GLM-generating equations. Do not transfer a DAG or a spatial error assumption across outcomes without checking the question.
-
-We include the measured factor predictors to represent their conditional comparisons and the specified modifier. The diagram alone does not specify the interaction scale. The model form below supplies a heat-by-cooling interaction on the log-odds or log-rate scale.
-
-**Write 1:** Identify the observational unit for each outcome, the event coding, the exposure contrast and the required measured adjustment. Why does a numeric count predictor not require Poisson regression when the outcome is binary?
+**Unlike the continuous-outcome generator**, there is no remaining direct county-context contribution to these outcome means after the specified predictors. Thus the measured poverty/impervious adjustment blocks the designated heat backdoor paths here, and county fixed effects are not required by this outcome-specific generator. The original service-disruption mediator is not part of these simplified GLM-generating equations. Do not transfer a DAG or a spatial error assumption across outcomes without checking the question. What this means is that if you had an OLS model, and suddenly you decide that a Logit or Poisson is better, you cannot simply 'move over' your DAG to the questions.
 
 ## 2 · Logistic regression: binary outcome, odds and probability
 
@@ -334,13 +313,11 @@ tidy(logit_model, conf.int = TRUE, exponentiate = TRUE) |>
 
 The heat OR now applies to the Limited-cooling group. To obtain another cooling group's heat OR, add its interaction coefficient on the **log-odds scale**, then exponentiate; equivalently multiply the corresponding exponentiated terms. Exponentiated interaction coefficients are **ratios of odds ratios**. Their confidence intervals are not automatically intervals for either group's complete heat OR.
 
-The main cooling coefficients compare categories at **15 heat days**, because `heat5 = 0` there. Ordinary `broom` GLM confidence intervals follow the model's profile-likelihood method. We omit `std.error` from ratio tables because its usual value remains on the original coefficient scale, not the OR scale.
-
 **Write 2:** Interpret the heat OR for the reference cooling category and one main cooling comparison. Explain why a cooling main coefficient no longer describes the same odds comparison at every heat exposure.
 
 ## 3 · Use predicted probabilities and meaningful contrasts
 
-The helper creates fixed illustrative profiles with 20% poverty, 40% impervious cover, Standard housing and no program, unless overridden. It uses all valid factor levels from the generated data. These are conditional model predictions, not observed group proportions or automatically population-standardized causal effects.
+The helper creates fixed illustrative profiles with 20% poverty, 40% impervious cover, Standard housing and no program, unless overridden. It uses all valid factor levels from the generated data.
 
 ```{r}
 #| label: glm-profile-helper
@@ -398,10 +375,6 @@ augment(logit_model,
   transmute(cooling_access, OR_per_5_heat_days = exp(heat_15 - heat_10))
 ```
 
-**Write 3:** For each category, report the predicted probabilities at 10 and 15 heat days and their difference in **percentage points**. Why is this not the same number as a heat OR? These are point contrasts; we have not calculated confidence intervals for their differences.
-
-Even without an explicit interaction in a logistic model, a common odds ratio can imply different probability differences at different baseline risks. Therefore differences in risk differences alone do not establish an interaction on the log-odds scale. Likewise, adding an outcome predictor can change an OR without confounding because of non-collapsibility; do not select causal controls solely from OR changes.
-
 ## 4 · Logistic diagnostics: what can we check?
 
 ### Convergence and stability
@@ -418,34 +391,14 @@ tidy(logit_model) |>
 
 Convergence does not prove no separation or a correct model. Inspect warnings, very large coefficients/SEs, sparse cells and the design. Do not report a huge OR uncritically or automatically delete rare categories to obtain a desired result.
 
-### In-sample calibration
-
-```{r}
-#| label: logistic-calibration
-logit_diagnostics <- augment(logit_model, data = gdat,
-                             type.predict = "response", type.residuals = "pearson")
-
-calibration <- logit_diagnostics |>
-  mutate(bin = ntile(.fitted, 10)) |>
-  group_by(bin) |>
-  summarise(n = n(), predicted = mean(.fitted), observed = mean(resident_heat_illness))
-
-calibration
-
-calibration |>
-  ggplot(aes(predicted, observed)) +
-  geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
-  geom_point(size = 3, color = "#237ba0") +
-  coord_equal(xlim = c(0, 1), ylim = c(0, 1)) +
-  labs(x = "Mean fitted probability", y = "Observed event proportion")
-```
-
-Bins contain finite samples and can be noisy. This is an **in-sample screen**, not validation in new data. Agreement does not verify the DAG, continuous-predictor form or transportability to another county/year.
-
 ### Mean form and influential observations
 
 ```{r}
 #| label: logistic-residual-shape
+
+logit_diagnostics <- augment(logit_model, data = gdat,
+                             type.predict = "response", type.residuals = "pearson")
+
 logit_diagnostics |>
   ggplot(aes(heat5, .resid, color = cooling_access)) +
   geom_point(alpha = .25) +
@@ -458,24 +411,23 @@ logit_diagnostics |>
   slice_max(.cooksd, n = 5, with_ties = FALSE)
 ```
 
-Residuals for 0/1 data naturally look different from OLS residuals. Additivity/linearity applies to **log-odds**, not to the probability curve. A smooth can flag a systematic mismatch but cannot prove the link form is correct. Inspect continuous predictors separately and investigate influential records rather than deleting them by rank.
+\
+\
+In OLS, a linear predictor has a straight-line relationship with the expected outcome. In logistic regression, it has a straight-line relationship with log-odds, so a curved probability relationship is normal. Look for unexplained patterns in residual plots, rather than expecting the probability curve to be straight.
 
-### A predictive summary, with a limitation
+In this case, the residual plot looks broadly reasonable across the main data range. There may be overprediction at high heat for the Partial-cooling group, but observations are sparse there, so we need to investigate before concluding that the model’s functional form is incorrect.”
+
+### Checking whether complexity improves model
 
 ```{r}
 #| label: logistic-fit-summary
-logit_diagnostics |>
-  summarise(Brier_score = mean((resident_heat_illness - .fitted)^2),
-            intercept_only_Brier = mean((resident_heat_illness - mean(resident_heat_illness))^2))
 
 bind_rows(glance(logit_add) |> mutate(model = "Additive"),
           glance(logit_model) |> mutate(model = "Heat × cooling")) |>
   select(model, nobs, AIC, deviance)
 ```
 
-Lower Brier score means better squared probability prediction in the evaluated data; lower AIC is a likelihood/complexity comparison for these same-outcome, same-row fits. Neither establishes causal validity. In-sample performance is optimistic for prediction. New-data assessment needs a suitable holdout/CV design; geographic transport may require spatially structured validation. A fixed 0.5 classification accuracy is not a substitute for probability calibration.
-
-**Write 4:** Report one reassuring diagnostic and one remaining limitation. Why would a normality test of a 0/1 outcome be unhelpful?
+This code compares an additive logistic regression with a model that allows the heat–illness relationship to differ by cooling access through an interaction. Both models use the same outcome and the same 736 observations. **Deviance measures lack of fit: lower values indicate better fit to the observed data. AIC balances fit against model complexity: lower values are preferred.** Here, adding the interaction slightly reduces deviance, but the improvement is too small to justify the additional parameters under AIC. The additive model therefore has the lower AIC (649.30 versus 652.16). This does **not** prove that interactions are absent, that the additive model fits well in every respect, or that either model estimates causal effects. AIC provides a relative comparison of these models; residual diagnostics, causal reasoning, and evaluation on new data answer different questions.
 
 ## 5 · Poisson regression: counts need an exposure denominator
 
@@ -504,11 +456,9 @@ tidy(poisson_model, conf.int = TRUE, exponentiate = TRUE) |>
   select(term, estimate, conf.low, conf.high)
 ```
 
-The model keeps the **count** on the left and supplies exposure through an offset. The offset coefficient is fixed at 1. At the same covariate profile, twice the exposure implies twice the expected count. Do not put a noninteger precomputed rate on the left of an ordinary Poisson count likelihood.
+We model the **number of heat-related emergency visits**, using an **offset for person-years** to account for differences in population size and observation time. For example, 1,000 people observed for one year contribute 1,000 person-years. The offset assumes that doubling person-years doubles the expected number of visits when other characteristics stay the same. Its coefficient is fixed at 1 rather than estimated like an ordinary predictor. The exponentiated coefficients are **incidence rate ratios (IRRs)**: values above 1 indicate higher visit rates, values below 1 indicate lower rates, and 1 indicates no difference.
 
-Exponentiated slope coefficients are **rate ratios**, with 1 as the null. The heat IRR is for five additional heat days in the Limited-cooling group. Cooling main IRRs compare groups at 15 heat days. Exponentiated interaction coefficients are ratios of rate ratios, not additive differences in rates.
-
-**Write 5:** Interpret the reference-group heat IRR and one cooling comparison. What does the offset assume about how counts scale with person-years? Is that an ordinary fitted confounder coefficient?
+Holding other variables constant, the heat IRR of **1.326** means that five additional heat days are associated with a **32.6% higher visit rate in the Limited-cooling group**. At **15 heat days**, Partial and Reliable cooling are associated with **21.4% and 41.3% lower rates**, respectively, than Limited cooling. These comparisons depend on heat exposure because the model includes an interaction. For Partial cooling, the heat IRR is **1.326 × 0.935 ≈ 1.239**, or a **23.9% higher rate per five additional heat days**. The interaction multiplies the heat IRR; it is not a percentage-point difference. These results describe relative visit rates—not additional numbers of visits, individual illness probabilities, or automatically causal effects.
 
 ## 6 · Predict counts and report rates
 
@@ -550,7 +500,9 @@ augment(poisson_model,
   transmute(cooling_access, IRR_per_5_heat_days = exp(heat_15 - heat_10))
 ```
 
-**Write 6:** Choose one cooling profile and show that doubling exposure doubles the fitted count while leaving its rate unchanged. Explain why the same numeric contrast is an odds ratio in the logistic model and a rate ratio here only after changing the outcome and model.
+The graph shows **predicted emergency-visit rates per 1,000 person-years**, holding other tract characteristics constant. Rates increase with extreme-heat days in all three cooling groups, but the increase is strongest with Limited cooling and weakest with Reliable cooling. The table summarizes this interaction: every five additional heat days are associated with a **32.6% higher rate with Limited cooling, 23.9% higher with Partial cooling, and 15.3% higher with Reliable cooling**. These are percentage increases in rates, not additional visits or percentage-point increases in illness probability. The curved lines are expected from the Poisson model’s log link; curvature alone does not indicate a model problem.
+
+The offset separates **how many visits we expect** from **the rate at which visits occur**. For example, a predicted rate of 3 visits per 1,000 person-years means 3 expected visits over 1,000 person-years and 6 over 2,000 person-years—the count doubles, but the rate stays the same. Here, exponentiating a difference in model predictions on the log scale gives a **rate ratio**, because we fitted a Poisson count model with a person-years offset. In logistic regression, exponentiating a difference on its link scale gives an **odds ratio**, because that model describes the odds of a binary event. These quantities have different meanings and are not interchangeable.
 
 ## 7 · Count diagnostics: conditional variance and zeros
 
@@ -574,16 +526,14 @@ poisson_diagnostics |>
   labs(x = "Expected count", y = "Pearson residual")
 ```
 
-Poisson sets variance equal to the mean **conditional on predictors and exposure**. Raw count variance can exceed raw count mean simply because populations and risks differ. The Pearson ratio is a rough residual screen, not a rigid threshold or a complete specification test. A value near 1 does not establish the DAG, independence or correct continuous-predictor shape.
-
-Discrete residuals are not expected to be normally distributed. Compare observed and fitted means, patterns across relevant predictors, unusual observations and exposure measurement, in addition to dispersion.
-
 ```{r}
 #| label: poisson-influence
 poisson_diagnostics |>
   select(tract_id, heat_visits, person_years, .fitted, .resid, .hat, .cooksd) |>
   slice_max(.cooksd, n = 5, with_ties = FALSE)
 ```
+
+We are checking whether the Poisson model adequately describes **the variation in visit counts and the frequency of zero visits**, after accounting for predictors and person-years. The **Pearson ratio** compares the remaining variation with what the model expects: values near 1 are reassuring, while values substantially above 1 suggest **overdispersion**, or more variation than the Poisson model allows. For the main outcome, the ratio is **1.06**, and the observed percentage of zeros (**6.0%**) is close to the predicted percentage (**6.4%**). These checks are reassuring, but do not establish that every aspect of the model is correct. We also inspect residual patterns and influential observations. The Cook’s distance table identifies records that could strongly affect the fitted model; these should be investigated for errors and unusual characteristics, not automatically deleted.
 
 ### A separate outcome with extra conditional variation
 
@@ -607,7 +557,7 @@ extra_diagnostics |>
             predicted_zero_fraction = mean(dpois(0, lambda = .fitted)))
 ```
 
-**Write 7:** Which count outcome has more variation than an ordinary Poisson model expects? What could cause this in real data: mean misspecification, unmeasured heterogeneity, dependence, reporting or exposure errors? Why would more zeros alone not prove a separate zero-inflation process?
+The second outcome, `heat_visits_extra`, is a **separate teaching example** deliberately generated with greater variation—not a correction to the original data. Its Pearson ratio is **6.35**, indicating substantially more variation than the fitted Poisson model expects. It also contains more zeros than predicted: **16.7% observed versus 6.8% predicted**. This suggests that ordinary Poisson uncertainty estimates may be too small, producing confidence intervals that are too narrow. We should investigate model specification and consider an approach that accommodates extra variation, such as negative-binomial regression. Extra zeros alone do **not** prove that a special zero-inflated model is needed; a negative-binomial model may explain both the additional variation and the zeros.
 
 ## 8 · Two responses to overdispersion
 
@@ -623,7 +573,7 @@ bind_rows(tidy(poisson_extra) |> mutate(model = "Poisson"),
   select(model, term, estimate, std.error)
 ```
 
-With the same mean formula, these fitted coefficients match while SEs change. This table stays on the log-rate scale to compare SEs clearly. Quasi-Poisson is not a fix for a wrong mean, confounding or dependent observations. It does not provide the same full likelihood used for ordinary AIC comparisons; do not choose it by comparing its AIC to the models below.
+**Quasi-Poisson accounts for extra variation by changing the uncertainty estimates.** With the same predictors and data, its coefficients and predicted counts match ordinary Poisson, but its standard errors are larger here. For example, the heat coefficient stays at **0.219**, while its standard error increases from **0.011 to 0.028**. This produces wider confidence intervals, acknowledging that ordinary Poisson was too confident. These coefficients are on the **log-rate scale**, rather than the exponentiated IRR scale shown earlier. Quasi-Poisson does not fix missing confounders, incorrect relationships, or dependence between observations, and **ordinary AIC cannot be used to compare it with Poisson or negative-binomial models**.
 
 ### Negative binomial: model extra conditional variance
 
@@ -638,8 +588,6 @@ tibble(model = c("Poisson for extra outcome", "Negative binomial for extra outco
        AIC = c(AIC(poisson_extra), AIC(nb_model)))
 ```
 
-These AIC values compare the **same outcome and same rows**. We are not comparing a fit to `heat_visits` with a fit to `heat_visits_extra`. Negative binomial changes the variance model; its fitted mean coefficients need not match Poisson's.
-
 ```{r}
 #| label: nb-diagnostics
 nb_expected <- predict(nb_model, type = "response")
@@ -650,9 +598,7 @@ tibble(theta = nb_model$theta,
        predicted_zero_fraction = mean(dnbinom(0, mu = nb_expected, size = nb_model$theta)))
 ```
 
-A lower Pearson ratio after a variance-model change is useful, but not proof that every assumption now holds. A negative-binomial model can generate more zeros through heterogeneity without a separate structural-zero process.
-
-**Write 8:** Explain the distinction between quasi-Poisson and negative binomial. Which changes only the uncertainty for this mean formula, and which specifies a full alternative count distribution? Name a problem neither automatically solves.
+**Negative-binomial regression explicitly allows more variation than Poisson**, and both its coefficients and uncertainty estimates can change. For this same outcome and the same observations, its much lower AIC—approximately **3,907 versus 6,419**—strongly favors it over ordinary Poisson. Its diagnostics are also reassuring: the Pearson ratio is approximately **0.97**, close to 1, and it predicts **16.0% zeros**, close to the observed **16.7%**. The estimated `theta` controls the extra variation; smaller values indicate greater overdispersion, while large values approach Poisson. Together, these results suggest that negative-binomial regression describes this outcome substantially better, although they do not prove that all model assumptions are satisfied or that the associations are causal.
 
 ## 9 · Geographic context and what remains to check
 
@@ -670,17 +616,9 @@ poisson_diagnostics |>
   theme(axis.text = element_blank(), panel.grid = element_blank())
 ```
 
-If observations are repeated, clustered or spatially dependent, ordinary GLM uncertainty may be unsuitable. Cluster-aware inference, GEE, mixed models or spatial GLMs require additional assumptions and data. An OLS spatial-error function is not automatically a valid spatial logistic or Poisson model. Negative binomial alone does not model geographic dependence.
+This map checks whether the model’s **remaining prediction errors show a geographic pattern**. Each square represents a simulated tract. Red indicates more visits than predicted, blue indicates fewer visits than predicted, and white indicates an outcome close to the prediction. Large clusters of red or blue would suggest that the model consistently underpredicts or overpredicts in particular areas, potentially because of missing geographically patterned predictors or spatial dependence. Here, the colors appear fairly mixed, with no obvious large-scale clustering, which is reassuring.
 
-## 10 · Submit a short model decision log
-
-1. Explain why the three outcomes in this lab use different families and how the offset enters the rate question.
-2. Interpret an OR, an IRR and an exponentiated interaction coefficient, including reference groups and five-day units.
-3. Report the logistic probability contrast and the count/rate prediction table.
-4. Identify the useful diagnostic evidence for each family, and what those diagnostics cannot establish.
-5. Explain the overdispersion comparison and the response you selected for the extra-variation outcome.
-6. Distinguish effect modification on the mean-difference, odds and rate scales. Explain why probability differences can vary without a log-odds interaction.
-7. State why the DAG and independence assumptions differ from the earlier continuous-outcome generator.
+However, **a map alone cannot establish that observations are spatially independent**; it is an initial visual check that can guide further spatial diagnostics. These simulated outcomes were generated independently after accounting for their predictors and person-years, so strong remaining spatial patterns are not expected. In real geographic data, we must investigate this rather than assume it. Allowing extra variation through negative-binomial regression does not automatically address spatial dependence, and this particular map displays residuals from the **main Poisson model**, not the negative-binomial model.
 
 ## Documentation and verification
 

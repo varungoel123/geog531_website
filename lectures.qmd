@@ -54,7 +54,8 @@ date-format: medium
 
 - ([Student Exercise Prompts](./lectures/10_DAGs/student_dag_exercise.pptx){target="_blank"})
 
-#### Week 11-12: Regression
+#### Week 11-13: Regression
 
 - ([Regression notes](./lectures/12_regression1/01_lecture_notes.qmd){target="_blank"})
-- ([Regression workflow: Heat and Health Example](./lectures/13_GEOG531_SC_Heat_Lab/GEOG531_SC_Heat_OLS_to_Spatial.qmd){target="_blank"})
+- ([Regression workflow: Heat and Health Example: OLS](./lectures/13_GEOG531_SC_Heat_Lab/GEOG531_SC_Heat_OLS_to_Spatial.qmd){target="_blank"})
+- ([Regression workflow: Heat and Health Example:Logistic and Poisson](./lectures/13_GEOG531_SC_Heat_Lab/GEOG531_SC_Heat_Logistic_Poisson.qmd){target="_blank"})
